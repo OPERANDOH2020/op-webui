@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Request Page";
+}
+
+<body>
+    <h1>OSP Data Request</h1>
+    <p>Press the button below to send a request to be allowed access to user data.</p>
+    <p>
+        @Html.ActionLink("Send Request", "RequestAccess")
+    </p>
+    @*<button id="button" type="button" onclick="sendRequest()">Send Request</button>*@
+    <h2>Request</h2>
+    <p>@ViewBag.MessageRequest1</p>
+    <h2>Response</h2>
+    <p>@ViewBag.MessageResponse1</p>
+    <p>@ViewBag.MessageResponse2</p>
+    <p>@ViewBag.MessageResponse3</p>
+</body>

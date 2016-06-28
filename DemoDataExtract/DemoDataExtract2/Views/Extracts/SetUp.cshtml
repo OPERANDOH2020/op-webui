@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Set up a new data extract</h2>
+<p>The requested data will be anonymised.</p>
+
+<form>
+
+    <fieldset>
+        <legend>Target Group</legend>
+        <select name="target">
+            <option value="group1">Group 1</option>
+            <option value="group2">Group 2</option>
+            <option value="group3">Group 3</option>
+        </select>
+    </fieldset>
+
+    <fieldset>
+        <legend>Extract Contents</legend>
+        <input type="checkbox" name="includeDemographics" value="true">Patient Demographics</input>
+        <input type="checkbox" name="includeLanguages" value="true">Patient Languages</input>
+        <input type="checkbox" name="includeEthnicity" value="true">Patient Ethnicity and Race</input>
+        <input type="checkbox" name="includeContacts" value="true">Emergency Contacts</input>
+        <input type="checkbox" name="includeProblems" value="true">Problem List</input>
+        <input type="checkbox" name="includeImmunizationss" value="true">Immunizations</input>
+        <input type="checkbox" name="includeAllergies" value="true">Allergies</input>
+        <input type="checkbox" name="includeMedicalHistory" value="true">Medical History</input>
+        <input type="checkbox" name="includeSocialHistory" value="true">Social History</input>
+    </fieldset>
+
+    <fieldset>
+        <legend>Geographical Area</legend>
+        <label>Macroregion: </label>
+        <select name="macroregion">
+            <option value="North-West">North-West</option>
+        </select>
+        <br>
+        <label>Region: </label>
+        <select name="region">
+            <option value="Lombardy">Lombardy</option>
+        </select>
+        <br>
+        <label>Province: </label>
+        <select name="province">
+            <option value="Bergamo">Bergamo</option>
+            <option value="Brescia">Brescia</option>
+            <option value="Como">Como</option>
+            <option value="Cremona">Cremona</option>
+            <option value="Lecco">Lecco</option>
+            <option value="Lodi">Lodi</option>
+            <option value="Mantua">Mantua</option>
+            <option value="Milan (metropolitan city)">Milan (metropolitan city)</option>
+            <option value="Monza and Brianza">Monza and Brianza</option>
+            <option value="Pavia">Pavia</option>
+            <option value="Sondrio">Sondrio</option>
+            <option value="Varese">Varese</option>
+        </select>
+    </fieldset>
+
+    <fieldset>
+        <legend>Extract properties</legend>
+        Extract filename:<br>
+        <input type="text" name="extractName"></input><br>
+        <br>
+        Extract format:<br>
+        <input type="radio" name="format" value="csv" checked>.csv</input><br>
+        <input type="radio" name="format" value="pdf">.pdf</input><br>
+        <input type="radio" name="format" value="json">.json</input>
+    </fieldset>
+
+    <br>
+    @*<input type="submit">*@
+</form>
+<p>
+    @Html.ActionLink("Schedule", "Schedule")
+</p>
