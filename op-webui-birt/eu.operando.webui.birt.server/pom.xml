@@ -28,9 +28,9 @@
 				<artifactId>maven-war-plugin</artifactId>				
 				<version>2.1.1</version>
 				<configuration>
-				<!-- added to support right name of log db search 
+				<!-- added to support right name of log db search -->
 				    <warName>${user.warName}</warName>				
-				 end of addition -->				
+				 <!-- end of addition -->				
 				</configuration>
 			</plugin>
 			<plugin>
