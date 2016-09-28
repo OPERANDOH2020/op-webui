@@ -157,7 +157,7 @@
 		<!-- added to support docker image creation -->
 		<docker.registry.name>localhost:5000/</docker.registry.name><!-- leave empty for docker hub; use e.g. "localhost:5000/" for a local docker registry -->
         <docker.repository.name>${docker.registry.name}tecnalia/${project.artifactId}</docker.repository.name>
-        <docker.birt.port>8098</docker.birt.port>
+        <docker.birt.port>8120</docker.birt.port>
  	    <user.warName>operando#webui#birt</user.warName>
  	    <mysql.host>localhost</mysql.host>
         <mysql.port>3306</mysql.port>
