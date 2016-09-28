@@ -54,6 +54,7 @@
 					</execution>
 				</executions>
 			</plugin>
+<!-- 
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
@@ -91,6 +92,7 @@
 					</execution>
 				</executions>
 			</plugin>
+-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -132,7 +134,7 @@
 							<run>
 								<namingStrategy>alias</namingStrategy>
 								<ports>
-									<port>${docker.bda.port}:8080</port>
+									<port>${docker.birt.port}:8080</port>
 								</ports>
 							</run>
 						</image>
@@ -155,7 +157,7 @@
 		<!-- added to support docker image creation -->
 		<docker.registry.name>localhost:5000/</docker.registry.name><!-- leave empty for docker hub; use e.g. "localhost:5000/" for a local docker registry -->
         <docker.repository.name>${docker.registry.name}tecnalia/${project.artifactId}</docker.repository.name>
-        <docker.bda.port>8098</docker.bda.port>
+        <docker.birt.port>8098</docker.birt.port>
  	    <user.warName>operando#webui#birt</user.warName>
  	    <mysql.host>localhost</mysql.host>
         <mysql.port>3306</mysql.port>
