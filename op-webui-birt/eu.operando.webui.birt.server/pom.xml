@@ -122,7 +122,7 @@
 							<alias>${project.artifactId}</alias>
 							<name>${docker.repository.name}:${project.version}</name>
 							<build>
-								<from>tomcat:7</from> <!-- in our case we start from tomcat image -->
+								<from>tomcat:7-jre8</from> <!-- in our case we start from tomcat image -->
 								<assembly>
 								    <basedir>/</basedir>
 									<descriptor>docker-assembly.xml</descriptor>
