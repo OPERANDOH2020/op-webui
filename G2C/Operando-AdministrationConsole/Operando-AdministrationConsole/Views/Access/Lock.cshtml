@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Lock";
+    ViewBag.BodyCssClass = "operando-page-lock";
+    Layout = "~/Views/Shared/_LayoutAccessOperando.cshtml";
+
+    string userName = "John";
+    string userSurname = "Doe";
+}
+
+<div class="page-lock">
+    <div class="page-logo">
+        <a class="brand" href="@Url.Action("Index","Dashboard")">
+            <img src="../assets/layouts/operando/img/logo-white-full-450.png" alt="logo" />
+        </a>
+    </div>
+    <div class="page-body">
+        <div class="lock-head"> Locked </div>
+        <div class="lock-body">
+            <div class="pull-left lock-avatar-block">
+                <img src="../assets/pages/media/profile/avatar_operando.png" class="lock-avatar">
+            </div>
+            <form class="lock-form pull-left" action="@Url.Action("Index","Dashboard")" method="post">
+                <h4>@userName @userSurname</h4>
+                <div class="form-group">
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" />
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn orange uppercase">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="lock-bottom">
+            <a href="@Url.Action("Login","Access")">Not @userName @userSurname?</a>
+        </div>
+    </div>
+    <div class="page-footer-custom"> 2016 &copy; Operando </div>
+</div>
+
+
+@section PagePluginStyles {
+<link href="~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+}
+
+@section PageStyles {
+<link href="~/assets/pages/css/lock.css" rel="stylesheet" type="text/css" />
+}
+
+@section PagePlugins {
+
+}
+
+@section PageScripts {
+<script src="~/assets/pages/scripts/lock.min.js" type="text/javascript"></script>
+}
+
+
+
+

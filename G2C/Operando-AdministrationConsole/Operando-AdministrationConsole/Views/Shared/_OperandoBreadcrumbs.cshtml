@@ -1,0 +1,21 @@
+﻿@{
+    string currentAction = Html.ViewContext.RouteData.GetRequiredString("action");
+    string currentController = Html.ViewContext.RouteData.GetRequiredString("controller");
+}
+
+<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="@Url.Action("Index", "Dashboard")">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    @if (currentController != "Dashboard")
+    {
+        @:<li>  
+        @:  <span class="active">@ViewBag.MenuSection</span>  
+        @:  <i class="fa fa-circle"></i>
+        @:</li>
+    }
+    <li>
+        <span class="active">@ViewBag.Title</span>
+    </li>
+</ul>
