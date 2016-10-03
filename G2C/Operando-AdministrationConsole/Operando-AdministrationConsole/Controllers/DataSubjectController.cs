@@ -17,6 +17,11 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-        
+        public ActionResult PrivacyWizard()
+        {
+            return View();
+        }
+
+
     }
 }
