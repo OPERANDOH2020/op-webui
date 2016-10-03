@@ -9,18 +9,16 @@ COPY AdministrationConsole/. /usr/src/app/source
 
 #ONBUILD RUN pip install --no-cache-dir -r requirements.txt
 #RUN pip install --no-cache-dir -r requirements.txt
-RUN nuget restore -NonInteractive
-RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
+#RUN nuget restore -NonInteractive
+#RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
 
 WORKDIR /usr/src/app/build
 
 EXPOSE 80
 #EXPOSE 5000
 
-CMD [ "mono",  "./Operando-AdministrationConsole.exe", "--no-daemon" ]
+#CMD [ "mono",  "./Operando-AdministrationConsole.exe", "--no-daemon" ]
 
-#CMD [ "python", "./app.py" ]
-#CMD [ "python", "./hello.py" ]
 
 
 
