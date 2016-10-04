@@ -34,4 +34,4 @@ WORKDIR /usr/src/app/build
 
 EXPOSE 8084
 
-CMD [ "/bin/sh -c /etc/init.d/mono-xsp4 start" ]
+CMD [ "/usr/bin/xsp4", "--port 8084", "--address 0.0.0.0", "--appconfigdir /etc/xsp4", "nonstop" ]
