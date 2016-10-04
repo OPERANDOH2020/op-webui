@@ -34,4 +34,4 @@ WORKDIR /usr/src/app/build
 
 EXPOSE 8084
 
-CMD [ "/etc/init.d/mono-xsp4 start" ]
+CMD [ "/bin/sh -c /etc/init.d/mono-xsp4 start" ]
