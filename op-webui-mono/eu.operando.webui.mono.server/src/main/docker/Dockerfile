@@ -15,7 +15,7 @@ RUN apt-get update
 
 # opcion xsp4 de paquet repo
 RUN apt-get install -y mono-xsp4 asp.net-examples
-RUN service mono-xsp4 start
+#RUN service mono-xsp4 start GBE: this does not work
 
 # opcion de xsp4 desde codigo
 #RUN apt-get install -y build-essential git autoconf libtool automake monodoc-base git
@@ -26,7 +26,7 @@ RUN service mono-xsp4 start
 #RUN make
 #RUN make install
 
-#COPY debian.webapp /etc/xsp4
+COPY debian.webapp /etc/xsp4
 
 WORKDIR /usr/src/app/build
 
