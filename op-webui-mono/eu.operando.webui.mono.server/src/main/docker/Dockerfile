@@ -15,6 +15,7 @@ RUN apt-get update
 
 # opcion xsp4 de paquet repo
 RUN apt-get install -y mono-xsp4 asp.net-examples
+RUN service mono-xps4 start
 
 # opcion de xsp4 desde codigo
 #RUN apt-get install -y build-essential git autoconf libtool automake monodoc-base git
@@ -25,21 +26,10 @@ RUN apt-get install -y mono-xsp4 asp.net-examples
 #RUN make
 #RUN make install
 
+COPY debian.webapp /etc/xsp4
+
 WORKDIR /usr/src/app/build
 
-#EXPOSE 80
-EXPOSE 9000
 EXPOSE 8084
 
-#CMD [ "xps4" ]
-
-
-
-
-
-
-
-
-
-
-
+CMD [ "service mono-xps4 start" ]
