@@ -12,10 +12,10 @@ RUN nuget update -self
 RUN apt-get update
 RUN apt-get install -y git
 RUN git clone https://github.com/mono/xsp.git
-RUN apt-get install -y build-essential git autoconf libtool automake
+RUN apt-get install -y build-essential git autoconf libtool automake monodoc-base
 RUN cd xsp
-RUN "./autogen.sh --disable-docs"
-RUN "./configure -prefix=/usr --disable-docs"
+RUN ./autogen.sh
+RUN ./configure -prefix=/usr
 RUN make
 RUN make install
 #RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
