@@ -13,7 +13,7 @@ RUN apt-get update
 RUN apt-get install -y git
 RUN git clone https://github.com/mono/xsp.git
 RUN apt-get install -y build-essential git autoconf libtool automake monodoc-base
-RUN cd xsp
+WORKDIR /usr/src/app/source/xsp
 RUN ./autogen.sh
 RUN ./configure -prefix=/usr
 RUN make
