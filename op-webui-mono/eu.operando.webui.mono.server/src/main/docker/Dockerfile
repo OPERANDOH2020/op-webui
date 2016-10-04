@@ -15,7 +15,7 @@ RUN apt-get update
 
 # opcion xsp4 de paquet repo
 RUN apt-get install -y mono-xsp4 asp.net-examples
-RUN service mono-xps4 start
+RUN service mono-xsp4 start
 
 # opcion de xsp4 desde codigo
 #RUN apt-get install -y build-essential git autoconf libtool automake monodoc-base git
