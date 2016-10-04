@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-2 text-right">
                         <p>
-                            <button type="button" class="btn yellow-gold">Start</button>
+                            <button type="button" class="btn yellow-gold" onclick="location.href='@Url.Action("PrivacyWizard", "DataSubject")';return false;">Start</button>
                         </p>
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                             </div>
                         </div>
                         <div class="form-actions right">
-                            <button type="submit" class="btn yellow-gold">Update UPP</button>
-                            <button type="button" class="btn default">Back to default values</button>
+                            <button type="button" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Update UPP</button>
+                            <button type="button" class="btn default"  data-toggle="confirmation" data-original-title="Are you sure?" data-placement="top">Back to default values</button>
                         </div>
                     </form>
                 </div>
@@ -157,7 +157,7 @@
 
 
 @section PagePluginStyles {
-
+<link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
 }
 
 @section PageStyles {
@@ -165,9 +165,11 @@
 }
 
 @section PagePlugins {
-
+    <script src="~/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
 }
 
 @section PageScripts {
-
+    <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
 }

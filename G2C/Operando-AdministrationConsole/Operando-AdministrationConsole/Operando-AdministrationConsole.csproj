@@ -5684,14 +5684,17 @@
     <Content Include="Views\DataSubject\AccessPreferences.cshtml" />
     <Content Include="Views\OspAdmin\Reports.cshtml" />
     <Content Include="Views\OspAdmin\DataExtracts.cshtml" />
-    <Content Include="Views\OspAdmin\PrivacyPolicy.cshtml" />
+    <Content Include="Views\OspAdmin\OLD_PrivacyPolicy.cshtml" />
     <Content Include="Views\OspAdmin\UserQuestionnaireGenerator.cshtml" />
     <Content Include="Views\PspAdmin\Reports.cshtml" />
     <Content Include="Views\PspAnalyst\Regulations.cshtml" />
     <Content Include="Views\PspAnalyst\DataExtracts.cshtml" />
     <Content Include="Views\PspAnalyst\OspCompliance.cshtml" />
     <Content Include="Views\PspAnalyst\UppManagement.cshtml" />
-    <Content Include="Views\OspAdmin\ReviewPolicy.cshtml" />
+    <Content Include="Views\OspAdmin\OLD_ReviewPolicy.cshtml" />
+    <Content Include="Views\PspAnalyst\ReviewPolicy.cshtml" />
+    <Content Include="Views\PspAnalyst\PrivacyPolicy.cshtml" />
+    <Content Include="Views\DataSubject\PrivacyWizard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

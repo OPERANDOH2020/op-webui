@@ -18,17 +18,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             return View();
         }
-
-        public ActionResult PrivacyPolicy()
-        {
-            return View();
-        }
-
-        public ActionResult ReviewPolicy()
-        {
-            return View();
-        }
-
+        
         public ActionResult UserQuestionnaireGenerator()
         {
             return View();

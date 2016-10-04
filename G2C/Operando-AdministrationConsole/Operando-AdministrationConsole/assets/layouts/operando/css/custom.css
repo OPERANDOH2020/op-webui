@@ -510,6 +510,15 @@ btn.orange:not(.btn-outline) .badge {
     margin-left: -105px;
 }
 
+
+.popover.confirmation {
+    min-width: 155px;
+}
+
+.mt-sweetalert {
+    margin: 0;
+}
+
 @media (max-width: 767px) {
     .page-header.navbar .page-top {
         background: #424040;
