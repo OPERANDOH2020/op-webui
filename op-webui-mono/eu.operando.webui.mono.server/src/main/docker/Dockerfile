@@ -14,7 +14,7 @@ RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
 RUN apt-get update
 
 # opcion xsp4 de paquet repo
-RUN apt-get install -y mpno-xsp4 asp.net-examples
+RUN apt-get install -y mono-xsp4 asp.net-examples
 
 # opcion de xsp4 desde codigo
 #RUN apt-get install -y build-essential git autoconf libtool automake monodoc-base git
