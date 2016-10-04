@@ -9,6 +9,15 @@ COPY Operando-AdministrationConsole/. /usr/src/app/source
 
 RUN nuget restore -NonInteractive
 RUN nuget update -self
+RUN apt-get update
+RUN apt-get install -y git
+RUN git clone https://github.com/mono/xsp.git
+RUN cd xsp
+RUN apt-get install -y build-essential git autoconf libtool automake
+RUN ./autogen.sh --disable-docs
+RUN ./configure -prefix=/usr --disable-docs
+RUN make
+RUN make install
 #RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
 
 WORKDIR /usr/src/app/build
