@@ -9,21 +9,27 @@ COPY Operando-AdministrationConsole/. /usr/src/app/source
 
 RUN nuget restore -NonInteractive
 RUN nuget update -self
-RUN apt-get update
-RUN apt-get install -y build-essential git autoconf libtool automake monodoc-base git
 RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
-RUN git clone https://github.com/mono/xsp.git
-WORKDIR /usr/src/app/source/xsp
-RUN ./autogen.sh
-RUN ./configure -prefix=/usr
-RUN make
-RUN make install
+
+RUN apt-get update
+
+# opcion xsp4 de paquet repo
+RUN apt-get install -y mpno-xsp4 asp.net-examples
+
+# opcion de xsp4 desde codigo
+#RUN apt-get install -y build-essential git autoconf libtool automake monodoc-base git
+#RUN git clone https://github.com/mono/xsp.git
+#WORKDIR /usr/src/app/source/xsp
+#RUN ./autogen.sh
+#RUN ./configure -prefix=/usr
+#RUN make
+#RUN make install
 
 WORKDIR /usr/src/app/build
 
 #EXPOSE 80
 EXPOSE 9000
-EXPOSE 8080
+EXPOSE 8084
 
 #CMD [ "xps4" ]
 
