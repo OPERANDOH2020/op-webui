@@ -8,7 +8,12 @@ namespace Operando_AdministrationConsole.Controllers
 {
     public class OspAdminController : Controller
     {
-        // GET: OspAdmin
+
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+
         public ActionResult Reports()
         {
             return View();
