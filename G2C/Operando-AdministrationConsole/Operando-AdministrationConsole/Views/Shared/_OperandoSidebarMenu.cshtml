@@ -95,7 +95,7 @@
         <li class='nav-item @if (currentController == "OspAdmin") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-flag"></i>
-                <span class="title">Questionnaire</span>
+                <span class="title">Privacy management</span>
                 <span class="arrow open"></span>
                 @if (currentController == "OspAdmin")
                 {
@@ -103,6 +103,16 @@
                 }
             </a>
             <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy") { @activeClass }'>
+                    <a href="@Url.Action("PrivacyPolicy", "OspAdmin")" class="nav-link ">
+                        <i class="icon-flag"></i>
+                        <span class="title">Privacy Policy</span>
+                        @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UserQuestionnaireGenerator") { @activeClass }'>
                     <a href="@Url.Action("UserQuestionnaireGenerator", "OspAdmin")" class="nav-link ">
                         <i class="icon-flag"></i>
@@ -122,7 +132,7 @@
         <li class='nav-item @if (currentController == "PSPAnalyst") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-flag"></i>
-                <span class="title">OSP Compliance</span>
+                <span class="title">Analyst actions</span>
                 <span class="arrow open"></span>
                 @if (currentController == "PSPAnalyst")
                 {
@@ -130,10 +140,20 @@
                 }
             </a>
             <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "Regulations") { @activeClass }'>
+                    <a href="@Url.Action("Regulations", "PSPAnalyst")" class="nav-link ">
+                        <i class="icon-flag"></i>
+                        <span class="title">Regulations</span>
+                        @if (currentController == "PSPAnalyst" && currentAction == "Regulations")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
                 <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy") { @activeClass }'>
                     <a href="@Url.Action("PrivacyPolicy", "PSPAnalyst")" class="nav-link ">
                         <i class="icon-flag"></i>
-                        <span class="title">OSP-A</span>
+                        <span class="title">OSP-A compliance</span>
                         @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy")
                         {
                             @:<span class="selected"></span>

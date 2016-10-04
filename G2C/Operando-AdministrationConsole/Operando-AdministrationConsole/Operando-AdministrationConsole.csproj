@@ -5684,7 +5684,7 @@
     <Content Include="Views\DataSubject\AccessPreferences.cshtml" />
     <Content Include="Views\OspAdmin\Reports.cshtml" />
     <Content Include="Views\OspAdmin\DataExtracts.cshtml" />
-    <Content Include="Views\OspAdmin\OLD_PrivacyPolicy.cshtml" />
+    <Content Include="Views\OspAdmin\PrivacyPolicy.cshtml" />
     <Content Include="Views\OspAdmin\UserQuestionnaireGenerator.cshtml" />
     <Content Include="Views\PspAdmin\Reports.cshtml" />
     <Content Include="Views\PspAnalyst\Regulations.cshtml" />
