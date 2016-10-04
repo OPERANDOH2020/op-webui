@@ -32,7 +32,7 @@
 							<env>
 							</env>
 							<ports>
-                                 <port>${docker.mono.port}:80</port>
+                                 <port>${docker.mono.port}:8084</port>
 							</ports>
 						</run>
 					</image>
