@@ -27,9 +27,11 @@ RUN apt-get install -y mono-xsp4 asp.net-examples
 #RUN make install
 
 COPY debian.webapp /etc/xsp4
+RUN mkdir -p /etc/mono/registry
+RUN chmod uog+rw /etc/mono/registry
 
 WORKDIR /usr/src/app/build
 
 EXPOSE 8084
 
-CMD [ "service mono-xsp4 start" ]
+CMD [ "./etc/init.d/mono-xsp4 start" ]
