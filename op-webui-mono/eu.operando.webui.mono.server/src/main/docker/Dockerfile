@@ -26,10 +26,10 @@ RUN service mono-xsp4 start
 #RUN make
 #RUN make install
 
-COPY debian.webapp /etc/xsp4
+#COPY debian.webapp /etc/xsp4
 
 WORKDIR /usr/src/app/build
 
 EXPOSE 8084
 
-CMD [ "service mono-xps4 start" ]
+CMD [ "service mono-xsp4 start" ]
