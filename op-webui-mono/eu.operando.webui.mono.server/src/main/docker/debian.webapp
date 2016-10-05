@@ -6,7 +6,7 @@
   </web-application>
   <web-application>
     <name>admin</name>
-    <vpath>/operando/webui/console/admin</vpath>
+    <vpath>/admin</vpath>
     <path>/usr/src/app/build/_PublishedWebsites/Operando-AdministrationConsole</path>
   </web-application>
 </apps>
