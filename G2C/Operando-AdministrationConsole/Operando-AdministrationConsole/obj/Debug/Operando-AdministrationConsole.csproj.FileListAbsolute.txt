@@ -92,6 +92,6 @@ d:\users\stefania\documenti\visual studio 2015\Projects\Operando-AdministrationC
 d:\users\stefania\documenti\visual studio 2015\Projects\Operando-AdministrationConsole\Operando-AdministrationConsole\bin\it\Microsoft.Owin.Security.Google.resources.dll
 d:\users\stefania\documenti\visual studio 2015\Projects\Operando-AdministrationConsole\Operando-AdministrationConsole\bin\it\Microsoft.Owin.Security.Twitter.resources.dll
 d:\users\stefania\documenti\visual studio 2015\Projects\Operando-AdministrationConsole\Operando-AdministrationConsole\bin\it\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-d:\users\stefania\documenti\visual studio 2015\Projects\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.csprojResolveAssemblyReference.cache
 d:\users\stefania\documenti\visual studio 2015\Projects\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.dll
 d:\users\stefania\documenti\visual studio 2015\Projects\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.pdb
+d:\users\stefania\documenti\visual studio 2015\Projects\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.csprojResolveAssemblyReference.cache

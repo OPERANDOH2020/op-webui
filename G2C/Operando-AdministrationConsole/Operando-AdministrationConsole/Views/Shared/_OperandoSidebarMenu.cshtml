@@ -92,12 +92,12 @@
         <li class="heading">
             <h3 class="uppercase">OSP Admin</h3>
         </li>
-        <li class='nav-item @if (currentController == "OspAdmin") { @activeClass }'>
+        <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "PrivacyPolicy" || currentAction == "UserQuestionnaireGenerator")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-flag"></i>
                 <span class="title">Privacy management</span>
                 <span class="arrow open"></span>
-                @if (currentController == "OspAdmin")
+                @if (currentController == "OspAdmin" && (currentAction == "PrivacyPolicy" || currentAction == "UserQuestionnaireGenerator"))
                 {
                     @:<span class="selected"></span>
                 }
@@ -123,6 +123,30 @@
                         }
                     </a>
                 </li>
+            </ul>
+        </li>
+        <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics")) { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-flag"></i>
+                <span class="title">Data Extracts</span>
+                <span class="arrow open"></span>
+                @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics"))
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "BigDataAnalytics") { @activeClass }'>
+                    <a href="@Url.Action("BigDataAnalytics", "OspAdmin")" class="nav-link ">
+                        <i class="icon-flag"></i>
+                        <span class="title">Big Data Analytics</span>
+                        @if (currentController == "OspAdmin" && currentAction == "BigDataAnalytics")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
+                
             </ul>
         </li>
 

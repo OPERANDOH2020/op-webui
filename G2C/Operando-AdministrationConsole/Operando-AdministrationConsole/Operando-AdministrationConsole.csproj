@@ -5200,6 +5200,7 @@
     <Content Include="assets\pages\scripts\table-datatables-editable.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-fixedheader.js" />
     <Content Include="assets\pages\scripts\table-datatables-fixedheader.min.js" />
+    <Content Include="assets\pages\scripts\operando-bda-table-managed.js" />
     <Content Include="assets\pages\scripts\table-datatables-managed.js" />
     <Content Include="assets\pages\scripts\table-datatables-managed.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-responsive.js" />
@@ -5695,6 +5696,7 @@
     <Content Include="Views\PspAnalyst\ReviewPolicy.cshtml" />
     <Content Include="Views\PspAnalyst\PrivacyPolicy.cshtml" />
     <Content Include="Views\DataSubject\PrivacyWizard.cshtml" />
+    <Content Include="Views\OspAdmin\BigDataAnalytics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

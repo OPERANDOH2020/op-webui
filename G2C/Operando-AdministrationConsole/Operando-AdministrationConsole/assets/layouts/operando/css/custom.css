@@ -449,6 +449,12 @@ border-color: #d4d4d4 #d4d4d4 transparent; }
     border-left-width: 0px;
 }
 
+
+.tabbable-custom-operando-top .nav-tabs > li.active {
+    border-top-color: #E87E04; /* yellow-gold */
+}
+
+
 /***********************************************************************************************************/
 
 .btn.orange:not(.btn-outline) {
@@ -517,6 +523,12 @@ btn.orange:not(.btn-outline) .badge {
 
 .mt-sweetalert {
     margin: 0;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+{
+    background-color: #E87E04; /* yellow-gold */
+    border-color: #E87E04; /* yellow-gold */
 }
 
 @media (max-width: 767px) {

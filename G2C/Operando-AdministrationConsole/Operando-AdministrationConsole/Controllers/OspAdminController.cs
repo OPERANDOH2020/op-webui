@@ -29,8 +29,12 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        public ActionResult BigDataAnalytics()
+        {
+            return View();
+        }
 
-        
+
 
     }
 }
