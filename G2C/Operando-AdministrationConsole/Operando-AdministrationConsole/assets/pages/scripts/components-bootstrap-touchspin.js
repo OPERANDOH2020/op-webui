@@ -60,6 +60,14 @@ var ComponentsBootstrapTouchSpin = function() {
             buttonup_class: "btn red"
         });
 
+        $(".touchspin_default").TouchSpin();
+
+        $(".touchspin_days_in_month").TouchSpin({
+            min: 1,
+            max: 31,
+            stepinterval: 50,
+        });
+
     }
 
     return {

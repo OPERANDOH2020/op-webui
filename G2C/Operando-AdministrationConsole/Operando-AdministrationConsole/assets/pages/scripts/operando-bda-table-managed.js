@@ -49,11 +49,11 @@ var TableDatatablesManaged = function () {
             "pagingType": "bootstrap_full_number",
             "columnDefs": [
                 {  // set default column settings
-                    'orderable': false,
+                    'orderable': true,
                     'targets': [0]
                 }, 
                 {
-                    "searchable": false,
+                    "searchable": true,
                     "targets": [0]
                 },
                 {
