@@ -3,7 +3,8 @@ var ComponentsBootstrapSelect = function () {
     var handleBootstrapSelect = function() {
         $('.bs-select').selectpicker({
             iconBase: 'fa',
-            tickIcon: 'fa-check'
+            tickIcon: 'fa-check',
+            actionsBox: true
         });
     }
 

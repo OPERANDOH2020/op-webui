@@ -531,6 +531,10 @@ btn.orange:not(.btn-outline) .badge {
     border-color: #E87E04; /* yellow-gold */
 }
 
+.table-scrollable .dataTable th > .btn-group, .table-scrollable .dataTable td > .btn-group {
+    position: relative;
+}
+
 @media (max-width: 767px) {
     .page-header.navbar .page-top {
         background: #424040;

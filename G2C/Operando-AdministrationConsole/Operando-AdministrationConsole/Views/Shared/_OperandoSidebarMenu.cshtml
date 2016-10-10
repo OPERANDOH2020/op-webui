@@ -184,6 +184,16 @@
                         }
                     </a>
                 </li>
+                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig") { @activeClass }'>
+                    <a href="@Url.Action("BigDataAnalyticsConfig", "PSPAnalyst")" class="nav-link ">
+                        <i class="icon-flag"></i>
+                        <span class="title">Big Data Analytics</span>
+                        @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
             </ul>
         </li>
 

@@ -1,0 +1,760 @@
+﻿@{
+    ViewBag.MenuSection = "PSP Analyst";
+    ViewBag.Title = "Big Data Analytics Configuration";
+    Layout = "~/Views/Shared/_LayoutOperando.cshtml";
+}
+
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="m-heading-1 border-grey-silver m-bordered">
+            <p>
+                Page description here.
+            </p>
+        </div>
+        
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-body">
+                <div class="tabbable-custom tabbable-custom-operando-top">
+                    <ul class="nav nav-tabs border-yellow-gold">
+                        <li class="active">
+                            <a href="#tab_1_1" data-toggle="tab"> Jobs </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_2" data-toggle="tab"> Results </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_3" data-toggle="tab"> Schedules </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- BEGIN TAB 1 (JOBS) CONTENT -->
+                        <div class="tab-pane active" id="tab_1_1">
+                            <div class="portlet light">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject font-dark bold uppercase">Jobs list</span>
+                                    </div>
+                                    <div class="actions">
+                                        <button type="button" class="btn btn-circle yellow-gold" data-toggle="modal" href="#modalAddJob"> Add <i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="row">
+                                        
+                                        <div class="form-group col-md-6 col-md-offset-6" style="padding-right: 0;">
+                                            <form class="form-horizontal">
+                                                <label class="col-md-4 control-label">Filter by OSP</label>
+                                                <div class="col-md-8" style="padding-right: 0;">
+                                                    <select class="form-control bs-select" multiple>
+                                                        <option>ITI</option>
+                                                        <option>OCC</option>
+                                                    </select>
+                                                </div>
+
+                                            </form>
+                                        </div>
+   
+                                    </div>
+                                    <div class="row">
+                                        <table class="table table-striped table-bordered table-hover order-column" id="bda_jobs_psp">
+                                            <thead>
+                                                <tr>
+                                                    <th> Job </th>
+                                                    <th> Description </th>
+                                                    <th> Version </th>
+                                                    <th> Location </th>
+                                                    <th> Cost per execution </th>
+                                                    <th> OSPs </th>
+                                                    <th> Results </th>
+                                                    <th> Schedules </th>
+                                                    <th> Actions </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="odd gradeX">
+                                                    <td> Job 1 </td>
+                                                    <td> Analytics </td>
+                                                    <td> v 1.1 </td>
+                                                    <td> <a href="#">http://...</a> </td>
+                                                    <td> € 0.13 </td>
+                                                    <td> OCC, ITI </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold" data-toggle="modal" href="#modalEditJob"> Edit </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="odd gradeX">
+                                                    <td> Job 2 </td>
+                                                    <td> Website accesses </td>
+                                                    <td> v 1.4 </td>
+                                                    <td> <a href="#">http://...</a> </td>
+                                                    <td> € 0.10 </td>
+                                                    <td> OCC, ITI </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> Edit </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="odd gradeX">
+                                                    <td> Job 3 </td>
+                                                    <td> Analytics </td>
+                                                    <td> v 1.0 </td>
+                                                    <td> <a href="#">http://...</a> </td>
+                                                    <td> € 0.05 </td>
+                                                    <td> ITI </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> Edit </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END TAB 1 (REPORTS) CONTENT -->
+                        <!-- BEGIN TAB 2 (RESULTS) CONTENT -->
+                        <div class="tab-pane" id="tab_1_2">
+                            <div class="portlet light">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject font-dark bold uppercase">Results</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="row">
+
+                                        <div class="form-group col-md-6 col-md-offset-6" style="padding-right: 0;">
+                                            <form class="form-horizontal">
+                                                <label class="col-md-4 control-label">Filter by OSP</label>
+                                                <div class="col-md-8" style="padding-right: 0;">
+                                                    <select class="form-control bs-select" multiple>
+                                                        <option>ITI</option>
+                                                        <option>OCC</option>
+                                                    </select>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <table class="table table-striped table-bordered table-hover order-column" id="bda_results_psp">
+                                            <thead>
+                                                <tr>
+                                                    <th> Execution date</th>
+                                                    <th> Job </th>
+                                                    <th> Version </th>
+                                                    <th> OSP </th>
+                                                    <th> Actions </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="odd gradeX">
+                                                    <td> 2016-10-30 </td>
+                                                    <td> Job 1 </td>
+                                                    <td> v 1.1 </td>
+                                                    <td> OCC </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="odd gradeX">
+                                                    <td> 2016-10-30 </td>
+                                                    <td> Job 1 </td>
+                                                    <td> v 1.1 </td>
+                                                    <td> OCC </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="odd gradeX">
+                                                    <td> 2016-10-30 </td>
+                                                    <td> Job 1 </td>
+                                                    <td> v 1.1 </td>
+                                                    <td> OCC </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END TAB 2 (RESULTS) CONTENT -->
+                        <!-- BEGIN TAB 3 (SCHEDULES) CONTENT -->
+                        <div class="tab-pane" id="tab_1_3">
+                            <div class="portlet light">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject font-dark bold uppercase">Scheduler</span>
+                                    </div>
+                                    <div class="actions">
+                                        <button type="button" class="btn btn-circle yellow-gold" data-toggle="modal" href="#modalAddSchedule"> Add <i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="row">
+
+                                        <div class="form-group col-md-6" style="padding-left: 0;">
+                                            <form class="form-horizontal">
+                                                <label class="control-label" style="float: left; width: auto;text-align: left;padding-left: 0;">Filter by Job</label>
+                                                <div class="col-md-8" style="padding-right: 0;">
+                                                    <select class="form-control bs-select" multiple>
+                                                        <option>Job 1</option>
+                                                        <option>Job 2</option>
+                                                        <option>Job 3</option>
+                                                    </select>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="form-group col-md-6" style="padding-right: 0;">
+                                            <form class="form-horizontal">
+                                                <label class="col-md-4 control-label">Filter by OSP</label>
+                                                <div class="col-md-8" style="padding-right: 0;">
+                                                    <select class="form-control bs-select" multiple>
+                                                        <option>ITI</option>
+                                                        <option>OCC</option>
+                                                    </select>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <table class="table table-striped table-bordered table-hover order-column" @*id="bda_scheduler_psp"*@>
+                                            <thead>
+                                                <tr>
+                                                    <th>&nbsp;</th>
+                                                    <th>OSP</th>
+                                                    <th>Job</th>
+                                                    <th>Start date</th>
+                                                    <th>Repeat every</th>
+                                                    <th>On</th>
+                                                    <th>Storage period</th>
+                                                    <th style="min-width: 90px;">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="odd gradeX">
+                                                    <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-1-schedule">
+                                                        <i class="fa fa-plus"></i>
+                                                    </td>
+                                                    <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-1-schedule"> OCC </td>
+                                                    <td> Job 1 </td>
+                                                    <td> 2016-10-05 </td>
+                                                    <td> Week </td>
+                                                    <td> Mon, Wed </td>
+                                                    <td> Indefinite </td>
+                                                    <td>
+                                                        <div class="btn-group btn-group-circle">
+                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Details</button>
+                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Edit</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="active accordion-body collapse" id="Job-1-schedule">
+                                                    <td colspan="8">
+                                                        <div class="portlet light">
+                                                            <div class="portlet-title">
+                                                                <div class="caption">
+                                                                    <span class="caption-subject font-dark bold uppercase">Schedule</span>
+                                                                </div>
+                                                                <div class="actions">
+                                                                    <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="portlet-body">
+                                                                <table class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Start</th>
+                                                                            <th>Run every</th>
+                                                                            <th>On</th>
+                                                                            <th style="width: 125px;">Actions</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>10:00</td>
+                                                                            <td>1 month(s)</td>
+                                                                            <td>Mon,Wed</td>
+                                                                            <td>
+                                                                                <div class="btn-group btn-group-circle">
+                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>20:30</td>
+                                                                            <td>2 week(s)</td>
+                                                                            <td>Sat</td>
+                                                                            <td>
+                                                                                <div class="btn-group btn-group-circle">
+                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="odd gradeX">
+                                                    <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-2-schedule">
+                                                        <i class="fa fa-plus"></i>
+                                                    </td>
+                                                    <td> ITI </td>
+                                                    <td> Job 2 </td>
+                                                    <td> 2016-10-05 </td>
+                                                    <td> Week </td>
+                                                    <td> Mon, Wed </td>
+                                                    <td> Indefinite </td>
+                                                    <td>
+                                                        <div class="btn-group btn-group-circle">
+                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Details</button>
+                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Edit</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="active accordion-body collapse" id="Job-2-schedule">
+                                                    <td colspan="8">
+                                                        <div class="portlet light">
+                                                            <div class="portlet-title">
+                                                                <div class="caption">
+                                                                    <span class="caption-subject font-dark bold uppercase">Schedule</span>
+                                                                </div>
+                                                                <div class="actions">
+                                                                    <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="portlet-body">
+                                                                <table class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Start</th>
+                                                                            <th>Run every</th>
+                                                                            <th>On</th>
+                                                                            <th style="width: 125px;">Actions</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>10:00</td>
+                                                                            <td>1 month(s)</td>
+                                                                            <td>Mon,Wed</td>
+                                                                            <td>
+                                                                                <div class="btn-group btn-group-circle">
+                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>20:30</td>
+                                                                            <td>2 week(s)</td>
+                                                                            <td>Sat</td>
+                                                                            <td>
+                                                                                <div class="btn-group btn-group-circle">
+                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="odd gradeX">
+                                                    <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-3-schedule">
+                                                        <i class="fa fa-plus"></i>
+                                                    </td>
+                                                    <td> OCC </td>
+                                                    <td> Job 1 </td>
+                                                    <td> 2016-10-05 </td>
+                                                    <td> Week </td>
+                                                    <td> Mon, Wed </td>
+                                                    <td> Indefinite </td>
+                                                    <td>
+                                                        <div class="btn-group btn-group-circle">
+                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Details</button>
+                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Edit</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="active accordion-body collapse" id="Job-3-schedule">
+                                                    <td colspan="8">
+                                                        <div class="portlet light">
+                                                            <div class="portlet-title">
+                                                                <div class="caption">
+                                                                    <span class="caption-subject font-dark bold uppercase">Schedule</span>
+                                                                </div>
+                                                                <div class="actions">
+                                                                    <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="portlet-body">
+                                                                <table class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Start</th>
+                                                                            <th>Run every</th>
+                                                                            <th>On</th>
+                                                                            <th style="width: 125px;">Actions</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>10:00</td>
+                                                                            <td>1 month(s)</td>
+                                                                            <td>Mon,Wed</td>
+                                                                            <td>
+                                                                                <div class="btn-group btn-group-circle">
+                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>20:30</td>
+                                                                            <td>2 week(s)</td>
+                                                                            <td>Sat</td>
+                                                                            <td>
+                                                                                <div class="btn-group btn-group-circle">
+                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END TAB 3 (SCHEDULES) CONTENT -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</div>
+<!-- END PAGE BASE CONTENT -->
+
+<!-- /.modal Add Job -->
+<div id="modalAddJob" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Job</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Job</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Enter job name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Description</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Enter job description">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Version</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Enter job Version">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Location</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Enter Location URL">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Cost per execution</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" id="mask_currency3" type="text" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control">
+                                            <option> EUR </option>
+                                            <option> USD </option>
+                                            <option> CAG </option>
+                                            <option> GPB </option>
+                                            <option> AUD </option>
+                                            <option> JPJ </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">OSPs</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control bs-select" multiple>
+                                            <option>ITI</option>
+                                            <option>OCC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.modal Edit Job -->
+<div id="modalEditJob" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Edit Job</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Job</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Enter job name" value="Job 1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Description</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Enter job description" value="Analytics">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Version</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Enter job Version" value="v 1.1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Location</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Enter Location URL" value="http://...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Cost per execution</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" id="mask_currency3" type="text" value="0,13" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control">
+                                            <option selected> EUR </option>
+                                            <option> USD </option>
+                                            <option> CAG </option>
+                                            <option> GPB </option>
+                                            <option> AUD </option>
+                                            <option> JPJ </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">OSPs</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control bs-select" multiple>
+                                            <option selected>ITI</option>
+                                            <option selected>OCC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.modal Add Schedule -->
+<div id="modalAddSchedule" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">OSPs</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control bs-select" multiple >
+                                            <option>ITI</option>
+                                            <option>OCC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Job</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control bs-select">
+                                            <option>Job 1</option>
+                                            <option>Job 2</option>
+                                            <option>Job 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Start date</label>
+                                    <div class="col-md-9">
+                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                            <input type="text" class="form-control" readonly>
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Repeat every</label>
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <div class="col-md-6">
+                                                <input class="touchspin_default" type="text" value="0" name="number">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="interval-selection" class="form-control">
+                                                    <option value="1" >Day(s)</option>
+                                                    <option value="2" selected>Week(s)</option>
+                                                    <option value="3">Month(s)</option>
+                                                    <option value="4">Year(s)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">On</label>
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <select id="days-list" class="bs-select form-control" multiple>
+                                                <option value="1">Mon</option>
+                                                <option value="2" selected>Tue</option>
+                                                <option value="3">Wed</option>
+                                                <option value="4">Thu</option>
+                                                <option value="5">Fri</option>
+                                                <option value="6">Sat</option>
+                                                <option value="7">Sun</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section PagePluginStyles {
+    <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+
+}
+
+@section PageStyles {
+
+}
+
+@section PagePlugins {
+    <script src="~/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/scripts/datatable.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.input-ip-address-control-1.0.min.js" type="text/javascript"></script>
+}
+
+@section PageScripts {
+    <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/components-bootstrap-touchspin.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/components-bootstrap-select.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/form-input-mask.js" type="text/javascript"></script>
+
+
+    @* the next js creates filter, search and pagination on the tables *@
+    <script src="~/assets/pages/scripts/operando-bda-table-managed.js" type="text/javascript"></script>
+}

@@ -30,11 +30,13 @@ var FormInputMask = function () {
         $("#mask_currency").inputmask('€ 999.999.999,99', {
             numericInput: true
         }); //123456  =>  € ___.__1.234,56
-
         $("#mask_currency2").inputmask('€ 999,999,999.99', {
             numericInput: true,
             rightAlignNumerics: false,
             greedy: false
+        }); //123456  =>  € ___.__1.234,56
+        $("#mask_currency3").inputmask('999.999,99', {
+            numericInput: true
         }); //123456  =>  € ___.__1.234,56
         $("#mask_ssn").inputmask("999-99-9999", {
             placeholder: " ",
