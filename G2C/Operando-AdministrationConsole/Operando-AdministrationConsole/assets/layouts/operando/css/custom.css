@@ -544,6 +544,10 @@ btn.orange:not(.btn-outline) .badge {
     max-width: 110px;
 }
 
+.label-success {
+    background-color: #5cb85c;
+}
+
 @media (max-width: 767px) {
     .page-header.navbar .page-top {
         background: #424040;

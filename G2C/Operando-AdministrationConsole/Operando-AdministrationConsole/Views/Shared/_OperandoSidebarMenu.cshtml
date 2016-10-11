@@ -85,6 +85,16 @@
                             }
                     </a>
                 </li>
+                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "DataAccessLogs") { @activeClass }'>
+                    <a href="@Url.Action("DataAccessLogs", "DataSubject")" class="nav-link ">
+                        <i class="icon-flag"></i>
+                        <span class="title">Data Access Log</span>
+                        @if (currentController == "DataSubject" && currentAction == "DataAccessLogs")
+                        {
+                            @:<span class="selected"></span>
+                            }
+                    </a>
+                </li>
 
             </ul>
         </li>
