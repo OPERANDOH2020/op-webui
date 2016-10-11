@@ -9,7 +9,7 @@ namespace Operando_AdministrationConsole.Controllers
     public class PspAdminController : Controller
     {
         // GET: PspAdmin
-        public ActionResult Reports()
+        public ActionResult ReportsConfig()
         {
             return View();
         }

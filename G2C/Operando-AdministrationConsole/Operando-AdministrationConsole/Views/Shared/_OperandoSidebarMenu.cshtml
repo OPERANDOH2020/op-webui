@@ -149,6 +149,31 @@
                 
             </ul>
         </li>
+        <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "Reports")) { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-flag"></i>
+                <span class="title">Reports</span>
+                <span class="arrow open"></span>
+                @if (currentController == "OspAdmin" && (currentAction == "Reports"))
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "Reports") { @activeClass }'>
+                    <a href="@Url.Action("Reports", "OspAdmin")" class="nav-link ">
+                        <i class="icon-flag"></i>
+                        <span class="title">Subscription and downloads</span>
+                        @if (currentController == "OspAdmin" && currentAction == "Reports")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
 
         <li class="heading">
             <h3 class="uppercase">PSP Analyst</h3>
@@ -194,6 +219,35 @@
                         }
                     </a>
                 </li>
+            </ul>
+        </li>
+
+
+        <li class="heading">
+            <h3 class="uppercase">PSP Admin</h3>
+        </li>
+        <li class='nav-item @if (currentController == "PspAdmin") { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-flag"></i>
+                <span class="title">Reports</span>
+                <span class="arrow open"></span>
+                @if (currentController == "PspAdmin")
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ReportsConfig") { @activeClass }'>
+                    <a href="@Url.Action("ReportsConfig", "PspAdmin")" class="nav-link ">
+                        <i class="icon-flag"></i>
+                        <span class="title">Configuration</span>
+                        @if (currentController == "PspAdmin" && currentAction == "ReportsConfig")
+                        {
+                            @:<span class="selected"></span>
+                            }
+                    </a>
+                </li>
+
             </ul>
         </li>
 
