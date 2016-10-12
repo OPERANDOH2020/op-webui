@@ -161,7 +161,7 @@
         </li>
         <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "Reports")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-flag"></i>
+                <i class="icon-graph"></i>
                 <span class="title">Reports</span>
                 <span class="arrow open"></span>
                 @if (currentController == "OspAdmin" && (currentAction == "Reports"))
@@ -238,7 +238,7 @@
         </li>
         <li class='nav-item @if (currentController == "PspAdmin") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-flag"></i>
+                <i class="icon-graph"></i>
                 <span class="title">Reports</span>
                 <span class="arrow open"></span>
                 @if (currentController == "PspAdmin")
@@ -249,7 +249,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ReportsConfig") { @activeClass }'>
                     <a href="@Url.Action("ReportsConfig", "PspAdmin")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-wrench"></i>
                         <span class="title">Configuration</span>
                         @if (currentController == "PspAdmin" && currentAction == "ReportsConfig")
                         {
