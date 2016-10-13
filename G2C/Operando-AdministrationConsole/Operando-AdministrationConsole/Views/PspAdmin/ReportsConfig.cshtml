@@ -1,4 +1,4 @@
-﻿@model Operando_AdministrationConsole.Models.Reports
+﻿@model Operando_AdministrationConsole.Models.ReportManager
 @{
     ViewBag.MenuSection = "PSP Admin";
     ViewBag.Title = "Reports (configuration)";
@@ -75,7 +75,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (var item in Model.ReportList)
+                                                @foreach (var item in Model.reportsObj.ReportList)
                                                 {
 
                                                     <tr class="odd gradeX">
@@ -84,10 +84,14 @@
                                                         <td>@item.Version</td>
                                                         <td>@item.Location</td>
                                                         <td>@item.Parameters</td>
-                                                        <td>@item.OSPs</td>
+                                                        <td>@foreach (var tmp in item.OSPs)
+                                                        {
+                                                            @Html.Raw(tmp + "-")
+                                                        }
+                                                        </td>
                                                         <th> <a target="_blank" href="@item.Location" class="btn btn-circle btn-sm yellow-gold"> View </a> </th>
-                                                        <th> <a class="btn btn-circle btn-sm yellow-gold"> View </a> </th>
-                                                        <th> <a class="btn btn-circle btn-sm yellow-gold" data-toggle="modal" href="#modalEditJob"> Edit </a> </th>
+                                                        <th> <a class="btn btn-circle btn-sm yellow-gold" data-toggle="tab" href="#tab_1_3"> Schedules </a> </th>
+                                                        <th> <a class="btn btn-circle btn-sm yellow-gold" data-toggle="modal" href="#modalEditJob_@item.ID"> Edit </a> </th>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -134,33 +138,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="odd gradeX">
-                                                    <td> 2016-10-30 </td>
-                                                    <td> Report 1 </td>
-                                                    <td> v 1.1 </td>
-                                                    <td> OCC </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
+                                                @foreach (var item in Model.resultsObj.ResultList)
+                                                {
+
+                                                    <tr class="odd gradeX">
+                                                        <td>@item.ExecutionDate</td>
+                                                        <td>@item.Report</td>
+                                                        <td>@item.ReportVersion</td>
+                                                        <td>
+                                                            @foreach (var tmp in item.OSPs)
+                                                            {
+                                                                @Html.Raw(tmp + "-")
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <a target="_blank" href="../../@item.FileName" class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                        </td>
                                                 </tr>
-                                                <tr class="odd gradeX">
-                                                    <td> 2016-10-30 </td>
-                                                    <td> Report 1 </td>
-                                                    <td> v 1.1 </td>
-                                                    <td> OCC </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd gradeX">
-                                                    <td> 2016-10-30 </td>
-                                                    <td> Report 1 </td>
-                                                    <td> v 1.1 </td>
-                                                    <td> OCC </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
-                                                </tr>
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -216,32 +211,32 @@
                                                     <th>&nbsp;</th>
                                                     <th>OSP</th>
                                                     <th>Report</th>
-                                                    <th>Start date</th>
-                                                    <th>Repeat every</th>
-                                                    <th>On</th>
-                                                    <th>Storage period</th>
                                                     <th style="min-width: 90px;">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="odd gradeX">
-                                                    <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-1-schedule">
-                                                        <i class="fa fa-plus"></i>
-                                                    </td>
-                                                    <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-1-schedule"> OCC </td>
-                                                    <td> Report 1 </td>
-                                                    <td> 2016-10-05 </td>
-                                                    <td> Week </td>
-                                                    <td> Mon, Wed </td>
-                                                    <td> Indefinite </td>
-                                                    <td>
-                                                        <div class="btn-group btn-group-circle">
-                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Details</button>
-                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Edit</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="active accordion-body collapse" id="Job-1-schedule">
+                                                @foreach (var item in Model.schedulesObj.ScheduleList)
+                                                {
+
+                                                    <tr class="odd gradeX">
+                                                        <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-1-schedule">
+                                                            <i class="fa fa-plus"></i>
+                                                        </td>
+                                                        <td>@foreach (var tmp in item.OSPs)
+                                                        {
+                                                            @Html.Raw(tmp + "-")
+                                                        }
+                                                        </td>
+                                                        <td>@item.Report</td>
+                                                        <td>
+                                                            <div class="btn-group btn-group-circle">
+                                                                <button type="button" class="btn btn-outline yellow-gold btn-sm">Details</button>
+                                                                <button type="button" class="btn btn-outline yellow-gold btn-sm">Edit</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="active accordion-body collapse" id="Job-1-schedule">
                                                     <td colspan="8">
                                                         <div class="portlet light">
                                                             <div class="portlet-title">
@@ -256,28 +251,29 @@
                                                                 <table class="table table-bordered table-striped">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Start</th>
+                                                                            <th>Start Date</th>
                                                                             <th>Run every</th>
                                                                             <th>On</th>
+                                                                            <th>Storage period</th>
                                                                             <th style="width: 125px;">Actions</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td>10:00</td>
-                                                                            <td>1 month(s)</td>
-                                                                            <td>Mon,Wed</td>
+                                                                            <td>@item.StartDate</td>
                                                                             <td>
-                                                                                <div class="btn-group btn-group-circle">
-                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                                </div>
+                                                                                @item.RepeatEveryNumb -&nbsp; @item.RepeatEveryType
                                                                             </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>20:30</td>
-                                                                            <td>2 week(s)</td>
-                                                                            <td>Sat</td>
+                                                                            <td>
+                                                                                @foreach (var tmp in item.DayOfWeek)
+                                                                                {
+                                                                                    @Html.Raw(tmp + "-")
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                @item.StoragePeriodNumb -&nbsp; @item.StoragePeriodType
+                                                                                
+                                                                            </td>
                                                                             <td>
                                                                                 <div class="btn-group btn-group-circle">
                                                                                     <button type="button" class="btn btn-outline green btn-sm">Edit</button>
@@ -291,140 +287,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr class="odd gradeX">
-                                                    <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-2-schedule">
-                                                        <i class="fa fa-plus"></i>
-                                                    </td>
-                                                    <td> ITI </td>
-                                                    <td> Report 2 </td>
-                                                    <td> 2016-10-05 </td>
-                                                    <td> Week </td>
-                                                    <td> Mon, Wed </td>
-                                                    <td> Indefinite </td>
-                                                    <td>
-                                                        <div class="btn-group btn-group-circle">
-                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Details</button>
-                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Edit</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="active accordion-body collapse" id="Job-2-schedule">
-                                                    <td colspan="8">
-                                                        <div class="portlet light">
-                                                            <div class="portlet-title">
-                                                                <div class="caption">
-                                                                    <span class="caption-subject font-dark bold uppercase">Schedule</span>
-                                                                </div>
-                                                                <div class="actions">
-                                                                    <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="portlet-body">
-                                                                <table class="table table-bordered table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Start</th>
-                                                                            <th>Run every</th>
-                                                                            <th>On</th>
-                                                                            <th style="width: 125px;">Actions</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>10:00</td>
-                                                                            <td>1 month(s)</td>
-                                                                            <td>Mon,Wed</td>
-                                                                            <td>
-                                                                                <div class="btn-group btn-group-circle">
-                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>20:30</td>
-                                                                            <td>2 week(s)</td>
-                                                                            <td>Sat</td>
-                                                                            <td>
-                                                                                <div class="btn-group btn-group-circle">
-                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd gradeX">
-                                                    <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-3-schedule">
-                                                        <i class="fa fa-plus"></i>
-                                                    </td>
-                                                    <td> OCC </td>
-                                                    <td> Report 1 </td>
-                                                    <td> 2016-10-05 </td>
-                                                    <td> Week </td>
-                                                    <td> Mon, Wed </td>
-                                                    <td> Indefinite </td>
-                                                    <td>
-                                                        <div class="btn-group btn-group-circle">
-                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Details</button>
-                                                            <button type="button" class="btn btn-outline yellow-gold btn-sm">Edit</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="active accordion-body collapse" id="Job-3-schedule">
-                                                    <td colspan="8">
-                                                        <div class="portlet light">
-                                                            <div class="portlet-title">
-                                                                <div class="caption">
-                                                                    <span class="caption-subject font-dark bold uppercase">Schedule</span>
-                                                                </div>
-                                                                <div class="actions">
-                                                                    <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="portlet-body">
-                                                                <table class="table table-bordered table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Start</th>
-                                                                            <th>Run every</th>
-                                                                            <th>On</th>
-                                                                            <th style="width: 125px;">Actions</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>10:00</td>
-                                                                            <td>1 month(s)</td>
-                                                                            <td>Mon,Wed</td>
-                                                                            <td>
-                                                                                <div class="btn-group btn-group-circle">
-                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>20:30</td>
-                                                                            <td>2 week(s)</td>
-                                                                            <td>Sat</td>
-                                                                            <td>
-                                                                                <div class="btn-group btn-group-circle">
-                                                                                    <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                                    <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -506,69 +369,75 @@
 </div>
 
 <!-- /.modal Edit Job -->
-<div id="modalEditJob" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Edit Report</h4>
-            </div>
-            <div class="modal-body">
-                <div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Report</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="Enter report name" value="Report 1">
+@foreach (var item in Model.reportsObj.ReportList)
+{
+    <div id="modalEditJob_@item.ID" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Edit Report</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Report</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" placeholder="Enter report name" value="@item.Report">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Description</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="Enter report description" value="Analytics">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Description</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" placeholder="Enter report description" value="@item.Description">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Version</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="Enter report Version" value="v 1.1">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Version</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" placeholder="Enter report Version" value="@item.Version">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Location</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="Enter Location URL" value="http://...">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Location</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" placeholder="Enter Location URL" value="@item.Location">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Parameters</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="Enter parameters list">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Parameters</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" placeholder="@item.Parameters">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">OSPs</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control bs-select" multiple>
-                                            <option selected>ITI</option>
-                                            <option selected>OCC</option>
-                                        </select>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">OSPs</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control bs-select" multiple>
+                                                @foreach (var temp in item.OSPsOption)
+                                                {
+                                                    @Html.Raw(temp)
+                                                }
+                                               
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                    <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
 
 <!-- /.modal Add Schedule -->
 <div id="modalAddSchedule" class="modal fade" tabindex="-1" aria-hidden="true">
