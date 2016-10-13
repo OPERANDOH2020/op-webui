@@ -1,4 +1,4 @@
-﻿
+﻿@model Operando_AdministrationConsole.Models.Reports
 @{
     ViewBag.MenuSection = "PSP Admin";
     ViewBag.Title = "Reports (configuration)";
@@ -58,6 +58,7 @@
                                         </div>
 
                                     </div>
+
                                     <div class="row">
                                         <table class="table table-striped table-bordered table-hover order-column" id="reports_psp">
                                             <thead>
@@ -74,57 +75,21 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="odd gradeX">
-                                                    <td> Report 1 </td>
-                                                    <td> Analytics </td>
-                                                    <td> v 1.1 </td>
-                                                    <td> <a href="#">http://...</a> </td>
-                                                    <td> ?name=2 </td>
-                                                    <td> OCC, ITI </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold" data-toggle="modal" href="#modalEditJob"> Edit </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd gradeX">
-                                                    <td> Report 2 </td>
-                                                    <td> Website accesses </td>
-                                                    <td> v 1.4 </td>
-                                                    <td> <a href="#">http://...</a> </td>
-                                                    <td> ?name=2 </td>
-                                                    <td> OCC, ITI </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> Edit </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd gradeX">
-                                                    <td> Report 3 </td>
-                                                    <td> Analytics </td>
-                                                    <td> v 1.0 </td>
-                                                    <td> <a href="#">http://...</a> </td>
-                                                    <td> ?name=2 </td>
-                                                    <td> ITI </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> View </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold"> Edit </a>
-                                                    </td>
-                                                </tr>
+                                                @foreach (var item in Model.ReportList)
+                                                {
+
+                                                    <tr class="odd gradeX">
+                                                        <td>@item.Report</td>
+                                                        <td>@item.Description</td>
+                                                        <td>@item.Version</td>
+                                                        <td>@item.Location</td>
+                                                        <td>@item.Parameters</td>
+                                                        <td>@item.OSPs</td>
+                                                        <th> <a target="_blank" href="@item.Location" class="btn btn-circle btn-sm yellow-gold"> View </a> </th>
+                                                        <th> <a class="btn btn-circle btn-sm yellow-gold"> View </a> </th>
+                                                        <th> <a class="btn btn-circle btn-sm yellow-gold" data-toggle="modal" href="#modalEditJob"> Edit </a> </th>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
