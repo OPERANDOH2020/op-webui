@@ -196,6 +196,13 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="SaveReport.aspx.cs">
+      <DependentUpon>SaveReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SaveReport.aspx.designer.cs">
+      <DependentUpon>SaveReport.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\apps\css\inbox-rtl.min.css" />
@@ -5250,8 +5257,8 @@
     <Content Include="assets\pages\scripts\ui-notific8.min.js" />
     <Content Include="assets\pages\scripts\ui-session-timeout.js" />
     <Content Include="assets\pages\scripts\ui-session-timeout.min.js" />
-    <Content Include="assets\pages\scripts\ui-sweetalert.js" />
     <Content Include="assets\pages\scripts\ui-sweetalert.min.js" />
+    <Content Include="assets\pages\scripts\ui-sweetalert_operandoReportsManager.js" />
     <Content Include="assets\pages\scripts\ui-toastr.js" />
     <Content Include="assets\pages\scripts\ui-toastr.min.js" />
     <Content Include="assets\pages\scripts\ui-tree.js" />
@@ -5656,6 +5663,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SaveReport.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
