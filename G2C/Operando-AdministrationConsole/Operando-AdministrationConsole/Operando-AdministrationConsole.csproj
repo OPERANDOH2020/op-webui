@@ -187,13 +187,6 @@
     <Compile Include="Controllers\OspAdminController.cs" />
     <Compile Include="Controllers\PspAdminController.cs" />
     <Compile Include="Controllers\PspAnalystController.cs" />
-    <Compile Include="DeleteSchedule.aspx.cs">
-      <DependentUpon>DeleteSchedule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DeleteSchedule.aspx.designer.cs">
-      <DependentUpon>DeleteSchedule.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5267,7 +5260,6 @@
     <Content Include="assets\pages\scripts\widgets.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DeleteSchedule.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
