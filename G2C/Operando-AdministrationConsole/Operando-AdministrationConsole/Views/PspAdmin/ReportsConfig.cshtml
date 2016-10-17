@@ -29,7 +29,7 @@
             $.ajax({
                 async: false,
                 type: "POST",
-                url: "../../ASPXSaveAjax/SaveReport.aspx",
+                url: "../ASPXSaveAjax/SaveReport.aspx",
                 data: { ID: 0, Report: valReport, Description: valDescription, Version: valVersion, Location: valLocation, Parameters: valParameters, OSPs: valOSPs },
                 dataType: "text",
                 success: function (data) {
@@ -74,7 +74,7 @@
             $.ajax({
                 async: false,
                 type: "POST",
-                url: "../../ASPXSaveAjax/SaveReport.aspx",
+                url: "../ASPXSaveAjax/SaveReport.aspx",
                 data: { ID: valID, Report: valReport, Description: valDescription, Version: valVersion, Location: valLocation, Parameters: valParameters, OSPs: valOSPs },
                 dataType: "text",
                 success: function (data) {
@@ -130,7 +130,7 @@
             $.ajax({
                 async: false,
                 type: "POST",
-                url: "../../ASPXSaveAjax/SaveSchedule.aspx",
+                url: "../ASPXSaveAjax/SaveSchedule.aspx",
                 data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
@@ -182,7 +182,7 @@
             $.ajax({
                 async: false,
                 type: "POST",
-                url: "../../ASPXSaveAjax/SaveSchedule.aspx",
+                url: "../ASPXSaveAjax/SaveSchedule.aspx",
                 data: { ID: valID, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
@@ -236,7 +236,7 @@
         $.ajax({
             async: false,
             type: "POST",
-            url: "../../ASPXSaveAjax/SaveSchedule.aspx",
+            url: "../ASPXSaveAjax/SaveSchedule.aspx",
             data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
             dataType: "text",
             success: function (data) {
@@ -263,7 +263,7 @@
         $.ajax({
             async: false,
             type: "POST",
-            url: "../../ASPXSaveAjax/DeleteSchedule.aspx",
+            url: "../ASPXSaveAjax/DeleteSchedule.aspx",
             data: { ID: valID },
             dataType: "text",
             success: function (data) {
