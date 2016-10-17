@@ -1,9 +1,92 @@
-﻿
+﻿@model Operando_AdministrationConsole.Models.ReportManagerOSP
 @{
     ViewBag.MenuSection = "OSP Admin";
     ViewBag.Title = "Reports (subscription and download)";
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
+
+<script type="text/javascript">
+
+    function SendMailNewReport(e)
+    {
+        e.preventDefault();
+
+
+        var valName = $('#NameNewReport').val()
+        var valEmail = $('#EmailNewReport').val()
+        var valDescription = $('#SummaryNewReport').val()
+
+        if (valName.length == 0 || valEmail.lenght == 0 || valDescription.length == 0) {
+
+            alert("the fields are not are properly completed");
+
+            if (valName.length == 0) {
+
+                $("#NameNewReport").css("border", "1px solid red");
+            }
+
+            if (valEmail.length == 0) {
+                $("#EmailNewReport").css("border", "1px solid red");
+            }
+
+            if (valDescription.length == 0) {
+                $("#SummaryNewReport").css("border", "1px solid red");
+            }
+
+            if (valName.length == 0) {
+                $("#NameNewReport").focus();
+            }
+            else {
+
+                if (valEmail.length == 0) {
+                    $("#EmailNewReport").focus();
+                }
+                else {
+                    if (valDescription.length == 0) {
+                        $("#SummaryNewReport").focus();
+                    }
+                }
+            }
+
+
+
+        }
+        else {
+
+            
+
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "../../sendmailnewreport.aspx",
+                data: { name: valName, email: valEmail, description: valDescription },
+                datatype: "text",
+                success: function (data) {
+                    $('#SendMailNewReport').addClass('mt-sweetalert');
+                    $('#modalNewRequest').modal('hide');
+                    reloadSweetAlert($('#SendMailNewReport'));
+                    
+                    
+                },
+                error: function (xhr, status, error) {
+                    $('#SendMailNewReport').addClass('mt-sweetalert');
+                    $('#SendMailNewReport').removeAttr("data-title");
+                    $('#SendMailNewReport').removeAttr("data-message");
+                    $('#SendMailNewReport').removeAttr("data-type");
+                    $('#SendMailNewReport').removeAttr("data-confirm-button-class");
+                    $('#SendMailNewReport').attr("data-title", "error");
+                    $('#SendMailNewReport').attr("data-message", "Mail sending failed, please try again later");
+                    $('#SendMailNewReport').attr("data-type", "error");
+                    $('#SendMailNewReport').attr("data-confirm-button-class", "btn-error");
+                    $('#modalNewRequest').modal('hide');
+                    reloadSweetAlert($('#SendMailNewReport'));
+                }
+            });
+        }
+    }
+
+
+</script>
 
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
@@ -53,87 +136,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-30 </td>
-                                            <td> Report 1 </td>
-                                            <td> Report description </td>
-                                            <td> v.2 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-29 </td>
-                                            <td> Report 2 </td>
-                                            <td> Report description </td>
-                                            <td> v.2 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-28 </td>
-                                            <td> Report 3 </td>
-                                            <td> Report description </td>
-                                            <td> v.2 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-26 </td>
-                                            <td> Report 3 </td>
-                                            <td> Report description </td>
-                                            <td> v.3 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-20 </td>
-                                            <td> Report 1 </td>
-                                            <td> Report description </td>
-                                            <td> v.1 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-17 </td>
-                                            <td> Report 3 </td>
-                                            <td> Report description </td>
-                                            <td> v.1 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-08-26 </td>
-                                            <td> Report 1 </td>
-                                            <td> Report description </td>
-                                            <td> v.2 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-07-28 </td>
-                                            <td> Report 2 </td>
-                                            <td> Report description </td>
-                                            <td> v.1 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-26 </td>
-                                            <td> Report 2 </td>
-                                            <td> Report description </td>
-                                            <td> v.4 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
+                                        @foreach (var item in Model.resultsObj.ResultList)
+                                        {
+                                            <tr class="odd gradeX">
+                                                <td>@item.ExecutionDate</td>
+                                                <td>@item.Report</td>
+                                                <td>@item.ReportDescription</td>
+                                                <td>@item.ReportVersion</td>
+                                                <td>
+                                                    <a class="btn btn-circle btn-sm yellow-gold" target="_blank" href="../../@item.FileName">Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
+                                                </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -534,7 +548,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-user"></i>
                                                 </span>
-                                                <input type="email" class="form-control">
+                                                <input id="NameNewReport" type="email" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -547,7 +561,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-envelope"></i>
                                                 </span>
-                                                <input type="email" class="form-control">
+                                                <input id="EmailNewReport" type="email" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -556,7 +570,7 @@
                                     <label class="col-md-3 control-label">Summary of request</label>
                                     <div class="col-md-9">
                                         <div class="input-inline input-large">
-                                            <textarea class="form-control" rows="5"></textarea>
+                                            <textarea id="SummaryNewReport" class="form-control" rows="5"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -567,7 +581,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
+                <button type="button"id="SendMailNewReport" onclick="javascript: SendMailNewReport(event);" data-dismiss="hide"  class="btn yellow-gold" data-title="Success" data-message="Email sent successfully" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
             </div>
         </div>
     </div>
@@ -602,7 +616,7 @@
 
 @section PageScripts {
     <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
-    <script src="~/assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/ui-sweetalert_operandoReportsManager.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/components-bootstrap-touchspin.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/components-bootstrap-select.min.js" type="text/javascript"></script>
