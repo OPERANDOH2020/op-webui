@@ -20,7 +20,7 @@
                     <label class="col-md-4 control-label">Filter by Type</label>
                     <div class="col-md-8" style="padding-right: 0;">
                         <select class="form-control bs-select" multiple>
-                            <option selected>Denied</option>
+                            <option>Denied</option>
                             <option>Allowed</option>
                         </select>
                     </div>
@@ -40,139 +40,52 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
+                @if (String.IsNullOrEmpty(ViewBag.Error)) {
                 <tbody>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-success">
-                                <i class="fa fa-info-circle"></i>
-                            </div> <span class="hidden">ALLOWED</span>
-                        </td>
-                        <td>2016-09-20 09:47:37</td>
-                        <td>OSP 1</td>
-                        <td>Title 1</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-danger">
-                                <i class="fa fa-warning"></i>
-                            </div> <span class="hidden">DENIED</span>
-                        </td>
-                        <td>2016-08-20 09:25:37</td>
-                        <td>OSP 2</td>
-                        <td>Title 1</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-danger">
-                                <i class="fa fa-warning"></i>
-                            </div><span class="hidden">DENIED</span>
-                        </td>
-                        <td>2016-08-20 11:47:37</td>
-                        <td>OSP 1</td>
-                        <td>Title 1</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-danger">
-                                <i class="fa fa-warning"></i>
-                            </div><span class="hidden">DENIED</span>
-                        </td>
-                        <td>2016-08-20 09:47:54</td>
-                        <td>OSP 2</td>
-                        <td>Title 2</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-danger">
-                                <i class="fa fa-warning"></i>
-                            </div><span class="hidden">DENIED</span>
-                        </td>
-                        <td>2016-08-18 09:47:37</td>
-                        <td>OSP 1</td>
-                        <td>Title 2</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-success">
-                                <i class="fa fa-info-circle"></i>
-                            </div> <span class="hidden">ALLOWED</span>
-                        </td>
-                        <td>2016-08-20 09:12:37</td>
-                        <td>OSP 2</td>
-                        <td>Title 2</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-danger">
-                                <i class="fa fa-warning"></i>
-                            </div><span class="hidden">DENIED</span>
-                        </td>
-                        <td>2016-08-30 09:47:37</td>
-                        <td>OSP 2</td>
-                        <td>Title 1</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-success">
-                                <i class="fa fa-info-circle"></i>
-                            </div> <span class="hidden">ALLOWED</span>
-                        </td>
-                        <td>2016-09-20 09:47:37</td>
-                        <td>OSP 2</td>
-                        <td>Title 2</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>
-                            <div class="label label-sm label-success">
-                                <i class="fa fa-info-circle"></i>
-                            </div> <span class="hidden">ALLOWED</span>
-                        </td>
-                        <td>2016-08-20 09:47:37</td>
-                        <td>OSP 1</td>
-                        <td>Title 1</td>
-                        <td>Log for testing purpose</td>
-                        <td>
-                            <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
-                        </td>
-                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (item.logLevel == "INFO")
+                                {
+                                    <div class="label label-sm label-success">
+                                        <i class="fa fa-info-circle"></i>
+                                    </div> <span class="hidden">ALLOWED</span>
+                                }
+                                else if (item.logLevel == "WARN")
+                                {
+                                    <div class="label label-sm label-danger">
+                                        <i class="fa fa-warning"></i>
+                                    </div><span class="hidden">DENIED</span>
+                                }
+                            </td>
+                            <td>@item.logDate</td>
+                            <td>@item.requesterType - @item.requesterId</td>
+                            <td>@item.title</td>
+                            <td>@item.description</td>
+                            <td>
+                                <a class="btn btn-circle btn-sm yellow-gold"> Edit OSP Settings </a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
+                }
+                else
+                {
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="text-center">@ViewBag.Error</td>
+                        </tr>
+                    </tbody>
+                }
             </table>
         </div>
     </div>
 </div>
 <!-- END PAGE BASE CONTENT -->
+
+
+
 
 
 @section PagePluginStyles {
