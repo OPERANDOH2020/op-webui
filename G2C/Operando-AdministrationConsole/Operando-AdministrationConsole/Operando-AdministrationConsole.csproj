@@ -5113,6 +5113,7 @@
     <Content Include="assets\pages\scripts\components-bootstrap-maxlength.min.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-multiselect.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-multiselect.min.js" />
+    <Content Include="assets\pages\scripts\operando-custom-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-select-splitter.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-select-splitter.min.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-select.js" />

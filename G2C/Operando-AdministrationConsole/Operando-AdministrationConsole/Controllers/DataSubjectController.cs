@@ -38,12 +38,8 @@ namespace Operando_AdministrationConsole.Controllers
                     {
                         if (prop.Name == "logDate")
                         {
-                            //logItem.logDate = DateTime.Now;
-
                             string data = prop.Value.ToString().Replace(",",".");
                             logItem.logDate = Convert.ToDateTime(data);
-
-
                         }
                             
                         if (prop.Name == "requesterType")
