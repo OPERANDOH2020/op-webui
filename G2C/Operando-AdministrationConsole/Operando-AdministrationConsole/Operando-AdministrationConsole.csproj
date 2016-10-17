@@ -226,12 +226,6 @@
     <Compile Include="Models\ReportsOSP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="SaveReport.aspx.cs">
-      <DependentUpon>SaveReport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SaveReport.aspx.designer.cs">
-      <DependentUpon>SaveReport.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ASPXSaveAjax\DeleteSchedule.aspx" />
@@ -5696,7 +5690,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="SaveReport.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
