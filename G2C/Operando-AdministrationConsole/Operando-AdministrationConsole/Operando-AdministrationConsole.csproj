@@ -181,6 +181,34 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="ASPXSaveAjax\DeleteSchedule.aspx.cs">
+      <DependentUpon>DeleteSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\DeleteSchedule.aspx.designer.cs">
+      <DependentUpon>DeleteSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SaveReport.aspx.cs">
+      <DependentUpon>SaveReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SaveReport.aspx.designer.cs">
+      <DependentUpon>SaveReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SaveSchedule.aspx.cs">
+      <DependentUpon>SaveSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SaveSchedule.aspx.designer.cs">
+      <DependentUpon>SaveSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SendMailNewReport.aspx.cs">
+      <DependentUpon>SendMailNewReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SendMailNewReport.aspx.designer.cs">
+      <DependentUpon>SendMailNewReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataSubjectController.cs" />
@@ -206,6 +234,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ASPXSaveAjax\DeleteSchedule.aspx" />
+    <Content Include="ASPXSaveAjax\SaveReport.aspx" />
+    <Content Include="ASPXSaveAjax\SaveSchedule.aspx" />
+    <Content Include="ASPXSaveAjax\SendMailNewReport.aspx" />
     <Content Include="assets\apps\css\inbox-rtl.min.css" />
     <Content Include="assets\apps\css\inbox.css" />
     <Content Include="assets\apps\css\inbox.min.css" />
