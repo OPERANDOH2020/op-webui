@@ -42,6 +42,7 @@ namespace Operando_AdministrationConsole.Models
     {
         public int ID { get; set; }
         public string[] OSPs { get; set; }
+        public string[] OSPsOption { get; set; }
         public string Report { get; set; }
         public DateTime StartDate;
         public int RepeatEveryNumb;
@@ -54,5 +55,6 @@ namespace Operando_AdministrationConsole.Models
         public string[] StoragePeriodTypeOption { get; set; }
         public string DescriptionSchedules { get; set; }
         public List<Schedules> ScheduleList { get; set; }
+        public List<Schedules> ScheduleDetailsList { get; set; }
     }
 }

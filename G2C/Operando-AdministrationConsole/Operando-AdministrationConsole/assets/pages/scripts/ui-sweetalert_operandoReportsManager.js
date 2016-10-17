@@ -16,6 +16,7 @@ function reloadSweetAlert(myObject) {
         var sa_popupMessageCancel = myObject.attr('data-popup-message-cancel');
         var sa_confirmButtonClass = myObject.attr('data-confirm-button-class');
         var sa_cancelButtonClass = myObject.attr('data-cancel-button-class');
+        var sa_dataId = myObject.attr('data-id');
 
         myObject.click(function () {
             //console.log(sa_btnClass);

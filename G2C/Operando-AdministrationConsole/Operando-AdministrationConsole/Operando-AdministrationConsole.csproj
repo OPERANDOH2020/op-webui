@@ -199,7 +199,6 @@
     <Compile Include="Startup.cs" />
     <Compile Include="SaveReport.aspx.cs">
       <DependentUpon>SaveReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SaveReport.aspx.designer.cs">
       <DependentUpon>SaveReport.aspx</DependentUpon>
