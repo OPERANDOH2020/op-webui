@@ -58,7 +58,7 @@
             $.ajax({
                 async: false,
                 type: "post",
-                url: "../../sendmailnewreport.aspx",
+                url: "../ASPXSaveAjax/sendmailnewreport.aspx",
                 data: { name: valName, email: valEmail, description: valDescription },
                 datatype: "text",
                 success: function (data) {
