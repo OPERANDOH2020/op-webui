@@ -226,7 +226,6 @@ if (App.isAngularJsApp() === false) {
 
         });
 
-
         // on changing selected options recharge opt[]
         $("#report_scheduleList").change(function () {
             var opt = [];
