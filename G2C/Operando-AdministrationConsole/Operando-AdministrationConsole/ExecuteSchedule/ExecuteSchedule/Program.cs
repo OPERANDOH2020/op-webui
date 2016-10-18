@@ -192,9 +192,9 @@ namespace ExecuteSchedule
                             schedule.GiornoMese = 0;
 
                         if (reader.IsDBNull(15) == false)
-                            schedule.GiornoAnno = reader.GetInt32(15);
+                            schedule.GiornoAnno = reader.GetDateTime(15);
                         else
-                            schedule.GiornoAnno = 0;
+                            schedule.GiornoAnno = DateTime.MinValue;
 
                         ScheduleDetailsList.Add(schedule);
 
