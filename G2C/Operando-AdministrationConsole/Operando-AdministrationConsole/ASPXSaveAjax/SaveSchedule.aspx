@@ -71,8 +71,17 @@
 
         }
         string DescriptionSchedules = "";
-        string DayOfMonth = Request.Form["DayOfMonth"].Replace("'", "''");
-        string DayOfYear = Request.Form["DayOfYear"].Replace("'", "''");
+        string DayOfMonth = "";
+        if (Request.Form["DayOfMonth"]!=null)
+        {
+            DayOfMonth = Request.Form["DayOfMonth"].Replace("'", "''");
+        }
+        string DayOfYear = "";
+        if (Request.Form["DayOfYear"] != null)
+        {
+            DayOfYear = Request.Form["DayOfYear"].Replace("'", "''");
+        }
+        
         if (String.IsNullOrEmpty(DayOfYear))
         {
             DayOfYear = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
