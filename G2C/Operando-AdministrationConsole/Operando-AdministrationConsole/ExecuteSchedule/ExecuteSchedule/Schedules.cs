@@ -41,6 +41,8 @@ namespace ExecuteSchedule
         public DateTime StartDate;
         public DateTime Lastrun;
         public DateTime NextScheduled;
+        public int GiornoMese;
+        public DateTime GiornoAnno;
         public int RepeatEveryNumb;
         public string RepeatEveryType { get; set; }
         public string[] RepeatEveryTypeOption { get; set; }
