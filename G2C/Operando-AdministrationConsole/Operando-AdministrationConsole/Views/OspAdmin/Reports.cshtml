@@ -550,7 +550,7 @@
                                         @foreach (var item in Model.schedulesObj.ScheduleList)
                                         {
                                             <tr>
-                                                <td class="accordion-toggle" data-toggle="collapse" data-target="#@item.Report-schedule">
+                                                <td class="accordion-toggle" data-toggle="collapse" data-target="#@item.Report.Replace(" ","")-schedule">
                                                     <i class="fa fa-caret-right"></i>&nbsp;&nbsp;@item.Report
                                                 </td>
                                                 <td> @item.Description </td>
@@ -558,7 +558,7 @@
                                                 <td> @item.LastRun</td>
                                                 <td> @item.NextScheduled </td>
                                             </tr>
-                                            <tr class="active accordion-body collapse" id="@item.Report-schedule">
+                                            <tr class="active accordion-body collapse" id="@item.Report.Replace(" ","")-schedule">
                                                 <td colspan="6">
                                                     <div class="portlet light">
                                                         <div class="portlet-title">
