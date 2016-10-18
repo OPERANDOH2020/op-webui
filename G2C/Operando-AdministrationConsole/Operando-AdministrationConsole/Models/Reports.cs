@@ -44,6 +44,10 @@ namespace Operando_AdministrationConsole.Models
         public string[] OSPs { get; set; }
         public string[] OSPsOption { get; set; }
         public string Report { get; set; }
+        public string Description { get; set; }
+        public string Version { get; set; }
+        public DateTime Lastrun;
+        public DateTime NextScheduled;
         public DateTime StartDate;
         public int RepeatEveryNumb;
         public string RepeatEveryType { get; set; }

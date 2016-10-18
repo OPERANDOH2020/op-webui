@@ -163,7 +163,10 @@ namespace Operando_AdministrationConsole.Controllers
                             results.OSPs = new String[0];
 
                         if (reader.IsDBNull(6) == false)
+                        {
                             results.FileName = reader.GetString(6);
+                            results.FileName = "../reportSavePath/" + results.FileName;
+                        }
                         else
                             results.FileName = null;
 
@@ -373,6 +376,26 @@ namespace Operando_AdministrationConsole.Controllers
                             schedule.DescriptionSchedules = reader.GetString(9);
                         else
                             schedule.DescriptionSchedules = null;
+
+                        if (reader.IsDBNull(10) == false)
+                            schedule.Description = reader.GetString(10);
+                        else
+                            schedule.Description = null;
+
+                        if (reader.IsDBNull(11) == false)
+                            schedule.Version = reader.GetString(1);
+                        else
+                            schedule.Version = null;
+
+                        if (reader.IsDBNull(12) == false)
+                            schedule.Lastrun = reader.GetDateTime(12);
+                        else
+                            schedule.Lastrun = DateTime.MinValue;
+
+                        if (reader.IsDBNull(13) == false)
+                            schedule.NextScheduled = reader.GetDateTime(13);
+                        else
+                            schedule.NextScheduled = DateTime.MinValue;
 
                         reportManager.schedulesObj.ScheduleDetailsList.Add(schedule);
                     }
