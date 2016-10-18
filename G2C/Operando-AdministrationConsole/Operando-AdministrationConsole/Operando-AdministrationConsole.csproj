@@ -5113,7 +5113,6 @@
     <Content Include="assets\pages\scripts\components-bootstrap-maxlength.min.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-multiselect.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-multiselect.min.js" />
-    <Content Include="assets\pages\scripts\operando-custom-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-select-splitter.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-select-splitter.min.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-select.js" />
@@ -5210,6 +5209,8 @@
     <Content Include="assets\pages\scripts\maps-google.min.js" />
     <Content Include="assets\pages\scripts\maps-vector.js" />
     <Content Include="assets\pages\scripts\maps-vector.min.js" />
+    <Content Include="assets\pages\scripts\operando-custom-bootstrap-select.js" />
+    <Content Include="assets\pages\scripts\operando-report-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-user-table-managed.js" />
     <Content Include="assets\pages\scripts\operando-report-table-managed.js" />
     <Content Include="assets\pages\scripts\portfolio-1.js" />

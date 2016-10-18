@@ -186,6 +186,16 @@ namespace ExecuteSchedule
                         else
                             schedule.NextScheduled = DateTime.MinValue;
 
+                        if (reader.IsDBNull(14) == false)
+                            schedule.GiornoMese = reader.GetInt32(14);
+                        else
+                            schedule.GiornoMese = 0;
+
+                        if (reader.IsDBNull(15) == false)
+                            schedule.GiornoAnno = reader.GetInt32(15);
+                        else
+                            schedule.GiornoAnno = 0;
+
                         ScheduleDetailsList.Add(schedule);
 
                     }
@@ -208,33 +218,60 @@ namespace ExecuteSchedule
 
             foreach (Schedules item in ScheduleDetailsList)
             {
-                if (item.StartDate<=StartTime.Date)
+                if (item.StartDate.Date<=StartTime.Date)
                 {
-                    if (item.StartDate.Hour <= StartTime.Date.Hour)
+                    if ((item.StartDate.Hour < StartTime.Hour)
+                        || (item.StartDate.Hour == StartTime.Hour && item.StartDate.Minute <= StartTime.Minute))
                     {
-                        if (item.StartDate.Minute <= StartTime.Date.Minute)
-                        {
-                            bool execute = false;
+                        bool execute = false;
 
-                            // valuto la data di prossima schedulazione
-                            if (!(item.Lastrun==DateTime.MinValue))
+                        // valuto la data di prossima schedulazione
+                        if (!(item.Lastrun==DateTime.MinValue))
+	                    {
+                            // verifico se la data corrente è maggiore della prossima esecuzione
+                            // ossia devo eseguirla
+                            if (item.NextScheduled!=DateTime.MinValue
+                                && item.NextScheduled <= StartTime.Date)
 	                        {
-                                if (item.NextScheduled!=DateTime.MinValue
-                                    && item.NextScheduled <= StartTime.Date)
-	                            {
-                                    execute = true;
-	                            }
+                                //se deveo eseguire il report
+                                // verifico se è il giorno dell'anno
+                                if (item.GiornoAnno != DateTime.MinValue)
+                                {
+                                    if (item.GiornoAnno.Day == StartTime.Day
+                                        && item.GiornoAnno.Month == StartTime.Month)
+                                    {
+                                        execute = true;
+                                    }
+                                }
+                                // verifico se è il giorno del mese
+                                else if (item.GiornoMese>0)
+                                {
+                                    if (item.GiornoMese == StartTime.Day)
+                                    {
+                                        execute = true;
+                                    }
+                                }
+                                // altrimento eseguo
                                 else
                                 {
-                                    continue;
+                                    execute = true;
                                 }
-                            }
+	                        }
                             else
                             {
-                                execute = true;
+                                continue;
                             }
+                        }
+                        else
+                        {
+                            execute = true;
+                        }
 
-                            if (item.DayOfWeek.Length>0)
+                        //se sono autorizzato ad eseguire ossia è il giorno previsto.
+                        // verifico se è il giorno della settimana scelto
+                        if (execute)
+                        {
+                            if (item.DayOfWeek.Length > 0)
                             {
                                 String[] dayOfWeek = item.DayOfWeek;
                                 foreach (String dayof in dayOfWeek)
@@ -298,16 +335,17 @@ namespace ExecuteSchedule
                                 execute = true;
                             }
 
+                            // se sono autorizzato ad eseguire
                             if (execute)
                             {
                                 foreach (Reports report in ReportList)
-	                            {
-		                            if (report.Report==item.Report)
-	                                {
+                                {
+                                    if (report.Report == item.Report)
+                                    {
                                         ExecuteScheduleReport(item, report, StartTime);
                                         break;
-	                                }
-	                            }
+                                    }
+                                }
                             }
                         }
                     }
@@ -325,8 +363,11 @@ namespace ExecuteSchedule
             {
                 client.DownloadFile(url, filePath + "\\" + fileName );
             }
+            // aggiorno la data di prossima esecuzione
             SaveNextScheduled(item, report, StartTime);
+            // salvo nel db il result
             SaveResult(item, report, StartTime, fileName);
+            // rimuovo i vecchi file
             RemoveOldFile(item, report, StartTime);
         }
 
