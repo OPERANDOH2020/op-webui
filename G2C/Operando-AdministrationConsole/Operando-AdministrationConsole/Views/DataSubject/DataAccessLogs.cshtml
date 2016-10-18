@@ -19,9 +19,9 @@
                 <form class="form-horizontal">
                     <label class="col-md-4 control-label">Filter by Type</label>
                     <div class="col-md-8" style="padding-right: 0;">
-                        <select class="form-control bs-select" multiple>
-                            <option>Denied</option>
-                            <option>Allowed</option>
+                        <select class="form-control bs-select" id="user-log-type-select" multiple>
+                            <option value="0" selected>Denied</option>
+                            <option value="1">Allowed</option>
                         </select>
                     </div>
 
@@ -44,7 +44,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr class="@item.logLevel">
                             <td>
                                 @if (item.logLevel == "INFO")
                                 {
@@ -106,6 +106,6 @@
 }
 
 @section PageScripts {
-<script src="~/assets/pages/scripts/components-bootstrap-select.js" type="text/javascript"></script>
+<script src="~/assets/pages/scripts/operando-custom-bootstrap-select.js" type="text/javascript"></script>
 <script src="~/assets/pages/scripts/operando-user-table-managed.js" type="text/javascript"></script> 
 }

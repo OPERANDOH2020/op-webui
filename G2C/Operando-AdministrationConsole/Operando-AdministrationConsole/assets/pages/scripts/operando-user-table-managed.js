@@ -76,11 +76,10 @@ var TableDatatablesManaged = function () {
                 //    "searchable": true,
                 //    "targets": [0]
                 //},
-                //{
-                //    "type": "date",
-                //    "searchable": false,
-                //    "targets": [4]
-                //},
+                {
+                    "type": "date",
+                    "targets": [1]
+                },
                 {
                     
                     "className": "dt-center", 
