@@ -20,6 +20,27 @@
             DayOfWeek = Request.Form["DayOfWeek"].Replace("'", "''").Remove(0, 1);
         }
         string DescriptionSchedules = "";
+        String NextScheduled = "";
+        DateTime NextScheduledDate = new DateTime();
+        switch (RepeatEveryType)
+        {
+            case "DAY(s)":
+                NextScheduledDate = Convert.ToDateTime(StartDate).AddDays(Convert.ToInt32(RepeatEveryNumb));
+                break;
+            case "WEEK(s)":
+                NextScheduledDate = Convert.ToDateTime(StartDate).AddDays(Convert.ToInt32(RepeatEveryNumb) * 7);
+                break;
+            case "MONTH(s)":
+                NextScheduledDate = Convert.ToDateTime(StartDate).AddMonths(Convert.ToInt32(RepeatEveryNumb));
+                break;
+            case "YEAR(s)":
+                NextScheduledDate = Convert.ToDateTime(StartDate).AddYears(Convert.ToInt32(RepeatEveryNumb));
+                break;
+            default:
+                break;
+        }
+        NextScheduled = NextScheduledDate.ToString("yyyy-MM-dd HH:mm:ss");
+        
         
         MySqlConnection connection = new MySqlConnection();
         connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
@@ -30,11 +51,11 @@
 
         if (ID=="0")
         {
-            cmd.CommandText = "INSERT INTO t_report_mng_schedules(OSPs, Report, StartDate, RepeatEveryNumb, RepeatEveryType, DayOfWeek, StoragePeriodNumb, StoragePeriodType, DescriptionSchedules) VALUES ('" + OSPs + "','" + Report + "', '" + StartDate + "','" + RepeatEveryNumb + "','" + RepeatEveryType + "','" + DayOfWeek + "','" + StoragePeriodNumb + "','" + StoragePeriodType + "','" + DescriptionSchedules + "')";
+            cmd.CommandText = "INSERT INTO t_report_mng_schedules(OSPs, Report, StartDate, RepeatEveryNumb, RepeatEveryType, DayOfWeek, StoragePeriodNumb, StoragePeriodType, DescriptionSchedules,NextScheduled,Lastrun) VALUES ('" + OSPs + "','" + Report + "', '" + StartDate + "','" + RepeatEveryNumb + "','" + RepeatEveryType + "','" + DayOfWeek + "','" + StoragePeriodNumb + "','" + StoragePeriodType + "','" + DescriptionSchedules + "','" + NextScheduled + "',null)";
         }
         else
         {
-            cmd.CommandText = "UPDATE t_report_mng_schedules SET OSPs='" + OSPs + "',Report='" + Report + "',StartDate='" + StartDate + "',RepeatEveryNumb='" + RepeatEveryNumb + "',RepeatEveryType='" + RepeatEveryType + "',DayOfWeek='" + DayOfWeek + "',StoragePeriodNumb='" + StoragePeriodNumb + "',StoragePeriodType='" + StoragePeriodType + "',DescriptionSchedules='" + DescriptionSchedules + "' WHERE ID=" + ID;
+            cmd.CommandText = "UPDATE t_report_mng_schedules SET OSPs='" + OSPs + "',Report='" + Report + "',StartDate='" + StartDate + "',RepeatEveryNumb='" + RepeatEveryNumb + "',RepeatEveryType='" + RepeatEveryType + "',DayOfWeek='" + DayOfWeek + "',StoragePeriodNumb='" + StoragePeriodNumb + "',StoragePeriodType='" + StoragePeriodType + "',DescriptionSchedules='" + DescriptionSchedules + "',NextScheduled='" + NextScheduled + "' WHERE ID=" + ID;
         }
 
         cmd.ExecuteNonQuery();

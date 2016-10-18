@@ -189,7 +189,6 @@ D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-Administra
 D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\bin\it\Microsoft.Owin.Security.Google.resources.dll
 D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\bin\it\Microsoft.Owin.Security.Twitter.resources.dll
 D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\bin\it\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.csprojResolveAssemblyReference.cache
 D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.dll
 D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.pdb
 D:\template_siti\Unione Europea\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\bin\roslyn\csc.exe
@@ -291,3 +290,4 @@ D:\template_siti\Unione Europea\op-webui\G2C\Operando-AdministrationConsole\Oper
 D:\template_siti\Unione Europea\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.dll
 D:\template_siti\Unione Europea\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.pdb
 D:\template_siti\Unione Europea\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.csprojResolveAssemblyReference.cache
+D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\obj\Debug\Operando-AdministrationConsole.csprojResolveAssemblyReference.cache

@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Operando_AdministrationConsole.Models
+namespace ExecuteSchedule
 {
-    public class ReportManager
-    {
-        public Reports reportsObj;
-        public Results resultsObj;
-        public Schedules schedulesObj; 
-    }
 
     public class Reports
     {
@@ -37,18 +32,15 @@ namespace Operando_AdministrationConsole.Models
         public List<Results> ResultList { get; set; }
     }
 
-
     public class Schedules
     {
         public int ID { get; set; }
         public string[] OSPs { get; set; }
         public string[] OSPsOption { get; set; }
         public string Report { get; set; }
-        public string Description { get; set; }
-        public string Version { get; set; }
+        public DateTime StartDate;
         public DateTime Lastrun;
         public DateTime NextScheduled;
-        public DateTime StartDate;
         public int RepeatEveryNumb;
         public string RepeatEveryType { get; set; }
         public string[] RepeatEveryTypeOption { get; set; }

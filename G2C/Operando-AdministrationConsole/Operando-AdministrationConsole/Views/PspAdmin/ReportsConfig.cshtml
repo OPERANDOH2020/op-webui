@@ -431,7 +431,7 @@
                                                             }
                                                         </td>
                                                         <td>
-                                                            <a target="_blank" href="../../@item.FileName" class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                            <a target="_blank" href="@item.FileName" class="btn btn-circle btn-sm yellow-gold"> View </a>
                                                         </td>
                                                 </tr>
                                                 }
@@ -491,7 +491,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;</th>
-                                                    <th>Report</th>
+                                                    <th>Report</th>                                                 
                                                     <th style="min-width: 90px;">Actions</th>
                                                 </tr>
                                             </thead>
@@ -500,18 +500,18 @@
                                                 {
 
                                                     <tr class="odd gradeX">
-                                                        <td class="accordion-toggle" data-toggle="collapse" data-target="#@item.Report-schedule">
+                                                        <td class="accordion-toggle" data-toggle="collapse" data-target="#@item.Report.Replace("'", "_").Replace(" ", "_")-schedule">
                                                             <i class="fa fa-plus"></i>
                                                         </td>
                                                         <td>@item.Report</td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <button type="button" class="btn btn-outline yellow-gold btn-sm" data-toggle="collapse" data-target="#@item.Report.Replace("'","_")-schedule">Details</button>
+                                                                <button type="button" class="btn btn-outline yellow-gold btn-sm" data-toggle="collapse" data-target="#@item.Report.Replace("'", "_").Replace(" ", "_")-schedule">Details</button>
                                                             </div>
                                                         </td>
                                                     </tr>
 
-                                                    <tr class="active accordion-body collapse" id="@item.Report.Replace("'", "_")-schedule">
+                                                    <tr class="active accordion-body collapse" id="@item.Report.Replace("'", "_").Replace(" ", "_")-schedule">
                                                     <td colspan="8">
                                                         <div class="portlet light">
                                                             <div class="portlet-title">
@@ -519,8 +519,7 @@
                                                                     <span class="caption-subject font-dark bold uppercase">Schedule</span>
                                                                 </div>
                                                                 <div class="actions">
-                                                                    
-                                                                    <button type="button" class="btn btn-circle yellow-gold" data-toggle="modal" href="#modalAddScheduleDet_@item.Report.Replace("'", "_")"> Add <i class="fa fa-plus"></i></button>
+                                                                    <button type="button" class="btn btn-circle yellow-gold" data-toggle="modal" href="#modalAddScheduleDet_@item.Report.Replace("'", "_").Replace(" ", "_")"> Add <i class="fa fa-plus"></i></button>
                                                                 </div>
                                                             </div>
                                                             <div class="portlet-body">
@@ -532,6 +531,8 @@
                                                                             <th>Run every</th>
                                                                             <th>On</th>
                                                                             <th>Storage period</th>
+                                                                            <th>Lastrun</th>
+                                                                            <th>NextScheduled</th> 
                                                                             <th style="width: 125px;">Actions</th>
                                                                         </tr>
                                                                     </thead>
@@ -559,8 +560,9 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         @details.StoragePeriodNumb -&nbsp; @details.StoragePeriodType
-                                                                                
                                                                                     </td>
+                                                                                    <th>@details.Lastrun</th>
+                                                                                    <th>@details.NextScheduled</th> 
                                                                                     <td>
                                                                                         <div class="btn-group btn-group-circle">
                                                                                             <!-- <button type="button" class="btn btn-outline green btn-sm">Edit</button>-->
@@ -953,7 +955,7 @@
 <!-- /.modal Add Details Schedule -->
 @foreach (var item in Model.schedulesObj.ScheduleList)
 {
-    <div id="modalAddScheduleDet_@item.Report.Replace("'", "_")" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div id="modalAddScheduleDet_@item.Report.Replace("'", "_").Replace(" ", "_")" class="modal fade" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -968,13 +970,13 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Report</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="Report_addSch_@item.Report.Replace("'", "_")" class="form-control" value="@item.Report" readonly>
+                                            <input type="text" id="Report_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" value="@item.Report" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">OSPs</label>
                                         <div class="col-md-9">
-                                            <select id="OSPs_addSch_@item.Report.Replace("'", "_")" class="form-control bs-select" multiple>
+                                            <select id="OSPs_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control bs-select" multiple>
                                                 @foreach (var tmp in item.OSPsOption)
                                                 {
                                                     @Html.Raw(tmp)
@@ -986,7 +988,7 @@
                                         <label class="col-md-3 control-label">Start date</label>
                                         <div class="col-md-9">
                                             <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                                <input type="text" id="StartDate_addSch_@item.Report.Replace("'", "_")" class="form-control" readonly>
+                                                <input type="text" id="StartDate_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" readonly>
                                                 <span class="input-group-btn">
                                                     <button class="btn default" type="button">
                                                         <i class="fa fa-calendar"></i>
@@ -1000,10 +1002,10 @@
                                         <div class="col-md-9">
                                             <div class="input-group">
                                                 <div class="col-md-6">
-                                                    <input class="touchspin_default" id="RepeatEveryNumb_addSch_@item.Report.Replace("'", "_")" type="text"  name=" number">
+                                                    <input class="touchspin_default" id="RepeatEveryNumb_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" type="text"  name=" number">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <select id="RepeatEveryType_addSch_@item.Report.Replace("'", "_")" class="form-control">
+                                                    <select id="RepeatEveryType_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control">
                                                         @foreach (var tmp in item.RepeatEveryTypeOption)
                                                         {
                                                             @Html.Raw(tmp)
@@ -1017,7 +1019,7 @@
                                         <label class="col-md-3 control-label">On</label>
                                         <div class="col-md-9">
                                             <div class="input-group">
-                                                <select id="DayOfWeek_addSch_@item.Report.Replace("'", "_")" class="bs-select form-control" multiple>
+                                                <select id="DayOfWeek_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="bs-select form-control" multiple>
                                                     @foreach (var tmp in item.DayOfWeekOption)
                                                     {
                                                         @Html.Raw(tmp)
@@ -1031,10 +1033,10 @@
                                         <div class="col-md-9">
                                             <div class="input-group">
                                                 <div class="col-md-6">
-                                                    <input id="StoragePeriodNumb_addSch_@item.Report.Replace("'", "_")" class="touchspin_default" type="text" name="number">
+                                                    <input id="StoragePeriodNumb_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="touchspin_default" type="text" name="number">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <select id="StoragePeriodType_addSch_@item.Report.Replace("'", "_")" class=" form-control">
+                                                    <select id="StoragePeriodType_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class=" form-control">
                                                         @foreach (var tmp in item.StoragePeriodTypeOption)
                                                         {
                                                             @Html.Raw(tmp)
@@ -1051,7 +1053,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                    <button type="button" id="button_addSch_@item.Report.Replace("'", "_")" onclick="javascript:salvaScheduleDetail('@item.Report.Replace("'", "_")');" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
+                    <button type="button" id="button_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" onclick="javascript:salvaScheduleDetail('@item.Report.Replace("'", "_").Replace(" ", "_")');" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
                 </div>
             </div>
         </div>
