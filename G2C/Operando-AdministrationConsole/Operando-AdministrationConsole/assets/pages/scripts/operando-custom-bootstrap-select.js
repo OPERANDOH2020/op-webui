@@ -28,7 +28,7 @@ if (App.isAngularJsApp() === false) {
 
         // opt[] is the array containing the list of selected options
         var opt = [];
-        $('.bs-select :selected').each(function (i, selected) {
+        $('#user-log-type-select :selected').each(function (i, selected) {
             opt[i] = $(selected).text();
         });
 
@@ -39,7 +39,7 @@ if (App.isAngularJsApp() === false) {
             if (opt[i] == "Allowed")
                 allowed = true;
             if (opt[i] == "Denied")
-                allowed == false;
+                denied == true;
         });
 
         if (allowed) {
@@ -53,7 +53,7 @@ if (App.isAngularJsApp() === false) {
         else $('tr.WARN').removeClass('visible').addClass('hidden');
 
         // on changing selected options recharge opt[]
-        $(".bs-select").change(function () {
+        $("#user-log-type-select").change(function () {
             var opt = [];
             $('#user-log-type-select :selected').each(function (i, selected) {
                 opt[i] = $(selected).text();
@@ -66,7 +66,7 @@ if (App.isAngularJsApp() === false) {
                 if (opt[i] == "Allowed")
                     allowed = true;
                 if (opt[i] == "Denied")
-                    allowed == false;
+                    denied == true;
             });
 
             if (allowed) {
