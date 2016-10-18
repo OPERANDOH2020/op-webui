@@ -219,6 +219,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataAccessLog.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -5208,6 +5209,8 @@
     <Content Include="assets\pages\scripts\maps-google.min.js" />
     <Content Include="assets\pages\scripts\maps-vector.js" />
     <Content Include="assets\pages\scripts\maps-vector.min.js" />
+    <Content Include="assets\pages\scripts\operando-custom-bootstrap-select.js" />
+    <Content Include="assets\pages\scripts\operando-report-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-user-table-managed.js" />
     <Content Include="assets\pages\scripts\operando-report-table-managed.js" />
     <Content Include="assets\pages\scripts\portfolio-1.js" />
