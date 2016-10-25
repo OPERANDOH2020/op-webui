@@ -5741,6 +5741,8 @@
     <Content Include="Views\OspAdmin\BigDataAnalytics.cshtml" />
     <Content Include="Views\PspAnalyst\BigDataAnalyticsConfig.cshtml" />
     <Content Include="Views\PspAdmin\ReportsConfig.cshtml" />
+    <Content Include="Views\Access\ResetPassword.cshtml" />
+    <Content Include="Views\Access\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
