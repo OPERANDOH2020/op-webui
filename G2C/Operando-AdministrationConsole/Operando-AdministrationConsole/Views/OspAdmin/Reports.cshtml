@@ -49,7 +49,16 @@
             }
 
 
-
+            $('#SendMailNewReport').addClass('mt-sweetalert');
+            $('#SendMailNewReport').removeAttr("data-title");
+            $('#SendMailNewReport').removeAttr("data-message");
+            $('#SendMailNewReport').removeAttr("data-type");
+            $('#SendMailNewReport').removeAttr("data-confirm-button-class");
+            $('#SendMailNewReport').attr("data-title", "error");
+            $('#SendMailNewReport').attr("data-message", "Mail sending failed, please try again later");
+            $('#SendMailNewReport').attr("data-type", "error");
+            $('#SendMailNewReport').attr("data-confirm-button-class", "btn-error");
+            reloadSweetAlert($('#SendMailNewReport'));
         }
         else {
 
@@ -64,10 +73,16 @@
                 success: function (data) {
                     window.location.href = "#tab_1_1";
                     $('#SendMailNewReport').addClass('mt-sweetalert');
+                    $('#SendMailNewReport').removeAttr("data-title");
+                    $('#SendMailNewReport').removeAttr("data-message");
+                    $('#SendMailNewReport').removeAttr("data-type");
+                    $('#SendMailNewReport').removeAttr("data-confirm-button-class");
+                    $('#SendMailNewReport').attr("data-title", "success");
+                    $('#SendMailNewReport').attr("data-message", "Email sent successfully");
+                    $('#SendMailNewReport').attr("data-type", "success");
+                    $('#SendMailNewReport').attr("data-confirm-button-class", "btn-success");
                     $('#modalNewRequest').modal('hide');
                     reloadSweetAlert($('#SendMailNewReport'));
-
-
                 },
                 error: function (xhr, status, error) {
                     $('#SendMailNewReport').addClass('mt-sweetalert');
