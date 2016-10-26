@@ -1,0 +1,6 @@
+D:\template_siti\PDI Tool\WriteDataSetToXSD\WriteDataSetToXSD\bin\Debug\WriteDataSetToXSD.exe.config
+D:\template_siti\PDI Tool\WriteDataSetToXSD\WriteDataSetToXSD\bin\Debug\WriteDataSetToXSD.exe
+D:\template_siti\PDI Tool\WriteDataSetToXSD\WriteDataSetToXSD\bin\Debug\WriteDataSetToXSD.pdb
+D:\template_siti\PDI Tool\WriteDataSetToXSD\WriteDataSetToXSD\obj\Debug\WriteDataSetToXSD.csprojResolveAssemblyReference.cache
+D:\template_siti\PDI Tool\WriteDataSetToXSD\WriteDataSetToXSD\obj\Debug\WriteDataSetToXSD.exe
+D:\template_siti\PDI Tool\WriteDataSetToXSD\WriteDataSetToXSD\obj\Debug\WriteDataSetToXSD.pdb
