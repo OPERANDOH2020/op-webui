@@ -9,7 +9,8 @@ namespace Operando_AdministrationConsole.Models
     {
         public Reports reportsObj;
         public Results resultsObj;
-        public Schedules schedulesObj; 
+        public Schedules schedulesObj;
+        public Reports reportsObjNotScheduled;
     }
 
     public class Reports

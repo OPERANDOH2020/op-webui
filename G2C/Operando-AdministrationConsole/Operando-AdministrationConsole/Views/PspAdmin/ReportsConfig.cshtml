@@ -33,7 +33,7 @@
                 data: { ID: 0, Report: valReport, Description: valDescription, Version: valVersion, Location: valLocation, Parameters: valParameters, OSPs: valOSPs },
                 dataType: "text",
                 success: function (data) {
-
+                    window.location.href +="#tab_1_1";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -78,7 +78,7 @@
                 data: { ID: valID, Report: valReport, Description: valDescription, Version: valVersion, Location: valLocation, Parameters: valParameters, OSPs: valOSPs },
                 dataType: "text",
                 success: function (data) {
-
+                    window.location.href +="#tab_1_1";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -134,7 +134,7 @@
                 data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
-
+                    window.location.href +="#tab_1_3";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -186,7 +186,7 @@
                 data: { ID: valID, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
-
+                    window.location.href +="#tab_1_3";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -501,7 +501,9 @@
                                                 <tr>
                                                     <th>&nbsp;</th>
                                                     <th>Report</th>
-                                                    <th style="min-width: 90px;">Actions</th>
+                                                    <th>Lastrun</th>
+                                                    <th>NextScheduled</th>
+                                                    <th style="min-width: 90px;"> &nbsp;</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -513,10 +515,10 @@
                                                             <i class="fa fa-plus"></i>
                                                         </td>
                                                         <td>@item.Report</td>
+                                                        <td>@item.Lastrun</td>
+                                                        <td>@item.NextScheduled</td>
                                                         <td>
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-outline yellow-gold btn-sm" data-toggle="collapse" data-target="#@item.Report.Replace("'", "_").Replace(" ", "_")-schedule">Details</button>
-                                                            </div>
+                                                            &nbsp;
                                                         </td>
                                                     </tr>
 
@@ -527,9 +529,9 @@
                                                                     <div class="caption">
                                                                         <span class="caption-subject font-dark bold uppercase">Schedule</span>
                                                                     </div>
-                                                                    <div class="actions">
+                                                                    <!-- <div class="actions">
                                                                         <button type="button" class="btn btn-circle yellow-gold" data-toggle="modal" href="#modalAddScheduleDet_@item.Report.Replace("'", "_").Replace(" ", "_")"> Add <i class="fa fa-plus"></i></button>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                                 <div class="portlet-body">
                                                                     <table class="table table-bordered table-striped" id="schedule_report_psp">
@@ -882,7 +884,7 @@
                                     <label class="col-md-3 control-label">Report</label>
                                     <div class="col-md-9">
                                         <select id="Report_addSch" class="form-control bs-select">
-                                            @foreach (var item in Model.reportsObj.ReportList)
+                                            @foreach (var item in Model.reportsObjNotScheduled.ReportList)
                                             {
                                                 <option> @item.Report</option>
                                             }
