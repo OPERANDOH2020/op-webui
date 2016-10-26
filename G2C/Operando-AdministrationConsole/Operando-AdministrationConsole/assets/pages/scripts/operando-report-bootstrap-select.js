@@ -142,7 +142,7 @@ if (App.isAngularJsApp() === false) {
 
         });
 
-        //results schedule
+        //schedule tab
 
         // opt[] is the array containing the list of selected options
         var opt = [];
@@ -166,9 +166,7 @@ if (App.isAngularJsApp() === false) {
                 this.classList.add('hidden');
                 this.classList.remove('visible');
             }
-
         });
-
 
         // on changing selected options recharge opt[]
         $("#schedule-ospsoption-select").change(function () {
@@ -195,11 +193,9 @@ if (App.isAngularJsApp() === false) {
                 }
 
             });
-
         });
 
         // ddl report in schedule
-
 
         // opt[] is the array containing the list of selected options
         var opt = [];
