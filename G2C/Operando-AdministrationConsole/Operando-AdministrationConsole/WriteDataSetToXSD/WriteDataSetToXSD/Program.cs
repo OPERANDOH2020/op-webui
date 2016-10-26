@@ -29,7 +29,7 @@ namespace WriteDataSetToXSD
             dtadd.Fill(mydt, "T_report_mng_schedules");
             dtadd.SelectCommand.CommandText = "select * from T_report_mng_results ";
             dtadd.Fill(mydt, "T_report_mng_results");
-
+             
 
             String nomeFileg = AppDomain.CurrentDomain.BaseDirectory + "\\Schema_XSD_Report_MNG_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "" + DateTime.Now.Minute + ".log";
             mydt.WriteXmlSchema(nomeFileg);

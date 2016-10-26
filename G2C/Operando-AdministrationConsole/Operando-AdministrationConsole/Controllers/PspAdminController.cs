@@ -314,7 +314,7 @@ namespace Operando_AdministrationConsole.Controllers
                         {
                             schedule.RepeatEveryTypeOption[i] = "<option >" + schedule.RepeatEveryTypeOption[i] + "</option>";
                         }
-
+                         
                         schedule.DayOfWeekOption = "Mon-Tue-Wed-Thu-Fri-Sat-Sun".Split('-');
 
                         for (int i = 0; i < schedule.DayOfWeekOption.Length; i++)
