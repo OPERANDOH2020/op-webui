@@ -6,6 +6,24 @@
 }
 <script type="text/javascript">
 
+    window.onload = function () {
+        var tabToOpen = getParameterByName("indent", location.href);
+        $('#' + tabToOpen).show();
+    };
+
+
+    function getParameterByName(name, url) {
+        if (!url) {
+            url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
     function salvaReport(valID)
     {
         if (valID == null) {
@@ -186,7 +204,7 @@
                 data: { ID: valID, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href ="#tab_1_3";
+                    window.location.href = "?indent=" + valReport + "-schedule#tab_1_3";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -240,7 +258,7 @@
             data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
             dataType: "text",
             success: function (data) {
-                window.location.href = "#tab_1_3";
+                window.location.href = "?indent=" + valReport + "-schedule#tab_1_3";
                 //var risposta = JSON.parse(data);
             },
             error: function (xhr, status) {
@@ -1401,6 +1419,7 @@
         </div>
     </div>
 }
+
 
 
 
