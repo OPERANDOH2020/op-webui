@@ -1070,30 +1070,36 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Report</label>
                                     <div class="col-md-9">
-                                        <input type="text" id="Report_Sch_@item.ID" class="form-control" value="@item.Report" readonly>
+                                        <div class="col-md-12">
+                                            <input type="text" id="Report_Sch_@item.ID" class="form-control" value="@item.Report" readonly>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">OSPs</label>
                                     <div class="col-md-9">
-                                        <select id="OSPs_Sch_@item.ID" class="form-control bs-select" multiple>
-                                            @foreach (var tmp in item.OSPsOption)
-                                            {
-                                                @Html.Raw(tmp)
-                                            }
-                                        </select>
+                                        <div class="col-md-12">
+                                            <select id="OSPs_Sch_@item.ID" class="form-control bs-select" multiple>
+                                                @foreach (var tmp in item.OSPsOption)
+                                                {
+                                                    @Html.Raw(tmp)
+                                                }
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Start date</label>
                                     <div class="col-md-9">
-                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <input type="text" id="StartDate_Sch_@item.ID" class="form-control" value="@item.StartDate" readonly>
-                                            <span class="input-group-btn">
-                                                <button class="btn default" type="button">
-                                                    <i class="fa fa-calendar"></i>
-                                                </button>
-                                            </span>
+                                        <div class="col-md-12">
+                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                <input type="text" id="StartDate_Sch_@item.ID" class="form-control" value="@item.StartDate" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1118,13 +1124,15 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">On</label>
                                     <div class="col-md-9">
-                                        <div class="input-group">
-                                            <select id="DayOfWeek_Sch_@item.ID" class="bs-select form-control" multiple>
-                                                @foreach (var tmp in item.DayOfWeekOption)
-                                                {
-                                                    @Html.Raw(tmp)
-                                                }
-                                            </select>
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <select id="DayOfWeek_Sch_@item.ID" class="bs-select form-control" multiple>
+                                                    @foreach (var tmp in item.DayOfWeekOption)
+                                                    {
+                                                        @Html.Raw(tmp)
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1176,35 +1184,41 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">OSPs</label>
                                     <div class="col-md-9">
-                                        <select id="OSPs_addSch" class="form-control bs-select" multiple>
-                                            @foreach (var tmp in Model.reportsObj.ReportList[0].OSPsOption)
-                                            {
-                                                @Html.Raw(tmp)
-                                            }
-                                        </select>
+                                        <div class="col-md-12">
+                                            <select id="OSPs_addSch" class="form-control bs-select" multiple>
+                                                @foreach (var tmp in Model.reportsObj.ReportList[0].OSPsOption)
+                                                {
+                                                    @Html.Raw(tmp)
+                                                }
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Report</label>
                                     <div class="col-md-9">
-                                        <select id="Report_addSch" class="form-control bs-select">
-                                            @foreach (var item in Model.reportsObjNotScheduled.ReportList)
-                                            {
-                                                <option> @item.Report</option>
-                                            }
-                                        </select>
+                                        <div class="col-md-12">
+                                            <select id="Report_addSch" class="form-control bs-select">
+                                                @foreach (var item in Model.reportsObjNotScheduled.ReportList)
+                                                {
+                                                    <option> @item.Report</option>
+                                                }
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Start date</label>
                                     <div class="col-md-9">
-                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <input type="text" id="StartDate_addSch" class="form-control" readonly>
-                                            <span class="input-group-btn">
-                                                <button class="btn default" type="button">
-                                                    <i class="fa fa-calendar"></i>
-                                                </button>
-                                            </span>
+                                        <div class="col-md-12">
+                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                <input type="text" id="StartDate_addSch" class="form-control" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1229,13 +1243,15 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">On</label>
                                     <div class="col-md-9">
-                                        <div class="input-group">
-                                            <select id="DayOfWeek_addSch" class="bs-select form-control" multiple>
-                                                @foreach (var tmp in Model.schedulesObj.ScheduleDetailsList[0].DayOfWeekOption)
-                                                {
-                                                    @Html.Raw(tmp)
-                                                }
-                                            </select>
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <select id="DayOfWeek_addSch" class="bs-select form-control" multiple>
+                                                    @foreach (var tmp in Model.schedulesObj.ScheduleDetailsList[0].DayOfWeekOption)
+                                                    {
+                                                        @Html.Raw(tmp)
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1288,30 +1304,36 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Report</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="Report_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" value="@item.Report" readonly>
+                                            <div class="col-md-12">
+                                                <input type="text" id="Report_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" value="@item.Report" readonly>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">OSPs</label>
                                         <div class="col-md-9">
-                                            <select id="OSPs_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control bs-select" multiple>
-                                                @foreach (var tmp in item.OSPsOption)
-                                                {
-                                                    @Html.Raw(tmp)
-                                                }
-                                            </select>
+                                            <div class="col-md-12">
+                                                <select id="OSPs_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control bs-select" multiple>
+                                                    @foreach (var tmp in item.OSPsOption)
+                                                    {
+                                                        @Html.Raw(tmp)
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Start date</label>
                                         <div class="col-md-9">
-                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                                <input type="text" id="StartDate_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" readonly>
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </button>
-                                                </span>
+                                            <div class="col-md-12">
+                                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <input type="text" id="StartDate_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" readonly>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1336,13 +1358,15 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">On</label>
                                         <div class="col-md-9">
-                                            <div class="input-group">
-                                                <select id="DayOfWeek_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="bs-select form-control" multiple>
-                                                    @foreach (var tmp in item.DayOfWeekOption)
-                                                    {
-                                                        @Html.Raw(tmp)
-                                                    }
-                                                </select>
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <select id="DayOfWeek_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="bs-select form-control" multiple>
+                                                        @foreach (var tmp in item.DayOfWeekOption)
+                                                        {
+                                                            @Html.Raw(tmp)
+                                                        }
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
