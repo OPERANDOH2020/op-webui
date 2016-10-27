@@ -14,6 +14,16 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        public ActionResult Registration()
+        {
+            return View();
+        }
+
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
         public ActionResult Lock()
         {
             return View();

@@ -23,13 +23,18 @@
         if (ID=="0")
         {
             cmd.CommandText = "INSERT INTO t_report_mng_list (Report, Description, Version, Location, Parameters, OSPs) VALUES ('" + Report + "','" + Description + "','" + Version + "','" + Location + "','" + Parameters + "','" + OSPs + "')";
+            cmd.ExecuteNonQuery();
         }
         else
         {
             cmd.CommandText = "UPDATE t_report_mng_list SET Report='" + Report + "',Description='" + Description + "',Version='" + Version + "',Location='" + Location + "',Parameters='" + Parameters + "',OSPs='" + OSPs + "' WHERE ID= " + ID;
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = "UPDATE t_report_mng_results R SET R.Report='" + Report + "' WHERE IDreport= " + ID;
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = "UPDATE t_report_mng_schedules R SET R.Report='" + Report + "' WHERE IDreport= " + ID;
+            cmd.ExecuteNonQuery();
         }
 
-        cmd.ExecuteNonQuery();
         connection.Close();
     }
 

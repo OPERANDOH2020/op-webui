@@ -181,6 +181,34 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="ASPXSaveAjax\DeleteSchedule.aspx.cs">
+      <DependentUpon>DeleteSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\DeleteSchedule.aspx.designer.cs">
+      <DependentUpon>DeleteSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SaveReport.aspx.cs">
+      <DependentUpon>SaveReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SaveReport.aspx.designer.cs">
+      <DependentUpon>SaveReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SaveSchedule.aspx.cs">
+      <DependentUpon>SaveSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SaveSchedule.aspx.designer.cs">
+      <DependentUpon>SaveSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SendMailNewReport.aspx.cs">
+      <DependentUpon>SendMailNewReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ASPXSaveAjax\SendMailNewReport.aspx.designer.cs">
+      <DependentUpon>SendMailNewReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataSubjectController.cs" />
@@ -191,20 +219,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataAccessLog.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ReportsOSP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="SaveReport.aspx.cs">
-      <DependentUpon>SaveReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SaveReport.aspx.designer.cs">
-      <DependentUpon>SaveReport.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ASPXSaveAjax\DeleteSchedule.aspx" />
+    <Content Include="ASPXSaveAjax\SaveReport.aspx" />
+    <Content Include="ASPXSaveAjax\SaveSchedule.aspx" />
+    <Content Include="ASPXSaveAjax\SendMailNewReport.aspx" />
     <Content Include="assets\apps\css\inbox-rtl.min.css" />
     <Content Include="assets\apps\css\inbox.css" />
     <Content Include="assets\apps\css\inbox.min.css" />
@@ -5182,6 +5209,8 @@
     <Content Include="assets\pages\scripts\maps-google.min.js" />
     <Content Include="assets\pages\scripts\maps-vector.js" />
     <Content Include="assets\pages\scripts\maps-vector.min.js" />
+    <Content Include="assets\pages\scripts\operando-custom-bootstrap-select.js" />
+    <Content Include="assets\pages\scripts\operando-report-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-user-table-managed.js" />
     <Content Include="assets\pages\scripts\operando-report-table-managed.js" />
     <Content Include="assets\pages\scripts\portfolio-1.js" />
@@ -5663,7 +5692,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="SaveReport.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5713,6 +5741,8 @@
     <Content Include="Views\OspAdmin\BigDataAnalytics.cshtml" />
     <Content Include="Views\PspAnalyst\BigDataAnalyticsConfig.cshtml" />
     <Content Include="Views\PspAdmin\ReportsConfig.cshtml" />
+    <Content Include="Views\Access\ResetPassword.cshtml" />
+    <Content Include="Views\Access\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5731,6 +5761,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
