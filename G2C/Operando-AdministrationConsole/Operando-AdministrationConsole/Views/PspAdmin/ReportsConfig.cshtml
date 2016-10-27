@@ -838,7 +838,7 @@
                                                                                     </tr>
                                                                                 }
                                                                             }
-                                                                            <tr id="@item.Report.Replace("'", "_").Replace(" ", "_")-scheduleAdd">
+                                                                            <tr class="add-row" id="@item.Report.Replace("'", "_").Replace(" ", "_")-scheduleAdd">
                                                                                 <td>
                                                                                     <div class="input-group">
                                                                                         <select id="@item.Report.Replace(" ","_").Replace("'","-")-osps-selection" class="form-control bs-select" multiple>
@@ -902,8 +902,8 @@
                                                                                     &nbsp;
                                                                                 </td>
                                                                                 <td>
-                                                                                    <div class="btn-group btn-group-circle">
-                                                                                        <button type="button" class="btn btn-circle  green btn-sm sm-sw mt-sweetalert" onclick="javascript:insertScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")','@item.Report');" id='@item.Report.Replace(" ","_").Replace("'","-")' data-dismiss="hide" data-title="Success" data-message="Scheduling inserted correctly" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add <i class="fa fa-plus"></i></button>
+                                                                                    <div class="text-center">
+                                                                                        <button type="button" class="btn btn-circle yellow-gold btn-sm sm-sw mt-sweetalert" onclick="javascript:insertScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")','@item.Report');" id='@item.Report.Replace(" ","_").Replace("'","-")' data-dismiss="hide" data-title="Success" data-message="Scheduling inserted correctly" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add <i class="fa fa-plus"></i></button>
                                                                                         <!-- <button type="button" class="btn btn-outline red btn-sm" onclick="javascript:undoScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")');" id='@item.Report.Replace(" ","_").Replace("'","-")-Undo'>Undo</button> -->
                                                                                     </div>
                                                                                 </td>
