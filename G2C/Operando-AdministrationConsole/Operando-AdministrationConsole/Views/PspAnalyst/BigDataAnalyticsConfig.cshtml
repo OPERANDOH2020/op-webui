@@ -282,9 +282,9 @@
                                                                 <div class="caption">
                                                                     <span class="caption-subject font-dark bold uppercase">Schedule</span>
                                                                 </div>
-                                                                <div class="actions">
+                                                                @*<div class="actions">
                                                                     <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
-                                                                </div>
+                                                                </div>*@
                                                             </div>
                                                             <div class="portlet-body">
                                                                 <table class="table table-bordered table-striped">
@@ -316,6 +316,39 @@
                                                                                 <div class="btn-group btn-group-circle">
                                                                                     <button type="button" class="btn btn-outline green btn-sm">Edit</button>
                                                                                     <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="add-row">
+                                                                            <td>
+                                                                                <div class="input-group">
+                                                                                    <input type="text" class="form-control timepicker timepicker-24">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button class="btn default" type="button">
+                                                                                            <i class="fa fa-clock-o"></i>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="input-group">
+                                                                                    <div class="col-md-6">
+                                                                                        <input class="touchspin_default" type="text" value="0" name="number">
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <select id="interval-selection" class="form-control">
+                                                                                            <option value="1" selected>Day(s)</option>
+                                                                                            <option value="2">Week(s)</option>
+                                                                                            <option value="3">Month(s)</option>
+                                                                                            <option value="4">Year(s)</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td> - </td>
+                                                                            <td>
+                                                                                <div class="text-center">
+                                                                                    <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
@@ -386,6 +419,39 @@
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
+                                                                        <tr class="add-row">
+                                                                            <td>
+                                                                                <div class="input-group">
+                                                                                    <input type="text" class="form-control timepicker timepicker-24">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button class="btn default" type="button">
+                                                                                            <i class="fa fa-clock-o"></i>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="input-group">
+                                                                                    <div class="col-md-6">
+                                                                                        <input class="touchspin_default" type="text" value="0" name="number">
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <select id="interval-selection" class="form-control">
+                                                                                            <option value="1" selected>Day(s)</option>
+                                                                                            <option value="2">Week(s)</option>
+                                                                                            <option value="3">Month(s)</option>
+                                                                                            <option value="4">Year(s)</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td> - </td>
+                                                                            <td>
+                                                                                <div class="text-center">
+                                                                                    <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -424,7 +490,7 @@
                                                                 <table class="table table-bordered table-striped">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Start</th>
+                                                                            <th style="min-width: 125px;">Start</th>
                                                                             <th>Run every</th>
                                                                             <th>On</th>
                                                                             <th style="width: 125px;">Actions</th>
@@ -450,6 +516,39 @@
                                                                                 <div class="btn-group btn-group-circle">
                                                                                     <button type="button" class="btn btn-outline green btn-sm">Edit</button>
                                                                                     <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="add-row">
+                                                                            <td>
+                                                                                <div class="input-group">
+                                                                                    <input type="text" class="form-control timepicker timepicker-24">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button class="btn default" type="button">
+                                                                                            <i class="fa fa-clock-o"></i>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="input-group">
+                                                                                    <div class="col-md-6">
+                                                                                        <input class="touchspin_default" type="text" value="0" name="number">
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <select id="interval-selection" class="form-control">
+                                                                                            <option value="1" selected>Day(s)</option>
+                                                                                            <option value="2">Week(s)</option>
+                                                                                            <option value="3">Month(s)</option>
+                                                                                            <option value="4">Year(s)</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td> - </td>
+                                                                            <td>
+                                                                                <div class="text-center">
+                                                                                    <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
