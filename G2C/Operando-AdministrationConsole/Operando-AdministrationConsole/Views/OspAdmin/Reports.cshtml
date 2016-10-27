@@ -16,7 +16,7 @@
 
             $('#tab_reports').removeClass('active');
             $('#tab_1_1').removeClass('active');
-            if (firtTabToOpen.indexOf('tab_1_3')>=0) {
+            if (firtTabToOpen.indexOf('tab_1_2')>=0) {
                 $('#tab_schedule').addClass('active');
             }
         }
@@ -548,10 +548,10 @@
             <div class="portlet-body">
                 <div class="tabbable-custom tabbable-custom-operando-top">
                     <ul class="nav nav-tabs border-yellow-gold">
-                        <li class="active">
+                        <li id="tab_reports" class="active" >
                             <a href="#tab_1_1" data-toggle="tab"> Reports </a>
                         </li>
-                        <li>
+                        <li id="tab_schedule">
                             <a href="#tab_1_2" data-toggle="tab"> Schedules </a>
                         </li>
                     </ul>
