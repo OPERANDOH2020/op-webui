@@ -9,8 +9,22 @@
 
 
     window.onload = function () {
+        var firtTabToOpen = getParameterByName("tab", location.href);
+        if (firtTabToOpen!=null)
+        {
+            $('#' + firtTabToOpen).show()
+
+            $('#tab_reports').removeClass('active');
+            $('#tab_1_1').removeClass('active');
+            if (firtTabToOpen.indexOf('tab_1_3')>=0) {
+                $('#tab_schedule').addClass('active');
+            }
+        }
         var tabToOpen = getParameterByName("indent", location.href);
-        $('#' + tabToOpen).show();
+        if (tabToOpen!=null)
+        {
+            $('#' + tabToOpen).show();
+        }
     };
 
     function getParameterByName(name, url) {
@@ -160,7 +174,7 @@
                 data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ITI,OCC", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href = "?indent=" + valReport + "-schedule#tab_1_2";
+                    window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_2";
 
                     //var risposta = JSON.parse(data);
                 },
@@ -216,7 +230,7 @@
                 data: { ID: valID, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ITI,OCC", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href = "?indent=" + valReport + "-schedule#tab_1_2";
+                    window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_2";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -273,7 +287,7 @@
             data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ITI,OCC", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
             dataType: "text",
             success: function (data) {
-                window.location.href = "?indent=" + valReport + "-schedule#tab_1_2";
+                window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_2";
                 //var risposta = JSON.parse(data);
             },
             error: function (xhr, status) {
@@ -347,7 +361,7 @@
             data: { ID: 0, Report: Report, StartDate: startDate, RepeatEveryNumb: valnumtype, RepeatEveryType: valType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ITI,OCC", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valintervaldate },
             dataType: "text",
             success: function (data) {
-                window.location.href = "?indent=" + valReport + "-schedule#tab_1_2";
+                window.location.href = "?indent=" + Report.replace(' ','_').replace('\'','_') + "-schedule#tab_1_2";
                 $('#' + Parent+ "-"+ blocco).removeAttr("data-title");
                 $('#' + Parent+ "-"+ blocco).removeAttr("data-message");
                 $('#' + Parent+ "-"+ blocco).removeAttr("data-type");
@@ -483,7 +497,10 @@
     }
 
     function deleteSchedule() {
-        var valID = $(this).attr("data-id");
+        var valData = $(this).attr("data-id").split("-");
+        var valID = valData[0];
+        var valReport = valData[1];
+
         $.ajax({
             async: false,
             type: "POST",
@@ -491,12 +508,13 @@
             data: { ID: valID },
             dataType: "text",
             success: function (data) {
+                window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule&tab=tab_1_2";
 
                 //var risposta = JSON.parse(data);
-                window.location.reload();
+                //window.location.reload();
             },
             error: function (xhr, status) {
-                window.location.reload();
+                //window.location.reload();
             }
         });
     }
@@ -655,7 +673,7 @@
                                                                                 <td>
                                                                                     <div class="btn-group btn-group-circle">
                                                                                         <button type="button" class="btn btn-outline green btn-sm" data-toggle="modal" href="#modalEditSchedule_@details.ID"> Edit </button>
-                                                                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-id='@details.ID' data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteSchedule">Delete</button>
+                                                                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-id='@details.ID-@details.Report' data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteSchedule">Delete</button>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
@@ -716,8 +734,8 @@
                                                                             </td>
                                                                             <td>
                                                                                 <div class="btn-group btn-group-circle">
-                                                                                    <button type="button" class="btn btn-outline green btn-sm sm-sw mt-sweetalert" onclick="javascript:insertScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")','@item.Report');" id='@item.Report.Replace(" ","_").Replace("'","-")' data-dismiss="hide" data-title="Success" data-message="Scheduling inserted correctly" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
-                                                                                    <button type="button" class="btn btn-outline red btn-sm" onclick="javascript:undoScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")');" id='@item.Report.Replace(" ","_").Replace("'","-")-Undo'>Undo</button>
+                                                                                    <button type="button" class="btn btn-circle green btn-sm sm-sw mt-sweetalert" onclick="javascript:insertScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")','@item.Report');" id='@item.Report.Replace(" ","_").Replace("'","-")' data-dismiss="hide" data-title="Success" data-message="Scheduling inserted correctly" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add <i class="fa fa-plus"></i></button>
+                                                                                    <!--<button type="button" class="btn btn-outline red btn-sm" onclick="javascript:undoScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")');" id='@item.Report.Replace(" ","_").Replace("'","-")-Undo'>Undo</button>-->
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
@@ -874,7 +892,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="hidden form-group">
                                             <label class="col-md-3 control-label">OSPs</label>
                                             <div class="col-md-9">
                                                 <div class="col-md-12">

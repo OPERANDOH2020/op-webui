@@ -31,7 +31,7 @@ namespace WriteDataSetToXSD
             dtadd.Fill(mydt, "T_report_mng_results");
              
 
-            String nomeFileg = AppDomain.CurrentDomain.BaseDirectory + "\\Schema_XSD_Report_MNG_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "" + DateTime.Now.Minute + ".log";
+            String nomeFileg = AppDomain.CurrentDomain.BaseDirectory + "\\Schema_XSD_Report_MNG_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "" + DateTime.Now.Minute + ".xsd";
             mydt.WriteXmlSchema(nomeFileg);
 
             connection.ConnectionString = connection.ConnectionString.Replace("database=operando_report", "database=operando_data");
@@ -44,7 +44,7 @@ namespace WriteDataSetToXSD
             dtadd.SelectCommand.CommandText = "select * from t_data_aslbergamo_gambling_patient ";
             dtadd.Fill(mydt, "t_data_aslbergamo_gambling_patient");
 
-            nomeFileg = AppDomain.CurrentDomain.BaseDirectory + "\\Schema_XSD_Report_DATA_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "" + DateTime.Now.Minute + ".log";
+            nomeFileg = AppDomain.CurrentDomain.BaseDirectory + "\\Schema_XSD_Report_DATA_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "" + DateTime.Now.Minute + ".xsd";
             mydt.WriteXmlSchema(nomeFileg);
 
         }

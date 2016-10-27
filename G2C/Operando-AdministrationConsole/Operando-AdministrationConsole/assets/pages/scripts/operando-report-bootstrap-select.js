@@ -158,6 +158,12 @@ if (App.isAngularJsApp() === false) {
                     trovato = true;
                 }
             });
+            $.each(opt, function (r, value) {
+                if (ID.indexOf("scheduleAdd") >= 0) {
+                    trovato = true;
+                }
+            });
+
             if (trovato) {
                 this.classList.add('visible');
                 this.classList.remove('hidden');
@@ -183,6 +189,12 @@ if (App.isAngularJsApp() === false) {
                         trovato = true;
                     }
                 });
+                $.each(opt, function (r, value) {
+                    if (ID.indexOf("scheduleAdd") >= 0) {
+                        trovato = true;
+                    }
+                });
+
                 if (trovato) {
                     this.classList.add('visible');
                     this.classList.remove('hidden');

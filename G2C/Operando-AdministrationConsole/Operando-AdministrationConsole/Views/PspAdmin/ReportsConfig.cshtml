@@ -7,8 +7,22 @@
 <script type="text/javascript">
 
     window.onload = function () {
+        var firtTabToOpen = getParameterByName("tab", location.href);
+        if (firtTabToOpen!=null)
+        {
+            $('#' + firtTabToOpen).show()
+
+            $('#tab_reports').removeClass('active');
+            $('#tab_1_1').removeClass('active');
+            if (firtTabToOpen.indexOf('tab_1_3')>=0) {
+                $('#tab_schedule').addClass('active');
+            }
+        }
         var tabToOpen = getParameterByName("indent", location.href);
-        $('#' + tabToOpen).show();
+        if (tabToOpen!=null)
+        {
+            $('#' + tabToOpen).show();
+        }
     };
 
 
@@ -152,7 +166,7 @@
                 data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href ="#tab_1_3";
+                    window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_3";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -204,7 +218,7 @@
                 data: { ID: valID, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href = "?indent=" + valReport + "-schedule#tab_1_3";
+                    window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_3";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -258,7 +272,7 @@
             data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
             dataType: "text",
             success: function (data) {
-                window.location.href = "?indent=" + valReport + "-schedule#tab_1_3";
+                window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_3";
                 //var risposta = JSON.parse(data);
             },
             error: function (xhr, status) {
@@ -277,7 +291,10 @@
 
 
     function deleteSchedule() {
-        var valID = $(this).attr("data-id");
+        var valData = $(this).attr("data-id").split("-");
+        var valID = valData[0];
+        var valReport = valData[1];
+
         $.ajax({
             async: false,
             type: "POST",
@@ -285,12 +302,12 @@
             data: { ID: valID },
             dataType: "text",
             success: function (data) {
-                window.location.href = "#tab_1_3";
+                window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule&tab=tab_1_3";
+                //window.location.reload(true);
                 //var risposta = JSON.parse(data);
-                window.location.reload();
             },
             error: function (xhr, status) {
-                window.location.reload();
+                //window.location.reload();
             }
         });
     }
@@ -436,7 +453,7 @@
             data: { ID: 0, Report: Report, StartDate: startDate, RepeatEveryNumb: valnumtype, RepeatEveryType: valType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOsps, DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valintervaldate },
             dataType: "text",
             success: function (data) {
-                window.location.href = "#tab_1_3";
+                window.location.href = "?indent=" + Report.replace(' ','_').replace('\'','_') + "-schedule#tab_1_3";
                 $('#' + Parent+ "-"+ blocco).removeAttr("data-title");
                 $('#' + Parent+ "-"+ blocco).removeAttr("data-message");
                 $('#' + Parent+ "-"+ blocco).removeAttr("data-type");
@@ -725,8 +742,7 @@
                                                     <th>Report</th>
                                                     <th>Lastrun</th>
                                                     <th>NextScheduled</th>
-                                                    <th style="min-width: 90px;"> &nbsp;</th>
-                                                </tr>
+                                               </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach (var item in Model.schedulesObj.ScheduleList)
@@ -739,9 +755,6 @@
                                                         <td>@item.Report</td>
                                                         <td>@item.LastRun</td>
                                                         <td>@item.NextScheduled</td>
-                                                        <td>
-                                                            &nbsp;
-                                                        </td>
                                                     </tr>
 
                                                     <tr class="active accordion-body collapse" id="@item.Report.Replace("'", "_").Replace(" ", "_")-schedule">
@@ -764,8 +777,6 @@
                                                                                 <th>Run every</th>
                                                                                 <th>On</th>
                                                                                 <th>Storage period</th>
-                                                                                <th>Lastrun</th>
-                                                                                <th>NextScheduled</th>
                                                                                 <th style="width: 125px;">Actions</th>
                                                                             </tr>
                                                                         </thead>
@@ -817,100 +828,88 @@
                                                                                         <td>
                                                                                             @details.StoragePeriodNumb -&nbsp; @details.StoragePeriodType
                                                                                         </td>
-                                                                                        <th>@details.LastRun</th>
-                                                                                        <th>@details.NextScheduled</th>
                                                                                         <td>
                                                                                             <div class="btn-group btn-group-circle">
                                                                                                 <!-- <button type="button" class="btn btn-outline green btn-sm">Edit</button>-->
                                                                                                 <button type="button" class="btn btn-outline green btn-sm" data-toggle="modal" href="#modalEditSchedule_@details.ID"> Edit </button>
-                                                                                                <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-id='@details.ID' data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteSchedule">Delete</button>
+                                                                                                <button type="button" id='@details.ID-Delete' class="btn btn-outline red btn-sm" data-toggle="confirmation" data-id='@details.ID-@details.Report' data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteSchedule">Delete</button>
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
                                                                                 }
                                                                             }
-                                                                            </tbody>
-                                                                            </table>
-                                                                            <table class="table table-bordered table-striped" id="schedule_report_psp_add">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th>OSP</th>
-                                                                                        <th>Start Date</th>
-                                                                                        <th>Run every</th>
-                                                                                        <th>On</th>
-                                                                                        <th style="width: 125px;">Actions</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <tr id="@item.Report.Replace("'", "_").Replace(" ", "_")-scheduleAdd">
-                                                                                        <td>
-                                                                                            <div class="input-group">
-                                                                                                <select id="@item.Report.Replace(" ","_").Replace("'","-")-osps-selection" class="form-control bs-select" multiple>
-                                                                                                    @foreach (var tmp in Model.reportsObj.ReportList[0].OSPsOption)
-                                                                                                    {
-                                                                                                        @Html.Raw(tmp)
-                                                                                                    }
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="input-group">
-                                                                                                <input id="@item.Report.Replace(" ","_").Replace("'","-")-clock" type="text" class="form-control timepicker timepicker-24">
-                                                                                                <span class="input-group-btn">
-                                                                                                    <button class="btn default" type="button">
-                                                                                                        <i class="fa fa-clock-o"></i>
-                                                                                                    </button>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="input-group">
-                                                                                                <div class="col-md-6">
-                                                                                                    <input id="@item.Report.Replace(" ","_").Replace("'","-")-numtype" class="touchspin_default" type="text" value="0" name="number">
-                                                                                                </div>
-                                                                                                <div class="col-md-6">
-                                                                                                    <select id="@item.Report.Replace(" ","_").Replace("'","-")-interval-selection" class="form-control" onchange="javascript:ModifyVisibility('@item.Report.Replace(" ","_").Replace("'","-")');">
-                                                                                                        @foreach (var tmp in @item.RepeatEveryTypeOption)
-                                                                                                        {
-                                                                                                            @Html.Raw(tmp)
-                                                                                                        }
-                                                                                                    </select>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reporta">
-                                                                                                -
-                                                                                            </div>
-                                                                                            <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportb" style="display:none">
-                                                                                                <select id="@item.Report.Replace(" ","_").Replace("'","-")-reportb-days-list" class="bs-select form-control" multiple>
-                                                                                                    @foreach (var tmp in @item.DayOfWeekOption)
-                                                                                                    {
-                                                                                                        @Html.Raw(tmp)
-                                                                                                    }
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportc" style="display:none">
-                                                                                                <input id="@item.Report.Replace(" ","_").Replace("'","-")-reportc-numtday" class="touchspin_days_in_month" type="text" value="0" name="number">
-                                                                                            </div>
-                                                                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm" data-date-start-date="+0d" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportd" style="display:none">
-                                                                                                <input id="@item.Report.Replace(" ","_").Replace("'","-")-reportd-date" type="text" class="form-control" readonly>
-                                                                                                <span class="input-group-btn">
-                                                                                                    <button class="btn default" type="button">
-                                                                                                        <i class="fa fa-calendar"></i>
-                                                                                                    </button>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="btn-group btn-group-circle">
-                                                                                                <button type="button" class="btn btn-outline green btn-sm sm-sw mt-sweetalert" onclick="javascript:insertScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")','@item.Report');" id='@item.Report.Replace(" ","_").Replace("'","-")' data-dismiss="hide" data-title="Success" data-message="Scheduling inserted correctly" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
-                                                                                                <button type="button" class="btn btn-outline red btn-sm" onclick="javascript:undoScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")');" id='@item.Report.Replace(" ","_").Replace("'","-")-Undo'>Undo</button>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
+                                                                            <tr id="@item.Report.Replace("'", "_").Replace(" ", "_")-scheduleAdd">
+                                                                                <td>
+                                                                                    <div class="input-group">
+                                                                                        <select id="@item.Report.Replace(" ","_").Replace("'","-")-osps-selection" class="form-control bs-select" multiple>
+                                                                                            @foreach (var tmp in Model.reportsObj.ReportList[0].OSPsOption)
+                                                                                            {
+                                                                                                @Html.Raw(tmp)
+                                                                                            }
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="input-group">
+                                                                                        <input id="@item.Report.Replace(" ","_").Replace("'","-")-clock" type="text" class="form-control timepicker timepicker-24">
+                                                                                        <span class="input-group-btn">
+                                                                                            <button class="btn default" type="button">
+                                                                                                <i class="fa fa-clock-o"></i>
+                                                                                            </button>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="input-group">
+                                                                                        <div class="col-md-6">
+                                                                                            <input id="@item.Report.Replace(" ","_").Replace("'","-")-numtype" class="touchspin_default" type="text" value="0" name="number">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <select id="@item.Report.Replace(" ","_").Replace("'","-")-interval-selection" class="form-control" onchange="javascript:ModifyVisibility('@item.Report.Replace(" ","_").Replace("'","-")');">
+                                                                                                @foreach (var tmp in @item.RepeatEveryTypeOption)
+                                                                                                {
+                                                                                                    @Html.Raw(tmp)
+                                                                                                }
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reporta">
+                                                                                        -
+                                                                                    </div>
+                                                                                    <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportb" style="display:none">
+                                                                                        <select id="@item.Report.Replace(" ","_").Replace("'","-")-reportb-days-list" class="bs-select form-control" multiple>
+                                                                                            @foreach (var tmp in @item.DayOfWeekOption)
+                                                                                            {
+                                                                                                @Html.Raw(tmp)
+                                                                                            }
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportc" style="display:none">
+                                                                                        <input id="@item.Report.Replace(" ","_").Replace("'","-")-reportc-numtday" class="touchspin_days_in_month" type="text" value="0" name="number">
+                                                                                    </div>
+                                                                                    <div class="input-group input-medium date date-picker" data-date-format="dd-mm" data-date-start-date="+0d" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportd" style="display:none">
+                                                                                        <input id="@item.Report.Replace(" ","_").Replace("'","-")-reportd-date" type="text" class="form-control" readonly>
+                                                                                        <span class="input-group-btn">
+                                                                                            <button class="btn default" type="button">
+                                                                                                <i class="fa fa-calendar"></i>
+                                                                                            </button>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="btn-group btn-group-circle">
+                                                                                        <button type="button" class="btn btn-circle  green btn-sm sm-sw mt-sweetalert" onclick="javascript:insertScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")','@item.Report');" id='@item.Report.Replace(" ","_").Replace("'","-")' data-dismiss="hide" data-title="Success" data-message="Scheduling inserted correctly" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add <i class="fa fa-plus"></i></button>
+                                                                                        <!-- <button type="button" class="btn btn-outline red btn-sm" onclick="javascript:undoScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")');" id='@item.Report.Replace(" ","_").Replace("'","-")-Undo'>Undo</button> -->
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
                                                                     </div>
                                                             </div>
                                                         </td>
