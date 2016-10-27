@@ -6,6 +6,24 @@
 }
 <script type="text/javascript">
 
+    window.onload = function () {
+        var tabToOpen = getParameterByName("indent", location.href);
+        $('#' + tabToOpen).show();
+    };
+
+
+    function getParameterByName(name, url) {
+        if (!url) {
+            url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
     function salvaReport(valID)
     {
         if (valID == null) {
@@ -24,7 +42,7 @@
 
             for (var i = 0; i < selectedVal.length; i++) {
                 valOSPs += "," + selectedVal[i];
-            }
+            } 
 
             $.ajax({
                 async: false,
@@ -33,7 +51,7 @@
                 data: { ID: 0, Report: valReport, Description: valDescription, Version: valVersion, Location: valLocation, Parameters: valParameters, OSPs: valOSPs },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href +="#tab_1_1";
+                    window.location.href ="#tab_1_1";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -78,7 +96,7 @@
                 data: { ID: valID, Report: valReport, Description: valDescription, Version: valVersion, Location: valLocation, Parameters: valParameters, OSPs: valOSPs },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href +="#tab_1_1";
+                    window.location.href ="#tab_1_1";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -134,7 +152,7 @@
                 data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href +="#tab_1_3";
+                    window.location.href ="#tab_1_3";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -186,7 +204,7 @@
                 data: { ID: valID, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
                 dataType: "text",
                 success: function (data) {
-                    window.location.href +="#tab_1_3";
+                    window.location.href = "?indent=" + valReport + "-schedule#tab_1_3";
                     //var risposta = JSON.parse(data);
                 },
                 error: function (xhr, status) {
@@ -240,7 +258,7 @@
             data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOSPs, DayOfWeek: valDayOfWeek },
             dataType: "text",
             success: function (data) {
-
+                window.location.href = "?indent=" + valReport + "-schedule#tab_1_3";
                 //var risposta = JSON.parse(data);
             },
             error: function (xhr, status) {
@@ -267,7 +285,7 @@
             data: { ID: valID },
             dataType: "text",
             success: function (data) {
-
+                window.location.href = "#tab_1_3";
                 //var risposta = JSON.parse(data);
                 window.location.reload();
             },
@@ -276,6 +294,210 @@
             }
         });
     }
+
+    function ModifyVisibility(Parent) {
+
+        var valType = ObjectType(Parent);
+
+        switch(valType.toLowerCase()) {
+            case 'day(s)':
+                {
+                    $('#' + Parent + "-" + "Reporta").show();
+                    $('#' + Parent + "-" + "Reportb").hide();
+                    $('#' + Parent + "-" + "Reportc").hide();
+                    $('#' + Parent + "-" + "Reportd").hide();
+                }
+                break;
+            case 'week(s)':
+                {
+                    $('#' + Parent + "-" + "Reporta").hide();
+                    $('#' + Parent + "-" + "Reportb").show();
+                    $('#' + Parent + "-" + "Reportc").hide();
+                    $('#' + Parent + "-" + "Reportd").hide();
+                }
+                break;
+            case 'month(s)':
+                {
+                    $('#' + Parent + "-" + "Reporta").hide();
+                    $('#' + Parent + "-" + "Reportb").hide();
+                    $('#' + Parent + "-" + "Reportc").show();
+                    $('#' + Parent + "-" + "Reportd").hide();
+                }
+                break;
+            case 'year(s)':
+                {
+                    $('#' + Parent + "-" + "Reporta").hide();
+                    $('#' + Parent + "-" + "Reportb").hide();
+                    $('#' + Parent + "-" + "Reportc").hide();
+                    $('#' + Parent + "-" + "Reportd").show();
+                }
+                break;
+            default:
+                {
+                    $('#' + Parent + "-" + "Reporta").hide();
+                    $('#' + Parent + "-" + "Reportb").hide();
+                    $('#' + Parent + "-" + "Reportc").hide();
+                    $('#' + Parent + "-" + "Reportd").hide();
+                }
+                break;
+        }
+
+
+
+
+    }
+
+    function ObjectType(Parent) {
+
+        var Type = $('#' + Parent + "-" + "interval-selection").val();
+
+        var selectedValintervalselection = [];
+        $('#' + Parent + '-' + 'interval-selection :selected').each(function (i, selected) {
+            selectedValintervalselection[i] = $(selected).text();
+        });
+
+        var valType = "";
+
+        for (var i = 0; i < selectedValintervalselection.length; i++) {
+            valType += "," + selectedValintervalselection[i];
+        }
+
+        valType = valType.replace(",", "");
+
+        return valType.toLowerCase();
+
+    }
+
+    
+    function insertScheduleDetail(Parent, Report) {
+        var valClock = $('#' + Parent+ "-"+"clock").val();
+        var valnumtype = $('#' + Parent + "-" + "numtype").val();
+        var valospsselection = $('#' + Parent + "-" + "osps-selection").val();
+        var valintervalselection = $('#' + Parent + "-" + "interval-selection").val();
+        var valStoragePeriodNumb = 1;
+        var valStoragePeriodType = 'MONTH(s)';
+        var startDate = "";
+        var valintervaldayslist = "";
+        var valDayOfMonth = "";
+        var valintervaldate = "";
+
+        var valTypeReport = ObjectType(Parent);
+
+        if (valTypeReport == "week(s)")
+        {
+            valintervaldayslist = $('#' + Parent + "-reportb-" + "days-list").val();
+        }
+
+        if (valTypeReport == "month(s)")
+        {
+            valDayOfMonth = $('#' + Parent + "-reportc-" + "numtday").val();
+        }
+
+        if (valTypeReport == "year(s)")
+        {
+            valintervaldate = $('#' + Parent + "-reportd-" + "date").val();
+        }
+
+        var selectedValospsselection = [];
+        $('#' + Parent + '-' + 'osps-selection :selected').each(function (i, selected) {
+            selectedValospsselection[i] = $(selected).text();
+        });
+        var valOsps = "";
+        for (var i = 0; i < selectedValospsselection.length; i++) {
+            valOsps += "," + selectedValospsselection[i];
+        }
+
+        var selectedValintervalselection = [];
+        $('#' + Parent + '-'+'interval-selection :selected').each(function (i, selected) {
+            selectedValintervalselection[i] = $(selected).text();
+        });
+        var valType = "";
+        for (var i = 0; i < selectedValintervalselection.length; i++) {
+            valType += "," + selectedValintervalselection[i];
+        }
+
+        var selectedValdayslist = [];
+        var valDayOfWeek = "";
+        if (valTypeReport == "week(s)")
+        {
+            $('#' + Parent + '-reportb-' + 'days-list :selected').each(function (i, selected) {
+                selectedValdayslist[i] = $(selected).text();
+            });
+
+            for (var i = 0; i < selectedValdayslist.length; i++) {
+                valDayOfWeek += "," + selectedValdayslist[i];
+            }
+        }
+
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "../ASPXSaveAjax/SaveSchedule.aspx",
+            data: { ID: 0, Report: Report, StartDate: startDate, RepeatEveryNumb: valnumtype, RepeatEveryType: valType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: valOsps, DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valintervaldate },
+            dataType: "text",
+            success: function (data) {
+                window.location.href = "#tab_1_3";
+                $('#' + Parent+ "-"+ blocco).removeAttr("data-title");
+                $('#' + Parent+ "-"+ blocco).removeAttr("data-message");
+                $('#' + Parent+ "-"+ blocco).removeAttr("data-type");
+                $('#' + Parent+ "-"+ blocco).removeAttr("data-confirm-button-class");
+                $('#' + Parent+ "-"+ blocco).attr("data-title", "Success");
+                $('#' + Parent+ "-"+ blocco).attr("data-message", "Success Message");
+                $('#' + Parent+ "-"+ blocco).attr("data-type", "Success");
+                $('#' + Parent+ "-"+ blocco).attr("data-confirm-button-class", "btn-success");
+                reloadSweetAlert($('#' + Parent+ "-"+ blocco));
+
+
+            },
+            error: function (xhr, status) {
+                $('#' + Parent+ "-"+ blocco).removeAttr("data-title");
+                $('#' + Parent+ "-"+ blocco).removeAttr("data-message");
+                $('#' + Parent+ "-"+ blocco).removeAttr("data-type");
+                $('#' + Parent+ "-"+ blocco).removeAttr("data-confirm-button-class");
+                $('#' + Parent+ "-"+ blocco).attr("data-title", "Error");
+                $('#' + Parent+ "-"+ blocco).attr("data-message", "Error Message");
+                $('#' + Parent+ "-"+ blocco).attr("data-type", "error");
+                $('#' + Parent+ "-"+ blocco).attr("data-confirm-button-class", "btn-error");
+                reloadSweetAlert($('#' + Parent+ "-"+ blocco));
+            }
+        });
+    }
+
+    function undoScheduleDetail(Parent) {
+
+        var dt = new Date();
+
+        var time = dt.getHours() + ":" + dt.getMinutes();
+
+        $('#' + Parent+ "-"+"clock").val(time);
+
+        $('#' + Parent+ "-"+"numtype").val(0) ;
+
+        var valType = ObjectType(Parent);
+
+        switch (valType.toLowerCase()) {
+            case 'week(s)':
+                {
+                    $('#' + Parent + "-" + "reportb-days-list").val("2");
+                }
+                break;
+            case 'month(s)':
+                {
+                    $('#' + Parent + "-" + "reportc-numtday").val(1);
+                }
+                break;
+            case 'year(s)':
+                {
+                    $('#' + Parent + "-" + "reportd-date").val(null);
+                }
+                break;
+            default:
+                {
+                }
+                break;
+        }
+    }
+
 
 </script>
 
@@ -515,7 +737,7 @@
                                                             <i class="fa fa-plus"></i>
                                                         </td>
                                                         <td>@item.Report</td>
-                                                        <td>@item.Lastrun</td>
+                                                        <td>@item.LastRun</td>
                                                         <td>@item.NextScheduled</td>
                                                         <td>
                                                             &nbsp;
@@ -567,15 +789,35 @@
                                                                                             @details.RepeatEveryNumb -&nbsp; @details.RepeatEveryType
                                                                                         </td>
                                                                                         <td>
-                                                                                            @foreach (var tmp in details.DayOfWeek)
+                                                                                            @if (details.RepeatEveryType != "DAY(s)")
                                                                                             {
-                                                                                                @Html.Raw(tmp + "-")
+                                                                                                if (details.RepeatEveryType == "WEEK(s)")
+                                                                                                {
+                                                                                                    foreach (var tmp in details.DayOfWeek)
+                                                                                                    {
+                                                                                                        @Html.Raw(tmp + " ")
+                                                                                                    }
+                                                                                                }
+
+                                                                                                if (details.RepeatEveryType == "MONTH(s)")
+                                                                                                {
+                                                                                                    @details.GiornoMese
+                                                                                                }
+
+                                                                                                if (details.RepeatEveryType == "YEAR(s)")
+                                                                                                {
+                                                                                                    @details.GiornoAnno
+                                                                                                }
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                @Html.Raw("-");
                                                                                             }
                                                                                         </td>
                                                                                         <td>
                                                                                             @details.StoragePeriodNumb -&nbsp; @details.StoragePeriodType
                                                                                         </td>
-                                                                                        <th>@details.Lastrun</th>
+                                                                                        <th>@details.LastRun</th>
                                                                                         <th>@details.NextScheduled</th>
                                                                                         <td>
                                                                                             <div class="btn-group btn-group-circle">
@@ -587,9 +829,89 @@
                                                                                     </tr>
                                                                                 }
                                                                             }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                            </tbody>
+                                                                            </table>
+                                                                            <table class="table table-bordered table-striped" id="schedule_report_psp_add">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>OSP</th>
+                                                                                        <th>Start Date</th>
+                                                                                        <th>Run every</th>
+                                                                                        <th>On</th>
+                                                                                        <th style="width: 125px;">Actions</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr id="@item.Report.Replace("'", "_").Replace(" ", "_")-scheduleAdd">
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <select id="@item.Report.Replace(" ","_").Replace("'","-")-osps-selection" class="form-control bs-select" multiple>
+                                                                                                    @foreach (var tmp in Model.reportsObj.ReportList[0].OSPsOption)
+                                                                                                    {
+                                                                                                        @Html.Raw(tmp)
+                                                                                                    }
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <input id="@item.Report.Replace(" ","_").Replace("'","-")-clock" type="text" class="form-control timepicker timepicker-24">
+                                                                                                <span class="input-group-btn">
+                                                                                                    <button class="btn default" type="button">
+                                                                                                        <i class="fa fa-clock-o"></i>
+                                                                                                    </button>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <div class="col-md-6">
+                                                                                                    <input id="@item.Report.Replace(" ","_").Replace("'","-")-numtype" class="touchspin_default" type="text" value="0" name="number">
+                                                                                                </div>
+                                                                                                <div class="col-md-6">
+                                                                                                    <select id="@item.Report.Replace(" ","_").Replace("'","-")-interval-selection" class="form-control" onchange="javascript:ModifyVisibility('@item.Report.Replace(" ","_").Replace("'","-")');">
+                                                                                                        @foreach (var tmp in @item.RepeatEveryTypeOption)
+                                                                                                        {
+                                                                                                            @Html.Raw(tmp)
+                                                                                                        }
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reporta">
+                                                                                                -
+                                                                                            </div>
+                                                                                            <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportb" style="display:none">
+                                                                                                <select id="@item.Report.Replace(" ","_").Replace("'","-")-reportb-days-list" class="bs-select form-control" multiple>
+                                                                                                    @foreach (var tmp in @item.DayOfWeekOption)
+                                                                                                    {
+                                                                                                        @Html.Raw(tmp)
+                                                                                                    }
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="input-group" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportc" style="display:none">
+                                                                                                <input id="@item.Report.Replace(" ","_").Replace("'","-")-reportc-numtday" class="touchspin_days_in_month" type="text" value="0" name="number">
+                                                                                            </div>
+                                                                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm" data-date-start-date="+0d" id="@item.Report.Replace(" ","_").Replace("'","-")-Reportd" style="display:none">
+                                                                                                <input id="@item.Report.Replace(" ","_").Replace("'","-")-reportd-date" type="text" class="form-control" readonly>
+                                                                                                <span class="input-group-btn">
+                                                                                                    <button class="btn default" type="button">
+                                                                                                        <i class="fa fa-calendar"></i>
+                                                                                                    </button>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="btn-group btn-group-circle">
+                                                                                                <button type="button" class="btn btn-outline green btn-sm sm-sw mt-sweetalert" onclick="javascript:insertScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")','@item.Report');" id='@item.Report.Replace(" ","_").Replace("'","-")' data-dismiss="hide" data-title="Success" data-message="Scheduling inserted correctly" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                                                                <button type="button" class="btn btn-outline red btn-sm" onclick="javascript:undoScheduleDetail('@item.Report.Replace(" ","_").Replace("'","-")');" id='@item.Report.Replace(" ","_").Replace("'","-")-Undo'>Undo</button>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                    </div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -766,30 +1088,36 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Report</label>
                                     <div class="col-md-9">
-                                        <input type="text" id="Report_Sch_@item.ID" class="form-control" value="@item.Report" readonly>
+                                        <div class="col-md-12">
+                                            <input type="text" id="Report_Sch_@item.ID" class="form-control" value="@item.Report" readonly>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">OSPs</label>
                                     <div class="col-md-9">
-                                        <select id="OSPs_Sch_@item.ID" class="form-control bs-select" multiple>
-                                            @foreach (var tmp in item.OSPsOption)
-                                            {
-                                                @Html.Raw(tmp)
-                                            }
-                                        </select>
+                                        <div class="col-md-12">
+                                            <select id="OSPs_Sch_@item.ID" class="form-control bs-select" multiple>
+                                                @foreach (var tmp in item.OSPsOption)
+                                                {
+                                                    @Html.Raw(tmp)
+                                                }
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Start date</label>
                                     <div class="col-md-9">
-                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <input type="text" id="StartDate_Sch_@item.ID" class="form-control" value="@item.StartDate" readonly>
-                                            <span class="input-group-btn">
-                                                <button class="btn default" type="button">
-                                                    <i class="fa fa-calendar"></i>
-                                                </button>
-                                            </span>
+                                        <div class="col-md-12">
+                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                <input type="text" id="StartDate_Sch_@item.ID" class="form-control" value="@item.StartDate" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -814,13 +1142,15 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">On</label>
                                     <div class="col-md-9">
-                                        <div class="input-group">
-                                            <select id="DayOfWeek_Sch_@item.ID" class="bs-select form-control" multiple>
-                                                @foreach (var tmp in item.DayOfWeekOption)
-                                                {
-                                                    @Html.Raw(tmp)
-                                                }
-                                            </select>
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <select id="DayOfWeek_Sch_@item.ID" class="bs-select form-control" multiple>
+                                                    @foreach (var tmp in item.DayOfWeekOption)
+                                                    {
+                                                        @Html.Raw(tmp)
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -872,35 +1202,41 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">OSPs</label>
                                     <div class="col-md-9">
-                                        <select id="OSPs_addSch" class="form-control bs-select" multiple>
-                                            @foreach (var tmp in Model.reportsObj.ReportList[0].OSPsOption)
-                                            {
-                                                @Html.Raw(tmp)
-                                            }
-                                        </select>
+                                        <div class="col-md-12">
+                                            <select id="OSPs_addSch" class="form-control bs-select" multiple>
+                                                @foreach (var tmp in Model.reportsObj.ReportList[0].OSPsOption)
+                                                {
+                                                    @Html.Raw(tmp)
+                                                }
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Report</label>
                                     <div class="col-md-9">
-                                        <select id="Report_addSch" class="form-control bs-select">
-                                            @foreach (var item in Model.reportsObjNotScheduled.ReportList)
-                                            {
-                                                <option> @item.Report</option>
-                                            }
-                                        </select>
+                                        <div class="col-md-12">
+                                            <select id="Report_addSch" class="form-control bs-select">
+                                                @foreach (var item in Model.reportsObjNotScheduled.ReportList)
+                                                {
+                                                    <option> @item.Report</option>
+                                                }
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Start date</label>
                                     <div class="col-md-9">
-                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <input type="text" id="StartDate_addSch" class="form-control" readonly>
-                                            <span class="input-group-btn">
-                                                <button class="btn default" type="button">
-                                                    <i class="fa fa-calendar"></i>
-                                                </button>
-                                            </span>
+                                        <div class="col-md-12">
+                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                <input type="text" id="StartDate_addSch" class="form-control" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -925,13 +1261,15 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">On</label>
                                     <div class="col-md-9">
-                                        <div class="input-group">
-                                            <select id="DayOfWeek_addSch" class="bs-select form-control" multiple>
-                                                @foreach (var tmp in Model.schedulesObj.ScheduleDetailsList[0].DayOfWeekOption)
-                                                {
-                                                    @Html.Raw(tmp)
-                                                }
-                                            </select>
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <select id="DayOfWeek_addSch" class="bs-select form-control" multiple>
+                                                    @foreach (var tmp in Model.schedulesObj.ScheduleDetailsList[0].DayOfWeekOption)
+                                                    {
+                                                        @Html.Raw(tmp)
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -984,30 +1322,36 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Report</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="Report_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" value="@item.Report" readonly>
+                                            <div class="col-md-12">
+                                                <input type="text" id="Report_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" value="@item.Report" readonly>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">OSPs</label>
                                         <div class="col-md-9">
-                                            <select id="OSPs_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control bs-select" multiple>
-                                                @foreach (var tmp in item.OSPsOption)
-                                                {
-                                                    @Html.Raw(tmp)
-                                                }
-                                            </select>
+                                            <div class="col-md-12">
+                                                <select id="OSPs_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control bs-select" multiple>
+                                                    @foreach (var tmp in item.OSPsOption)
+                                                    {
+                                                        @Html.Raw(tmp)
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Start date</label>
                                         <div class="col-md-9">
-                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                                <input type="text" id="StartDate_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" readonly>
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </button>
-                                                </span>
+                                            <div class="col-md-12">
+                                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <input type="text" id="StartDate_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="form-control" readonly>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1032,13 +1376,15 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">On</label>
                                         <div class="col-md-9">
-                                            <div class="input-group">
-                                                <select id="DayOfWeek_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="bs-select form-control" multiple>
-                                                    @foreach (var tmp in item.DayOfWeekOption)
-                                                    {
-                                                        @Html.Raw(tmp)
-                                                    }
-                                                </select>
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <select id="DayOfWeek_addSch_@item.Report.Replace("'", "_").Replace(" ", "_")" class="bs-select form-control" multiple>
+                                                        @foreach (var tmp in item.DayOfWeekOption)
+                                                        {
+                                                            @Html.Raw(tmp)
+                                                        }
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1073,6 +1419,7 @@
         </div>
     </div>
 }
+
 
 
 

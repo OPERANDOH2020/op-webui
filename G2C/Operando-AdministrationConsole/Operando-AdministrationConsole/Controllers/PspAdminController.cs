@@ -275,7 +275,7 @@ namespace Operando_AdministrationConsole.Controllers
             }
             connection.Close();
 
-            // creo la lista dei result
+            // creo la lista degli schedules breve
             reportManager.schedulesObj.ScheduleList = new List<Schedules>();
 
             try
@@ -314,7 +314,7 @@ namespace Operando_AdministrationConsole.Controllers
                         {
                             schedule.RepeatEveryTypeOption[i] = "<option >" + schedule.RepeatEveryTypeOption[i] + "</option>";
                         }
-
+                         
                         schedule.DayOfWeekOption = "Mon-Tue-Wed-Thu-Fri-Sat-Sun".Split('-');
 
                         for (int i = 0; i < schedule.DayOfWeekOption.Length; i++)
@@ -330,9 +330,9 @@ namespace Operando_AdministrationConsole.Controllers
                         }
 
                         if (reader.IsDBNull(1) == false)
-                            schedule.Lastrun = reader.GetDateTime(1);
+                            schedule.LastRun = reader.GetDateTime(1);
                         else
-                            schedule.Lastrun = DateTime.MinValue;
+                            schedule.LastRun = DateTime.MinValue;
 
                         if (reader.IsDBNull(2) == false)
                             schedule.NextScheduled = reader.GetDateTime(2);
@@ -358,8 +358,8 @@ namespace Operando_AdministrationConsole.Controllers
             }
             connection.Close();
 
-            
-            // creo la lista dei result
+
+            // creo la lista degli schedules dettaglio
             reportManager.schedulesObj.ScheduleDetailsList = new List<Schedules>();
 
             try
@@ -488,14 +488,24 @@ namespace Operando_AdministrationConsole.Controllers
                             schedule.Version = null;
 
                         if (reader.IsDBNull(12) == false)
-                            schedule.Lastrun = reader.GetDateTime(12);
+                            schedule.LastRun = reader.GetDateTime(12);
                         else
-                            schedule.Lastrun = DateTime.MinValue;
+                            schedule.LastRun = DateTime.MinValue;
 
                         if (reader.IsDBNull(13) == false)
                             schedule.NextScheduled = reader.GetDateTime(13);
                         else
                             schedule.NextScheduled = DateTime.MinValue;
+
+                        if (reader.IsDBNull(14) == false)
+                            schedule.GiornoMese = reader.GetInt32(14);
+                        else
+                            schedule.GiornoMese = 0;
+
+                        if (reader.IsDBNull(15) == false)
+                            schedule.GiornoAnno = reader.GetDateTime(15);
+                        else
+                            schedule.GiornoAnno = DateTime.MinValue;
 
                         reportManager.schedulesObj.ScheduleDetailsList.Add(schedule);
                     }
