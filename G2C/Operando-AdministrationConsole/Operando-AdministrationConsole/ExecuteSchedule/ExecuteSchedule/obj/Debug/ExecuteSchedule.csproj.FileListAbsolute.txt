@@ -1,6 +1,0 @@
-D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\ExecuteSchedule\ExecuteSchedule\bin\Debug\ExecuteSchedule.exe.config
-D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\ExecuteSchedule\ExecuteSchedule\bin\Debug\ExecuteSchedule.exe
-D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\ExecuteSchedule\ExecuteSchedule\bin\Debug\ExecuteSchedule.pdb
-D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\ExecuteSchedule\ExecuteSchedule\obj\Debug\ExecuteSchedule.exe
-D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\ExecuteSchedule\ExecuteSchedule\obj\Debug\ExecuteSchedule.pdb
-D:\template_siti\op-webui\G2C\Operando-AdministrationConsole\Operando-AdministrationConsole\ExecuteSchedule\ExecuteSchedule\obj\Debug\ExecuteSchedule.csprojResolveAssemblyReference.cache
