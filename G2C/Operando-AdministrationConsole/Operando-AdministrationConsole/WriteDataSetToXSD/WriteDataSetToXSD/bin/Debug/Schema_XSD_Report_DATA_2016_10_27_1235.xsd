@@ -1,0 +1,57 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="operando_data" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="operando_data" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="t_data_aslbergamo_gambling_diseases">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" minOccurs="0" />
+              <xs:element name="typeofrelateddiseases" type="xs:string" minOccurs="0" />
+              <xs:element name="intheuseofalcohol" type="xs:boolean" minOccurs="0" />
+              <xs:element name="intheuseoftobacco" type="xs:boolean" minOccurs="0" />
+              <xs:element name="intheuseofdrug" type="xs:boolean" minOccurs="0" />
+              <xs:element name="patient" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="t_data_aslbergamo_gambling_pathology">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" minOccurs="0" />
+              <xs:element name="monthly_x0020_amount" type="xs:int" minOccurs="0" />
+              <xs:element name="place" type="xs:string" minOccurs="0" />
+              <xs:element name="when" type="xs:string" minOccurs="0" />
+              <xs:element name="type" type="xs:string" minOccurs="0" />
+              <xs:element name="alcoholwhile" type="xs:boolean" minOccurs="0" />
+              <xs:element name="tobaccowhile" type="xs:boolean" minOccurs="0" />
+              <xs:element name="drugwhile" type="xs:boolean" minOccurs="0" />
+              <xs:element name="yearsofearlydisease" type="xs:int" minOccurs="0" />
+              <xs:element name="patient" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="t_data_aslbergamo_gambling_patient">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" minOccurs="0" />
+              <xs:element name="name" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="sex" type="xs:string" minOccurs="0" />
+              <xs:element name="dateofbirth" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="placeofbirth" type="xs:string" minOccurs="0" />
+              <xs:element name="cityofresidence" type="xs:string" minOccurs="0" />
+              <xs:element name="e-mailaddress" type="xs:string" minOccurs="0" />
+              <xs:element name="cellphonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="debt" type="xs:boolean" minOccurs="0" />
+              <xs:element name="debtduetoplay" type="xs:boolean" minOccurs="0" />
+              <xs:element name="alcoholuse" type="xs:boolean" minOccurs="0" />
+              <xs:element name="tobaccouse" type="xs:boolean" minOccurs="0" />
+              <xs:element name="druguse" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
