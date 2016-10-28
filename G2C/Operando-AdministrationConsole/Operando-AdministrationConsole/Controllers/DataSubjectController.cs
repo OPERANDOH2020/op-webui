@@ -22,7 +22,12 @@ namespace Operando_AdministrationConsole.Controllers
         {
             List<DataAccessLog> logList = new List<DataAccessLog>();
 
-            var jsonURL = "http://server02tecnalia.westeurope.cloudapp.azure.com:8091/operando/core/ldbsearch/log/search/";
+            // TODO: SUBSTITUTE WITH REAL LOGGED USER ID -- WAITING FOR FEEDBACK FROM PAUL
+            string loggedUserId = "1"; 
+
+            // TODO: STILL PROBLEMS WITH FILTERING -- WAITING FOR FEEDBACK FROM COSTAS
+            var jsonURL = String.Format("http://server02tecnalia.westeurope.cloudapp.azure.com:8091/operando/core/ldbsearch/log/search/?dateFrom&dateTo&logLevel&requesterType={0}&requesterId={1}&logPriority&title&keyWords", "USER", loggedUserId );
+
             WebClient client = new WebClient();
             string jsonString= client.DownloadString(jsonURL);
             JArray results = JsonConvert.DeserializeObject<dynamic>(jsonString);
@@ -57,7 +62,6 @@ namespace Operando_AdministrationConsole.Controllers
                     }
 
                     logList.Add(logItem);
-                    
                 }
             }
             else
