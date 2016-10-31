@@ -221,7 +221,7 @@ var Login = function() {
             },
 
             submitHandler: function(form) {
-                form[0].submit();
+                form.submit();
             }
         });
 
