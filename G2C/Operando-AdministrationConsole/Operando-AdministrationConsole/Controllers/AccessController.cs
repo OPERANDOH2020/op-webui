@@ -37,6 +37,7 @@ namespace Operando_AdministrationConsole.Controllers
                     Debug.Print("Got a ticket: " + ticket);
                     Session["Username"] = user.Username;
                     Session["TGT"] = ticket;
+                    Session["Usertype"] = "normal-user";
 
                     // get user profile, DISSABLED as server does not fully supports this operation yet
                     // var usr = userInstance.UserUsernameGet(user.Username);
