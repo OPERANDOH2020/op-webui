@@ -9,7 +9,8 @@ namespace Operando_AdministrationConsole.Models
     {
         public Reports reportsObj;
         public Results resultsObj;
-        public Schedules schedulesObj; 
+        public Schedules schedulesObj;
+        public Reports reportsObjNotScheduled;
     }
 
     public class Reports
@@ -46,8 +47,6 @@ namespace Operando_AdministrationConsole.Models
         public string Report { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
-        public DateTime Lastrun;
-        public DateTime NextScheduled;
         public DateTime StartDate;
         public int RepeatEveryNumb;
         public string RepeatEveryType { get; set; }
@@ -58,6 +57,10 @@ namespace Operando_AdministrationConsole.Models
         public string StoragePeriodType { get; set; }
         public string[] StoragePeriodTypeOption { get; set; }
         public string DescriptionSchedules { get; set; }
+        public DateTime LastRun { get; set; }
+        public DateTime NextScheduled { get; set; }
+        public int GiornoMese { get; set; }
+        public DateTime GiornoAnno { get; set; }
         public List<Schedules> ScheduleList { get; set; }
         public List<Schedules> ScheduleDetailsList { get; set; }
     }
