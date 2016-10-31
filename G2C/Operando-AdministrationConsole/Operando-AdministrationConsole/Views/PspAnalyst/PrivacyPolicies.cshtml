@@ -1,0 +1,292 @@
+﻿
+@{
+    ViewBag.MenuSection = "OSP Compliance";
+    ViewBag.Title = "OSP-A Privacy Policy";
+    Layout = "~/Views/Shared/_LayoutOperando.cshtml";
+}
+
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="row">
+    <div class="col-xs-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light bordered ">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-globe font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Review Policy</span>
+                </div>
+            </div>
+            <div class="portlet-body text-right">
+                <button type="button" class="btn yellow-gold" onclick="location.href='@Url.Action("ReviewPolicy", "PSPAnalyst")';return false;">Review Policy</button>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-globe font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">OSP Behaviour</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="scroller" style="height: 250px;" data-always-visible="1" data-rail-visible="0">
+                    <ul class="feeds">
+                        <li>
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-default">
+                                            <i class="fa fa-bell-o"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> Role A request User.Date of Birth</div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col2">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-outline btn-circle yellow-gold btn-sm">View <i class="fa fa-arrow-right"></i></button>
+                                    </div>
+                                </div>*@
+                        </li>
+                        <li>
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-default">
+                                            <i class="fa fa-bell-o"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> Role A shares User.Date of Birth with Role B</div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col2">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-outline btn-circle yellow-gold btn-sm">View <i class="fa fa-arrow-right"></i></button>
+                                    </div>
+                                </div>*@
+                        </li>
+                        <li>
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-default">
+                                            <i class="fa fa-bell-o"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> Role B shares Anon.Date of Birth with 3rd Party X</div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col2">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-outline btn-circle yellow-gold btn-sm">View <i class="fa fa-arrow-right"></i></button>
+                                    </div>
+                                </div>*@
+                        </li>
+                    </ul>
+                </div>
+                <div class="scroller-footer">
+                    @*<div class="btn-arrow-link pull-right">
+                            <a href="javascript:;">See All Records</a>
+                            <i class="icon-arrow-right"></i>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-globe font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Access Policies</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="scroller" style="height: 250px;" data-always-visible="1" data-rail-visible="0">
+                    <ul class="feeds">
+                        <li>
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-default">
+                                            <i class="fa fa-key"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> Role A Read Identity Data</div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col2">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-outline btn-circle yellow-gold btn-sm">View <i class="fa fa-arrow-right"></i></button>
+                                    </div>
+                                </div>*@
+                        </li>
+                        <li>
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-default">
+                                            <i class="fa fa-key"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> Role B Read Measurement Data</div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col2">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-outline btn-circle yellow-gold btn-sm">View <i class="fa fa-arrow-right"></i></button>
+                                    </div>
+                                </div>*@
+                        </li>
+                        <li>
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-default">
+                                            <i class="fa fa-key"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> Role B shares anonymous data with 3rd party</div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col2">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-outline btn-circle yellow-gold btn-sm">View <i class="fa fa-arrow-right"></i></button>
+                                    </div>
+                                </div>*@
+                        </li>
+                    </ul>
+                </div>
+                <div class="scroller-footer">
+                    @*<div class="btn-arrow-link pull-right">
+                            <a href="javascript:;">See All Records</a>
+                            <i class="icon-arrow-right"></i>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-globe font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Subscribed User Policies</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="scroller" style="height: 250px;" data-always-visible="1" data-rail-visible="0">
+                    <ul class="feeds">
+                        <li>
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-default">
+                                            <i class="icon-user"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> User-ID 1</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-outline btn-circle yellow-gold btn-sm">View <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-default">
+                                            <i class="icon-user"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> User-ID 2</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-outline btn-circle yellow-gold btn-sm">View <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="scroller-footer">
+                    @*<div class="btn-arrow-link pull-right">
+                            <a href="javascript:;">See All Records</a>
+                            <i class="icon-arrow-right"></i>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light bordered ">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-globe font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Review Policy</span>
+                </div>
+            </div>
+            <div class="portlet-body text-right">
+                <button type="button" class="btn yellow-gold" onclick="location.href='@Url.Action("ReviewPolicy", "PSPAnalyst")';return false;">Review Policy</button>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END PAGE BASE CONTENT -->
+
+
+@section PagePluginStyles {
+
+}
+
+@section PageStyles {
+
+}
+
+@section PagePlugins {
+
+}
+
+@section PageScripts {
+
+}
+
+
+
+

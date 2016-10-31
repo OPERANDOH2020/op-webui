@@ -5,9 +5,6 @@
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
 
-@using Operando_AdministrationConsole.Models;
-@model PrivacyPolicy
-
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-xs-12">
@@ -19,12 +16,12 @@
                     <span class="caption-subject font-dark bold uppercase">OSP-A Privacy Policy</span>
                 </div>
             </div>
-            <div class="portlet-body">
-                <p>Setting up your privacy policy will allow OPERANDO to enforce the statements within the policy. Since they are enforced, this information can be used to prove regulation compliance to regulators.</p>
+            <div class="portlet-body">                
+                <p>Setting up your privacy policy will allow OPERANDO to enforce the statements within the policy. Since they are enforced, this information can be used to prove regulation compliant to regulators.</p>
                 <h3>Who can use data</h3>
-                <div class="actions text-right">
+                @*<div class="actions text-right">
                     <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
-                </div>
+                </div>*@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -37,7 +34,49 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <tr>
+                                <td>
+                                    Doctor
+                                </td>
+                                <td>
+                                    Patient
+                                </td>
+                                <td>
+                                    Medication
+                                </td>
+                                <td>
+                                    For checking drug interactions
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-circle">
+                                        <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" id="bs_confirmation_demo_1" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                        <!-- All events from Bootstrap Popover are available but suffixed with bs.confirmation. See assets\pages\scripts\ui-confirmations.js -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Receptionist
+                                </td>
+                                <td>
+                                    Patient
+                                </td>
+                                <td>
+                                    Email address
+                                </td>
+                                <td>
+                                    For sending appointment reminders
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-circle">
+                                        <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="add-row">
                                 <td>
                                     <select class="bs-select form-control" multiple>
                                         <option>Doctor</option>
@@ -64,36 +103,17 @@
                                     <input type="text" class="form-control" placeholder="Enter text" value="For checking drug interactions">
                                 </td>
                                 <td>
-                                    <div class="btn-group btn-group-circle">
-                                        <button type="button" class="btn btn-outline green btn-sm">OK</button>
-                                        <button type="button" class="btn btn-outline red btn-sm">Cancel</button>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
                                     </div>
                                 </td>
                             </tr>
-                            @foreach (AccessPolicy accessPolicy in Model.Policies)
-                            {
-                                <tr>
-                                    <td>@accessPolicy.Datauser</td>
-                                    <td>@accessPolicy.Datasubjecttype</td>
-                                    <td>@accessPolicy.Datatype</td>
-                                    <td>@accessPolicy.Reason</td>
-                                    <td>
-                                        <div class="btn-group btn-group-circle">
-                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
                         </tbody>
                     </table>
                 </div>
-                <div class="actions text-right">
+                @*<div class="actions text-right">
                     <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
-                </div>
-                <div class="actions text-center">
-                    <button type="button" class="btn btn-circle yellow-gold btn-sm">Save</button>
-                </div>
+                </div>*@
             </div>
         </div>
         <!-- END PORTLET-->

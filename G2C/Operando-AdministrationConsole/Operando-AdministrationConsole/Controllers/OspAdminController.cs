@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Operando_AdministrationConsole.Helper;
+using Operando_AdministrationConsole.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Operando_AdministrationConsole.Models;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 
@@ -11,12 +13,14 @@ namespace Operando_AdministrationConsole.Controllers
 {
     public class OspAdminController : Controller
     {
-
+        private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
         ReportManagerOSP reportManagerOSP = new ReportManagerOSP();
 
-        public ActionResult PrivacyPolicy()
+        public async Task<ActionResult> PrivacyPolicy()
         {
-            return View();
+            PrivacyPolicy policies = await
+                helper.get<PrivacyPolicy>("http://localhost:8080/stub-pdb/api/OSP/ami/privacy-policy");
+            return View(policies);
         }
 
         public ActionResult Reports()
@@ -437,12 +441,10 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-        public ActionResult BigDataAnalytics()
+        public async Task<ActionResult> BigDataAnalytics()
         {
-            return View();
+            List<BdaJob> executions = await helper.get<List<BdaJob>>("http://localhost:8080/stub-bda/bda/jobs?osp=Ami");
+            return View(executions);
         }
-
-
-
     }
 }

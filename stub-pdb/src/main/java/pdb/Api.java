@@ -2,7 +2,6 @@ package pdb;
 
 import eu.operando.api.model.DtoPrivacyRegulation.PrivateInformationTypeEnum;
 import eu.operando.api.model.DtoPrivacyRegulation.RequiredConsentEnum;
-import eu.operando.api.model.PrivacyPolicy;
 import eu.operando.api.model.PrivacyRegulation;
 
 import java.util.Vector;
@@ -46,23 +45,22 @@ public class Api
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/OSP")
+	@Path("/OSP/{osp-id}/privacy-policy")
 	public Response getPrivacyPolicy()
 	{
-		Vector<PrivacyPolicy> policies = new Vector<PrivacyPolicy>();
+		Vector<AccessPolicy> policies = new Vector<AccessPolicy>();
 		
-		PrivacyPolicy policy1 =
-				new PrivacyPolicy("id", "terms");
-		PrivacyPolicy policy2 =
-				new PrivacyPolicy("id", "terms");
-		PrivacyPolicy policy3 =
-				new PrivacyPolicy("id", "terms");
+		AccessPolicy policy1 = new AccessPolicy("datauser1", "datasubjecttype1", "datatype1", "reason1");
+		AccessPolicy policy2 = new AccessPolicy("datauser2", "datasubjecttype2", "datatype2", "reason2");
+		AccessPolicy policy3 = new AccessPolicy("datauser3", "datasubjecttype3", "datatype3", "reason3");
 		
 		policies.add(policy1);
 		policies.add(policy2);
 		policies.add(policy3);
 		
-		String json = createStringJsonFollowingOperandoConventions(policies);
+		PrivacyPolicy policy = new PrivacyPolicy("Ami", policies);
+		
+		String json = createStringJsonFollowingOperandoConventions(policy);
 		
 		return Response.ok().entity(json).build();
 	}
@@ -85,5 +83,91 @@ public class Api
 		GsonBuilder builder = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 		Gson gson = builder.create();
 		return gson;
+	}
+	
+	public class PrivacyPolicy
+	{
+		private String ospPolicyId = "";
+		private Vector<AccessPolicy> policies = new Vector<AccessPolicy>();
+		
+		public PrivacyPolicy(String ospPolicyId, Vector<AccessPolicy> policies)
+		{
+			super();
+			this.ospPolicyId = ospPolicyId;
+			this.policies = policies;
+		}
+		
+		public String getOspPolicyId()
+		{
+			return ospPolicyId;
+		}
+		public void setOspPolicyId(String ospPolicyId)
+		{
+			this.ospPolicyId = ospPolicyId;
+		}
+		public Vector<AccessPolicy> getPolicies()
+		{
+			return policies;
+		}
+		public void setPolicies(Vector<AccessPolicy> policies)
+		{
+			this.policies = policies;
+		}
+	}
+	
+	public class AccessPolicy
+	{
+		private String datauser = "";
+		private String datasubjecttype = "";
+		private String datatype = "";
+		private String reason = "";
+
+		public AccessPolicy(String datauser, String datasubjecttype, String datatype, String reason)
+		{
+			this.datauser = datauser;
+			this.datasubjecttype = datasubjecttype;
+			this.datatype = datatype;
+			this.reason = reason;
+		}
+
+		public String getDatauser()
+		{
+			return datauser;
+		}
+
+		public void setDatauser(String datauser)
+		{
+			this.datauser = datauser;
+		}
+
+		public String getDatasubjecttype()
+		{
+			return datasubjecttype;
+		}
+
+		public void setDatasubjecttype(String datasubjecttype)
+		{
+			this.datasubjecttype = datasubjecttype;
+		}
+
+		public String getDatatype()
+		{
+			return datatype;
+		}
+
+		public void setDatatype(String datatype)
+		{
+			this.datatype = datatype;
+		}
+
+		public String getReason()
+		{
+			return reason;
+		}
+
+		public void setReason(String reason)
+		{
+			this.reason = reason;
+		}
 	}
 }

@@ -4,12 +4,15 @@
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
 
+@using Operando_AdministrationConsole.Models;
+@model List<BdaJob>
+
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-xs-12">
         <div class="m-heading-1 border-grey-silver m-bordered">
             <p>
-                Page description here.
+                From this page you can download reports for previously run Big Data Analytics jobs, and schedule when you want available jobs to run in the future.
             </p>
         </div>
         <!-- BEGIN PORTLET -->
@@ -46,93 +49,27 @@
                                         <tr>
                                             <th> Date </th>
                                             <th> Job </th>
-                                            <th> Report </th>
+                                            <th> Description </th>
                                             <th> Version </th>
                                             <th> Actions </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-30 </td>
-                                            <td> Job 1 </td>
-                                            <td> Report title </td>
-                                            <td> v.2 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-29 </td>
-                                            <td> Job 2 </td>
-                                            <td> Report title </td>
-                                            <td> v.2 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-28 </td>
-                                            <td> Job 3 </td>
-                                            <td> Report title </td>
-                                            <td> v.2 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-26 </td>
-                                            <td> Job 3 </td>
-                                            <td> Report title </td>
-                                            <td> v.3 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-20 </td>
-                                            <td> Job 1 </td>
-                                            <td> Report title </td>
-                                            <td> v.1 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-17 </td>
-                                            <td> Job 3 </td>
-                                            <td> Report title </td>
-                                            <td> v.1 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-08-26 </td>
-                                            <td> Job 1 </td>
-                                            <td> Report title </td>
-                                            <td> v.2 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-07-28 </td>
-                                            <td> Job 2 </td>
-                                            <td> Report title </td>
-                                            <td> v.1 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td> 2016-09-26 </td>
-                                            <td> Job 2 </td>
-                                            <td> Report title </td>
-                                            <td> v.4 </td>
-                                            <td>
-                                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                                            </td>
-                                        </tr>
+                                        @foreach (BdaJob job in Model)
+                                        {
+                                            foreach (BdaExecution execution in job.Executions)
+                                            {
+                                                <tr class="odd gradeX">
+                                                    <td> @execution.ExecutionDate </td>
+                                                    <td> @job.JobName </td>
+                                                    <td> @job.Description </td>
+                                                    <td> @execution.VersionNumber </td>
+                                                    <td>
+                                                        <a class="btn btn-circle btn-sm yellow-gold" href="@execution.DownloadLink"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -153,96 +90,90 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-1-schedule">
-                                                <i class="fa fa-caret-right"></i>&nbsp;&nbsp;Job 1
-                                            </td>
-                                            <td> Report 1 title </td>
-                                            <td> v.1 </td>
-                                            <td> € 0.10 </td>
-                                            <td> 2016-09-30 </td>
-                                            <td> Tomorrow </td>
-                                        </tr>
-                                        <tr class="active accordion-body collapse" id="Job-1-schedule">
-                                            <td colspan="6">
-                                                <div class="portlet light">
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark bold uppercase">Schedule</span>
+                                        @foreach (BdaJob job in Model)
+                                        {
+                                            <tr>
+                                                <td class="accordion-toggle" data-toggle="collapse" data-target="#@job.JobName-schedule">
+                                                    <i class="fa fa-caret-right"></i>&nbsp;&nbsp;@job.JobName
+                                                </td>
+                                                <td> @job.Description </td>
+                                                <td> @job.CurrentVersionNumber </td>
+                                                <td> @job.CostPerExecution </td>
+                                                <td> @job.DetermineDateMostRecentExecution() </td>
+                                                <td> @job.DetermineDateNextExecution() </td>
+                                            </tr>
+                                            <tr class="active accordion-body collapse" id="@job.JobName-schedule">
+                                                <td colspan="6">
+                                                    <div class="portlet light">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject font-dark bold uppercase">Schedule</span>
+                                                            </div>
                                                         </div>
                                                         @*<div class="actions">
                                                             <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
                                                         </div>*@
-                                                    </div> 
-                                                    <div class="portlet-body">
-                                                        <table class="table table-bordered table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="width: 130px;">Start</th>
-                                                                    <th>Run every</th>
-                                                                    <th style="min-width: 130px;">On</th>
-                                                                    <th style="width: 125px;">Actions</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>10:00</td>
-                                                                    <td>1 month(s)</td>
-                                                                    <td>Mon,Wed</td>
-                                                                    <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>20:30</td>
-                                                                    <td>2 week(s)</td>
-                                                                    <td>Sat</td>
-                                                                    <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="add-row">
-                                                                    <td>
-                                                                        <div class="input-group">
-                                                                            <input type="text" class="form-control timepicker timepicker-24">
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn default" type="button">
-                                                                                    <i class="fa fa-clock-o"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="input-group">
-                                                                            <div class="col-md-6">
-                                                                                <input class="touchspin_default" type="text" value="0" name="number">
+                                                        <div class="portlet-body">
+                                                            <table class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width: 130px;">Start</th>
+                                                                            <th>Run every</th>
+                                                                            <th style="min-width: 130px;">On</th>
+                                                                            <th style="width: 125px;">Actions @Operando_AdministrationConsole.Helper.StaticStrings.NotImplemented</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (BdaSchedule schedule in job.Schedules)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@schedule.StartTime</td>
+                                                                                <td>@schedule.RepeatIntervalValue @(schedule.RepeatIntervalUnit)(s)</td>
+                                                                                <td>@schedule.RepeatOn</td>
+                                                                                <td>
+                                                                                    <div class="btn-group btn-group-circle">
+                                                                                        <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                                                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    <tr class="add-row">
+                                                                        <td>
+                                                                            <div class="input-group">
+                                                                                <input type="text" class="form-control timepicker timepicker-24">
+                                                                                <span class="input-group-btn">
+                                                                                    <button class="btn default" type="button">
+                                                                                        <i class="fa fa-clock-o"></i>
+                                                                                    </button>
+                                                                                </span>
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <select id="interval-selection" class="form-control">
-                                                                                    <option value="1" selected>Day(s)</option>
-                                                                                    <option value="2">Week(s)</option>
-                                                                                    <option value="3">Month(s)</option>
-                                                                                    <option value="4">Year(s)</option>
-                                                                                </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="input-group">
+                                                                                <div class="col-md-6">
+                                                                                    <input class="touchspin_default" type="text" value="0" name="number">
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <select id="interval-selection" class="form-control">
+                                                                                        <option value="1" selected>Day(s)</option>
+                                                                                        <option value="2">Week(s)</option>
+                                                                                        <option value="3">Month(s)</option>
+                                                                                        <option value="4">Year(s)</option>
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        -
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="text-center">
-                                                                            <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                @*EXAMPLE ROWS FOR DIFFERENT SCHEDULING
+                                                                        </td>
+                                                                        <td>
+                                                                            -
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="text-center">
+                                                                                <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @*EXAMPLE ROWS FOR DIFFERENT SCHEDULING
                                                                     <tr>
                                                                     <td>
                                                                         <div class="input-group">
@@ -283,10 +214,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Save</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm">Undo</button>
-                                                                        </div>
+                                                                        <button type="button" class="btn btn-outline green btn-sm">Add</button>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -321,10 +249,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Save</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm">Undo</button>
-                                                                        </div>
+                                                                        <button type="button" class="btn btn-outline green btn-sm">Add</button>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -364,214 +289,16 @@
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Save</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm">Undo</button>
-                                                                        </div>
+                                                                        <button type="button" class="btn btn-outline green btn-sm">Add</button>
                                                                     </td>
                                                                 </tr>*@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                </div>
-                                                
-                                            
+                                                </div>                                       
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-2-schedule">
-                                                <i class="fa fa-caret-right"></i>&nbsp;&nbsp;Job 2
-                                            </td>
-                                            <td> Report 2 title </td>
-                                            <td> v.4 </td>
-                                            <td> € 0.10 </td>
-                                            <td> 2016-09-30 </td>
-                                            <td> 2016-10-15 </td>
-                                        </tr>
-                                        <tr class="active accordion-body collapse" id="Job-2-schedule">
-                                            <td colspan="6">
-                                                <div class="portlet light">
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark bold uppercase">Schedule</span>
-                                                        </div>
-                                                        <div class="actions">
-                                                            <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <table class="table table-bordered table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Start</th>
-                                                                    <th>Run every</th>
-                                                                    <th>On</th>
-                                                                    <th style="width: 125px;">Actions</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>10:00</td>
-                                                                    <td>1 month(s)</td>
-                                                                    <td>Mon,Wed</td>
-                                                                    <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>20:30</td>
-                                                                    <td>2 week(s)</td>
-                                                                    <td>Sat</td>
-                                                                    <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="add-row">
-                                                                    <td>
-                                                                        <div class="input-group">
-                                                                            <input type="text" class="form-control timepicker timepicker-24">
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn default" type="button">
-                                                                                    <i class="fa fa-clock-o"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="input-group">
-                                                                            <div class="col-md-6">
-                                                                                <input class="touchspin_default" type="text" value="0" name="number">
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <select id="interval-selection" class="form-control">
-                                                                                    <option value="1" selected>Day(s)</option>
-                                                                                    <option value="2">Week(s)</option>
-                                                                                    <option value="3">Month(s)</option>
-                                                                                    <option value="4">Year(s)</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        -
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="text-center">
-                                                                            <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="accordion-toggle" data-toggle="collapse" data-target="#Job-3-schedule">
-                                                <i class="fa fa-caret-right"></i>&nbsp;&nbsp;Job 3
-                                            </td>
-                                            <td> Report 3 title </td>
-                                            <td> v.2 </td>
-                                            <td> € 0.10 </td>
-                                            <td> - </td>
-                                            <td> - </td>
-                                        </tr>
-                                        <tr class="active accordion-body collapse" id="Job-3-schedule">
-                                            <td colspan="6">
-                                                <div class="portlet light">
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark bold uppercase">Schedule</span>
-                                                        </div>
-                                                        <div class="actions">
-                                                            <button type="button" class="btn btn-circle yellow-gold"> Add <i class="fa fa-plus"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <table class="table table-bordered table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="min-width: 125px;">Start</th>
-                                                                    <th>Run every</th>
-                                                                    <th>On</th>
-                                                                    <th style="width: 125px;">Actions</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>10:00</td>
-                                                                    <td>1 month(s)</td>
-                                                                    <td>Mon,Wed</td>
-                                                                    <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>20:30</td>
-                                                                    <td>2 week(s)</td>
-                                                                    <td>Sat</td>
-                                                                    <td>
-                                                                        <div class="btn-group btn-group-circle">
-                                                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="add-row">
-                                                                    <td>
-                                                                        <div class="input-group">
-                                                                            <input type="text" class="form-control timepicker timepicker-24">
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn default" type="button">
-                                                                                    <i class="fa fa-clock-o"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="input-group">
-                                                                            <div class="col-md-6">
-                                                                                <input class="touchspin_default" type="text" value="0" name="number">
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <select id="interval-selection" class="form-control">
-                                                                                    <option value="1" selected>Day(s)</option>
-                                                                                    <option value="2">Week(s)</option>
-                                                                                    <option value="3">Month(s)</option>
-                                                                                    <option value="4">Year(s)</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        -
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="text-center">
-                                                                            <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-
-                                            </td>
-                                        </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -641,7 +368,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit</button>
+                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit @Operando_AdministrationConsole.Helper.StaticStrings.NotImplemented</button>
             </div>
         </div>
     </div>

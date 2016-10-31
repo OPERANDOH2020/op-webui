@@ -2,22 +2,36 @@ package bda;
 
 public class BdaSchedule
 {
+	private String ospScheduled = "";
 	private String startDate = "";
 	private String startTime = "";
 	private String repeatIntervalUnit = "";
 	private String repeatIntervalValue = "";
 	private String repeatOn = "";
+	private String storagePeriod = "";
 	
-	public BdaSchedule(String startDate, String startTime, String repeatIntervalUnit, String repeatIntervalValue, String repeatOn)
+	public BdaSchedule(String ospScheduled, String startDate, String startTime, String repeatIntervalUnit, String repeatIntervalValue, String repeatOn, String storagePeriod)
 	{
 		super();
+		this.ospScheduled = ospScheduled;
 		this.startDate = startDate;
 		this.startTime = startTime;
 		this.repeatIntervalUnit = repeatIntervalUnit;
 		this.repeatIntervalValue = repeatIntervalValue;
 		this.repeatOn = repeatOn;
+		this.storagePeriod = storagePeriod;
 	}
 	
+	public String getOspScheduled()
+	{
+		return ospScheduled;
+	}
+
+	public void setOspScheduled(String ospScheduled)
+	{
+		this.ospScheduled = ospScheduled;
+	}
+
 	public String getStartDate()
 	{
 		return startDate;
@@ -57,5 +71,13 @@ public class BdaSchedule
 	public void setRepeatOn(String repeatOn)
 	{
 		this.repeatOn = repeatOn;
+	}
+	public String getStoragePeriod()
+	{
+		return storagePeriod;
+	}
+	public void setStoragePeriod(String storagePeriod)
+	{
+		this.storagePeriod = storagePeriod;
 	}
 }

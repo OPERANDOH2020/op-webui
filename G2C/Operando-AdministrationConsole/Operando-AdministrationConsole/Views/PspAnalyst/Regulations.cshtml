@@ -1,9 +1,12 @@
-﻿
-@{
+﻿@{
     ViewBag.MenuSection = "PSP Analyst";
     ViewBag.Title = "Data Protection Regulations";
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
+
+@using Operando_AdministrationConsole.Models;
+@using Operando_AdministrationConsole.Extension;
+@model List<Regulation>
 
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
@@ -41,25 +44,19 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <select class="bs-select form-control" multiple>
-                                        <option>Sector 1</option>
-                                        <option>Sector 2</option>
-                                        <option>Sector 3</option>
-                                        <option selected>Sector 4</option>
-                                    </select>
+                                    <input type="text" class="form-control" placeholder="Enter text">
                                 </td>
                                 <td>
-                                    <select class="bs-select form-control" multiple>
-                                        <option selected>Source A</option>
-                                        <option>Source B</option>
-                                    </select>
+                                    <input type="text" class="form-control" placeholder="Enter text">
                                 </td>
                                 <td>
-                                    <select class="bs-select form-control" multiple>
-                                        <option selected>Info A</option>
-                                        <option>Info B</option>
-                                        <option>Info C</option>
-                                        <option>Info D</option>
+                                    <select class="bs-select form-control">
+                                        @{
+                                            foreach (PrivateInformationTypeEnum privateInformationType in Enum.GetValues(typeof(PrivateInformationTypeEnum)))
+                                            {
+                                                <option> @privateInformationType.UserFriendlyName() </option>
+                                            };
+                                        }
                                     </select>
                                 </td>
                                 <td>
@@ -67,64 +64,37 @@
                                 </td>
                                 <td>
                                     <select class="bs-select form-control">
-                                        <option selected>Yes</option>
-                                        <option>No</option>
+                                        @{
+                                            foreach (string requiredConsentType in Enum.GetNames(typeof(RequiredConsentEnum)))
+                                            {
+                                                <option> @requiredConsentType.ToString() </option>
+                                            };
+                                        }
                                     </select>
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-circle">
                                         <button type="button" class="btn btn-outline green btn-sm">Save</button>
-                                        <button type="button" class="btn btn-outline red btn-sm">Undo</button>
+                                        <button type="button" class="btn btn-outline red btn-sm">Cancel</button>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    Sector 3
-                                </td>
-                                <td>
-                                    Source A
-                                </td>
-                                <td>
-                                    Info B
-                                </td>
-                                <td>
-                                    Action A
-                                </td>
-                                <td>
-                                    Yes
-                                </td>
-                                <td>
-                                    <div class="btn-group btn-group-circle">
-                                        <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" id="bs_confirmation_demo_1" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                        <!-- All events from Bootstrap Popover are available but suffixed with bs.confirmation. See assets\pages\scripts\ui-confirmations.js -->
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Sector 1
-                                </td>
-                                <td>
-                                    Source B
-                                </td>
-                                <td>
-                                    Info A
-                                </td>
-                                <td>
-                                    Action D
-                                </td>
-                                <td>
-                                    Yes
-                                </td>
-                                <td>
-                                    <div class="btn-group btn-group-circle">
-                                        <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            @foreach (Regulation regulation in Model)
+                            { 
+                                <tr>
+                                    <td>@regulation.LegislationSector.ToString() </td>
+                                    <td>@regulation.PrivateInformationSource.ToString() </td>
+                                    <td>@regulation.PrivateInformationType.ToString() </td>
+                                    <td>@regulation.Action.ToString() </td>
+                                    <td>@regulation.RequiredConsent.ToString() </td>
+                                    <td>
+                                        <div class="btn-group btn-group-circle">
+                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

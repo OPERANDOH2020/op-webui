@@ -7,20 +7,34 @@ public class BdaJob
 	private String jobName = "";
 	private String description = "";
 	private String currentVersionNumber = "";
+	private String definitionLocation = "";
 	private String costPerExecution = "";
+	private Vector<String> osps = new Vector<String>();
 	private Vector<BdaSchedule> schedules = new Vector<BdaSchedule>();
 	private Vector<BdaExecution> executions = new Vector<BdaExecution>();
-
-	public BdaJob(String jobName, String description, String currentVersionNumber, String costPerExecution, Vector<BdaExecution> executions,
-			Vector<BdaSchedule> schedules)
+	
+	public BdaJob(String jobName, String description, String currentVersionNumber, String definitionLocation, String costPerExecution, Vector<String> osps,
+			Vector<BdaSchedule> schedules, Vector<BdaExecution> executions)
 	{
 		super();
 		this.jobName = jobName;
 		this.description = description;
 		this.currentVersionNumber = currentVersionNumber;
+		this.definitionLocation = definitionLocation;
 		this.costPerExecution = costPerExecution;
-		this.executions = executions;
+		this.osps = osps;
 		this.schedules = schedules;
+		this.executions = executions;
+	}
+
+	public String getDefinitionLocation()
+	{
+		return definitionLocation;
+	}
+
+	public void setDefinitionLocation(String definitionLocation)
+	{
+		this.definitionLocation = definitionLocation;
 	}
 
 	public String getJobName()
@@ -61,6 +75,16 @@ public class BdaJob
 	public void setCostPerExecution(String costPerExecution)
 	{
 		this.costPerExecution = costPerExecution;
+	}
+
+	public Vector<String> getOsps()
+	{
+		return osps;
+	}
+
+	public void setOsps(Vector<String> osps)
+	{
+		this.osps = osps;
 	}
 
 	public Vector<BdaSchedule> getSchedules()

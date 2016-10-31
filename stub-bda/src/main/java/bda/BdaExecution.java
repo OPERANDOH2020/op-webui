@@ -4,13 +4,15 @@ public class BdaExecution
 {
 	private String executionDate = null;
 	private String versionNumber = "";
+	private String ospScheduled = "";
 	private String downloadLink = "";
 	
-	public BdaExecution(String executionDate, String versionNumber, String downloadLink)
+	public BdaExecution(String executionDate, String versionNumber, String ospScheduled, String downloadLink)
 	{
 		super();
 		this.executionDate = executionDate;
 		this.versionNumber = versionNumber;
+		this.ospScheduled = ospScheduled;
 		this.downloadLink = downloadLink;
 	}
 	
@@ -29,6 +31,14 @@ public class BdaExecution
 	public void setVersionNumber(String versionNumber)
 	{
 		this.versionNumber = versionNumber;
+	}
+	public String getOspScheduled()
+	{
+		return ospScheduled;
+	}
+	public void setOspScheduled(String ospScheduled)
+	{
+		this.ospScheduled = ospScheduled;
 	}
 	public String getDownloadLink()
 	{
