@@ -10,7 +10,7 @@
         var firtTabToOpen = getParameterByName("tab", location.href);
         if (firtTabToOpen!=null)
         {
-            $('#' + firtTabToOpen).show()
+            $('#' + firtTabToOpen).addClass('active');
 
             $('#tab_reports').removeClass('active');
             $('#tab_1_1').removeClass('active');
