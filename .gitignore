@@ -272,3 +272,9 @@ __pycache__/
 
 # Cake - Uncomment if you are using it
 # tools/
+/G2C/Operando-AdministrationConsole/Operando-AdministrationConsole/assets
+global
+layouts
+pages
+apps
+/G2C/Operando-AdministrationConsole/Operando-AdministrationConsole.sln
