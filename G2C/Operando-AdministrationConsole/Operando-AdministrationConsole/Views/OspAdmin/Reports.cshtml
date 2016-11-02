@@ -53,45 +53,89 @@
     }
 
     // Funzione chiamata quando si clicca su "Ok" di una riga
-    function confermaModifica(idRiga, bottone) {
-        $('.scheduleDetail_' + idRiga).toggle();
-        $(bottone).toggle();
-        $('#deleteButtonScheduler_' + idRiga).toggle();
-        $('#editButtonScheduler_' + idRiga).toggle();
-        $('#undoButtonScheduler_' + idRiga).toggle();
+    function confermaModifica(idRiga, bottone, report) {
+        var startDate = $('#editStartDate_' + idRiga).val();
+        var repeatEveryNumb = $('#editRepeatNumb_' + idRiga).val();
+        var repeatEveryType = $('#editRepeatType_' + idRiga + '-interval-selection option:selected').text();
+        var valStoragePeriodNumb;
+        var valStoragePeriodType;
+        var valClock = "";
+        var valDayOfMonth = "";
+        var valDayOfYear = "";
+        var valDayOfWeek = "";
 
-        // Qua ci metti la chiamata ajax che fa la modifica
-
-
-
-        // Qua ci metti le modifiche alle label
-        // Modifica label
-        $('#labelStartDate_' + idRiga).text($('#editStartDate_' + idRiga).val());
-        $('#labelRepeatEveryNumb_' + idRiga).text($('#editRepeatNumb_' + idRiga).val());
-        $('#labelRepeatEveryType_' + idRiga).text($('#editRepeatType_' + idRiga + '-interval-selection option:selected').text());
-
-        if ($('#editRepeatType_53-interval-selection').val() == "1") // DAYS
+        if ($('#editRepeatType_53-interval-selection').val() == "2") // WEEKS
         {
-            $('#labelOn_' + idRiga).text('-');
+            valStoragePeriodType = 'WEEKS(s)';
+            valDayOfWeek = $('#editRepeatType_'+ idRiga + '-reportb-days-list option:selected').map(function(i, n) {
+                return n.text;
+            }).get().join(",");
+            valStoragePeriodNumb = valDayOfWeek;
         }
         else
-            if ($('#editRepeatType_53-interval-selection').val() == "2") // WEEKS
+            if ($('#editRepeatType_53-interval-selection').val() == "3") // MONTHS
             {
-                var giorniSelezionati = $('#editRepeatType_'+ idRiga + '-reportb-days-list option:selected').map(function(i, n) {
-                    return n.text;
-                }).get().join(" ");
-                $('#labelOn_' + idRiga).text(giorniSelezionati);
+                valStoragePeriodType = 'MONTHS(s)';
+                valDayOfMonth = $('#editRepeatType_' + idRiga+'-reportc-numtday').val();
+                valStoragePeriodNumb = valDayOfMonth;
             }
-            else
-                if ($('#editRepeatType_53-interval-selection').val() == "3") // MONTHS
-                {
-                    $('#labelOn_' + idRiga).text($('#editRepeatType_' + idRiga+'-reportc-numtday').val());
-                }
             else
                 if ($('#editRepeatType_53-interval-selection').val() == "4") // YEARS
                 {
-                    $('#labelOn_' + idRiga).text($('#editRepeatType_' + idRiga+'-reportd-date').val());
+                    valStoragePeriodType = 'YEARS(s)';
+                    valDayOfYear = $('#editRepeatType_' + idRiga+'-reportd-date').val();
+                    valStoragePeriodNumb = valDayOfYear;
                 }
+
+
+        // Qua ci metti la chiamata ajax che fa la modifica
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "../ASPXSaveAjax/SaveSchedule.aspx",
+            data: { ID: idRiga, 
+                    Report: report, 
+                    StartDate: startDate, 
+                    RepeatEveryNumb: repeatEveryNumb, 
+                    RepeatEveryType: repeatEveryType, 
+                    StoragePeriodNumb: valStoragePeriodNumb, 
+                    StoragePeriodType: valStoragePeriodType, 
+                    OSPs: ",ITI,OCC", 
+                    DayOfWeek: valDayOfWeek, 
+                    Time: valClock, 
+                    DayOfMonth: valDayOfMonth, 
+                    DayOfYear: valDayOfYear },
+            dataType: "text",
+            success: function (data) {
+                // Nascondo gli input di inserimento e ripristino le label
+                $('.scheduleDetail_' + idRiga).toggle();
+                $(bottone).toggle();
+                $('#deleteButtonScheduler_' + idRiga).toggle();
+                $('#editButtonScheduler_' + idRiga).toggle();
+                $('#undoButtonScheduler_' + idRiga).toggle();
+
+
+                // Qua ci metti le modifiche alle label
+                $('#labelStartDate_' + idRiga).text(startDate);
+                $('#labelRepeatEveryNumb_' + idRiga).text(repeatEveryNumb);
+                $('#labelRepeatEveryType_' + idRiga).text(repeatEveryType);
+
+                if ($('#editRepeatType_53-interval-selection').val() == "1") // DAYS
+                    $('#labelOn_' + idRiga).text('-');
+                else
+                    if ($('#editRepeatType_53-interval-selection').val() == "2") // WEEKS
+                        $('#labelOn_' + idRiga).text(valDayOfWeek);
+                    else
+                        if ($('#editRepeatType_53-interval-selection').val() == "3") // MONTHS
+                            $('#labelOn_' + idRiga).text(valDayOfMonth);
+                        else
+                            if ($('#editRepeatType_53-interval-selection').val() == "4") // YEARS
+                                $('#labelOn_' + idRiga).text(valDayOfYear);      
+            },
+            error: function (xhr, status) {
+                alert("Error: "+xhr.statusText);
+            }
+        });  
     }
 
     // Funzione chiamata quando si clicca su "Undo" di una riga
@@ -787,20 +831,20 @@
                                                                                         </div>
                                                                                         <div class="input-group" id="editRepeatType_@details.ID-Reportb" style="display:none">
                                                                                             <select id="editRepeatType_@details.ID-reportb-days-list" class="bs-select form-control" multiple>
-                                                                                                <option value="1">Mon</option>
-                                                                                                <option value="2" selected>Tue</option>
-                                                                                                <option value="3">Wed</option>
-                                                                                                <option value="4">Thu</option>
-                                                                                                <option value="5">Fri</option>
-                                                                                                <option value="6">Sat</option>
-                                                                                                <option value="7">Sun</option>
+                                                                                                <option value="1" @if (details.DayOfWeek.Contains("Mon")) { @Html.Raw("selected") }>Mon</option>
+                                                                                                <option value="2" @if (details.DayOfWeek.Contains("Tue")) { @Html.Raw("selected") }>Tue</option>
+                                                                                                <option value="3" @if (details.DayOfWeek.Contains("Wed")) { @Html.Raw("selected") }>Wed</option>
+                                                                                                <option value="4" @if (details.DayOfWeek.Contains("Thu")) { @Html.Raw("selected") }>Thu</option>
+                                                                                                <option value="5" @if (details.DayOfWeek.Contains("Fri")) { @Html.Raw("selected") }>Fri</option>
+                                                                                                <option value="6" @if (details.DayOfWeek.Contains("Sat")) { @Html.Raw("selected") }>Sat</option>
+                                                                                                <option value="7" @if (details.DayOfWeek.Contains("Sun")) { @Html.Raw("selected") }>Sun</option>
                                                                                             </select>
                                                                                         </div>
                                                                                         <div class="input-group" id="editRepeatType_@details.ID-Reportc" style="display:none">
-                                                                                            <input id="editRepeatType_@details.ID-reportc-numtday" class="positive touchspin_days_in_month" type="text" value="0" name="number">
+                                                                                            <input id="editRepeatType_@details.ID-reportc-numtday" value="@details.GiornoMese" class="positive touchspin_days_in_month" type="text" value="0" name="number">
                                                                                         </div>
                                                                                         <div class="input-group input-medium date date-picker" data-date-format="dd-mm" data-date-start-date="+0d" id="editRepeatType_@details.ID-Reportd" style="display:none">
-                                                                                            <input id="editRepeatType_@details.ID-reportd-date" type="text" class="form-control" readonly>
+                                                                                            <input id="editRepeatType_@details.ID-reportd-date" value="@details.GiornoAnno" type="text" class="form-control" readonly>
                                                                                             <span class="input-group-btn">
                                                                                                 <button class="btn default" type="button">
                                                                                                     <i class="fa fa-calendar"></i>
@@ -816,7 +860,7 @@
                                                                                         <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" id="deleteButtonScheduler_@details.ID" data-id='@details.ID-@details.Report' data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteSchedule">Delete</button>
                                                                                     </div>
                                                                                     <div class="btn-group btn-group-circle">
-                                                                                        <button type="button" style="display:none" class="btn btn-outline green btn-sm" data-toggle="modal" id="confirmButtonScheduler_@details.ID" onclick="javascript: confermaModifica(@details.ID, this)"> Ok </button>
+                                                                                        <button type="button" style="display:none" class="btn btn-outline green btn-sm" data-toggle="modal" id="confirmButtonScheduler_@details.ID" onclick="javascript: confermaModifica(@details.ID, this, '@item.Report')"> Ok </button>
                                                                                         <button type="button" style="display:none" class="btn btn-outline red btn-sm" data-toggle="modal" id="undoButtonScheduler_@details.ID" onclick="javascript: annullaModifica(@details.ID, this)" data-placement="left"> Undo </button>
                                                                                     </div>
                                                                                 </td>

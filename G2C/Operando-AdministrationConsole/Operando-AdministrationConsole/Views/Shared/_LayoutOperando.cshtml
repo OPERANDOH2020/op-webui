@@ -28,6 +28,11 @@
     <!-- BEGIN THEME LAYOUT STYLES -->
     @Styles.Render("~/operando/global-layout/css")
     <!-- END THEME LAYOUT STYLES -->
+
+    <!-- BEGIN CORE PLUGINS -->
+    @Scripts.Render("~/operando/plugins/core")
+    <!-- END CORE PLUGINS -->
+
 </head>
 <!-- END HEAD -->
 <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
@@ -108,9 +113,7 @@
     <!--[if lt IE 9]>
     @Scripts.Render("~/operando/plugins/old-ie")
     <![endif]-->
-    <!-- BEGIN CORE PLUGINS -->
-    @Scripts.Render("~/operando/plugins/core")
-    <!-- END CORE PLUGINS -->
+    
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     @RenderSection("PagePlugins", required: false)
     <!-- END PAGE LEVEL PLUGINS -->
