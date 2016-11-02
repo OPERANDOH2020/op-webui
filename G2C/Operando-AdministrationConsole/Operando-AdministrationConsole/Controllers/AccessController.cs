@@ -10,6 +10,7 @@ namespace Operando_AdministrationConsole.Controllers
 {
     public class AccessController : Controller
     {
+        /* Method modified by IT Innovation Centre 2016 */
         // GET: Access
         public ActionResult Login()
         {
@@ -17,6 +18,7 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        /* Method modified by IT Innovation Centre 2016 */
         // POST: Access
         [HttpPost]
         public ActionResult Login(Models.UserAccount user)
@@ -63,6 +65,7 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        /* Method modified by IT Innovation Centre 2016 */
         [HttpPost]
         public ActionResult Registration(Models.RegisterViewModel rvm)
         {

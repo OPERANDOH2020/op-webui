@@ -48,6 +48,18 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="eu.operando.core.ose.cli, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\eu_operando_core_ose_cli\src\IO.Swagger\bin\Debug\eu.operando.core.ose.cli.dll</HintPath>
+    </Reference>
+    <Reference Include="eu.operando.core.pdb.cli, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\eu_operando_core_pdb_cli\src\IO.Swagger\bin\Debug\eu.operando.core.pdb.cli.dll</HintPath>
+    </Reference>
+    <Reference Include="eu.operando.interfaces.aapi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\aapi_client\src\IO.Swagger\bin\Debug\eu.operando.interfaces.aapi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -61,9 +73,9 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\eu_operando_core_pdb_cli\src\IO.Swagger\bin\Debug\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=105.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.2\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -5781,20 +5793,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\aapi_client\src\IO.Swagger\eu.operando.interfaces.aapi.csproj">
-      <Project>{594234d1-bb49-41ac-a663-2a1c38807015}</Project>
-      <Name>eu.operando.interfaces.aapi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
-      <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>
-      <Name>eu.operando.core.ose.cli</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\eu_operando_core_pdb_cli\src\IO.Swagger\eu.operando.core.pdb.cli.csproj">
-      <Project>{bcbeb1a3-81da-4cdd-87c6-becf5783d727}</Project>
-      <Name>eu.operando.core.pdb.cli</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -46,6 +46,7 @@ namespace Operando_AdministrationConsole.Models
         public string Email { get; set; }
     }
 
+    /* Method modified by IT Innovation Centre 2016 */
     public class UserAccount
     {
         [Key]
@@ -75,6 +76,7 @@ namespace Operando_AdministrationConsole.Models
         public bool RememberMe { get; set; }
     }
 
+    /* Method modified by IT Innovation Centre 2016 */
     public class RegisterViewModel
     {
         [Required]
