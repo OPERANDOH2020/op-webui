@@ -60,7 +60,7 @@
         var valDayOfYear = "";
         var valDayOfWeek = "";
 
-        if ($('#editRepeatType_53-interval-selection').val() == "2") // WEEKS
+        if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "2") // WEEKS
         {
             valStoragePeriodType = 'WEEKS(s)';
             valDayOfWeek = $('#editRepeatType_'+ idRiga + '-reportb-days-list option:selected').map(function(i, n) {
@@ -69,14 +69,14 @@
             valStoragePeriodNumb = valDayOfWeek;
         }
         else
-            if ($('#editRepeatType_53-interval-selection').val() == "3") // MONTHS
+            if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "3") // MONTHS
             {
                 valStoragePeriodType = 'MONTHS(s)';
                 valDayOfMonth = $('#editRepeatType_' + idRiga+'-reportc-numtday').val();
                 valStoragePeriodNumb = valDayOfMonth;
             }
             else
-                if ($('#editRepeatType_53-interval-selection').val() == "4") // YEARS
+                if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "4") // YEARS
                 {
                     valStoragePeriodType = 'YEARS(s)';
                     valDayOfYear = $('#editRepeatType_' + idRiga+'-reportd-date').val();
@@ -111,16 +111,16 @@
                 $('#labelRepeatEveryNumb_' + idRiga).text(repeatEveryNumb);
                 $('#labelRepeatEveryType_' + idRiga).text(repeatEveryType);
 
-                if ($('#editRepeatType_53-interval-selection').val() == "1") // DAYS
+                if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "1") // DAYS
                     $('#labelOn_' + idRiga).text('-');
                 else
-                    if ($('#editRepeatType_53-interval-selection').val() == "2") // WEEKS
+                    if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "2") // WEEKS
                         $('#labelOn_' + idRiga).text(valDayOfWeek);
                     else
-                        if ($('#editRepeatType_53-interval-selection').val() == "3") // MONTHS
+                        if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "3") // MONTHS
                             $('#labelOn_' + idRiga).text(valDayOfMonth);
                         else
-                            if ($('#editRepeatType_53-interval-selection').val() == "4") // YEARS
+                            if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "4") // YEARS
                                 $('#labelOn_' + idRiga).text(valDayOfYear);      
             },
             error: function (xhr, status) {
