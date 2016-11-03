@@ -53,8 +53,8 @@
         var startDate = $('#editStartDate_' + idRiga).val();
         var repeatEveryNumb = $('#editRepeatNumb_' + idRiga).val();
         var repeatEveryType = $('#editRepeatType_' + idRiga + '-interval-selection option:selected').text();
-        var valStoragePeriodNumb;
-        var valStoragePeriodType;
+        var valStoragePeriodNumb ='1';
+        var valStoragePeriodType = 'MONTHS(s)';
         var valClock = "";
         var valDayOfMonth = "";
         var valDayOfYear = "";
@@ -62,25 +62,25 @@
 
         if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "2") // WEEKS
         {
-            valStoragePeriodType = 'WEEKS(s)';
+            //valStoragePeriodType = 'WEEKS(s)';
             valDayOfWeek = $('#editRepeatType_'+ idRiga + '-reportb-days-list option:selected').map(function(i, n) {
                 return n.text;
             }).get().join(",");
-            valStoragePeriodNumb = valDayOfWeek;
+            //valStoragePeriodNumb = valDayOfWeek;
         }
         else
             if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "3") // MONTHS
             {
-                valStoragePeriodType = 'MONTHS(s)';
+                //valStoragePeriodType = 'MONTHS(s)';
                 valDayOfMonth = $('#editRepeatType_' + idRiga+'-reportc-numtday').val();
-                valStoragePeriodNumb = valDayOfMonth;
+                //valStoragePeriodNumb = valDayOfMonth;
             }
             else
                 if ($('#editRepeatType_'+idRiga+'-interval-selection').val() == "4") // YEARS
                 {
-                    valStoragePeriodType = 'YEARS(s)';
+                    //valStoragePeriodType = 'YEARS(s)';
                     valDayOfYear = $('#editRepeatType_' + idRiga+'-reportd-date').val();
-                    valStoragePeriodNumb = valDayOfYear;
+                    //valStoragePeriodNumb = valDayOfYear;
                 }
 
 
