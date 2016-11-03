@@ -811,7 +811,9 @@
 
                                                                                                 if (details.RepeatEveryType == "YEAR(s)")
                                                                                                 {
-                                                                                                    @details.GiornoAnno
+                                                                                                    @details.GiornoAnno.Day;
+                                                                                                    @Html.Raw("-");
+                                                                                                    @details.GiornoAnno.Month;
                                                                                                 }
                                                                                             }
                                                                                             else
@@ -840,7 +842,7 @@
                                                                                             <input id="editRepeatType_@details.ID-reportc-numtday" value="@details.GiornoMese" class="positive touchspin_days_in_month" type="text" value="0" name="number">
                                                                                         </div>
                                                                                         <div class="input-group input-medium date date-picker" data-date-format="dd-mm" data-date-start-date="+0d" id="editRepeatType_@details.ID-Reportd" style="display:none">
-                                                                                            <input id="editRepeatType_@details.ID-reportd-date" value="@details.GiornoAnno" type="text" class="form-control" readonly>
+                                                                                            <input id="editRepeatType_@details.ID-reportd-date" value="@details.GiornoAnno.Day@Html.Raw("-")@details.GiornoAnno.Month" type="text" class="form-control" readonly>
                                                                                             <span class="input-group-btn">
                                                                                                 <button class="btn default" type="button">
                                                                                                     <i class="fa fa-calendar"></i>
