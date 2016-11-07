@@ -20,7 +20,7 @@ namespace Operando_AdministrationConsole.Controllers
             reportManager.reportsObj = new Reports();
             reportManager.reportsObjNotScheduled = new Reports(); 
             reportManager.resultsObj = new Results();
-            reportManager.schedulesObj = new Schedules ();
+            reportManager.schedulesObj = new Schedules();
 
             
             MySqlConnection connection = new MySqlConnection();
