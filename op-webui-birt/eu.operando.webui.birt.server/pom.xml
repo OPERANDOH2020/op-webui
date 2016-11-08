@@ -286,7 +286,7 @@
             </property>
           </activation>
 		  <properties>
-	        <mysql.host>10.0.0.5</mysql.host>
+	        <mysql.host>mysql.integration.operando.dmz.lab.esilab.org</mysql.host>
 		  </properties>
 		</profile>
 	</profiles>
