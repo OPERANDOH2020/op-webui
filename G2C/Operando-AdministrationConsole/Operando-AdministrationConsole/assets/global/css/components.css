@@ -12655,7 +12655,7 @@ Customized Bootstrap Tabs
     border-color: transparent #ddd #ddd #ddd  !important; }
 
 /***
-Custom tabs
+Custom tabs 
 ***/
 /* In BS3.0.0 tabbable class was removed. We had to added it back */
 .tabbable:before, .tabbable:after {
