@@ -34,6 +34,20 @@ li {
 .img-rounded {
   border-radius: 6px !important; }
 
+
+.datetimepicker table th.dow {
+    background-color: #6F6F6F;
+    color: #FFF;
+}
+
+.datetimepicker table td.day {
+    background-color: #FF9900;
+}
+
+.datetimepicker table td.new, .datetimepicker table td.old {
+    background-color: transparent;
+}
+
 /* Cubic Bezier Transition */
 /***
 General reset
