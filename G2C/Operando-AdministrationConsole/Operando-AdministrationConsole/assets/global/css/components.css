@@ -12715,6 +12715,7 @@ Custom tabs
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 10px;
+    min-height: 420px;
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
     -ms-border-radius: 0 0 4px 4px;
