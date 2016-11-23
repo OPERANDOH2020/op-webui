@@ -48,6 +48,10 @@ li {
     background-color: transparent;
 }
 
+.bs-actionsbox {
+    min-width: 180px;
+}
+
 /* Cubic Bezier Transition */
 /***
 General reset
