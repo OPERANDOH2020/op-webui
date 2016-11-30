@@ -29,6 +29,10 @@ li {
 
 /* except below bootstrap elements */
 
+.form-control {
+    padding: 6px 6px;
+} 
+
 .input-group .form-control { min-width: 65px; }
 .input-group input { margin-left: 0; }
 
