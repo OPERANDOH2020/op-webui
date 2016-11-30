@@ -34,6 +34,42 @@ li {
 .img-rounded {
   border-radius: 6px !important; }
 
+
+.datetimepicker table th.dow {
+    background-color: #6F6F6F;
+    color: #FFF;
+}
+
+.datetimepicker table td.day {
+    background-color: #E87E04;
+}
+
+.datetimepicker table td.new, .datetimepicker table td.old {
+    background-color: transparent;
+}
+
+.table-condensed th.dow {
+    background-color: #6F6F6F;
+    color: #FFF;
+}
+
+.table-condensed td.day {
+    background-color: #E87E04;
+}
+
+.table-condensed td.new, .table-condensed td.old {
+    background-color: transparent;
+}
+
+input#Familiar_disease-reportd-date.form-control { min-width: 70px; }
+input#Familiar_disease-storage-numtype.positive.touchspin_default.form-control { min-width: 100%; margin-left: 10px; line-height: 1.48; }
+.positive.touchspin_default.form-control { min-width: 100%; line-height: 1.48; }
+
+
+.bs-actionsbox {
+    min-width: 180px;
+}
+
 /* Cubic Bezier Transition */
 /***
 General reset
