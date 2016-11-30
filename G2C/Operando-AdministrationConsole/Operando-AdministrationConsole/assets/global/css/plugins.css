@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /******************************
  3RD PARTY PLUGIN CUSTOMIZATION 
 ******************************/
@@ -162,10 +162,11 @@ Bootstrap  Datetimepicker
 .datetimepicker table td {
   color: #000;
   font-weight: 300  !important;
-  font-family: 'Open Sans' !important; }
+/* font-family: 'Open Sans' !important; ( except 30/11/2016 ) */
+}
 
 .datetimepicker table th {
-  font-family: 'Open Sans' !important;
+/*  font-family: 'Open Sans' !important;  ( except 30/11/2016 ) */
   font-weight: 400  !important; }
 
 .datetimepicker.dropdown-menu {
