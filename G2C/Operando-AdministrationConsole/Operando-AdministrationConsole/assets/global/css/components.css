@@ -28,6 +28,10 @@ li {
   border-radius: 0 !important; }
 
 /* except below bootstrap elements */
+
+.input-group .form-control { min-width: 65px; }
+.input-group input { margin-left: 0; }
+
 .img-circle {
   border-radius: 50% !important; }
 
