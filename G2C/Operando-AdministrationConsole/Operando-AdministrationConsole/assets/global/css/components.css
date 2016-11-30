@@ -29,10 +29,6 @@ li {
 
 /* except below bootstrap elements */
 
-.bootstrap-select.form-control.input-group-btn{
-    min-width:75px;
-}
-
 .input-group .form-control { min-width: 65px; }
 .input-group input { margin-left: 0; }
 
