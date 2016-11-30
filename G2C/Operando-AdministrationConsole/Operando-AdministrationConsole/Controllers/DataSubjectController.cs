@@ -29,7 +29,35 @@ namespace Operando_AdministrationConsole.Controllers
             var jsonURL = String.Format("http://server02tecnalia.westeurope.cloudapp.azure.com:8091/operando/core/ldbsearch/log/search/?dateFrom&dateTo&logLevel&requesterType={0}&requesterId={1}&logPriority&title&keyWords", "USER", loggedUserId );
 
             WebClient client = new WebClient();
-            string jsonString= client.DownloadString(jsonURL);
+            string jsonString = client.DownloadString(jsonURL);
+
+
+            // da cancellare
+            /*string jsonString;
+            try
+            {
+                jsonString = client.DownloadString(jsonURL);
+            }
+            catch(Exception e)
+            {
+                DataAccessLog logItem = new DataAccessLog();
+                string data = "22/11/2016";
+
+                logItem.logDate = Convert.ToDateTime(data);
+                logItem.requesterType = "requesterType";
+                logItem.requesterId = "requesterId";
+                logItem.logPriority = "logPriority";
+                logItem.logLevel = "INFO";
+                logItem.title = "title";
+                logItem.description = "description";
+
+                logList.Add(logItem);
+
+                return View(logList);
+            }*/
+            // fine cancellare
+
+
             JArray results = JsonConvert.DeserializeObject<dynamic>(jsonString);
 
             // if I have results from the Json deserialization
