@@ -7,7 +7,7 @@ WORKDIR /usr/src/app/source
 
 COPY Operando-AdministrationConsole/. /usr/src/app/source
 
-RUN nuget restore -NonInteractive
+# RUN nuget restore -NonInteractive
 RUN nuget update -self
 RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
 
