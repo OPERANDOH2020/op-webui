@@ -28,6 +28,14 @@ li {
   border-radius: 0 !important; }
 
 /* except below bootstrap elements */
+
+.form-control {
+    padding: 6px 6px;
+} 
+
+.input-group .form-control { min-width: 65px; }
+.input-group input { margin-left: 0; }
+
 .img-circle {
   border-radius: 50% !important; }
 
@@ -61,8 +69,6 @@ li {
     background-color: transparent;
 }
 
-input#Familiar_disease-reportd-date.form-control { min-width: 70px; }
-input#Familiar_disease-storage-numtype.positive.touchspin_default.form-control { min-width: 100%; margin-left: 10px; line-height: 1.48; }
 .positive.touchspin_default.form-control { min-width: 100%; line-height: 1.48; }
 
 
