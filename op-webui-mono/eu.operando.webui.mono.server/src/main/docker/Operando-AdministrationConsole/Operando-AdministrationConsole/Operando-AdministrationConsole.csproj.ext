@@ -1,3 +1,4 @@
+
 	<!-- OutDir has been overridden, so copy all the relevant files to that -->
 	<Target Name="_CopyWebApplication" Condition="'$(OutDir)' != '$(OutputPath)'">
 		<MakeDir Directories="$(WebApplicationOutputDir)\bin"/>
