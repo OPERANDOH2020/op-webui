@@ -83,7 +83,7 @@ namespace Operando_AdministrationConsole.Controllers
                         else
                             report.ID = 0;
 
-                        report.OSPsOption = "ITI-OCC".Split('-');
+                        report.OSPsOption = "ASLBG-GASLINI".Split('-');
                         for (int i=0; i<report.OSPsOption.Length; i++)
                         {
                             string selected = "";
@@ -167,7 +167,7 @@ namespace Operando_AdministrationConsole.Controllers
                         else
                             report.ID = 0;
 
-                        report.OSPsOption = "ITI-OCC".Split('-');
+                        report.OSPsOption = "ASLBG-GASLINI".Split('-');
                         for (int i = 0; i < report.OSPsOption.Length; i++)
                         {
                             string selected = "";
@@ -302,7 +302,7 @@ namespace Operando_AdministrationConsole.Controllers
                         else
                             schedule.Report = null;
 
-                        schedule.OSPsOption = "ITI-OCC".Split('-');
+                        schedule.OSPsOption = "ASLBG-GASLINI".Split('-');
                         for (int i = 0; i < schedule.OSPsOption.Length; i++)
                         {
                             schedule.OSPsOption[i] = "<option >" + schedule.OSPsOption[i] + "</option>";
@@ -388,7 +388,7 @@ namespace Operando_AdministrationConsole.Controllers
                         else
                             schedule.OSPs = new String[0];
 
-                        schedule.OSPsOption = "ITI-OCC".Split('-');
+                        schedule.OSPsOption = "ASLBG-GASLINI".Split('-');
                         for (int i = 0; i < schedule.OSPsOption.Length; i++)
                         {
                             string selected = "";
