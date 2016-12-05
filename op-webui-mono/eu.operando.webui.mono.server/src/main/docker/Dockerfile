@@ -7,7 +7,8 @@ WORKDIR /usr/src/app/source
 
 COPY Operando-AdministrationConsole/. /usr/src/app/source
 
-RUN nuget restore -NonInteractive
+# RUN nuget restore -NonInteractive GBE:This is no longer valid as the sln file has been removed 
+RUN nuget restore -NonInteractive -PackagesDirectory packages
 RUN nuget update -self
 # RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
 
