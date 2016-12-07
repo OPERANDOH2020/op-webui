@@ -1,0 +1,12 @@
+<apps>
+  <web-application>
+    <name>samples</name>
+    <vpath>/samples</vpath>
+    <path>/usr/share/asp.net-demos</path>
+  </web-application>
+  <web-application>
+    <name>yellowpages</name>
+    <vpath>/yellowpages</vpath>
+    <path>/usr/src/app/build/_PublishedWebsites/occ.YellowPages</path>
+  </web-application>
+</apps>
