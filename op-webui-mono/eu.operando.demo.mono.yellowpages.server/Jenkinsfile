@@ -9,8 +9,8 @@ node {
 	  mvnHome = tool 'Maven 3.3.9 colocated'
    }
    stage ('Source Collection'){
-	   checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a35cd88c-d990-4446-922b-b19d0640fd50', url: 'https://github.com/OPERANDOH2020/op-yellowpages.git']]]
-	   checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'op-webui-mono/eu.operando.demo.mono.yellowpages.server']]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a35cd88c-d990-4446-922b-b19d0640fd50', url: 'https://github.com/OPERANDOH2020/op-webui.git']]]
+	   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'yellowpages']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a35cd88c-d990-4446-922b-b19d0640fd50', url: 'https://github.com/OPERANDOH2020/op-yellowpages.git']]])
+	   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'mono'], [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'op-webui-mono/eu.operando.demo.mono.yellowpages.server']]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a35cd88c-d990-4446-922b-b19d0640fd50', url: 'https://github.com/OPERANDOH2020/op-webui.git']]])
    }
    stage ('Source Adaptation'){
 	   sh "adapt_net_to_mono.sh"   
