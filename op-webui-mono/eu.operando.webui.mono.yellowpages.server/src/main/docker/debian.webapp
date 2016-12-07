@@ -5,13 +5,8 @@
     <path>/usr/share/asp.net-demos</path>
   </web-application>
   <web-application>
-    <name>webui_console</name>
-    <vpath>webui/console</vpath>
-    <path>/usr/src/app/build/_PublishedWebsites/Operando-AdministrationConsole</path>
-  </web-application>
-  <web-application>
-    <name>admin</name>
-    <vpath>/admin</vpath>
-    <path>/usr/src/app/build/_PublishedWebsites/Operando-AdministrationConsole</path>
+    <name>yellowpages</name>
+    <vpath>/yellowpages</vpath>
+    <path>/usr/src/app/build/_PublishedWebsites/occ.YellowPages</path>
   </web-application>
 </apps>
