@@ -21,8 +21,8 @@ node {
 	   sh "'${mvnHome}/bin/mvn' docker:stop docker:build docker:push docker:start -f mono/op-webui-mono/eu.operando.demo.mono.yellowpages.server/pom.xml"
    }
    stage('Results') {
-      junit '**/target/surefire-reports/TEST-*.xml'
-      archive 'target/*.jar'
+      //junit '**/target/surefire-reports/TEST-*.xml'
+      //archive 'target/*.jar'
    }
    stage ('Comunication') {
 	   // https://jenkins.io/blog/2016/07/18/pipline-notifications/
