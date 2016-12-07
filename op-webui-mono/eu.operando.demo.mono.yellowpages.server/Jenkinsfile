@@ -6,7 +6,7 @@ node {
 	  // Get the Maven tool.
 	  // ** NOTE: This 'M3' Maven tool must be configured
 	  // **       in the global configuration.
-	  mvnHome = tool 'M3'
+	  mvnHome = tool 'Maven 3.3.9 colocated'
    }
    stage ('Source Collection'){
 	   checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a35cd88c-d990-4446-922b-b19d0640fd50', url: 'https://github.com/OPERANDOH2020/op-yellowpages.git']]]
