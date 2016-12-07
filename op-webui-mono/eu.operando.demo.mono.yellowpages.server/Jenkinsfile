@@ -18,7 +18,7 @@ node {
 	   sh "mono/op-webui-mono/eu.operando.demo.mono.yellowpages.server/adapt_net_to_mono.sh"   
    }
    stage ('Image build'){
-	   sh "'${mvnHome}/bin/mvn' docker:stop docker:build docker:push docker:start -f op-webui-mono/eu.operando.demo.mono.yellowpages.server/pom.xml"
+	   sh "'${mvnHome}/bin/mvn' docker:stop docker:build docker:push docker:start -f mono/op-webui-mono/eu.operando.demo.mono.yellowpages.server/pom.xml"
    }
    stage('Results') {
       junit '**/target/surefire-reports/TEST-*.xml'
@@ -26,11 +26,11 @@ node {
    }
    stage ('Comunication') {
 	   // https://jenkins.io/blog/2016/07/18/pipline-notifications/
-	   emailext (
-		   subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-		   body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-		   recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+	   //emailext (
+	   //   subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+	   //   body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+       // <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+	   //   recipientProviders: [[$class: 'DevelopersRecipientProvider']]
 		 )
 
    }
