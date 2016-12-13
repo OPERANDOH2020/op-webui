@@ -77,7 +77,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "DataSubject" && currentAction == "AccessPreferences") { @activeClass }'>
                     <a href="@Url.Action("AccessPreferences", "DataSubject")" class="nav-link ">
-                        <i class="icon-gear"></i>
+                        <i class="icon-settings"></i>
                         <span class="title">Access Preferences</span>
                         @if (currentController == "DataSubject" && currentAction == "AccessPreferences")
                         {
@@ -87,7 +87,7 @@
                 </li>
                 <li class='nav-item @if (currentController == "DataSubject" && currentAction == "DataAccessLogs") { @activeClass }'>
                     <a href="@Url.Action("DataAccessLogs", "DataSubject")" class="nav-link ">
-                        <i class="icon-file"></i>
+                        <i class="icon-layers"></i>
                         <span class="title">Data Access Log</span>
                         @if (currentController == "DataSubject" && currentAction == "DataAccessLogs")
                         {
@@ -115,7 +115,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy") { @activeClass }'>
                     <a href="@Url.Action("PrivacyPolicy", "OspAdmin")" class="nav-link ">
-                        <i class="icon-pencil-square-o"></i>
+                        <i class="icon-note"></i>
                         <span class="title">Privacy Policy</span>
                         @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy")
                         {
@@ -125,7 +125,7 @@
                 </li>
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UserQuestionnaireGenerator") { @activeClass }'>
                     <a href="@Url.Action("UserQuestionnaireGenerator", "OspAdmin")" class="nav-link ">
-                        <i class="icon-check-square"></i>
+                        <i class="icon-folder"></i>
                         <span class="title">User Questionnaire Generator</span>
                         @if (currentController == "OspAdmin" && currentAction == "UserQuestionnaireGenerator")
                         {
@@ -137,7 +137,7 @@
         </li>
         <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-sign-out"></i>
+                <i class="icon-globe"></i>
                 <span class="title">Data Extracts</span>
                 <span class="arrow open"></span>
                 @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics"))
