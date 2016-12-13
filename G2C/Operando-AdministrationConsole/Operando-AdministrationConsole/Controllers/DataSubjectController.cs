@@ -23,10 +23,11 @@ namespace Operando_AdministrationConsole.Controllers
             List<DataAccessLog> logList = new List<DataAccessLog>();
 
             // TODO: SUBSTITUTE WITH REAL LOGGED USER ID -- WAITING FOR FEEDBACK FROM PAUL
-            string loggedUserId = "1"; 
+            //string loggedUserId = "1"; 
 
             // TODO: STILL PROBLEMS WITH FILTERING -- WAITING FOR FEEDBACK FROM COSTAS
-            var jsonURL = String.Format("http://server02tecnalia.westeurope.cloudapp.azure.com:8091/operando/core/ldbsearch/log/search/?dateFrom&dateTo&logLevel&requesterType={0}&requesterId={1}&logPriority&title&keyWords", "USER", loggedUserId );
+            //var jsonURL = String.Format("http://server02tecnalia.westeurope.cloudapp.azure.com:8091/operando/core/ldbsearch/log/search/?dateFrom&dateTo&logLevel&requesterType={0}&requesterId={1}&logPriority&title&keyWords", "USER", loggedUserId );
+            var jsonURL = "http://integration.operando.esilab.org:8091/operando/core/ldbsearch/log/search";
 
             WebClient client = new WebClient();
             string jsonString = client.DownloadString(jsonURL);
@@ -63,10 +64,10 @@ namespace Operando_AdministrationConsole.Controllers
             // if I have results from the Json deserialization
             if(results.Count > 0)
             {
-                DataAccessLog logItem = new DataAccessLog();
-
                 foreach (JObject content in results.Children<JObject>())
                 {
+                    DataAccessLog logItem = new DataAccessLog();
+
                     foreach (JProperty prop in content.Properties())
                     {
                         if (prop.Name == "logDate")
