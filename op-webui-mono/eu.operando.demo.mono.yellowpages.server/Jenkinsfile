@@ -1,0 +1,37 @@
+#!groovy
+
+node {
+   def mvnHome 
+   stage('Preparation') { // for display purposes
+	  // Get the Maven tool.
+	  // ** NOTE: This 'M3' Maven tool must be configured
+	  // **       in the global configuration.
+	  mvnHome = tool 'Maven 3.3.9 colocated'
+   }
+   stage ('Source Collection'){
+	   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'yellowpages']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a35cd88c-d990-4446-922b-b19d0640fd50', url: 'https://github.com/OPERANDOH2020/op-yellowpages.git']]])
+	   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'mono'], [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'op-webui-mono/eu.operando.demo.mono.yellowpages.server']]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a35cd88c-d990-4446-922b-b19d0640fd50', url: 'https://github.com/OPERANDOH2020/op-webui.git']]])
+   }
+   stage ('Source Adaptation'){
+	   // http://stackoverflow.com/questions/37353963/how-can-i-reference-the-jenkinsfile-directory-with-pipeline
+	   // checkout scm no way	   
+	   sh "mono/op-webui-mono/eu.operando.demo.mono.yellowpages.server/adapt_net_to_mono.sh"   
+   }
+   stage ('Image build'){
+	   sh "'${mvnHome}/bin/mvn' docker:stop docker:build docker:push docker:start -f mono/op-webui-mono/eu.operando.demo.mono.yellowpages.server/pom.xml"
+   }
+   stage('Results') {
+      //junit '**/target/surefire-reports/TEST-*.xml'
+      //archive 'target/*.jar'
+   }
+   stage ('Comunication') {
+	   // https://jenkins.io/blog/2016/07/18/pipline-notifications/
+	   //emailext (
+	   //   subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+	   //   body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+       // <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+	   //   recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+		// )
+
+   }
+}
