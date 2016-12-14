@@ -172,7 +172,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "Reports") { @activeClass }'>
                     <a href="@Url.Action("Reports", "OspAdmin")" class="nav-link ">
-                        <i class="icon-arrow-circle-down"></i>
+                        <i class="icon-layers"></i>
                         <span class="title">Subscription and downloads</span>
                         @if (currentController == "OspAdmin" && currentAction == "Reports")
                         {
@@ -190,7 +190,7 @@
         </li>
         <li class='nav-item @if (currentController == "PSPAnalyst") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-play"></i>
+                <i class="icon-feed"></i>
                 <span class="title">Analyst actions</span>
                 <span class="arrow open"></span>
                 @if (currentController == "PSPAnalyst")
@@ -201,7 +201,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "Regulations") { @activeClass }'>
                     <a href="@Url.Action("Regulations", "PSPAnalyst")" class="nav-link ">
-                        <i class="icon-arrows"></i>
+                        <i class="icon-settings"></i>
                         <span class="title">Regulations</span>
                         @if (currentController == "PSPAnalyst" && currentAction == "Regulations")
                         {
@@ -211,7 +211,7 @@
                 </li>
                 <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy") { @activeClass }'>
                     <a href="@Url.Action("PrivacyPolicy", "PSPAnalyst")" class="nav-link ">
-                        <i class="icon-check-circle"></i>
+                        <i class="icon-puzzle"></i>
                         <span class="title">OSP-A compliance</span>
                         @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy")
                         {
