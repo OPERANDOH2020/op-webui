@@ -5776,6 +5776,7 @@
     <Content Include="Views\PspAdmin\ReportsConfig.cshtml" />
     <Content Include="Views\Access\ResetPassword.cshtml" />
     <Content Include="Views\Access\Registration.cshtml" />
+    <Content Include="Views\PspAdmin\UsersManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5785,7 +5786,9 @@
     <Folder Include="assets\global\plugins\fullcalendar\lib\" />
     <Folder Include="assets\global\plugins\wysihtml\minified\" />
     <Folder Include="assets\global\plugins\wysihtml\parser_rules\" />
+    <Folder Include="Views\Default\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\UsersManagement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
