@@ -119,7 +119,7 @@
                     RepeatEveryType: repeatEveryType, 
                     StoragePeriodNumb: valStoragePeriodNumb, 
                     StoragePeriodType: valStoragePeriodType, 
-                    OSPs: ",ITI,OCC", 
+                    OSPs: ",ASLBG,GASLINI", 
                     DayOfWeek: valDayOfWeek, 
                     Time: valClock, 
                     DayOfMonth: valDayOfMonth, 
@@ -208,7 +208,7 @@
                 RepeatEveryType: valType,
                 StoragePeriodNumb: valStoragePeriodNumb,
                 StoragePeriodType: valStoragePeriodType,
-                OSPs: ",ITI,OCC",
+                OSPs: ",ASLBG,GASLINI",
                 DayOfWeek: valDayOfWeek,
                 Time: valClock,
                 DayOfMonth: valDayOfMonth,
@@ -415,7 +415,7 @@
                 async: false,
                 type: "POST",
                 url: "../ASPXSaveAjax/SaveSchedule.aspx",
-                data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ITI,OCC", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
+                data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ASLBG,GASLINI", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
                 dataType: "text",
                 success: function (data) {
                     window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_2";
@@ -471,7 +471,7 @@
                 async: false,
                 type: "POST",
                 url: "../ASPXSaveAjax/SaveSchedule.aspx",
-                data: { ID: valID, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ITI,OCC", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
+                data: { ID: valID, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ASLBG,GASLINI", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
                 dataType: "text",
                 success: function (data) {
                     window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_2";
@@ -528,7 +528,7 @@
             async: false,
             type: "POST",
             url: "../ASPXSaveAjax/SaveSchedule.aspx",
-            data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ITI,OCC", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
+            data: { ID: 0, Report: valReport, StartDate: valStartDate, RepeatEveryNumb: valRepeatEveryNumb, RepeatEveryType: valRepeatEveryType, StoragePeriodNumb: valStoragePeriodNumb, StoragePeriodType: valStoragePeriodType, OSPs: ",ASLBG,GASLINI", DayOfWeek: valDayOfWeek, Time: valClock, DayOfMonth: valDayOfMonth, DayOfYear: valDayOfYear },
             dataType: "text",
             success: function (data) {
                 window.location.href = "?indent=" + valReport.replace(' ','_').replace('\'','_') + "-schedule#tab_1_2";

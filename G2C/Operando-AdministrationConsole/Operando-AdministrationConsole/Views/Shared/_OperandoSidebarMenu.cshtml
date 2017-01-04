@@ -66,7 +66,7 @@
         </li>
         <li class='nav-item @if (currentController == "DataSubject") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-flag"></i>
+                <i class="icon-users"></i>
                 <span class="title">Data Subject</span>
                 <span class="arrow open"></span>
                 @if (currentController == "DataSubject")
@@ -77,7 +77,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "DataSubject" && currentAction == "AccessPreferences") { @activeClass }'>
                     <a href="@Url.Action("AccessPreferences", "DataSubject")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-settings"></i>
                         <span class="title">Access Preferences</span>
                         @if (currentController == "DataSubject" && currentAction == "AccessPreferences")
                         {
@@ -87,7 +87,7 @@
                 </li>
                 <li class='nav-item @if (currentController == "DataSubject" && currentAction == "DataAccessLogs") { @activeClass }'>
                     <a href="@Url.Action("DataAccessLogs", "DataSubject")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-layers"></i>
                         <span class="title">Data Access Log</span>
                         @if (currentController == "DataSubject" && currentAction == "DataAccessLogs")
                         {
@@ -104,7 +104,7 @@
         </li>
         <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "PrivacyPolicy" || currentAction == "UserQuestionnaireGenerator")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-flag"></i>
+                <i class="icon-eye"></i>
                 <span class="title">Privacy management</span>
                 <span class="arrow open"></span>
                 @if (currentController == "OspAdmin" && (currentAction == "PrivacyPolicy" || currentAction == "UserQuestionnaireGenerator"))
@@ -115,7 +115,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy") { @activeClass }'>
                     <a href="@Url.Action("PrivacyPolicy", "OspAdmin")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-note"></i>
                         <span class="title">Privacy Policy</span>
                         @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy")
                         {
@@ -125,7 +125,7 @@
                 </li>
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UserQuestionnaireGenerator") { @activeClass }'>
                     <a href="@Url.Action("UserQuestionnaireGenerator", "OspAdmin")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-folder"></i>
                         <span class="title">User Questionnaire Generator</span>
                         @if (currentController == "OspAdmin" && currentAction == "UserQuestionnaireGenerator")
                         {
@@ -137,7 +137,7 @@
         </li>
         <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-flag"></i>
+                <i class="icon-globe"></i>
                 <span class="title">Data Extracts</span>
                 <span class="arrow open"></span>
                 @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics"))
@@ -148,7 +148,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "BigDataAnalytics") { @activeClass }'>
                     <a href="@Url.Action("BigDataAnalytics", "OspAdmin")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-bar-chart"></i>
                         <span class="title">Big Data Analytics</span>
                         @if (currentController == "OspAdmin" && currentAction == "BigDataAnalytics")
                         {
@@ -172,7 +172,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "Reports") { @activeClass }'>
                     <a href="@Url.Action("Reports", "OspAdmin")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-layers"></i>
                         <span class="title">Subscription and downloads</span>
                         @if (currentController == "OspAdmin" && currentAction == "Reports")
                         {
@@ -190,7 +190,7 @@
         </li>
         <li class='nav-item @if (currentController == "PSPAnalyst") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-flag"></i>
+                <i class="icon-feed"></i>
                 <span class="title">Analyst actions</span>
                 <span class="arrow open"></span>
                 @if (currentController == "PSPAnalyst")
@@ -201,7 +201,7 @@
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "Regulations") { @activeClass }'>
                     <a href="@Url.Action("Regulations", "PSPAnalyst")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-settings"></i>
                         <span class="title">Regulations</span>
                         @if (currentController == "PSPAnalyst" && currentAction == "Regulations")
                         {
@@ -211,7 +211,7 @@
                 </li>
                 <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy") { @activeClass }'>
                     <a href="@Url.Action("PrivacyPolicy", "PSPAnalyst")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-puzzle"></i>
                         <span class="title">OSP-A compliance</span>
                         @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy")
                         {
@@ -221,7 +221,7 @@
                 </li>
                 <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig") { @activeClass }'>
                     <a href="@Url.Action("BigDataAnalyticsConfig", "PSPAnalyst")" class="nav-link ">
-                        <i class="icon-flag"></i>
+                        <i class="icon-wrench"></i>
                         <span class="title">Big Data Analytics</span>
                         @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig")
                         {
