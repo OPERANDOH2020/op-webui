@@ -39,7 +39,7 @@ if (App.isAngularJsApp() === false) {
             if (opt[i] == "Allowed")
                 allowed = true;
             if (opt[i] == "Denied")
-                denied == true;
+                denied = true;
         });
 
         if (allowed) {
@@ -66,7 +66,7 @@ if (App.isAngularJsApp() === false) {
                 if (opt[i] == "Allowed")
                     allowed = true;
                 if (opt[i] == "Denied")
-                    denied == true;
+                    denied = true;
             });
 
             if (allowed) {
