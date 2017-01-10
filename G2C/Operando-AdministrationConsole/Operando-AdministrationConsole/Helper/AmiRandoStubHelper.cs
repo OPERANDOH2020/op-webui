@@ -5,14 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Operando_AdministrationConsole.Models;
 using System.Web.Mvc.Html;
+using eu.operando.core.pdb.cli.Model;
+using AccessPolicy = eu.operando.core.pdb.cli.Model.AccessPolicy;
 
 namespace Operando_AdministrationConsole.Helper
 {
     public class AmiRandoStubHelper
     {
-        private static Comparison<Notification> mostRecentFirst;
+        private const string UserTypeAmiReportGenerator = "Anonymised Report Generator";
+        private const string UserTypeVolunteerOrganisationEmployee = "Volunteer Organisation Employees";
+        private const string UserTypeAmiStaff = "AmiStaff";
+        private static List<string> UserTypes = new List<string>() { UserTypeAmiReportGenerator, UserTypeVolunteerOrganisationEmployee, UserTypeAmiStaff };
+
         private const string DataTypeCareNeeds = "Care Needs";
         private const string DataTypeAddressInformation = "Address Information";
+        private const string DataTypeAge = "Age";
+        private static List<string> DataTypes = new List<string>() { DataTypeCareNeeds, DataTypeAddressInformation, DataTypeAge};
 
         private const string MessageSuggestedChangeToUpp = "Ami's Privacy Policy has been updated. If you give it permission to do so,"
                                                            + " Ami will now use your age to generate a report on the needs of registered clients within West London,"
@@ -92,12 +100,30 @@ namespace Operando_AdministrationConsole.Helper
 
             stubNotifications.Add(new Notification(new DateTime(2016, 12, 9, 16, 11, 24), MessageNoChangeToUpp));
 
-            mostRecentFirst = (notification1, notification2) => notification2.DateTime.CompareTo(notification1.DateTime);
+            Comparison<Notification> mostRecentFirst = (notification1, notification2) => notification2.DateTime.CompareTo(notification1.DateTime);
             stubNotifications.Sort(mostRecentFirst);
 
             return stubNotifications;
         }
 
+        public static List<OSPPrivacyPolicy> GetAmiUserPrivacyPolicy()
+        {
+            List<OSPPrivacyPolicy> ospPrivacyPolicies = new List<OSPPrivacyPolicy>();
+
+            List<AccessPolicy> amiAccessPolicies = new List<AccessPolicy>();
+
+            foreach (string userType in UserTypes)
+            {
+                foreach (string dataType in DataTypes)
+                {
+                    amiAccessPolicies.Add(new AccessPolicy(userType, false, null, dataType, new List<PolicyAttribute>()));
+                }
+            }
+
+            OSPPrivacyPolicy amiPrivacyPolicy = new OSPPrivacyPolicy("Ami", "policyText", "Ami", null, amiAccessPolicies);
+            ospPrivacyPolicies.Add(amiPrivacyPolicy);
+            return ospPrivacyPolicies;
+        }
 
         public class Notification
         {
