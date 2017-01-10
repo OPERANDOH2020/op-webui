@@ -14,10 +14,8 @@ import com.google.gson.GsonBuilder;
 @Path("/bda")
 public class Api
 {
-	private static final String OSP_1 = "OCC";
-	private static final String OSP_2 = "PDI";
-	private static final String OSP_3 = "ITI";
-	
+	private static final String OSP_AMI = "Ami";
+
 	@GET
 	@Path("/jobs/{job-id}/executions")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -46,15 +44,13 @@ public class Api
 	public Response getJobs()
 	{
 		Vector<BdaJob> jobs = new Vector<BdaJob>();
-		
-		for (int i=1; i<=3; i++)
-		{
-			Vector<BdaExecution> executions = generateExecutions(i);
-			Vector<BdaSchedule> schedules = generateSchedules(i);
-			Vector<String> osps = generateOsps(i);
-			
-			jobs.addElement(new BdaJob("Job" + i, "Description" + i, "v1." + (3-i), "http://", "€" + i + ".00", osps, schedules, executions));
-		}
+
+		Vector<BdaExecution> executions = generateExecutions();
+		Vector<BdaSchedule> schedules = generateSchedules();
+		Vector<String> osps = generateOsps();
+
+		jobs.addElement(new BdaJob("West London Care Needs", "An up to date report on the needs of clients, broken down by area", "v3",
+				"http://", "£0.00", osps, schedules, executions));
 
 		String json = createStringJsonFollowingOperandoConventions(jobs);
 		return Response.ok()
@@ -62,75 +58,34 @@ public class Api
 			.build();
 	}
 
-	private Vector<String> generateOsps(int i)
+	private Vector<String> generateOsps()
 	{
 		Vector<String> osps = new Vector<String>();
-		if (i == 1)
-		{
-			osps.add(OSP_1);
-			osps.add(OSP_2);
-		}
-		else if (i == 2)
-		{
-			osps.add(OSP_3);
-		}
-		else
-		{
-			osps.add(OSP_1);
-		}
+		osps.add(OSP_AMI);
 		return osps;
 	}
 
-	private Vector<BdaExecution> generateExecutions(int i)
+	private Vector<BdaExecution> generateExecutions()
 	{
 		Vector<BdaExecution> executions = new Vector<BdaExecution>();
-		for (int j = 1; j <= 5; j++)
+		for (int j = 5; j > 0; j--)
 		{
-			String osp = "PDI";
-			if (i % 2 == 0)
+			String executionDate = "2017-01-17";
+			if (j < 5)
 			{
-				osp = "OCC";
+				executionDate = "2016-" + (8 + j) + "-16";
 			}
-			executions.add(new BdaExecution("2016-09-0" + (i+j), "versionNumber" + j, osp, "http://downloadLink" + j));
+			executions.add(new BdaExecution(executionDate, "v" + (1 + j / 2), OSP_AMI, "http://downloadLink" + j));
 		}
 		return executions;
 	}
 
-	private Vector<BdaSchedule> generateSchedules(int i)
+	private Vector<BdaSchedule> generateSchedules()
 	{
 		Vector<BdaSchedule> schedules = new Vector<BdaSchedule>();
-		for (int j = 1; j <= 5; j++)
-		{
-			String repeatIntervalUnit = "day";
-			String repeatOn = "-";
-			if (j == 2)
-			{
-				repeatIntervalUnit = "week";
-				repeatOn = "Mon, Wed, Fri";
-			}
-			else if (j == 3)
-			{
-				repeatIntervalUnit = "month";
-				repeatOn = "1st";
-			}
-			else if (j == 4)
-			{
-				repeatIntervalUnit = "year";
-				repeatOn = "1st Jan";
-			}
-			
-			String osp = OSP_1;
-			if (i == 2)
-			{
-				osp = OSP_2;
-			}
-			else if (i == 3)
-			{
-				osp = OSP_3;
-			}
-			
-			schedules.add(new BdaSchedule(osp, "2017-01-0" + (i+j-1), "19:" + j + "0", repeatIntervalUnit, "" + j, repeatOn, "Indefinite"));
-		}
+
+		schedules.add(new BdaSchedule(OSP_AMI, "2016-9-16", "02:00", "month", "", "17th", "Indefinite"));
+		
 		return schedules;
 	}
 

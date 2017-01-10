@@ -23,8 +23,15 @@ namespace Operando_AdministrationConsole.Controllers
             return View(policies);
         }
 
+        public async Task<ActionResult> Reports()
+        {
+            List<BdaJob> executions = await helper.get<List<BdaJob>>("http://localhost:8080/stub-bda/bda/jobs?osp=Ami");
+            return View("BigDataAnalytics", executions);
+        }
+        /*
         public ActionResult Reports()
         {
+
             // creo gli oggetti per popolare la pagina
             reportManagerOSP.reportsObj = new ReportsOSP();
             reportManagerOSP.resultsObj = new ResultsOSP();
@@ -429,6 +436,12 @@ namespace Operando_AdministrationConsole.Controllers
 
 
             return View(reportManagerOSP);
+        }
+         */
+        
+        public ActionResult CareNeedsReport20170117()
+        {
+            return File("~/Content/CareNeedsReport20170117.pdf", "application/pdf");
         }
 
         public ActionResult DataExtracts()

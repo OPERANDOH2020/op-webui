@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.MenuSection = "OSP Admin";
-    ViewBag.Title = "Big Data Analytics";
+    ViewBag.Title = "Reports";
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
 
@@ -12,7 +12,7 @@
     <div class="col-xs-12">
         <div class="m-heading-1 border-grey-silver m-bordered">
             <p>
-                From this page you can download reports for previously run Big Data Analytics jobs, and schedule when you want available jobs to run in the future.
+                From this page you can download reports for previously run reporting jobs, and schedule when you want available jobs to run in the future.
             </p>
         </div>
         <!-- BEGIN PORTLET -->
@@ -20,7 +20,7 @@
             <div class="portlet-title tabbable-line">
                 <div class="caption">
                     <i class="icon-globe font-dark hide"></i>
-                    <span class="caption-subject font-dark bold uppercase">Request a new BDA Extraction</span>
+                    <span class="caption-subject font-dark bold uppercase">Request a new reporting job</span>
                 </div>
             </div>
             <div class="portlet-body text-right">
@@ -65,7 +65,7 @@
                                                     <td> @job.Description </td>
                                                     <td> @execution.VersionNumber </td>
                                                     <td>
-                                                        <a class="btn btn-circle btn-sm yellow-gold" href="@execution.DownloadLink"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
+                                                        <a class="btn btn-circle btn-sm yellow-gold" href="@Url.Action("CareNeedsReport20170117", "OspAdmin")"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
                                                     </td>
                                                 </tr>
                                             }
@@ -93,7 +93,7 @@
                                         @foreach (BdaJob job in Model)
                                         {
                                             <tr>
-                                                <td class="accordion-toggle" data-toggle="collapse" data-target="#@job.JobName-schedule">
+                                                <td class="accordion-toggle" data-toggle="collapse" data-target="#@job.JobName.GetHashCode()-schedule">
                                                     <i class="fa fa-caret-right"></i>&nbsp;&nbsp;@job.JobName
                                                 </td>
                                                 <td> @job.Description </td>
@@ -102,7 +102,7 @@
                                                 <td> @job.DetermineDateMostRecentExecution() </td>
                                                 <td> @job.DetermineDateNextExecution() </td>
                                             </tr>
-                                            <tr class="active accordion-body collapse" id="@job.JobName-schedule">
+                                            <tr class="active accordion-body collapse" id="@job.JobName.GetHashCode()-schedule">
                                                 <td colspan="6">
                                                     <div class="portlet light">
                                                         <div class="portlet-title">
@@ -368,7 +368,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Sumbit @Operando_AdministrationConsole.Helper.StaticStrings.NotImplemented</button>
+                <button type="button" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Submit</button>
             </div>
         </div>
     </div>
