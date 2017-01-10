@@ -12,12 +12,19 @@ using Newtonsoft.Json.Linq;
 using System.Globalization;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
+using Operando_AdministrationConsole.Helper;
+using AccessPolicy = eu.operando.core.pdb.cli.Model.AccessPolicy;
 
 namespace Operando_AdministrationConsole.Controllers
 {
 
     public class DataSubjectController : Controller
     {
+        private const string NameAmiReportGenerator = "Anonymised Report Generator";
+        private const string DataTypeCareNeeds = "Care Needs";
+        private const string DataTypeAddressInformation = "Address Information";
+        private static List<OSPPrivacyPolicy> _ospPrivacyPolicies = InitialiseAmiPrivacyPolicies();
+
         public string errMsg = String.Empty;
 
         /*public ActionResult DataAccessLogs()
@@ -133,35 +140,65 @@ namespace Operando_AdministrationConsole.Controllers
             return logItem;
         }
 
-
-
         /* Method modified by IT Innovation Centre 2016 */
         public ActionResult AccessPreferences()
         {
-            //string pdbBasePath = "http://172.16.0.59:8080/pdb-server/policy_database";
-            string pdbBasePath = "http://integration.operando.esilab.org:8096/operando/core/pdb";
-
-            var instance = new eu.operando.core.pdb.cli.Api.GETApi(pdbBasePath);
-
-            Debug.Print("SESSION USER: " + Session["Username"]);
-
-            try
-            {
-                var filter = "filter=\"%7B%27policyText%27:%27%27%7D\"";
-                var response = instance.OSPGet(filter);
-                ViewBag.ospppList = response;
-                return View(response);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling PrivacyLegislationApi.RegulationsPost: " + e.Message);
-            }
+            ViewBag.ospppList = _ospPrivacyPolicies;
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AccessPreferences(FormCollection formCollection)
+        {
+            ViewBag.ospppList = _ospPrivacyPolicies;
+            return View();
+        }
+
+        private static List<OSPPrivacyPolicy> InitialiseAmiPrivacyPolicies()
+        {
+            List<OSPPrivacyPolicy> ospPrivacyPolicies = new List<OSPPrivacyPolicy>();
+
+            List<AccessPolicy> amiAccessPolicies = new List<AccessPolicy>();
+
+            AccessPolicy accessPolicy1 = new AccessPolicy(NameAmiReportGenerator, false, null, DataTypeCareNeeds,
+                new List<PolicyAttribute>());
+            AccessPolicy accessPolicy2 = new AccessPolicy(NameAmiReportGenerator, false, null, DataTypeAddressInformation,
+                new List<PolicyAttribute>());
+
+            amiAccessPolicies.Add(accessPolicy1);
+            amiAccessPolicies.Add(accessPolicy2);
+
+            OSPPrivacyPolicy amiPrivacyPolicy = new OSPPrivacyPolicy("Ami", "policyText", "Ami", null, amiAccessPolicies);
+            ospPrivacyPolicies.Add(amiPrivacyPolicy);
+            return ospPrivacyPolicies;
+        }
+
+        /*public ActionResult AccessPreferences()
+                {
+                    //string pdbBasePath = "http://172.16.0.59:8080/pdb-server/policy_database";
+                    string pdbBasePath = "http://integration.operando.esilab.org:8096/operando/core/pdb";
+        
+                    var instance = new eu.operando.core.pdb.cli.Api.GETApi(pdbBasePath);
+        
+                    Debug.Print("SESSION USER: " + Session["Username"]);
+        
+                    try
+                    {
+                        var filter = "filter=\"%7B%27policyText%27:%27%27%7D\"";
+                        var response = instance.OSPGet(filter);
+                        ViewBag.ospppList = response;
+                        return View(response);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Print("Exception when calling PrivacyLegislationApi.RegulationsPost: " + e.Message);
+                    }
+                    return View();
+                }*/
+
         /* Method modified by IT Innovation Centre 2016 */
         [HttpPost]
-        public ActionResult AccessPreferences(FormCollection resp)
+        /*public ActionResult AccessPreferences(FormCollection resp)
         {
             //Debug.Print("http post here: " + Convert.ToString(resp) + Response);
             List<string> policiesKey = new List<string>();
@@ -290,7 +327,7 @@ namespace Operando_AdministrationConsole.Controllers
                 Debug.Print("Exception when calling pdb-server: " + e.Message);
             }
             return View();
-        }
+        }*/
 
         public ActionResult PrivacyWizard()
         {
