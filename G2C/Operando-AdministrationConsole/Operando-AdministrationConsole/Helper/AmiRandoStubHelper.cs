@@ -10,8 +10,22 @@ namespace Operando_AdministrationConsole.Helper
 {
     public class AmiRandoStubHelper
     {
+        private static Comparison<Notification> mostRecentFirst;
         private const string DataTypeCareNeeds = "Care Needs";
         private const string DataTypeAddressInformation = "Address Information";
+
+        private const string MessageSuggestedChangeToUpp = "Ami's Privacy Policy has been updated. If you give it permission to do so,"
+                                                           + " Ami will now use your age to generate a report on the needs of registered clients within West London,"
+                                                           + " broken down by geographical area and age. The report will not contain any personally identifiable information."
+                                                           + "\n"
+                                                           + "\n"
+                                                           + "If you would like your information to be available for this report,"
+                                                           + " you should make sure that your user privacy policy (UPP) allows the Anonymised Report Generator access to your"
+                                                           + " care needs, address information, and age.";
+
+        private const string MessageNoChangeToUpp = "Ami's Privacy Policy has been updated. There are no recommended changes to your privacy policy.";
+        private const string MessageRegulation = "The choice of options for your UPP were updated to reflect an update to a data protection regulation.";
+        private const string MessageDataRequested = "Your data has been requested 5 times so far today.";
 
         public static List<DataAccessLog> GetStubAccessLogs()
         {
@@ -29,7 +43,8 @@ namespace Operando_AdministrationConsole.Helper
             DataAccessLog stubLogItem4 = CreateStubLogItem(true, DataTypeAddressInformation);
             logList.Add(stubLogItem4);
 
-            logList.Sort((log1,log2) => log2.logDate.CompareTo(log1.logDate));
+            Comparison<DataAccessLog> mostRecentFirst = (log1,log2) => log2.logDate.CompareTo(log1.logDate);
+            logList.Sort(mostRecentFirst);
 
             return logList;
         }
@@ -69,20 +84,16 @@ namespace Operando_AdministrationConsole.Helper
         {
             List<Notification> stubNotifications = new List<Notification>();
 
-            string messageSuggestedChangeToUpp = "Ami's Privacy Policy has been updated. If you give it permission to do so,"
-                + " Ami will now use your age to generate a report on the needs of registered clients within West London,"
-                + " broken down by geographical area and age. The report will not contain any personally identifiable information."
-                + "\n"
-                + "\n"
-                + " If you would like your information to be available for this report,"
-                + " you should make sure that your user privacy policy (UPP) allows the Anonymised Report Generator access to your age.";
+            stubNotifications.Add(new Notification(DateTime.Now, MessageDataRequested));
 
-            stubNotifications.Add(new Notification(new DateTime(2017, 1, 17, 9, 12, 35), messageSuggestedChangeToUpp, "/DataSubject/AccessPreferences", "Edit UPP"));
+            stubNotifications.Add(new Notification(new DateTime(2017, 1, 17, 10, 12, 35), MessageSuggestedChangeToUpp, "/DataSubject/AccessPreferences", "Edit UPP"));
 
-            string messageNoChangeToUpp = "Ami's Privacy Policy has been updated. There are no recommended changes to your privacy policy.";
-            stubNotifications.Add(new Notification(new DateTime(2016, 12, 9, 16, 11, 24), messageNoChangeToUpp));
-            stubNotifications.Add(new Notification(new DateTime(2016, 9, 11, 15, 04, 01), messageNoChangeToUpp));
-            stubNotifications.Add(new Notification(new DateTime(2016, 6, 3, 16, 19, 47), messageNoChangeToUpp));
+            stubNotifications.Add(new Notification(new DateTime(2017, 1, 17, 9, 26, 14), MessageRegulation));
+
+            stubNotifications.Add(new Notification(new DateTime(2016, 12, 9, 16, 11, 24), MessageNoChangeToUpp));
+
+            mostRecentFirst = (notification1, notification2) => notification2.DateTime.CompareTo(notification1.DateTime);
+            stubNotifications.Sort(mostRecentFirst);
 
             return stubNotifications;
         }
