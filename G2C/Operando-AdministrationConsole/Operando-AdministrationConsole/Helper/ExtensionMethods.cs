@@ -25,5 +25,21 @@ namespace Operando_AdministrationConsole.Extension
             }
             return userFriendlyName;
         }
+
+        public static string TruncateWithEllipsis(this string s, int maxLength)
+        {
+            string truncatedString = "";
+
+            if (s.Length > maxLength)
+            {
+                truncatedString = s.Substring(0, maxLength) + "...";
+            }
+            else
+            {
+                truncatedString = s;
+            }
+
+            return truncatedString;
+        }
     }
 }

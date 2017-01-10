@@ -1,4 +1,11 @@
-﻿@{
+﻿@using Operando_AdministrationConsole.Extension
+@using Operando_AdministrationConsole.Helper
+@using Operando_AdministrationConsole.Models
+
+@functions {
+    private int _maxLengthBeforeTruncation;
+}
+@{
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
     ViewBag.Title = "Dashboard";
 }
@@ -7,175 +14,117 @@
 <!-- BEGIN PAGE BASE CONTENT -->
 
 <div class="m-heading-1 border-grey-silver m-bordered">
-    <p>
-        On this Welcome page, you can see a quick overview of important data and notifications.<br /><br />
-    </p>
+	<p>
+		On this Welcome page, you can see a quick overview of important data and notifications.<br/><br/>
+	</p>
 </div>
 
 <!-- BEGIN BOX NOTIFICATIONS -->
 <div class="row">
-    <div class="col-md-12">
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-bell"></i>
-                    <span class="caption-subject font-dark bold uppercase">NOTIFICATIONS</span>
-                </div>
-                <div class="tools">
-                    <a href="@Url.Action("Notifications", "Dashboard")">View all <i class="icon-arrow-right"></i></a>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <ul class="feeds">
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-default">
-                                        <i class="icon-bell"></i>
-                                    </div>
-                                </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> Database server #12 overloaded. Please fix the issue. </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-10-09 16:32 </div>
-                        </div>
-                    </li>
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-default">
-                                        <i class="icon-bell"></i>
-                                    </div>
-                                </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> New PfB deal needs approval. </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-10-09 16:32 </div>
-                        </div>
-                    </li>
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-default">
-                                        <i class="icon-bell"></i>
-                                    </div>
-                                </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> New member registered. Pending approval. </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-10-09 16:32 </div>
-                        </div>
-                    </li>
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-default">
-                                        <i class="icon-bell"></i>
-                                    </div>
-                                </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> OP04 database server is overloaded 90%. </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-10-09 16:32 </div>
-                        </div>
-                    </li>
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-default">
-                                        <i class="icon-bell"></i>
-                                    </div>
-                                </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> New policy group created. Pending manager review. </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-10-09 16:32 </div>
-                        </div>
-                    </li>
+	<div class="col-md-12">
+		<div class="portlet light bordered">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-bell"></i>
+					<span class="caption-subject font-dark bold uppercase">NOTIFICATIONS</span>
+				</div>
+				<div class="tools">
+					<a href="@Url.Action("Notifications", "Dashboard")">View all <i class="icon-arrow-right"></i></a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<ul class="feeds">
+					@{ List<AmiRandoStubHelper.Notification> notifications = AmiRandoStubHelper.GetStubNotifications(); }
 
-                </ul>
+					@{
+					    _maxLengthBeforeTruncation = 70;
+					}
+					@for (int i = 0; i < 3; i++)
+					{
+						AmiRandoStubHelper.Notification notification = notifications[i];
 
-            </div>
-        </div>
-    </div>
+					    <li class="font-grey-gallery">
+						    <div class="col1">
+							    <div class="cont">
+								    <div class="cont-col1">
+									    <div class="label label-sm label-default">
+										    <i class="icon-bell"></i>
+									    </div>
+								    </div>
+								    <div class="cont-col2">
+										<div class="desc">
+											@notification.Message.TruncateWithEllipsis(_maxLengthBeforeTruncation)
+										</div>
+								    </div>
+							    </div>
+						    </div>
+						    <div class="col2">
+							    <div class="date">
+								    @notification.DateTime
+							    </div>
+						    </div>
+					    </li>
+					}
+				</ul>
+
+			</div>
+		</div>
+	</div>
 </div>
 <!-- END BOX NOTIFICATIONS -->
 
 <!-- BEGIN DATA ACCESS SUMMARY & INFO -->
 <div class="row">
-    <!-- BEGIN BOX DATA REQUESTS -->
-    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-equalizer font-dark hide"></i>
-                    <span class="caption-subject font-dark bold uppercase">Data Requests</span>
-                </div>
-                <div class="tools">
-                    <a href="@Url.Action("DataAccessLogs", "DataSubject")">View all <i class="icon-arrow-right"></i></a>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <ul class="feeds">
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-success">
-                                        <i class="fa fa-info-circle"></i>
-                                    </div>
-                                </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> ASLBG requested Age data for medical purpose </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-09-20 09:47:37 </div>
-                        </div>
-                    </li>
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-danger">
-                                        <i class="fa fa-warning"></i>
-                                    </div>
-                                </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> GASLINI requested Sex data for medical purpose </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-08-20 11:47:37 </div>
-                        </div>
-                    </li>
-                </ul>
+	<!-- BEGIN BOX DATA REQUESTS -->
+	<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+		<div class="portlet light bordered">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-equalizer font-dark hide"></i>
+					<span class="caption-subject font-dark bold uppercase">Data Requests</span>
+				</div>
+				<div class="tools">
+					<a href="@Url.Action("DataAccessLogs", "DataSubject")">View all <i class="icon-arrow-right"></i></a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<ul class="feeds">
+					@{ List<DataAccessLog> logs = AmiRandoStubHelper.GetStubAccessLogs(); }
+					@for (int i=0; i<3; i++)
+					{
+					    DataAccessLog log = logs[i];
+						<li class="font-grey-gallery">
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										@if (log.logLevel == "INFO")
+										{
+											<div class="label label-sm label-success">
+												<i class="fa fa-info-circle"></i>
+											</div>
+										}
+										else if (log.logLevel == "WARN")
+										{
+											<div class="label label-sm label-danger">
+												<i class="fa fa-warning"></i>
+											</div>
+										}
+									</div>
+									<div class="cont-col2">
+										<div class="desc"> @log.description.TruncateWithEllipsis(_maxLengthBeforeTruncation) </div>
+									</div>
+								</div>
+							</div>
+							<div class="col2">
+								<div class="date"> @log.logDate </div>
+							</div>
+						</li>
+					}
+				</ul>
 
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 	<!-- END BOX DATA REQUESTS -->
 </div>
 <!-- END DATA ACCESS SUMMARY & INFO -->
@@ -192,10 +141,10 @@
 }
 
 @section PagePlugins {
-    <script src="~/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
-    <script src="~/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+	<script src="~/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+	<script src="~/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
 }
 
 @section PageScripts {
-    <script src="~/assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+	<script src="~/assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
 }
