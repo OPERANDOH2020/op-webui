@@ -219,6 +219,7 @@
       <DependentUpon>SendMailNewReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccessController.cs" />
+    <Compile Include="Helper\AmiRandoStubHelper.cs" />
     <Compile Include="Helper\StaticStrings.cs" />
     <Compile Include="Helper\OperandoWebServiceHelper.cs" />
     <Compile Include="Controllers\DashboardController.cs" />

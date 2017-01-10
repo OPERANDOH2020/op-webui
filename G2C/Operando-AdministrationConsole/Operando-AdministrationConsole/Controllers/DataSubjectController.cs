@@ -93,51 +93,10 @@ namespace Operando_AdministrationConsole.Controllers
         {
             List<DataAccessLog> logList = new List<DataAccessLog>();
 
-            // Stub an access log.
-            DataAccessLog stubLogItem = createStubLogItem(false, "care needs");
-            logList.Add(stubLogItem);
-
-            DataAccessLog stubLogItem2 = createStubLogItem(false, "address");
-            logList.Add(stubLogItem2);
-
-            DataAccessLog stubLogItem3 = createStubLogItem(true, "care needs");
-            logList.Add(stubLogItem3);
-
-            DataAccessLog stubLogItem4 = createStubLogItem(true, "address");
-            logList.Add(stubLogItem4);
+            List<DataAccessLog> stubLogs = AmiRandoStubHelper.GetStubAccessLogs();
+            logList.AddRange(stubLogs);
 
             return View(logList);
-        }
-
-        private DataAccessLog createStubLogItem(Boolean accessGranted, string dataType)
-        {
-            DataAccessLog logItem = new DataAccessLog();
-            logItem.requesterType = "Ami Report Generator";
-            logItem.requesterId = "West London Care Needs";
-            logItem.logPriority = "NORMAL";
-            logItem.description =
-                "Your " + dataType + " data was requested.";
-
-            if (accessGranted)
-            {
-                logItem.logDate = DateTime.Now.AddMinutes(-3);
-                logItem.logLevel = "INFO";
-                logItem.title = "Data Request Granted";
-                logItem.description +=
-                    " Your data was returned: the request complied with your user privacy policy (UPP).";
-            }
-            else
-            {
-                logItem.logDate = DateTime.Now.AddMinutes(-1);
-                logItem.logLevel = "WARN";
-                logItem.title = "Data Request Denied";
-                logItem.description +=
-                    " Your data was not returned: the request did not comply with your user privacy policy (UPP).";
-            }
-
-            logItem.description += " Click the \"Edit UPP Settings\" button if you would like to change your UPP.";
-
-            return logItem;
         }
 
         /* Method modified by IT Innovation Centre 2016 */
