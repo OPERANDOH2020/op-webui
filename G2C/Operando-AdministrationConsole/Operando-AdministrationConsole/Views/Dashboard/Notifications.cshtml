@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Operando_AdministrationConsole.Helper
+@{
     ViewBag.Title = "Notifications";
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
@@ -36,14 +37,15 @@
 		<table class="table table-striped table-bordered table-hover order-column" id="notifications_list">
 			<thead>
 			<tr>
-				<th>Type</th>
+				<th></th>
 				<th>Date</th>
 				<th>Message</th>
+				<th>Link</th>
 			</tr>
 			</thead>
 			<tbody>
 			
-			@for (int i=1; i<5; i++)
+			@foreach (AmiRandoStubHelper.Notification notification in AmiRandoStubHelper.GetStubNotifications())
 			{
 				<tr>
 					<td>
@@ -51,25 +53,14 @@
 							<i class="icon-bell"></i>
 						</div> <span class="hidden">Pending</span>
 					</td>
-					@if (i == 1)
-					{
-						<td>2017-1-17 09:00</td>
-					    <td>
-						    Ami's Privacy Policy has been updated. If you give it permission to do so,
-						    Ami will now use your age to generate a report on the needs of registered clients within West London,
-						    broken down by geographical area and age. The report will not contain any personally identifiable information.
-						    <br/>
-							<br/>
-						    If you would like your information to be available for this report,
-						    you should make sure that your user privacy policy (UPP) allows the Anonymised Report Generator access to your age.
-							@Html.ActionLink("Click here to change your UPP", "AccessPreferences", "DataSubject").
-					    </td>
-					}
-					else
-					{
-						<td>2016-@(3*i)-@(i * i * i * i * i % 29)  1@((i+2)*(i+2) % 10):@((i+3)*(i+3) % 6)@((i+5)*(i+5) % 10) </td>
-						<td>Ami's Privacy Policy has been updated. There are no recommended changes to your privacy policy.</td>
-					}
+					<td> @notification.DateTime </td>
+					<td style="white-space: pre-wrap;">@notification.Message</td>
+					<td>
+						@if (notification.Link != null)
+						{
+							<a class="btn btn-circle btn-sm yellow-gold" href="@notification.Link"> Edit UPP </a>
+						}
+					</td>
 				</tr>
 			}
 

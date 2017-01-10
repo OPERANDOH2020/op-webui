@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Operando_AdministrationConsole.Models;
+using System.Web.Mvc.Html;
 
 namespace Operando_AdministrationConsole.Helper
 {
@@ -62,6 +63,49 @@ namespace Operando_AdministrationConsole.Helper
             logItem.description += " Click the \"Edit UPP Settings\" button if you would like to change your UPP.";
 
             return logItem;
+        }
+
+        public static List<Notification> GetStubNotifications()
+        {
+            List<Notification> stubNotifications = new List<Notification>();
+
+            string messageSuggestedChangeToUpp = "Ami's Privacy Policy has been updated. If you give it permission to do so,"
+                + " Ami will now use your age to generate a report on the needs of registered clients within West London,"
+                + " broken down by geographical area and age. The report will not contain any personally identifiable information."
+                + "\n"
+                + "\n"
+                + " If you would like your information to be available for this report,"
+                + " you should make sure that your user privacy policy (UPP) allows the Anonymised Report Generator access to your age.";
+
+            stubNotifications.Add(new Notification(new DateTime(2017, 1, 17, 9, 12, 35), messageSuggestedChangeToUpp, "/DataSubject/AccessPreferences", "Edit UPP"));
+
+            string messageNoChangeToUpp = "Ami's Privacy Policy has been updated. There are no recommended changes to your privacy policy.";
+            stubNotifications.Add(new Notification(new DateTime(2016, 12, 9, 16, 11, 24), messageNoChangeToUpp));
+            stubNotifications.Add(new Notification(new DateTime(2016, 9, 11, 15, 04, 01), messageNoChangeToUpp));
+            stubNotifications.Add(new Notification(new DateTime(2016, 6, 3, 16, 19, 47), messageNoChangeToUpp));
+
+            return stubNotifications;
+        }
+
+
+        public class Notification
+        {
+            public DateTime DateTime { get; set; }
+            public string Message { get; set; }
+            public string Link { get; set; }
+            public string LinkText { get; set; }
+
+            public Notification(DateTime dateTime, string message)
+            {
+                this.DateTime = dateTime;
+                this.Message = message;
+            }
+
+            public Notification(DateTime dateTime, string message, string link, string linkText) : this(dateTime, message)
+            {
+                this.Link = link;
+                this.LinkText = linkText;
+            }
         }
     }
 }
