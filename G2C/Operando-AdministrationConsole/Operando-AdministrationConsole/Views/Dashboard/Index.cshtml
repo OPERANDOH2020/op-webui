@@ -3,7 +3,7 @@
 @using Operando_AdministrationConsole.Models
 
 @functions {
-    private int _maxLengthBeforeTruncation;
+    private int _maxLengthBeforeTruncation = 70;
 }
 @{
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
@@ -34,36 +34,41 @@
 			</div>
 			<div class="portlet-body">
 				<ul class="feeds">
-					@{ List<AmiRandoStubHelper.Notification> notifications = AmiRandoStubHelper.GetStubNotifications(); }
-
 					@{
-					    _maxLengthBeforeTruncation = 70;
-					}
-					@for (int i = 0; i < 3; i++)
-					{
-						AmiRandoStubHelper.Notification notification = notifications[i];
+					    List<AmiRandoStubHelper.Notification> notifications = AmiRandoStubHelper.GetStubNotifications();
 
-					    <li class="font-grey-gallery">
-						    <div class="col1">
-							    <div class="cont">
-								    <div class="cont-col1">
-									    <div class="label label-sm label-default">
-										    <i class="icon-bell"></i>
-									    </div>
-								    </div>
-								    <div class="cont-col2">
-										<div class="desc">
-											@notification.Message.TruncateWithEllipsis(_maxLengthBeforeTruncation)
-										</div>
-								    </div>
-							    </div>
-						    </div>
-						    <div class="col2">
-							    <div class="date">
-								    @notification.DateTime
-							    </div>
-						    </div>
-					    </li>
+					    int maxNumberOfNotificationsToShow = 3;
+					    if (notifications.Count < maxNumberOfNotificationsToShow)
+					    {
+					        maxNumberOfNotificationsToShow = notifications.Count;
+					    }
+
+					    for (int i = 0; i < maxNumberOfNotificationsToShow; i++)
+					    {
+					        AmiRandoStubHelper.Notification notification = notifications[i];
+
+					        <li class="font-grey-gallery">
+						        <div class="col1">
+							        <div class="cont">
+								        <div class="cont-col1">
+									        <div class="label label-sm label-default">
+										        <i class="icon-bell"></i>
+									        </div>
+								        </div>
+								        <div class="cont-col2">
+									        <div class="desc">
+										        @notification.Message.TruncateWithEllipsis(_maxLengthBeforeTruncation)
+									        </div>
+								        </div>
+							        </div>
+						        </div>
+						        <div class="col2">
+							        <div class="date">
+								        @notification.DateTime
+							        </div>
+						        </div>
+					        </li>
+					    }
 					}
 				</ul>
 
@@ -89,36 +94,45 @@
 			</div>
 			<div class="portlet-body">
 				<ul class="feeds">
-					@{ List<DataAccessLog> logs = AmiRandoStubHelper.GetStubAccessLogs(); }
-					@for (int i=0; i<3; i++)
-					{
-					    DataAccessLog log = logs[i];
-						<li class="font-grey-gallery">
-							<div class="col1">
-								<div class="cont">
-									<div class="cont-col1">
-										@if (log.logLevel == "INFO")
-										{
-											<div class="label label-sm label-success">
-												<i class="fa fa-info-circle"></i>
-											</div>
-										}
-										else if (log.logLevel == "WARN")
-										{
-											<div class="label label-sm label-danger">
-												<i class="fa fa-warning"></i>
-											</div>
-										}
-									</div>
-									<div class="cont-col2">
-										<div class="desc"> @log.description.TruncateWithEllipsis(_maxLengthBeforeTruncation) </div>
+					@{
+					    List<DataAccessLog> logs = AmiRandoStubHelper.GetStubAccessLogs();
+					    
+						int maxNumberOfLogsToShow = 3;
+					    if (logs.Count < maxNumberOfLogsToShow)
+					    {
+					        maxNumberOfLogsToShow = logs.Count;
+					    }
+
+						for (int i=0; i<maxNumberOfLogsToShow; i++)
+						{
+							DataAccessLog log = logs[i];
+							<li class="font-grey-gallery">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											@if (log.logLevel == "INFO")
+											{
+												<div class="label label-sm label-success">
+													<i class="fa fa-info-circle"></i>
+												</div>
+											}
+											else if (log.logLevel == "WARN")
+											{
+												<div class="label label-sm label-danger">
+													<i class="fa fa-warning"></i>
+												</div>
+											}
+										</div>
+										<div class="cont-col2">
+											<div class="desc"> @log.description.TruncateWithEllipsis(_maxLengthBeforeTruncation) </div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col2">
-								<div class="date"> @log.logDate </div>
-							</div>
-						</li>
+								<div class="col2">
+									<div class="date"> @log.logDate </div>
+								</div>
+							</li>
+						}
 					}
 				</ul>
 
