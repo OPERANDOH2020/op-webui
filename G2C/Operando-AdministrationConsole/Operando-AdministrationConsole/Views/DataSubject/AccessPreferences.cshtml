@@ -65,7 +65,7 @@
 									        <div class="mt-checkbox-list">
 										        <label class="mt-checkbox">
 											        <input type="checkbox"
-											               name="@policy.Subject @policy.Resource"
+											               name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode()"
 											               value="@policy.Permission"
 											               @if (policy.Permission == true)
 											               {

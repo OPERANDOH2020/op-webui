@@ -21,6 +21,7 @@ namespace Operando_AdministrationConsole.Helper
         private const string DataTypeAddressInformation = "Address Information";
         private const string DataTypeAge = "Age";
         private static List<string> DataTypes = new List<string>() { DataTypeCareNeeds, DataTypeAddressInformation, DataTypeAge};
+        private static List<OSPPrivacyPolicy> _userPrivacyPolicy = InitialiseAmiUserPrivacyPolicy();
 
         private const string MessageSuggestedChangeToUpp = "Ami's Privacy Policy has been updated. If you give it permission to do so,"
                                                            + " Ami will now use your age to generate a report on the needs of registered clients within West London,"
@@ -30,7 +31,7 @@ namespace Operando_AdministrationConsole.Helper
                                                            + "If you would like your information to be available for this report,"
                                                            + " you should make sure that your user privacy policy (UPP) allows the Anonymised Report Generator access to your"
                                                            + " care needs, address information, and age.";
-
+        
         private const string MessageNoChangeToUpp = "Ami's Privacy Policy has been updated. There are no recommended changes to your privacy policy.";
         private const string MessageRegulation = "The choice of options for your UPP were updated to reflect an update to a data protection regulation.";
         private const string MessageDataRequested = "Your data has been requested 5 times so far today.";
@@ -108,8 +109,37 @@ namespace Operando_AdministrationConsole.Helper
 
         public static List<OSPPrivacyPolicy> GetAmiUserPrivacyPolicy()
         {
+            return _userPrivacyPolicy;
+        }
+        internal static void UpdateAmiUserPrivacyPolicy(Dictionary<string, List<string>> dictionaryHashCodesUserTypeToDataTypes)
+        {
             List<OSPPrivacyPolicy> ospPrivacyPolicies = new List<OSPPrivacyPolicy>();
+            List<AccessPolicy> amiAccessPolicies = new List<AccessPolicy>();
 
+            foreach (string userType in UserTypes)
+            {
+                foreach (string dataType in DataTypes)
+                {
+                    string userTypeHashCode = userType.GetHashCode().ToString();
+                    string dataTypeHashCode = dataType.GetHashCode().ToString();
+
+                    bool accessAllowed =
+                        dictionaryHashCodesUserTypeToDataTypes.ContainsKey(userTypeHashCode)
+                        && dictionaryHashCodesUserTypeToDataTypes[userTypeHashCode].Contains(dataTypeHashCode);
+
+                    amiAccessPolicies.Add(new AccessPolicy(userType, accessAllowed, null, dataType, new List<PolicyAttribute>()));
+                }
+            }
+
+            OSPPrivacyPolicy amiPrivacyPolicy = new OSPPrivacyPolicy("Ami", "policyText", "Ami", null, amiAccessPolicies);
+            ospPrivacyPolicies.Add(amiPrivacyPolicy);
+
+            _userPrivacyPolicy = ospPrivacyPolicies;
+        }
+
+        private static List<OSPPrivacyPolicy> InitialiseAmiUserPrivacyPolicy()
+        {
+            List<OSPPrivacyPolicy> ospPrivacyPolicies = new List<OSPPrivacyPolicy>();
             List<AccessPolicy> amiAccessPolicies = new List<AccessPolicy>();
 
             foreach (string userType in UserTypes)
