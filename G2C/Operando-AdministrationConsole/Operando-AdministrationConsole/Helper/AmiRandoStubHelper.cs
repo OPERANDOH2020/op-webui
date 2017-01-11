@@ -40,17 +40,26 @@ namespace Operando_AdministrationConsole.Helper
         {
             List<DataAccessLog> logList = new List<DataAccessLog>();
 
-            DataAccessLog stubLogItem = CreateStubLogItem(false, DataTypeCareNeeds);
-            logList.Add(stubLogItem);
+            DataAccessLog stubLogItemCareNeedsDenied = CreateStubLogItem(false, DataTypeCareNeeds);
+            DataAccessLog stubLogItemAddressDenied = CreateStubLogItem(false, DataTypeAddressInformation);
+            DataAccessLog stubLogItemCareNeedsAllowed = CreateStubLogItem(true, DataTypeCareNeeds);
+            DataAccessLog stubLogItemAddressAllowed = CreateStubLogItem(true, DataTypeAddressInformation);
 
-            DataAccessLog stubLogItem3 = CreateStubLogItem(true, DataTypeCareNeeds);
-            logList.Add(stubLogItem3);
+            logList.Add(stubLogItemCareNeedsDenied);
+            logList.Add(stubLogItemAddressDenied);
 
-            DataAccessLog stubLogItem2 = CreateStubLogItem(false, DataTypeAddressInformation);
-            logList.Add(stubLogItem2);
+            OSPPrivacyPolicy amiPrivacyPolicy = _userPrivacyPolicy[0];
+            List<AccessPolicy> amiAccessPolicies = amiPrivacyPolicy.Policies;
 
-            DataAccessLog stubLogItem4 = CreateStubLogItem(true, DataTypeAddressInformation);
-            logList.Add(stubLogItem4);
+            if (amiAccessPolicies.Contains(new AccessPolicy(UserTypeAmiReportGenerator, true, null, DataTypeCareNeeds,
+                    new List<PolicyAttribute>()))
+                &&
+                amiAccessPolicies.Contains(new AccessPolicy(UserTypeAmiReportGenerator, true, null, DataTypeCareNeeds,
+                    new List<PolicyAttribute>())))
+            {
+                logList.Add(stubLogItemCareNeedsAllowed);
+                logList.Add(stubLogItemAddressAllowed);
+            }
 
             Comparison<DataAccessLog> mostRecentFirst = (log1,log2) => log2.logDate.CompareTo(log1.logDate);
             logList.Sort(mostRecentFirst);
@@ -94,11 +103,8 @@ namespace Operando_AdministrationConsole.Helper
             List<Notification> stubNotifications = new List<Notification>();
 
             stubNotifications.Add(new Notification(DateTime.Now, MessageDataRequested));
-
             stubNotifications.Add(new Notification(new DateTime(2017, 1, 17, 10, 12, 35), MessageSuggestedChangeToUpp, "/DataSubject/AccessPreferences", "Edit UPP"));
-
             stubNotifications.Add(new Notification(new DateTime(2017, 1, 17, 9, 26, 14), MessageRegulation));
-
             stubNotifications.Add(new Notification(new DateTime(2016, 12, 9, 16, 11, 24), MessageNoChangeToUpp));
 
             Comparison<Notification> mostRecentFirst = (notification1, notification2) => notification2.DateTime.CompareTo(notification1.DateTime);
