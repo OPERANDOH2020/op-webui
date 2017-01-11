@@ -14,7 +14,7 @@ namespace Operando_AdministrationConsole.Helper
     {
         private const string UserTypeAmiReportGenerator = "Anonymised Report Generator";
         private const string UserTypeVolunteerOrganisationEmployee = "Volunteer Organisation Employees";
-        private const string UserTypeAmiStaff = "AmiStaff";
+        private const string UserTypeAmiStaff = "Ami Staff";
         private static List<string> UserTypes = new List<string>() { UserTypeAmiReportGenerator, UserTypeVolunteerOrganisationEmployee, UserTypeAmiStaff };
 
         private const string DataTypeCareNeeds = "Care Needs";
