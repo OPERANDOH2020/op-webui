@@ -8,7 +8,69 @@
 @using Operando_AdministrationConsole.Extension;
 @model List<Regulation>
 
+@*Create a series of table cells allowing editing of a bound regulation*@
+@helper RegulationEditRow(string binding)
+{
+    <td data-bind="visible: @(binding).Editing">
+        <input type="text" class="form-control" placeholder="Enter text" data-bind="value: @(binding).LegislationSector">
+    </td>
+    <td data-bind="visible: @(binding).Editing">
+        <input type="text" class="form-control" placeholder="Enter text" data-bind="value: @(binding).PrivateInformationSource, visible: @(binding).Editing">
+    </td>
+    <td data-bind="visible: @(binding).Editing">
+        <select class="bs-select form-control" data-bind="value: @(binding).PrivateInformationType, visible: @(binding).Editing">
+            @{
+                foreach (PrivateInformationTypeEnum PrivateInformationType in Enum.GetValues(typeof(PrivateInformationTypeEnum)))
+                {
+                    <option value="@((int)PrivateInformationType)">@PrivateInformationType.UserFriendlyName()</option>
+                };
+            }
+        </select>
+    </td>
+    <td data-bind="visible: @(binding).Editing">
+        <input type="text" class="form-control" placeholder="Enter text" data-bind="value: @(binding).Action, visible: @(binding).Editing">
+    </td>
+    <td data-bind="visible: @(binding).Editing">
+        <select class="bs-select form-control" data-bind="value: @(binding).RequiredConsent, visible: @(binding).Editing">
+            @{
+                foreach (RequiredConsentEnum requiredConsentType in Enum.GetValues(typeof(RequiredConsentEnum)))
+                {
+                    <option value="@((int)requiredConsentType)">@requiredConsentType.ToString()</option>
+                };
+            }
+        </select>
+    </td>
+}
+
+@*Create object properties mapping from enumeration value name to int value*@
+@helper EnumConversion(Enum enumeration)
+{
+    foreach (var value in Enum.GetValues(enumeration.GetType()))
+    {
+        @: "@value": @((int)value),
+        @: @((int)value): "@value", 
+    };
+}
+
 <!-- BEGIN PAGE BASE CONTENT -->
+<div class="modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalTitle">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="alertModalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-xs-12">
         <div class="m-heading-1 border-grey-silver m-bordered">
@@ -34,72 +96,45 @@
                                 <th>Private Information Type</th>
                                 <th>Action</th>
                                 <th>Required Consent</th>
-                                <th style="min-width: 120px;">
-                                    <div class="actions text-right">
-                                        <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
-                                    </div>
-                                </th>
+                                <th style="min-width: 120px;"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                @RegulationEditRow("OperandoRegulations.model.newRegulation")
                                 <td>
-                                    <input type="text" class="form-control" placeholder="Enter text">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" placeholder="Enter text">
-                                </td>
-                                <td>
-                                    <select class="bs-select form-control">
-                                        @{
-                                            foreach (PrivateInformationTypeEnum privateInformationType in Enum.GetValues(typeof(PrivateInformationTypeEnum)))
-                                            {
-                                                <option> @privateInformationType.UserFriendlyName() </option>
-                                            };
-                                        }
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" placeholder="Enter text">
-                                </td>
-                                <td>
-                                    <select class="bs-select form-control">
-                                        @{
-                                            foreach (string requiredConsentType in Enum.GetNames(typeof(RequiredConsentEnum)))
-                                            {
-                                                <option> @requiredConsentType.ToString() </option>
-                                            };
-                                        }
-                                    </select>
-                                </td>
-                                <td>
-                                    <div class="btn-group btn-group-circle">
-                                        <button type="button" class="btn btn-outline green btn-sm">Save</button>
-                                        <button type="button" class="btn btn-outline red btn-sm">Cancel</button>
+                                    <div class="actions">
+                                        <button type="button" class="btn btn-circle yellow-gold btn-sm" onclick="OperandoRegulations.addRegulation()">Add <i class="fa fa-plus"></i></button>
                                     </div>
                                 </td>
                             </tr>
-                            @foreach (Regulation regulation in Model)
-                            { 
-                                <tr>
-                                    <td>@regulation.LegislationSector.ToString() </td>
-                                    <td>@regulation.PrivateInformationSource.ToString() </td>
-                                    <td>@regulation.PrivateInformationType.ToString() </td>
-                                    <td>@regulation.Action.ToString() </td>
-                                    <td>@regulation.RequiredConsent.ToString() </td>
-                                    <td>
-                                        <div class="btn-group btn-group-circle">
-                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
+                            <!-- ko foreach: OperandoRegulations.model.regulations -->
+                            <tr>
+                                @RegulationEditRow("$data.EditableCopy")
+                                <td data-bind="visible: $data.EditableCopy.Editing">
+                                    <div class="btn-group btn-group-circle">
+                                        <button type="button" class="btn btn-outline green btn-sm" data-bind="click: function(){OperandoRegulations.updateRegulation($data)}">Save</button>
+                                        <button type="button" class="btn btn-outline red btn-sm" data-bind="click: function(){$data.EditableCopy.Editing(false)}"\>Cancel</button>
+                                    </div>
+                                </td>
+
+                                <td data-bind="text: LegislationSector, visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="text: PrivateInformationSource, visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="text: PrivateInformationTypeEnum.UserFriendlyName(PrivateInformationTypeEnum[PrivateInformationType()]),
+                                    visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="text: Action, visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="text: RequiredConsentEnum[RequiredConsent()], visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="visible: !$data.EditableCopy.Editing()">
+                                    <div class="btn-group btn-group-circle">
+                                        <button type="button" class="btn btn-outline green btn-sm" data-bind="click: function(){$data.EditableCopy.Editing(true)}">Edit</button>
+                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left" 
+                                                data-on-confirm="OperandoRegulations.deleteRegulation" data-bind="attr: {'data-id': $data.RegId}">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- /ko -->
                         </tbody>
                     </table>
-                </div>
-                <div class="actions text-right">
-                    <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
                 </div>
             </div>
         </div>
@@ -128,5 +163,51 @@
     <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/components-bootstrap-select.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/knockout-3.4.0.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/operando-regulations.js" type="text/javascript"></script>
 }
 
+<script type="text/javascript">
+    var PrivateInformationTypeEnum = {
+    @EnumConversion(new PrivateInformationTypeEnum())
+
+        UserFriendlyName: function (name) {
+            switch (name) {
+                @foreach (PrivateInformationTypeEnum PrivateInformationType in Enum.GetValues(typeof(PrivateInformationTypeEnum)))
+            {
+                @: case "@PrivateInformationType":
+                @: return "@PrivateInformationType.UserFriendlyName()";
+        }
+            default:
+                return name;
+    }
+    }
+    };
+
+    var RequiredConsentEnum = {
+        @EnumConversion(new RequiredConsentEnum())
+        };
+
+    $(function () {
+        var model = JSON.parse('@Html.Raw(Json.Encode(Model))');
+
+        var urlAdd = function (id) {
+            return "@Url.Action("NewRegulation", "PspAnalyst")";
+        }
+
+        var urlUpdate = function(id) {
+            return "@Url.Action("UpdateRegulation", "PspAnalyst")/" + id;
+        }
+
+        var urlDelete = function (id) {
+            return "@Url.Action("DeleteRegulation", "PspAnalyst")/" + id;
+        }
+
+        OperandoRegulations.init(
+            urlAdd,
+            urlUpdate,
+            urlDelete,
+            model
+        );
+    });
+</script>

@@ -8,7 +8,58 @@
 @using Operando_AdministrationConsole.Models;
 @model PrivacyPolicy
 
+@*Create a series of table cells allowing editing of a bound regulation*@
+@helper PolicyEditRow(string binding)
+{
+    <td data-bind="visible: @(binding).Editing">
+        <input class="form-control" list="userType" placeholder="Enter text" data-bind="value: @(binding).Datauser">
+        <datalist id="userType">
+            <option>Doctor</option>
+            <option>Receptionist</option>
+            <option>Healthcare assistant</option>
+            <option>Pharmacist</option>
+        </datalist>
+    </td>
+    <td data-bind="visible: @(binding).Editing">
+        <input class="form-control" list="subjectType" placeholder="Enter text" data-bind="value: @(binding).Datasubjecttype">
+        <datalist id="subjectType">
+            <option>Patient</option>
+            <option>Patient's family</option>
+        </datalist>
+    </td>
+    <td data-bind="visible: @(binding).Editing">
+        <input class="form-control" list="dataType" placeholder="Enter text" data-bind="value: @(binding).Datatype">
+        <datalist id="dataType">
+            <option>Medication</option>
+            <option>Email address</option>
+            <option>Phone number</option>
+            <option>Home address</option>
+        </datalist>
+    </td>
+    <td data-bind="visible: @(binding).Editing">
+        <input type="text" class="form-control" placeholder="Enter text" data-bind="value: @(binding).Reason">
+    </td>
+}
+
 <!-- BEGIN PAGE BASE CONTENT -->
+<div class="modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalTitle">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="alertModalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-xs-12">
         <!-- BEGIN PORTLET-->
@@ -34,53 +85,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (AccessPolicy accessPolicy in Model.Policies)
-                            {
-                                <tr>
-                                    <td>@accessPolicy.Datauser</td>
-                                    <td>@accessPolicy.Datasubjecttype</td>
-                                    <td>@accessPolicy.Datatype</td>
-                                    <td>@accessPolicy.Reason</td>
-                                    <td>
-                                        <div class="btn-group btn-group-circle">
-                                            <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                            <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
                             <tr>
-                                <td>
-                                    <select class="bs-select form-control" multiple>
-                                        <option>Doctor</option>
-                                        <option>Receptionist</option>
-                                        <option>Healthcare assistant</option>
-                                        <option selected>Pharmacist</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select class="bs-select form-control" multiple>
-                                        <option selected>Patient</option>
-                                        <option>Patient's family</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select class="bs-select form-control" multiple>
-                                        <option selected>Medication</option>
-                                        <option>Email address</option>
-                                        <option>Phone number</option>
-                                        <option>Home address</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" placeholder="Enter text" value="For checking drug interactions">
-                                </td>
+                                @PolicyEditRow("OperandoPrivacyPolicy.model.newPolicy")
                                 <td>
                                     <div class="actions">
-                                        <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-circle yellow-gold btn-sm" onclick="OperandoPrivacyPolicy.addPolicy()">Add <i class="fa fa-plus"></i></button>
                                     </div>
                                 </td>
                             </tr>
+                            <!-- ko foreach: OperandoPrivacyPolicy.model.policies -->
+                            <tr>
+                                @PolicyEditRow("$data.EditableCopy")
+                                <td data-bind="visible: $data.EditableCopy.Editing">
+                                    <div class="btn-group btn-group-circle">
+                                        <button type="button" class="btn btn-outline green btn-sm" data-bind="click: function(){OperandoPrivacyPolicy.updatePolicy($data)}">Save</button>
+                                        <button type="button" class="btn btn-outline red btn-sm" data-bind="click: function(){$data.EditableCopy.Editing(false)}" \>Cancel</button>
+                                    </div>
+                                </td>
+
+                                <td data-bind="text: Datauser, visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="text: Datasubjecttype, visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="text: Datatype, visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="text: Reason, visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="visible: !$data.EditableCopy.Editing()">
+                                    <div class="btn-group btn-group-circle">
+                                        <button type="button" class="btn btn-outline green btn-sm" data-bind="click: function(){$data.EditableCopy.Editing(true)}">Edit</button>
+                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left"
+                                                data-on-confirm="OperandoPrivacyPolicy.deletePolicy" data-bind="attr: {'data-id': $data.Id}">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- /ko -->
                         </tbody>
                     </table>
                 </div>
@@ -111,5 +148,14 @@
     <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/components-bootstrap-select.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/knockout-3.4.0.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/operando-privacy-policy.js" type="text/javascript"></script>
 }
+
+<script type="text/javascript">
+    $(function () {
+        var model = JSON.parse('@Html.Raw(Json.Encode(Model))');
+        OperandoPrivacyPolicy.init("@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/", "@Model.OspPolicyId", model);
+    });
+</script>
 

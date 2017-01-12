@@ -331,6 +331,30 @@
 
 	</ul>
 </li>
+<li class='nav-item @if (currentController == "PspAdmin" && currentAction == "UsersManagement") { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-diamond"></i>
+                <span class="title">Users management</span>
+                <span class="arrow open"></span>
+                @if (currentController == "PspAdmin" && currentAction == "UsersManagement")
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "UsersManagement") { @activeClass }'>
+                    <a href="@Url.Action("UsersManagement", "PspAdmin")" class="nav-link ">
+                        <i class="icon-wrench"></i>
+                        <span class="title">Users</span>
+                        @if (currentController == "PspAdmin" && currentAction == "UsersManagement")
+                        {
+                            @:<span class="selected"></span>
+                            }
+                    </a>
+                </li>
+
+            </ul>
+        </li>
 -->
 
 </ul>

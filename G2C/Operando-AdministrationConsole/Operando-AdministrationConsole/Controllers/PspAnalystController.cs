@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Text.RegularExpressions;
 using Operando_AdministrationConsole.Helper;
+using System.Net;
+using System.Text;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -17,11 +19,48 @@ namespace Operando_AdministrationConsole.Controllers
     {
         private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
 
+        private static readonly Uri RegulationsRoot = new Uri("http://localhost:8080/stub-pdb/api/regulations/");
+
         // GET: PspAnalyst
         public async Task<ActionResult> Regulations()
         {
-            List<Regulation> regulations = await helper.get<List<Regulation>>("http://localhost:8080/stub-pdb/api/regulations"); //= await getAllRegulations();
+            List<Regulation> regulations = await helper.get<List<Regulation>>(RegulationsRoot.ToString()); //= await getAllRegulations();
             return View(regulations);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> NewRegulation(Regulation regulation)
+        {
+            using(HttpClient client = new HttpClient())
+            {
+                StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(regulation), Encoding.UTF8, "application/json");
+                var result = await client.PostAsync(RegulationsRoot, OperandoJson);
+                Response.StatusCode = (int)result.StatusCode;
+                return Content(await result.Content.ReadAsStringAsync());
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateRegulation(Regulation regulation)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(regulation), Encoding.UTF8, "application/json");
+                var result = await client.PutAsync(new Uri(RegulationsRoot, regulation.RegId), OperandoJson);
+                Response.StatusCode = (int)result.StatusCode;
+                return Content(await result.Content.ReadAsStringAsync());
+            }
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteRegulation(string id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var result = await client.DeleteAsync(new Uri(RegulationsRoot, id));
+                Response.StatusCode = (int)result.StatusCode;
+                return Content(await result.Content.ReadAsStringAsync());
+            }
         }
 
         public ActionResult DataExtracts()
