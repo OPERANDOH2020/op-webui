@@ -35,7 +35,7 @@ namespace Operando_AdministrationConsole.Controllers
 
         public async Task<ActionResult> Reports()
         {
-            List<BdaJob> executions = await helper.get<List<BdaJob>>("http://localhost:8080/stub-bda/bda/jobs?osp=Ami");
+            List<BdaJob> executions = await helper.get<List<BdaJob>>("http://192.168.99.177:8080/stub-bda-0.0.1-SNAPSHOT/bda/jobs");
             return View("BigDataAnalytics", executions);
         }
 
