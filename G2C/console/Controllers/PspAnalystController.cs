@@ -19,7 +19,7 @@ namespace Operando_AdministrationConsole.Controllers
     {
         private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
 
-        private static readonly Uri RegulationsRoot = new Uri("http://localhost:8080/stub-pdb/api/regulations/");
+        private static readonly Uri RegulationsRoot = new Uri("http://192.168.99.177:8080/stub-pdb-0.0.1-SNAPSHOT/api/regulations/");
 
         // GET: PspAnalyst
         public async Task<ActionResult> Regulations()
