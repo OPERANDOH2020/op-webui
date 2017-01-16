@@ -21,7 +21,9 @@ namespace Operando_AdministrationConsole.Helper
         private const string DataTypeCareNeeds = "Care Needs";
         private const string DataTypeAddressInformation = "Address";
         private const string DataTypeAge = "Age";
-        private static List<string> DataTypes = new List<string>() { DataTypeCareNeeds, DataTypeAddressInformation, DataTypeAge};
+        private const string DataTypePhoneNumber = "Phone Number";
+        private const string DataTypeEmploymentStatus = "Employment Status";
+        private static List<string> DataTypes = new List<string>() { DataTypeCareNeeds, DataTypeAddressInformation, DataTypeAge, DataTypePhoneNumber, DataTypeEmploymentStatus};
         private static List<OSPPrivacyPolicy> _userPrivacyPolicy = InitialiseAmiUserPrivacyPolicy();
 
         private const string MessageSuggestedChangeToUpp = "Ami's Privacy Policy has been updated. If you give it permission to do so,"
