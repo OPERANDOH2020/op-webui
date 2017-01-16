@@ -12,13 +12,14 @@ namespace Operando_AdministrationConsole.Helper
 {
     public class AmiRandoStubHelper
     {
-        private const string UserTypeAmiReportGenerator = "Anonymised Report Generator";
-        private const string UserTypeVolunteerOrganisationEmployee = "Volunteer Organisation Employees";
+        private const string UserTypeAmiReportGenerator = "Anonymised reports";
+        private const string UserTypeAbingdonGoodNeighbourSchemeStaff = "Abingdon Good Neighbour Scheme Staff";
+        private const string UserTypeVolunteerLinkupStaff = "Volunteer Linkup Staff";
         private const string UserTypeAmiStaff = "Ami Staff";
-        private static List<string> UserTypes = new List<string>() { UserTypeAmiReportGenerator, UserTypeVolunteerOrganisationEmployee, UserTypeAmiStaff };
+        private static List<string> UserTypes = new List<string>() { UserTypeAmiReportGenerator, UserTypeAbingdonGoodNeighbourSchemeStaff, UserTypeVolunteerLinkupStaff, UserTypeAmiStaff };
 
         private const string DataTypeCareNeeds = "Care Needs";
-        private const string DataTypeAddressInformation = "Address Information";
+        private const string DataTypeAddressInformation = "Address";
         private const string DataTypeAge = "Age";
         private static List<string> DataTypes = new List<string>() { DataTypeCareNeeds, DataTypeAddressInformation, DataTypeAge};
         private static List<OSPPrivacyPolicy> _userPrivacyPolicy = InitialiseAmiUserPrivacyPolicy();
@@ -33,8 +34,8 @@ namespace Operando_AdministrationConsole.Helper
                                                            + " care needs, address information, and age.";
         
         private const string MessageNoChangeToUpp = "Ami's Privacy Policy has been updated. There are no recommended changes to your privacy policy.";
-        private const string MessageRegulation = "The choice of options for your UPP were updated to reflect an update to a data protection regulation.";
-        private const string MessageDataRequested = "Your data has been requested 5 times so far today.";
+        private const string MessageRegulation = "The choice of options for your User Privacy Policy (UPP) were updated to reflect an update to a data protection regulation.";
+        private const string MessageDataRequested = "Your data has been requested {0} times so far today {1} requests were approved and {2} were denied.";
 
         public static List<DataAccessLog> GetStubAccessLogs()
         {
@@ -82,7 +83,7 @@ namespace Operando_AdministrationConsole.Helper
                 logItem.logLevel = "INFO";
                 logItem.title = "Data Request Granted";
                 logItem.description +=
-                    " Your data was returned: the request complied with your user privacy policy (UPP).";
+                    " Your data was shared: the request complied with your user privacy policy (UPP).";
             }
             else
             {
@@ -102,7 +103,11 @@ namespace Operando_AdministrationConsole.Helper
         {
             List<Notification> stubNotifications = new List<Notification>();
 
-            stubNotifications.Add(new Notification(DateTime.Now, MessageDataRequested));
+            int numberOfRequests = GetStubAccessLogs().Count;
+            int numberOfGrantedRequests = GetStubAccessLogs().RemoveAll(log => log.logLevel == "INFO");
+            int numberOfDeniedRequests = GetStubAccessLogs().RemoveAll(log => log.logLevel == "WARN");
+            string message = String.Format(MessageDataRequested, numberOfRequests, numberOfGrantedRequests, numberOfDeniedRequests);
+            stubNotifications.Add(new Notification(DateTime.Now, message, "/DataSubject/DataAccessLogs", "View requests"));
             stubNotifications.Add(new Notification(new DateTime(2017, 1, 17, 10, 12, 35), MessageSuggestedChangeToUpp, "/DataSubject/AccessPreferences", "Edit UPP"));
             stubNotifications.Add(new Notification(new DateTime(2017, 1, 17, 9, 26, 14), MessageRegulation));
             stubNotifications.Add(new Notification(new DateTime(2016, 12, 9, 16, 11, 24), MessageNoChangeToUpp));
@@ -152,7 +157,8 @@ namespace Operando_AdministrationConsole.Helper
             {
                 foreach (string dataType in DataTypes)
                 {
-                    amiAccessPolicies.Add(new AccessPolicy(userType, false, null, dataType, new List<PolicyAttribute>()));
+                    bool accessAllowed = !userType.Equals(UserTypeAmiReportGenerator);
+                    amiAccessPolicies.Add(new AccessPolicy(userType, accessAllowed, null, dataType, new List<PolicyAttribute>()));
                 }
             }
 
