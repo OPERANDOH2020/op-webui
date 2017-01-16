@@ -56,24 +56,42 @@
 					    <p>Your privacy settings are:</p>
 					    <form class="form-horizontal" role="form" method="post" name="@ospPrivacyPolicy.PolicyUrl form">
 						    <div class="form-body">
+                                
+                                @{
+                                    List<string> userTypes = new List<string>();
+                                }
+						        @foreach (var policy in ospPrivacyPolicy.Policies)
+                                {
+                                    var subject = policy.Subject;
+                                    if (!userTypes.Contains(subject))
+                                    {
+                                        userTypes.Add(subject);
+                                    }
+                                }
 
-							    @foreach (var policy in ospPrivacyPolicy.Policies)
+						        @foreach (var userType in userTypes)
 							    {
 							        <div class="form-group">
-								        <label class="col-md-6 control-label">@policy.Subject should be able to see my:</label>
-								        <div class="col-md-6">
-									        <div class="mt-checkbox-list">
-										        <label class="mt-checkbox">
-											        <input type="checkbox"
-											               name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode()"
-											               value="@policy.Permission"
-											               @if (policy.Permission == true)
-											               {
-											                   @: checked="checked"
-											               }> @policy.Resource
-											        <span></span>
-										        </label>
-									        </div>
+							            <label class="col-md-4 control-label"><b>@userType</b> should be able to see my:</label>
+								        <div class="col-md-8">
+								            <div class="mt-checkbox-list">
+								                @foreach (var policy in ospPrivacyPolicy.Policies)
+                                                {
+                                                    if (policy.Subject.Equals(userType))
+                                                    {
+                                                        <label class="mt-checkbox">
+                                                            <input type="checkbox"
+                                                                   name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode()"
+                                                                   value="@policy.Permission"
+                                                                   @if (policy.Permission == true)
+                                                                   {
+                                                                       @: checked="checked"
+                                                                   }> @policy.Resource
+                                                            <span></span>
+                                                        </label>
+                                                    }
+                                                }
+								            </div>
 								        </div>
 							        </div>
 							    }
