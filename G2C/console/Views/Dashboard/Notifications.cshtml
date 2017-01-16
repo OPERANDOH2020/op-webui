@@ -8,7 +8,7 @@
 
 <div class="m-heading-1 border-grey-silver m-bordered">
 	<p>
-		Events relevant to you <i>(e.g. pending data access requests, recommended/automatic changes to settings)</i> are displayed in this section. Requests are shown with the most recent first, but you can filter <i>(Pending, Approved, Requested)</i> or search freely.
+		Events relevant to you <i>(e.g. pending data access requests, recommended/automatic changes to settings)</i> are displayed in this section. Requests are shown with the most recent first, and you can filter or search through the logs.
 		<br/><br/>
 	</p>
 </div>
@@ -58,7 +58,7 @@
 					<td>
 						@if (notification.Link != null)
 						{
-							<a class="btn btn-circle btn-sm yellow-gold" href="@notification.Link"> Edit UPP </a>
+							<a class="btn btn-circle btn-sm yellow-gold" href="@notification.Link"> @notification.LinkText </a>
 						}
 					</td>
 				</tr>
