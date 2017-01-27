@@ -25,6 +25,23 @@ namespace Operando_AdministrationConsole.Extension
             }
             return userFriendlyName;
         }
+        public static string UserFriendlyName(this RequiredConsentEnum e)
+        {
+            string userFriendlyName = "";
+            switch (e)
+            {
+                case RequiredConsentEnum.In:
+                    userFriendlyName = "Opt-In";
+                    break;
+                case RequiredConsentEnum.Out:
+                    userFriendlyName = "Opt-Out";
+                    break;
+                default:
+                    userFriendlyName = Enum.GetName(typeof(PrivateInformationTypeEnum), e);
+                    break;
+            }
+            return userFriendlyName;
+        }
 
         public static string TruncateWithEllipsis(this string s, int maxLength)
         {

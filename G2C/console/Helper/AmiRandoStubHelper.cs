@@ -32,7 +32,7 @@ namespace Operando_AdministrationConsole.Helper
                                                            + "\n"
                                                            + "\n"
                                                            + "If you would like your information to be available for this report,"
-                                                           + " you should make sure that your user privacy policy (UPP) allows the Anonymised Report Generator access to your"
+                                                           + " you should make sure that your User Privacy Policy (UPP) allows the Anonymised Report Generator access to your"
                                                            + " care needs, address information, and age.";
         
         private const string MessageNoChangeToUpp = "Ami's Privacy Policy has been updated. There are no recommended changes to your privacy policy.";
@@ -85,7 +85,7 @@ namespace Operando_AdministrationConsole.Helper
                 logItem.logLevel = "INFO";
                 logItem.title = "Data Request Granted";
                 logItem.description +=
-                    " Your data was shared: the request complied with your user privacy policy (UPP).";
+                    " Your data was shared: the request complied with your User Privacy Policy (UPP).";
             }
             else
             {
@@ -93,7 +93,7 @@ namespace Operando_AdministrationConsole.Helper
                 logItem.logLevel = "WARN";
                 logItem.title = "Data Request Denied";
                 logItem.description +=
-                    " Your data was not returned: the request did not comply with your user privacy policy (UPP).";
+                    " Your data was not returned: the request did not comply with your User Privacy Policy (UPP).";
             }
 
             logItem.description += " Click the \"Edit UPP Settings\" button if you would like to change your UPP.";

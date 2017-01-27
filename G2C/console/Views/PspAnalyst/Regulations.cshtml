@@ -35,7 +35,7 @@
             @{
                 foreach (RequiredConsentEnum requiredConsentType in Enum.GetValues(typeof(RequiredConsentEnum)))
                 {
-                    <option value="@((int)requiredConsentType)">@requiredConsentType.ToString()</option>
+                    <option value="@((int)requiredConsentType)">@requiredConsentType.UserFriendlyName()</option>
                 };
             }
         </select>
@@ -123,7 +123,7 @@
                                 <td data-bind="text: PrivateInformationTypeEnum.UserFriendlyName(PrivateInformationTypeEnum[PrivateInformationType()]),
                                     visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Action, visible: !$data.EditableCopy.Editing()"></td>
-                                <td data-bind="text: RequiredConsentEnum[RequiredConsent()], visible: !$data.EditableCopy.Editing()"></td>
+                                <td data-bind="text: RequiredConsentEnum.UserFriendlyName(RequiredConsentEnum[RequiredConsent()]), visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="visible: !$data.EditableCopy.Editing()">
                                     <div class="btn-group btn-group-circle">
                                         <button type="button" class="btn btn-outline green btn-sm" data-bind="click: function(){$data.EditableCopy.Editing(true)}">Edit</button>
@@ -169,23 +169,33 @@
 
 <script type="text/javascript">
     var PrivateInformationTypeEnum = {
-    @EnumConversion(new PrivateInformationTypeEnum())
+        @EnumConversion(new PrivateInformationTypeEnum())
 
         UserFriendlyName: function (name) {
             switch (name) {
-                @foreach (PrivateInformationTypeEnum PrivateInformationType in Enum.GetValues(typeof(PrivateInformationTypeEnum)))
-            {
-                @: case "@PrivateInformationType":
-                @: return "@PrivateInformationType.UserFriendlyName()";
+                @foreach (PrivateInformationTypeEnum PrivateInformationType in Enum.GetValues(typeof(PrivateInformationTypeEnum))) {
+                        @: case "@PrivateInformationType":
+                                            @: return "@PrivateInformationType.UserFriendlyName()";
+                                        }
+                default:
+                    return name;
+            }
         }
-            default:
-                return name;
-    }
-    }
     };
 
     var RequiredConsentEnum = {
         @EnumConversion(new RequiredConsentEnum())
+
+            UserFriendlyName: function (name) {
+                switch (name) {
+                    @foreach (RequiredConsentEnum requiredConsent in Enum.GetValues(typeof(RequiredConsentEnum))) {
+                        @: case "@requiredConsent":
+                        @: return "@requiredConsent.UserFriendlyName()";
+                    }
+                default:
+                    return name;
+                }
+            }
         };
 
     $(function () {
