@@ -56,7 +56,7 @@
             cmd.CommandText = "INSERT INTO t_report_mng_request (InsertDate, Name, Email, Description) VALUES ('" + theDate.ToString("yyyy-MM-dd H:mm:ss") + "','" + nameRequest + "','" + emailRequest + "','" + descriptionRequest + "')";
             try
             {
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery(); 
             }
             catch (Exception exc)
             {
