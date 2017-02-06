@@ -10,7 +10,7 @@ COPY reportsREST/. /usr/src/app/source
 RUN nuget restore -NonInteractive 
 #RUN nuget restore -NonInteractive -PackagesDirectory packages GBE:This is no longer valid as the sln file has been added again 
 RUN nuget update -self
-RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
+RUN xbuild /property:Configuration=Debug /property:OutDir=/usr/src/app/build/
 
 RUN apt-get update
 
