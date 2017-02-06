@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Operando_AdministrationConsole.Models.ReportManager
+@{
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
     ViewBag.Title = "Dashboard";
 }
@@ -291,40 +292,29 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover order-column" id="reports_osp">
                     <thead>
                         <tr>
                             <th> Date </th>
                             <th> Report </th>
+                            <th> Description </th>
                             <th> Version </th>
-                            <th class="text-center"> Actions </th>
+                            <th> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="">
-                            <td> 2016-09-30 </td>
-                            <td> Report 1 </td>
-                            <td> v.2 </td>
-                            <td class="text-center">
-                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td> 2016-09-29 </td>
-                            <td> Report 2 </td>
-                            <td> v.2 </td>
-                            <td class="text-center">
-                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td> 2016-09-28 </td>
-                            <td> Report 3 </td>
-                            <td> v.2 </td>
-                            <td class="text-center">
-                                <a class="btn btn-circle btn-sm yellow-gold"> Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
-                            </td>
-                        </tr>
+                        @foreach (var item in Model.resultsObj.ResultList)
+                        {
+                            <tr class="odd gradeX">
+                                <td>@item.ExecutionDate</td>
+                                <td>@item.Report</td>
+                                <td>@item.ReportDescription</td>
+                                <td>@item.ReportVersion</td>
+                                <td>
+                                    <a class="btn btn-circle btn-sm yellow-gold" target="_blank" href="../reportSavePath/@item.FileName">Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -388,36 +378,25 @@ Thanks for your help
             <div class="portlet-body">
                 <div class="scroller" style="height: 338px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
                     <div class="general-item-list">
-                        <div class="item">
-                            <div class="item-head">
-                                <div class="item-details">
-                                    <a href="mailto:mail@mail.mail" class="item-name primary-link">A.Trenti</a>
-                                    <span class="item-label">2016-09-30 22:12:32</span>
+                        @foreach (var item in Model.requestsObj.RequestList)
+                        {
+                            <div class="item">
+                                <div class="item-head">
+                                    <div class="item-details">
+                                        <a href="mailto:@item.Email" class="item-name primary-link">@item.Name</a>
+                                        <span class="item-label">@item.InsertDate</span>
+                                    </div>
+                                    @*<span class="item-status">
+                        <span class="badge badge-empty badge-success"></span> Open
+                    </span>*@
                                 </div>
-                                @*<span class="item-status">
-                                        <span class="badge badge-empty badge-success"></span> Open
-                                    </span>*@
-                            </div>
-                            <div class="item-body">
-                                <p class="text">I would need a report to see users grouped by City of residence.</p>
-                                <p class="mail-address"><a href="mailto:mail@mail.mail">OSP: ASLBG</a></p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-head">
-                                <div class="item-details">
-                                    <a href="mailto:mail@mail.mail" class="item-name primary-link">L.Clivati</a>
-                                    <span class="item-label">2016-09-30 22:12:32</span>
+                                <div class="item-body">
+                                    <p class="text">
+                                        @item.Description
+                                    </p>
                                 </div>
                             </div>
-                            <div class="item-body">
-                                <p class="text">I would need a report to see all the users with consent for access to Minor, Date of birth</p>
-                                <p class="mail-address"><a href="mailto:mail@mail.mail">OSP: GASLINI</a></p>
-                            </div>
-                        </div>
-                  
-               
-                  
+                        }             
                     </div>
                 </div>
             </div>
