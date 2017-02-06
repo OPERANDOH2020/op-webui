@@ -11,6 +11,7 @@ namespace Operando_AdministrationConsole.Models
         public Results resultsObj;
         public Schedules schedulesObj;
         public Reports reportsObjNotScheduled;
+        public Requests requestsObj;
     }
 
     public class Reports
@@ -63,5 +64,15 @@ namespace Operando_AdministrationConsole.Models
         public DateTime GiornoAnno { get; set; }
         public List<Schedules> ScheduleList { get; set; }
         public List<Schedules> ScheduleDetailsList { get; set; }
+    }
+
+    public class Requests
+    {
+        public int ID { get; set; }
+        public DateTime InsertDate { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Description { get; set; }
+        public List<Requests> RequestList { get; set; }
     }
 }

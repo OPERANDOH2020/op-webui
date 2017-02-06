@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.MenuSection = "Regulator";
+    ViewBag.Title = "Policy Statements";
+    Layout = "~/Views/Shared/_LayoutOperando.cshtml";
+}
+
+
+<script type="text/javascript">
+
+    // Il numero che gli viene passato è quello da mantenere, gli altri vengono nascosti
+    function hideTab(prefisso, numero)
+    {
+        var numeroString = numero.toString();
+        if (numero < 10)
+            numeroString = "0" + numeroString;
+
+        for (var i=1; i<50; i++)
+        {
+            var indice;
+
+            if (i < 10)
+                indice = "0" + i.toString();
+            else
+                indice = i.toString();
+
+            if ($('#'+prefisso+indice).length>0)
+            {
+                if (indice != numeroString)
+                {
+                    $('#' + prefisso + indice).removeClass('active');
+                }
+            }
+        }
+    }
+</script>
+
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="portlet-body font-grey-gallery">
+
+    <div class="m-heading-1 border-grey-silver m-bordered">
+        <p>
+            Pellentesque sed sem feugiat, efficitur enim vitae, vestibulum enim. Donec efficitur bibendum ipsum vitae accumsan. Pellentesque tristique venenatis justo, eget molestie dolor faucibus sodales. In vitae egestas ipsum. Mauris id mi vitae purus dapibus auctor accumsan non felis. Cras a turpis non sapien rhoncus finibus at eu mi. Quisque maximus neque ante, nec placerat lorem efficitur et. Vivamus dui justo, blandit sit amet dictum vitae, tempor eget justo. Nunc iaculis mauris a porttitor rhoncus.
+
+            Curabitur non laoreet justo, vel hendrerit elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum dui, pellentesque ut ipsum et, tincidunt rhoncus metus. Proin id ante cursus, hendrerit turpis at, convallis dolor. Phasellus vel nisl est. background).
+        </p>
+    </div>
+
+
+    <div class="tabbable-custom-operando col-md-12 col-sm-12 col-xs-12">
+
+        <!--  -------------------------- NAVIGATION MENU TOP ------------------------------------------ -->
+
+        <div class="col-md-12 col-sm-12 col-xs-12 tabs-custom-operando">
+
+            <div class="tab-content">
+
+
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <!--  -------------------------- BEGIN POLICY STATEMENTS --------------------------------------- -->
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <div class="portlet-body light tab-pane active" id="policyStatements">
+
+
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                REGULATION COMPLIANCE - filename.ext</span>
+                            </div>
+                        </div>
+
+                        <!-- BEGIN FORM-->
+                        <form action="#" class="form-horizontal form-bordered">
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label">File</label>
+                                    <div class="col-md-11">
+                                        <textarea class="form-control" rows="15"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="submit" class="btn yellow-gold">
+                                            Save
+                                        </button>
+
+                                        <button type="button" class="btn default">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END PAGE BASE CONTENT -->
+
+
+@section PagePluginStyles {
+    <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+}
+
+@section PageStyles {
+
+}
+
+@section PagePlugins {
+    <script src="~/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
+}
+
+@section PageScripts {
+    <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
+}
+
+
+

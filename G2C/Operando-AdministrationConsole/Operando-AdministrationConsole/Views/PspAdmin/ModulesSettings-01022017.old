@@ -1,0 +1,1029 @@
+﻿
+@{
+    ViewBag.MenuSection = "PSP Admin";
+    ViewBag.Title = "Users Management";
+    Layout = "~/Views/Shared/_LayoutOperando.cshtml";
+}
+
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="portlet-body font-grey-gallery">
+    <div class="tabbable-custom-operando col-md-3 col-sm-3 col-xs-3">
+        <ul class="nav nav-tabs tabs-left">
+        <li class="active"><a href="#tab01" data-toggle="tab" aria-expanded="true">PA Core</a></li>
+        <li><a href="#tab02" data-toggle="tab" aria-expanded="false">Personal Data Repository</a></li>
+        <li><a href="#tab03" data-toggle="tab" aria-expanded="false">Web UI</a></li>
+        <li><a href="#tab04" data-toggle="tab" aria-expanded="false">External Interfaces</a></li>
+        </ul>
+    </div>
+
+    <!--  -------------------------- NAVIGATION MENU TOP ------------------------------------------ -->
+
+    <div class="col-md-9 col-sm-9 col-xs-9 tabs-custom-operando">
+        <div class="col-md-9 col-sm-9 col-xs-9 tabs-custom-operando">
+   
+
+            <div class="tab-content">
+                
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <!--  -------------------------- BEGIN TAB 01 CONTENT ------------------------------------------ -->
+                <!--  ------------------------------------------------------------------------------------------ -->
+                    <div class="portlet light tab-pane active" id="tab01">
+
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <span class="caption-subject font-dark bold uppercase">PA CORE</span>
+                                </div>
+                            </div>  
+                            
+                        <!-- ------------------------------ NAV PILLS ------------------------------------- -->    
+                            
+                            <div class="tabbable tabbable-tabdrop">
+                                <ul class="nav nav-pills">
+                                    <li class=""><a href="#tabPill01" data-toggle="tab" aria-expanded="false">Authentication AS</a></li>
+                                    <li class=""><a href="#tabPill02" data-toggle="tab" aria-expanded="false">Policy Computation</a></li>
+                                    <li class=""><a href="#tabPill03" data-toggle="tab" aria-expanded="false">OSP Enforcement</a></li>
+                                    <li class=""><a href="#tabPill04" data-toggle="tab" aria-expanded="false">Rights Management</a></li>
+                                    <li class=""><a href="#tabPill05" data-toggle="tab" aria-expanded="false">Big Data Analytics</a></li>
+                                    <li class=""><a href="#tabPill06" data-toggle="tab" aria-expanded="false">Anonymization Engine</a></li>
+                                    <li class=""><a href="#tabPill07" data-toggle="tab" aria-expanded="false">User Accounts DB</a></li>
+                                    <li class=""><a href="#tabPill08" data-toggle="tab" aria-expanded="false">Policies DB</a></li>
+                                    <li class=""><a href="#tabPill09" data-toggle="tab" aria-expanded="false">Log DB</a></li>        
+                                </ul>
+                              </div>                               
+                            
+                        <!-- ------------------------------------------------------------------------------ -->
+
+            <div class="tab-content">
+                <div class="tab-pane fade in" id="tabPill01">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject font-dark bold uppercase">AUTHENTICATION AS</span>
+                            </div>
+                        </div></div>
+
+                        <div class="portlet-body form">
+                            <!-- BEGIN FORM-->
+                            <form action="#" class="form-horizontal form-bordered">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">CAS Server URL</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">LDAP Server URL</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">LDAP username</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control" id="mask003" type="text">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">LDAP password</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control" id="mask004" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type="submit" class="btn yellow-gold">
+                                                Save
+                                            </button>
+
+                                            <button type="button" class="btn default">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- END FORM-->
+                        </div>
+                      
+
+                    </div>
+                </div>
+                
+
+                <!-- ........................................................................................... -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade" id="tabPill02">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject font-dark bold uppercase">POLICY COMPUTATION</span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal form-bordered">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP username</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask003" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP password</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask004" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn yellow-gold">Save</button>
+
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                       
+
+                                    </div>
+                                </div>
+
+                                <!-- ........................................................................................... -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tabPill03">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject font-dark bold uppercase">OSP ENFORCEMENT</span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal form-bordered">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP username</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask003" type="text">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP password</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask004" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn yellow-gold">
+                                                                Save
+                                                            </button>
+
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                       
+
+                                    </div>
+                                </div>
+
+                                <!-- ........................................................................................... -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tabPill04">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject font-dark bold uppercase">RIGHTS MANAGEMENT</span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal form-bordered">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">DAN Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL - TS</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL - TGT</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS URL - Validate Tickets</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS username</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask003" type="text">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS password</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask004" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn yellow-gold">
+                                                                Save
+                                                            </button>
+
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+
+                                <!-- ........................................................................................... -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tabPill05">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject font-dark bold uppercase">BIG DATA ANALYTICS</span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal form-bordered">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP username</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask003" type="text">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP password</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask004" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn yellow-gold">
+                                                                Save
+                                                            </button>
+
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+
+                                <!-- ........................................................................................... -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tabPill06">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject font-dark bold uppercase">ANONYMIZATION ENGINE</span>
+                                            </div>
+                                        </div></div>
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal form-bordered">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP username</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask003" type="text">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP password</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask004" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn yellow-gold">
+                                                                Save
+                                                            </button>
+
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                       
+
+                                    </div>
+                                </div>
+
+                                <!-- ........................................................................................... -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tabPill07">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject font-dark bold uppercase">USER ACCOUNTS DB</span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal form-bordered">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP username</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask003" type="text">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP password</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask004" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn yellow-gold">
+                                                                Save
+                                                            </button>
+
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!-- ........................................................................................... -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tabPill08">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject font-dark bold uppercase">POLICIES DB</span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal form-bordered">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP username</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask003" type="text">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP password</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask004" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn yellow-gold">
+                                                                Save
+                                                            </button>
+
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+
+                                <!-- ........................................................................................... -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tabPill09">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject font-dark bold uppercase">LOG DB</span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal form-bordered">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">CAS Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP username</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask003" type="text">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LDAP password</label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" id="mask004" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">LogDB Server URL</label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask005" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn yellow-gold">
+                                                                Save
+                                                            </button>
+
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                       
+
+                                    </div>
+                                </div>
+
+                            </div>
+</div>
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <!--  -------------------------- BEGIN TAB 02 CONTENT ------------------------------------------ -->
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <div class="portlet light tab-pane fade" id="tab02">
+
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject font-dark bold uppercase">Personal data repository</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ------------------------------ NAV PILLS ------------------------------------- -->
+
+                        <div class="tabbable tabbable-tabdrop">
+                            <ul class="nav nav-pills">
+                                <li class=""><a href="#tabPill201" data-toggle="tab" aria-expanded="false">GateKeeper</a></li>
+                                <li class=""><a href="#tabPill202" data-toggle="tab" aria-expanded="false">Data Access Node</a></li>
+                                <li class=""><a href="#tabPill203" data-toggle="tab" aria-expanded="false">Repository Manager</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in" id="tabPill201">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">Gatekeeper</span>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                        <form action="#" class="form-horizontal form-bordered">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">AS Server URL</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">LogDB Server URL</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <button type="submit" class="btn yellow-gold">
+                                                            Save
+                                                        </button>
+
+                                                        <button type="button" class="btn default">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- END FORM-->
+                                    </div>
+                                   
+
+                               </div>
+                        </div>
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in" id="tabPill202">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">Data access node settings</span>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                <div > <a href="">Geneal</a> | <a href="">Repository managers</a></div>
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">General</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                        <form action="#" class="form-horizontal form-bordered">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">AS Server URL</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">LogDB Server URL</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <button type="submit" class="btn yellow-gold">
+                                                            Save
+                                                        </button>
+
+                                                        <button type="button" class="btn default">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- END FORM-->
+                                    </div>                                   
+
+                                </div>
+                        </div>
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in" id="tabPill203">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">Repository manager</span>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                        <form action="#" class="form-horizontal form-bordered">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">AS Server URL</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask001" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Database Server URL</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" placeholder="<Protocol>//<Host><Port>/<Endpoint>" id="mask002" type="text">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">LDAP username</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" id="mask003" type="text">
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">LDAP password</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" id="mask004" type="text">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <button type="submit" class="btn yellow-gold">
+                                                            Save
+                                                        </button>
+
+                                                        <button type="button" class="btn default">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- END FORM-->
+                                    </div>
+                        
+                                </div>
+                        </div>
+
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+                    </div>
+                </div>
+
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <!--  -------------------------- BEGIN TAB 03 CONTENT ------------------------------------------ -->
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <div class="portlet light tab-pane fade" id="tab03">
+
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject font-dark bold uppercase">WEB UI</span>
+                            </div>
+                        </div>
+
+                        <!-- ------------------------------ NAV PILLS ------------------------------------- -->
+
+                        <div class="tabbable tabbable-tabdrop">
+                            <ul class="nav nav-pills">
+                                <li class=""><a href="#tabPill301" data-toggle="tab" aria-expanded="false">Web console</a></li>
+                                <li class=""><a href="#tabPill302" data-toggle="tab" aria-expanded="false">Report generator</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in" id="tabPill301">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">Web console</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                This module doesn't require settings
+
+                            </div>
+                        </div>
+
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in" id="tabPill302">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">Report generator</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                This module doesn't require settings
+
+                            </div>
+                        </div>
+
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+
+                    </div>
+                </div>
+
+
+                <!-- --------------------------------------------------------------------------------------- -->
+
+
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <!--  -------------------------- BEGIN TAB 04 CONTENT ------------------------------------------ -->
+                <!--  ------------------------------------------------------------------------------------------ -->
+                <div class="portlet light tab-pane fade" id="tab04">
+
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject font-dark bold uppercase">EXTERNAL INTERFACES</span>
+                            </div>
+                        </div>
+
+                        <!-- ------------------------------ NAV PILLS ------------------------------------- -->
+
+                        <div class="tabbable tabbable-tabdrop">
+                            <ul class="nav nav-pills">
+                                <li class=""><a href="#tabPill401" data-toggle="tab" aria-expanded="false">Web console</a></li>
+                                <li class=""><a href="#tabPill402" data-toggle="tab" aria-expanded="false">Report generator</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in" id="tabPill401">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">Web console</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                This module doesn't require settings
+
+                            </div>
+                        </div>
+
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in" id="tabPill402">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">Report generator</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                This module doesn't require settings
+
+                            </div>
+                        </div>
+
+
+                        <!-- ----------------------------------------------------------------------------------- -->
+                 
+                    
+                
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE BASE CONTENT -->
+
+
+    @section PagePluginStyles {
+        <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+    }
+
+    @section PageStyles {
+
+    }
+
+    @section PagePlugins {
+        <script src="~/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+        <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
+    }
+
+    @section PageScripts {
+        <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
+        <script src="~/assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
+    }
