@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using Operando_AdministrationConsole.Models;
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -14,11 +17,163 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-
+        ReportManager reportManager = new ReportManager();
         // GET: Dashboard
         public ActionResult Index()
         {
-            return View();
+            // creo gli oggetti per popolare la pagina
+            reportManager.resultsObj = new Results();
+            reportManager.requestsObj = new Requests();
+
+            MySqlConnection connection = new MySqlConnection();
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = connection;
+
+
+            // creo la lista dei result
+            reportManager.resultsObj.ResultList = new List<Results>();
+
+            try
+            {
+
+                connection.Open();
+
+                cmd.CommandText = "select * from T_report_mng_results ORDER BY ExecutionDate DESC Limit 0,3";
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                try
+                {
+                    while (reader.Read())
+                    {
+                        Results results = new Results();
+
+                        if (reader.IsDBNull(0) == false)
+                            results.ID = reader.GetInt32(0);
+                        else
+                            results.ID = 0;
+
+                        if (reader.IsDBNull(1) == false)
+                            results.ExecutionDate = reader.GetDateTime(1);
+                        else
+                            results.ExecutionDate = DateTime.MinValue;
+
+                        if (reader.IsDBNull(2) == false)
+                            results.Report = reader.GetString(2);
+                        else
+                            results.Report = null;
+
+                        if (reader.IsDBNull(3) == false)
+                            results.ReportDescription = reader.GetString(3);
+                        else
+                            results.ReportDescription = null;
+
+                        if (reader.IsDBNull(4) == false)
+                            results.ReportVersion = reader.GetString(4);
+                        else
+                            results.ReportVersion = null;
+
+                        if (reader.IsDBNull(5) == false)
+                            results.OSPs = reader.GetString(5).Split(',');
+                        else
+                            results.OSPs = new String[0];
+
+                        if (reader.IsDBNull(6) == false)
+                        {
+                            results.FileName = reader.GetString(6);
+                            results.FileName = "../reportSavePath/" + results.FileName;
+                        }
+                        else
+                            results.FileName = null;
+
+                        reportManager.resultsObj.ResultList.Add(results);
+                    }
+                    reader.Close();
+
+                }
+                catch (MySqlException e)
+                {
+                    string MessageString = "Read error occurred  / entry not found loading the Column details: "
+                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                    //MessageBox.Show(MessageString, "SQL Read Error");
+                    reader.Close();
+                }
+            }
+            catch (MySqlException e)
+            {
+                throw e;
+            }
+            connection.Close();
+
+
+            // creo la lista dei result
+            reportManager.requestsObj.RequestList = new List<Requests>();
+
+            try
+            {
+
+                connection.Open();
+
+                cmd.CommandText = "select * from t_report_mng_request ORDER BY InsertDate DESC Limit 0,2";
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                try
+                {
+                    while (reader.Read())
+                    {
+                        Requests request = new Requests();
+
+                        if (reader.IsDBNull(0) == false)
+                            request.ID = reader.GetInt32(0);
+                        else
+                            request.ID = 0;
+
+                        if (reader.IsDBNull(1) == false)
+                            request.InsertDate = reader.GetDateTime(1);
+                        else
+                            request.InsertDate = DateTime.MinValue;
+
+                        if (reader.IsDBNull(2) == false)
+                            request.Name = reader.GetString(2);
+                        else
+                            request.Name = null;
+
+                        if (reader.IsDBNull(3) == false)
+                            request.Email = reader.GetString(3);
+                        else
+                            request.Email = null;
+
+                        if (reader.IsDBNull(4) == false)
+                            request.Description = reader.GetString(4);
+                        else
+                            request.Description = null;
+
+                        reportManager.requestsObj.RequestList.Add(request);
+                    }
+                    reader.Close();
+
+                }
+                catch (MySqlException e)
+                {
+                    string MessageString = "Read error occurred  / entry not found loading the Column details: "
+                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                    //MessageBox.Show(MessageString, "SQL Read Error");
+                    reader.Close();
+                }
+            }
+            catch (MySqlException e)
+            {
+                throw e;
+            }
+            connection.Close();
+
+
+            //return View();
+            return View(reportManager);
         }
 
         public ActionResult Notifications()
