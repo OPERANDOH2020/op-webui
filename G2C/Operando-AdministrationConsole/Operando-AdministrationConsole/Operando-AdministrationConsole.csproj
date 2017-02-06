@@ -219,6 +219,7 @@
       <DependentUpon>SendMailNewReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccessController.cs" />
+    <Compile Include="Controllers\RegulatorController.cs" />
     <Compile Include="Helper\StaticStrings.cs" />
     <Compile Include="Helper\OperandoWebServiceHelper.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -5777,6 +5778,10 @@
     <Content Include="Views\Access\ResetPassword.cshtml" />
     <Content Include="Views\Access\Registration.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagement.cshtml" />
+    <Content Include="Views\PspAdmin\ModulesSettings.cshtml" />
+    <Content Include="Views\Regulator\Reports.cshtml" />
+    <Content Include="Views\Regulator\RegulationCompliance.cshtml" />
+    <Content Include="Views\Regulator\PolicyStatements.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

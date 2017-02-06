@@ -236,7 +236,12 @@
         <li class="heading">
             <h3 class="uppercase">PSP Admin</h3>
         </li>
-        <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ReportsConfig") { @activeClass }'>
+
+        @* ---------------------------------------------------------------------------- *@
+        @* ----------------------------- REPORTS CONFIG ------------------------------- *@
+        @* ---------------------------------------------------------------------------- *@
+
+        <li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ReportsConfig")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-graph"></i>
                 <span class="title">Reports</span>
@@ -246,6 +251,7 @@
                     @:<span class="selected"></span>
                 }
             </a>
+
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ReportsConfig") { @activeClass }'>
                     <a href="@Url.Action("ReportsConfig", "PspAdmin")" class="nav-link ">
@@ -260,7 +266,12 @@
 
             </ul>
         </li>
-        <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "UsersManagement") { @activeClass }'>
+
+        @* ---------------------------------------------------------------------------- *@
+        @* ----------------------------- USER MANAGEMENT ------------------------------ *@
+        @* ---------------------------------------------------------------------------- *@
+
+        <li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "UsersManagement")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-diamond"></i>
                 <span class="title">Users management</span>
@@ -285,6 +296,97 @@
             </ul>
         </li>
 
+        @* ---------------------------------------------------------------------------- *@
+        @* ----------------------------- MODULES SETTINGS ----------------------------- *@
+        @* ---------------------------------------------------------------------------- *@
+
+        <li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ModulesSettings")) { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-puzzle"></i>
+                <span class="title">Modules Settings</span>
+                <span class="arrow open"></span>
+                @if (currentController == "PspAdmin" && currentAction == "ModulesSettings")
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ModulesSettings") { @activeClass }'>
+                    <a href="@Url.Action("ModulesSettings", "PspAdmin")" class="nav-link ">
+                        <i class="icon-wrench"></i>
+                        <span class="title">Settings</span>
+                        @if (currentController == "PspAdmin" && currentAction == "ModulesSettings")
+                        {
+                            @:<span class="selected"></span>
+                            }
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        @* ---------------------------------------------------------------------------- *@
+        @* ----------------------------- REGULATOR ------------------------------------ *@
+        @* ---------------------------------------------------------------------------- *@
+
+        <li class="heading">
+            <h3 class="uppercase">Regulator</h3>
+        </li>
+        <li class='nav-item @if (currentController == "Regulator") { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-folder"></i>
+                <span class="title">Compliance reports</span>
+                <span class="arrow open"></span>
+                @if (currentController == "Regulator")
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "Regulator" && currentAction == "Reports") { @activeClass }'>
+                    <a href="@Url.Action("Reports", "Regulator")" class="nav-link ">
+                        <i class="icon-docs"></i>
+                        <span class="title">Reports</span>
+                        @if (currentController == "Regulator" && currentAction == "Reports")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
+                <li class='nav-item @if (currentController == "Regulator" && currentAction == "RegulationCompliance") { @activeClass }'>
+                    <a href="@Url.Action("RegulationCompliance", "Regulator")" class="nav-link ">
+                        <i class="icon-docs"></i>
+                        <span class="title">Regulation Compliance</span>
+                        @if (currentController == "Regulator" && currentAction == "RegulationCompliance")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
+                <li class='nav-item @if (currentController == "Regulator" && currentAction == "PolicyStatements") { @activeClass }'>
+                    <a href="@Url.Action("PolicyStatements", "Regulator")" class="nav-link ">
+                        <i class="icon-docs"></i>
+                        <span class="title">Policy Statements</span>
+                        @if (currentController == "Regulator" && currentAction == "PolicyStatements")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+
+    
+
+
+
+
+
+
+        @* ---------------------------------------------------------------------------- *@
+      
     </ul>
     <!-- END SIDEBAR MENU -->
 </div>
