@@ -1,0 +1,12 @@
+<apps>
+  <web-application>
+    <name>samples</name>
+    <vpath>/samples</vpath>
+    <path>/usr/share/asp.net-demos</path>
+  </web-application>
+  <web-application>
+    <name>reportsREST</name>
+    <vpath>/reportsREST</vpath>
+    <path>/usr/src/app/build/_PublishedWebsites/reportsREST</path>
+  </web-application>
+</apps>
