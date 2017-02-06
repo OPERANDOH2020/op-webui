@@ -11,33 +11,18 @@
     // Il numero che gli viene passato è quello da mantenere, gli altri vengono nascosti
     function hideTab(prefisso, numero)
     {
-        var numeroString = numero.toString();
-        if (numero < 10)
-            numeroString = "0" + numeroString;
-
-        for (var i=1; i<1000; i++)
-        {
-            var indice;
-
-            if (i < 10)
-                indice = "0" + i.toString();
-            else
-                indice = i.toString();
-
-            if ($('#'+prefisso+indice).length>0)
-            {
-                if (indice != numeroString)
-                {
-                    $('#' + prefisso + indice).removeClass('active');
-             
-                }
-            }
-        }
+        $('div[id^=' + prefisso + ']').hide();
+        $('#' + prefisso + numero).show();
     }
 
 </script>
 
 <!-- BEGIN PAGE BASE CONTENT -->
+
+<!--  ------------------------------------------------------------------------------------------- -->
+<!--  ---------------------------  MODULE SETTINGS ---------------------------------------------- -->
+<!--  ------------------------------------------------------------------------------------------- -->
+
 <div class="portlet-body font-grey-gallery">
     <div class="tabbable-custom-operando col-md-2 col-sm-2 col-xs-2">
         <ul class="nav nav-tabs tabs-left">
@@ -72,22 +57,22 @@
 
                         <div class="tabbable tabbable-tabdrop">
                             <ul class="nav nav-pills">
-                                <li class="active"><a onclick="hideTab('tabPill', 1);" href="#tabPill01" data-toggle="tab" aria-expanded="false">Authentication AS</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 2);" href="#tabPill02" data-toggle="tab" aria-expanded="false">Policy Computation</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 3);" href="#tabPill03" data-toggle="tab" aria-expanded="false">OSP Enforcement</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 4);" href="#tabPill04" data-toggle="tab" aria-expanded="false">Rights Management</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 5);" href="#tabPill05" data-toggle="tab" aria-expanded="false">Big Data Analytics</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 6);" href="#tabPill06" data-toggle="tab" aria-expanded="false">Anonymization Engine</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 7);" href="#tabPill07" data-toggle="tab" aria-expanded="false">User Accounts DB</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 8);" href="#tabPill08" data-toggle="tab" aria-expanded="false">Policies DB</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 9);" href="#tabPill09" data-toggle="tab" aria-expanded="false">Log DB</a></li>
+                                <li class="active"><a onclick="hideTab('PaCore', '01');" href="#PaCore01" data-toggle="tab" aria-expanded="false">Authentication AS</a></li>
+                                <li class=""><a onclick="hideTab('PaCore', '02');" href="#PaCore02" data-toggle="tab" aria-expanded="false">Policy Computation</a></li>
+                                <li class=""><a onclick="hideTab('PaCore', '03');" href="#PaCore03" data-toggle="tab" aria-expanded="false">OSP Enforcement</a></li>
+                                <li class=""><a onclick="hideTab('PaCore', '04');" href="#PaCore04" data-toggle="tab" aria-expanded="false">Rights Management</a></li>
+                                <li class=""><a onclick="hideTab('PaCore', '05');" href="#PaCore05" data-toggle="tab" aria-expanded="false">Big Data Analytics</a></li>
+                                <li class=""><a onclick="hideTab('PaCore', '06');" href="#PaCore06" data-toggle="tab" aria-expanded="false">Anonymization Engine</a></li>
+                                <li class=""><a onclick="hideTab('PaCore', '07');" href="#PaCore07" data-toggle="tab" aria-expanded="false">User Accounts DB</a></li>
+                                <li class=""><a onclick="hideTab('PaCore', '08');" href="#PaCore08" data-toggle="tab" aria-expanded="false">Policies DB</a></li>
+                                <li class=""><a onclick="hideTab('PaCore', '09');" href="#PaCore09" data-toggle="tab" aria-expanded="false">Log DB</a></li>
                             </ul>
                         </div>
 
                         <!-- ------------------------------------------------------------------------------ -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tabPill01">
+                            <div class="tab-pane fade in active" id="PaCore01">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -130,7 +115,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill02">
+                            <div class="tab-pane fade in" id="PaCore02">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -172,7 +157,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill03">
+                            <div class="tab-pane fade in" id="PaCore03">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -214,7 +199,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill04">
+                            <div class="tab-pane fade in" id="PaCore04">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -256,7 +241,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill05">
+                            <div class="tab-pane fade in" id="PaCore05">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -298,7 +283,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill06">
+                            <div class="tab-pane fade in" id="PaCore06">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -340,7 +325,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill07">
+                            <div class="tab-pane fade in" id="PaCore07">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -382,7 +367,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill08">
+                            <div class="tab-pane fade in" id="PaCore08">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -424,7 +409,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill09">
+                            <div class="tab-pane fade in" id="PaCore09">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -482,16 +467,16 @@
 
                         <div class="tabbable tabbable-tabdrop">
                             <ul class="nav nav-pills">
-                                <li class="active"><a onclick="hideTab('tabPill', 101); $('#tabPill101').addClass('active');" href="#tabPill101" data-toggle="tab" aria-expanded="false">GateKeeper</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 102); $('#tabPill102').addClass('active');" href="#tabPill102" data-toggle="tab" aria-expanded="false">Data Access Node</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 103); $('#tabPill103').addClass('active');" href="#tabPill103" data-toggle="tab" aria-expanded="false">Repository Manager</a></li>
+                                <li class="active"><a onclick="hideTab('PersonalDataRepository', '01'); $('#PersonalDataRepository01').addClass('active');" href="#PersonalDataRepository01" data-toggle="tab" aria-expanded="false">GateKeeper</a></li>
+                                <li class=""><a onclick="hideTab('PersonalDataRepository', '02'); $('#PersonalDataRepository02').addClass('active');" href="#PersonalDataRepository02" data-toggle="tab" aria-expanded="false">Data Access Node</a></li>
+                                <li class=""><a onclick="hideTab('PersonalDataRepository', '03'); $('#PersonalDataRepository03').addClass('active');" href="#PersonalDataRepository03" data-toggle="tab" aria-expanded="false">Repository Manager</a></li>
                             </ul>
                         </div>
 
                         <!-- ----------------------------------------------------------------------------------- -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tabPill101">
+                            <div class="tab-pane fade in active" id="PersonalDataRepository01">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -535,7 +520,7 @@
                         <!-- ----------------------------------------------------------------------------------- -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill102">
+                            <div class="tab-pane fade in" id="PersonalDataRepository02">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -543,8 +528,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-offset-0 col-md-12">
-                                    <a aria-expanded="false" class="btn yellow-gold" onclick="hideTab('tabPill', 102); $('#tabPill102').addClass('active');" href="#tabPill102">General</a>
-                                    <a aria-expanded="false" class="btn " onclick="hideTab('tabPill', 104); $('#tabPill104').addClass('active');" href="#tabPill104">Repository managers</a></div>
+                                    <a aria-expanded="false" class="btn yellow-gold" onclick="hideTab('PersonalDataRepository', '02'); $('#PersonalDataRepository02').addClass('active');" href="#PersonalDataRepository02">General</a>
+                                    <a aria-expanded="false" class="btn " onclick="hideTab('PersonalDataRepository', '04'); $('#PersonalDataRepository04').addClass('active');" href="#PersonalDataRepository04">Repository managers</a></div>
                                 </div>
 
 
@@ -593,13 +578,14 @@
                         <!-- ----------------------------------------------------------------------------------- -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill104">
+                            <div class="tab-pane fade in" id="PersonalDataRepository04">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <span class="caption-subject font-dark bold uppercase">Data access node settings</span>
                                         </div>
-                                    </div><div class="col-md-offset-0 col-md-12"> <a class="btn" onclick="hideTab('tabPill', 102); $('#tabPill102').addClass('active');" href="#tabPill102">General</a> <a class="btn yellow-gold mt-sweetalert" onclick="hideTab('tabPill', 104); $('#tabPill104').addClass('active');" href="#tabPill104">Repository managers</a></div>
+                                    </div><div class="col-md-offset-0 col-md-12"> <a class="btn" onclick="hideTab('PersonalDataRepository', '02'); $('#PersonalDataRepository02').addClass('active');" href="#PersonalDataRepository02">General</a> 
+                                    <a class="btn yellow-gold mt-sweetalert" onclick="hideTab('PersonalDataRepository', '04'); $('#PersonalDataRepository04').addClass('active');" href="#PersonalDataRepository04">Repository managers</a></div>
                                 </div>
 
 
@@ -645,7 +631,7 @@
                         <!-- ----------------------------------------------------------------------------------- -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill103">
+                            <div class="tab-pane fade in" id="PersonalDataRepository03">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -705,15 +691,15 @@
 
                         <div class="tabbable tabbable-tabdrop">
                             <ul class="nav nav-pills">
-                                <li class="active"><a onclick="hideTab('tabPill', 201);" href="#tabPill201" data-toggle="tab" aria-expanded="false">Web console</a></li>
-                                <li class=""><a onclick="hideTab('tabPill', 202);" href="#tabPill202" data-toggle="tab" aria-expanded="false">Report generator</a></li>
+                                <li class="active"><a onclick="hideTab('WebUi', '01');" href="#WebUi01" data-toggle="tab" aria-expanded="false">Web console</a></li>
+                                <li class=""><a onclick="hideTab('WebUi', '02');" href="#WebUi02" data-toggle="tab" aria-expanded="false">Report generator</a></li>
                             </ul>
                         </div>
 
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tabPill201">
+                            <div class="tab-pane fade in active" id="WebUi01">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -755,7 +741,7 @@
                         <!-- ........................................................................................... -->
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in" id="tabPill202">
+                            <div class="tab-pane fade in" id="WebUi02">
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -793,15 +779,15 @@
 
                                     <div class="tabbable tabbable-tabdrop">
                                         <ul class="nav nav-pills">
-                                            <li class="active"><a onclick="hideTab('tabPill', 301);" href="#tabPill301" data-toggle="tab" aria-expanded="false">OSP API</a></li>
-                                            <li class=""><a onclick="hideTab('tabPill', 302);" href="#tabPill302" data-toggle="tab" aria-expanded="false">Regulator API</a></li>
+                                            <li class="active"><a onclick="hideTab('ExternalInterfaces', '01');" href="#ExternalInterfaces01" data-toggle="tab" aria-expanded="false">OSP API</a></li>
+                                            <li class=""><a onclick="hideTab('ExternalInterfaces', '02');" href="#ExternalInterfaces02" data-toggle="tab" aria-expanded="false">Regulator API</a></li>
                                         </ul>
                                     </div>
 
                                     <!-- ........................................................................................... -->
 
                                     <div class="tab-content">
-                                        <div class="tab-pane fade in active" id="tabPill301">
+                                        <div class="tab-pane fade in active" id="ExternalInterfaces01">
                                             <div class="portlet light">
                                                 <div class="portlet-title">
                                                     <div class="caption">
@@ -844,7 +830,7 @@
                                     <!-- ........................................................................................... -->
 
                                     <div class="tab-content">
-                                        <div class="tab-pane fade in" id="tabPill302">
+                                        <div class="tab-pane fade in" id="ExternalInterfaces02">
                                             <div class="portlet light">
                                                 <div class="portlet-title">
                                                     <div class="caption">
