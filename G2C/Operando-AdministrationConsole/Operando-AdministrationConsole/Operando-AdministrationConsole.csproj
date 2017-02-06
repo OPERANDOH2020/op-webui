@@ -5231,6 +5231,8 @@
     <Content Include="assets\pages\scripts\operando-report-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-user-table-managed.js" />
     <Content Include="assets\pages\scripts\operando-report-table-managed.js" />
+    <Content Include="assets\pages\scripts\operando-usermanagement-bootstrap-select.js" />
+    <Content Include="assets\pages\scripts\operando-usermanagement-table-managed.js" />
     <Content Include="assets\pages\scripts\portfolio-1.js" />
     <Content Include="assets\pages\scripts\portfolio-1.min.js" />
     <Content Include="assets\pages\scripts\portfolio-2.js" />
