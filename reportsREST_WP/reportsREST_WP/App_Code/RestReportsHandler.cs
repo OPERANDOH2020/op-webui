@@ -82,6 +82,29 @@ public class RestReportsHandler : IHttpHandler
         return string.Empty;
     }
 
+    private string GetReportLocation(int idReport, MySqlTransaction transaction)
+    {
+        MySqlCommand cmd = new MySqlCommand();
+        cmd.Connection = transaction.Connection;
+        cmd.Transaction = transaction;
+        cmd.CommandText = "select Location from t_report_mng_list where id=" + idReport;
+        MySqlDataReader reader = cmd.ExecuteReader();
+
+        try
+        {
+            while (reader.Read())
+            {
+                return reader["Location"].ToString();
+            }
+        }
+        finally
+        {
+            reader.Close();
+        }
+
+        return string.Empty;
+    }
+
     private string GetReportDescription(int idReport, MySqlTransaction transaction)
     {
         MySqlCommand cmd = new MySqlCommand();
@@ -113,9 +136,9 @@ public class RestReportsHandler : IHttpHandler
             var appSettings = ConfigurationManager.AppSettings;
             Report report = new Report();
 
-            if (appSettings["BirtUrl"] != null)
-            {
-                string url = appSettings["BirtUrl"] + "?";
+            //if (appSettings["BirtUrl"] != null)
+            //{
+                //string url = appSettings["BirtUrl"] + "?";
 
                 if (string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_reportid"]))
                     throw new Exception("Missing parameter _reportid");
@@ -127,6 +150,7 @@ public class RestReportsHandler : IHttpHandler
                 string reportName = "";
                 string reportFileName = "";
                 string reportDescription = "";
+                string reportLocation = "";
 
                 MySqlConnection connection = new MySqlConnection();
                 connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
@@ -134,6 +158,9 @@ public class RestReportsHandler : IHttpHandler
                 MySqlTransaction transaction = connection.BeginTransaction();
                 try
                 {
+                    reportLocation = GetReportLocation(idReport, transaction);
+                    reportLocation = reportLocation.Replace("/frameset", "/preview");
+
                     reportFileName = GetReportFileName(idReport, transaction);
                     reportName = GetReportName(idReport, transaction);
                     reportDescription = GetReportDescription(idReport, transaction);
@@ -152,30 +179,30 @@ public class RestReportsHandler : IHttpHandler
                 if (string.IsNullOrEmpty(reportName))
                     throw new Exception("No report found for this ID");
 
-                url += "__format=pdf";
-                url += "&__report=" + HttpUtility.UrlEncode(reportFileName);
+                reportLocation += "?__format=pdf";
+                reportLocation += "&__report=" + HttpUtility.UrlEncode(reportFileName);
 
                 foreach (string param in HttpContext.Current.Request.QueryString.AllKeys)
                 {
                     if (param != null)
                     {
                         if (!param.ToLower().Equals("_reportid"))
-                            url += "&" + HttpUtility.UrlEncode(param) + "=" + HttpUtility.UrlEncode(HttpContext.Current.Request.QueryString[param]);
+                            reportLocation += "&" + HttpUtility.UrlEncode(param) + "=" + HttpUtility.UrlEncode(HttpContext.Current.Request.QueryString[param]);
                     }
                 }
 
                 report.ID = idReport;
                 report.Name = reportName;
                 report.Description = reportDescription;
-                report.Base64 = ReadPdfBase64(url);
+                report.Base64 = ReadPdfBase64(reportLocation);
 
                 //byte[] bytes = System.Convert.FromBase64String(report.Base64);
                 //FileStream fs = File.OpenWrite(@"C:\Users\federico.dibernardo\Desktop\Lavoro\Operando\Sorgente\ReportRESTsite\test.pdf");
                 //fs.Write(bytes, 0, bytes.Length);
                 //fs.Close();
-            }
-            else
-                throw new Exception("BirtUrl is not defined in web.config");
+            //}
+            //else
+            //   throw new Exception("BirtUrl is not defined in web.config");
 
             context.Response.Write(JsonConvert.SerializeObject(report));
         }
