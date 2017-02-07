@@ -7,6 +7,6 @@
   <web-application>
     <name>Report</name>
     <vpath>/Report</vpath>
-    <path>/usr/src/app/build/_PublishedWebsites/ReportsREST_WP</path>
+    <path>/usr/src/app/build/_PublishedWebsites/reportsREST_WP</path>
   </web-application>
 </apps>
