@@ -10,6 +10,7 @@ namespace Operando_AdministrationConsole.Controllers
 {
     public class AccessController : Controller
     {
+        /* Method modified by IT Innovation Centre 2016 */
         // GET: Access
         public ActionResult Login()
         {
@@ -17,15 +18,17 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        /* Method modified by IT Innovation Centre 2016 */
         // POST: Access
         [HttpPost]
         public ActionResult Login(Models.UserAccount user)
         {
             Debug.Print("LVM after:");
-            string tgtBasePath = "http://snf-706921.vm.okeanos.grnet.gr:8080/authentication";
-            string userBasePath = "http://snf-706921.vm.okeanos.grnet.gr:8080/authentication/aapi";
-            var tgtInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(tgtBasePath);
+            string tgtBasePath = "http://integration.operando.esilab.org:8135/operando/interfaces/aapi";
+            string userBasePath = "http://integration.operando.esilab.org:8135/operando/interfaces/aapi/aapi";
+            
             var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            var tgtInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(tgtBasePath);
 
             try
             {
@@ -40,8 +43,8 @@ namespace Operando_AdministrationConsole.Controllers
                     Session["Usertype"] = "normal-user";
 
                     // get user profile, DISSABLED as server does not fully supports this operation yet
-                    // var usr = userInstance.UserUsernameGet(user.Username);
-                    // Debug.Print("USER PROFILE:" + usr.ToJson());
+                    var usr = userInstance.UserUsernameGet(user.Username);
+                    Debug.Print("USER PROFILE:" + usr.ToJson());
                     // UPDATE PROFILE PAGE ...
 
                     return RedirectToAction("Index", "Dashboard");
@@ -63,6 +66,7 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        /* Method modified by IT Innovation Centre 2016 */
         [HttpPost]
         public ActionResult Registration(Models.RegisterViewModel rvm)
         {
@@ -71,7 +75,7 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 Debug.Print("REGISTRATION is valid.");
                 ModelState.Clear();
-                string userBasePath = "http://snf-706921.vm.okeanos.grnet.gr:8080/authentication";
+                string userBasePath = "http://integration.operando.esilab.org:8135/operando/interfaces/aapi";
                 var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
                 try
                 {

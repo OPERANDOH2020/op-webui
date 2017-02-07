@@ -70,7 +70,7 @@
                 },
                 {  // set default column settings
                     'orderable': false,
-                    'targets': [4]
+                    'targets': [3]
                 },
                 {
                     "searchable": true,
@@ -78,14 +78,14 @@
                 },
                 {
                     "searchable": false,
-                    "targets": [4]
+                    "targets": [3]
                 },
                 {
                     "className": "dt-right",
                     //"targets": [2]
                 },
                 {
-                    "type": "date",
+                    "type": "string",
                     "targets": [0]
                 }
             ],

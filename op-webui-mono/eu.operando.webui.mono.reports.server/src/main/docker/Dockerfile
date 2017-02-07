@@ -5,7 +5,7 @@ FROM mono:4.6.1.3
 RUN mkdir -p /usr/src/app/source /usr/src/app/build
 WORKDIR /usr/src/app/source
 
-COPY reportsREST/. /usr/src/app/source
+COPY reportsREST_WP/. /usr/src/app/source
 
 RUN nuget restore -NonInteractive 
 #RUN nuget restore -NonInteractive -PackagesDirectory packages GBE:This is no longer valid as the sln file has been added again 

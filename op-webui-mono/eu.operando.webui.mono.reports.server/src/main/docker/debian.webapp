@@ -5,8 +5,8 @@
     <path>/usr/share/asp.net-demos</path>
   </web-application>
   <web-application>
-    <name>reportsREST</name>
-    <vpath>/reportsREST</vpath>
-    <path>/usr/src/app/build/_PublishedWebsites/reportsREST</path>
+    <name>Report</name>
+    <vpath>/Report</vpath>
+    <path>/usr/src/app/build/_PublishedWebsites/reportsREST_WP</path>
   </web-application>
 </apps>
