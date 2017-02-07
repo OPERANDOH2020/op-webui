@@ -4,7 +4,10 @@
 
 
     // WORKAROUND: Remove this line when login will work again
-    Session["Username"] = "Wendy";
+    if (Session["Username"] == null)
+    {
+        Session["Username"] = "Wendy";
+    }
 
 
     string userName = Session["Username"].ToString();
