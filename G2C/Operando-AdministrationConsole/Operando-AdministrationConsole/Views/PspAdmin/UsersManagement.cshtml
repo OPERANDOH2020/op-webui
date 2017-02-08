@@ -5,20 +5,34 @@
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
 
+<script type="text/javascript">
+
+    // Il numero che gli viene passato è quello da mantenere, gli altri vengono nascosti
+    function hideTab(prefisso, numero)
+    {
+        $('div[id^=' + prefisso + ']').hide();
+        $('#' + prefisso + numero).show();
+    }
+
+</script>
+
+
 
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-xs-12">
 
+        <div class="m-heading-1 border-grey-silver m-bordered">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec velit ex, porta id blandit non, imperdiet id lectus. Etiam ut mi imperdiet, tempor purus ac, imperdiet urna. Duis dictum eros ut mauris pulvinar luctus. Pellentesque cursus eget ante eget auctor. Mauris porttitor dapibus laoreet. In molestie eros ultrices enim hendrerit congue. In aliquam accumsan posuere. Nam laoreet diam purus, nec mattis sapien pulvinar faucibus. Proin vehicula, odio nec aliquet pulvinar, nisi sapien cursus ex, a consectetur massa nisl tincidunt lorem. Sed vel arcu quam. Aliquam auctor quam non diam eleifend mollis.
+
+            </p>
+        </div>
+
         <div class="tab-content">
             <div class="tab-pane fade in active" id="tabUserManagement01">
 
-                <div class="m-heading-1 border-grey-silver m-bordered">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec velit ex, porta id blandit non, imperdiet id lectus. Etiam ut mi imperdiet, tempor purus ac, imperdiet urna. Duis dictum eros ut mauris pulvinar luctus. Pellentesque cursus eget ante eget auctor. Mauris porttitor dapibus laoreet. In molestie eros ultrices enim hendrerit congue. In aliquam accumsan posuere. Nam laoreet diam purus, nec mattis sapien pulvinar faucibus. Proin vehicula, odio nec aliquet pulvinar, nisi sapien cursus ex, a consectetur massa nisl tincidunt lorem. Sed vel arcu quam. Aliquam auctor quam non diam eleifend mollis.
-
-                    </p>
-                </div>
+           
 
                 <!-- BEGIN PORTLET -->
                 <div class="portlet light bordered">
@@ -34,7 +48,7 @@
                                                 <span class="caption-subject font-dark bold uppercase">Users</span>
                                             </div>
                                             <div class="actions">
-                                                <button type="button" class="btn btn-circle yellow-gold" data-toggle="tab" href="#tabUserManagement02"> Add <i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-circle yellow-gold" data-toggle="tab" onclick="$('#tabUserManagement01').removeClass('active');" $('#tabUserManagement02').addClass('active');" href="#tabUserManagement02"> Add <i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
                                         <div class="portlet-body">
@@ -133,7 +147,7 @@
                                                                 <td>pjg@it-innovation.action.ac.uk</td>
                                                                 <td>
                                                                     <div class="btn-group btn-group-circle">
-                                                                        <button type="button" onclick="hideTab('userManagement', 1); $('#userManagement2').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_1" data-toggle="tab" id="editButtonScheduler_1" href="#userManagement03"> Edit </button>
+                                                                        <button type="button" onclick="$('#tabUserManagement01').removeClass('active');" $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_1" data-toggle="tab" id="editButtonScheduler_1" href="#tabUserManagement03"> Edit </button>
                                                                         <button type="button" class="btn btn-outline red btn-sm scheduleDetail_1" data-toggle="confirmation" id="deleteButtonScheduler_1" data-id="1" data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteRowClick">Delete</button>
                                                                     </div>
                                                                 </td>
@@ -146,7 +160,7 @@
                                                                 <td>atrenti@libero.it</td>
                                                                 <td>
                                                                     <div class="btn-group btn-group-circle">
-                                                                        <button type="button" class="btn btn-outline green btn-sm scheduleDetail_2" data-toggle="tab" id="editButtonScheduler_2" href="#tabUserManagement03"> Edit </button>
+                                                                        <button type="button" onclick="$('#tabUserManagement01').removeClass('active');" $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_2" data-toggle="tab" id="editButtonScheduler_2" href="#tabUserManagement03"> Edit </button>
                                                                         <button type="button" class="btn btn-outline red btn-sm scheduleDetail_2" data-toggle="confirmation" id="deleteButtonScheduler_2" data-id="2" data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteRowClick">Delete</button>
                                                                     </div>
                                                                 </td>
@@ -159,7 +173,7 @@
                                                                 <td>luigi.clivati@progettidiimpresa.it</td>
                                                                 <td>
                                                                     <div class="btn-group btn-group-circle">
-                                                                        <button type="button" class="btn btn-outline green btn-sm scheduleDetail_3" data-toggle="tab" id="editButtonScheduler_3" href="#tabUserManagement03"> Edit </button>
+                                                                        <button type="button" onclick="$('#tabUserManagement01').removeClass('active');" $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_3" data-toggle="tab" id="editButtonScheduler_3" href="#tabUserManagement03"> Edit </button>
                                                                         <button type="button" class="btn btn-outline red btn-sm scheduleDetail_3" data-toggle="confirmation" id="deleteButtonScheduler_3" data-id="3" data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteRowClick">Delete</button>
                                                                     </div>
                                                                 </td>
@@ -172,7 +186,7 @@
                                                                 <td>vicini.sauro@hsr.it</td>
                                                                 <td>
                                                                     <div class="btn-group btn-group-circle">
-                                                                        <button type="button" class="btn btn-outline green btn-sm scheduleDetail_4" data-toggle="modal" id="editButtonScheduler_4" href="#modalEditUser"> Edit </button>
+                                                                        <button type="button" onclick="$('#tabUserManagement01').removeClass('active');" $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_4" data-toggle="modal" id="editButtonScheduler_4" href="#tabUserManagement03"> Edit </button>
                                                                         <button type="button" class="btn btn-outline red btn-sm scheduleDetail_4" data-toggle="confirmation" id="deleteButtonScheduler_4" data-id="4" data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteRowClick">Delete</button>
                                                                     </div>
                                                                 </td>
@@ -185,7 +199,7 @@
                                                                 <td>Matt.Gallagher@oxfordcc.co.uk</td>
                                                                 <td>
                                                                     <div class="btn-group btn-group-circle">
-                                                                        <button type="button" class="btn btn-outline green btn-sm scheduleDetail_5" data-toggle="modal" id="editButtonScheduler_5" href="#modalEditUser"> Edit </button>
+                                                                        <button type="button" onclick="$('#tabUserManagement01').removeClass('active');" $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_5" data-toggle="modal" id="editButtonScheduler_5" href="#tabUserManagement03"> Edit </button>
                                                                         <button type="button" class="btn btn-outline red btn-sm scheduleDetail_5" data-toggle="confirmation" id="deleteButtonScheduler_5" data-id="5" data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteRowClick">Delete</button>
                                                                     </div>
                                                                 </td>
@@ -198,7 +212,7 @@
                                                                 <td>test@test.it</td>
                                                                 <td>
                                                                     <div class="btn-group btn-group-circle">
-                                                                        <button type="button" class="btn btn-outline green btn-sm scheduleDetail_6" data-toggle="modal" id="editButtonScheduler_6" href="#modalEditUser"> Edit </button>
+                                                                        <button type="button" onclick="$('#tabUserManagement01').removeClass('active');" $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_6" data-toggle="modal" id="editButtonScheduler_6" href="#tabUserManagement03"> Edit </button>
                                                                         <button type="button" class="btn btn-outline red btn-sm scheduleDetail_6" data-toggle="confirmation" id="deleteButtonScheduler_6" data-id="6" data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteRowClick">Delete</button>
                                                                     </div>
                                                                 </td>
@@ -254,200 +268,220 @@
 <!--  --------------------------- modal Add User ------------------------------------------------ -->
 <!--  ------------------------------------------------------------------------------------------- -->
 <div class="tab-content">
-    <div class="tab-pane fade in" id="tabUserManagement01">
+    <div class="tab-pane fade in" id="tabUserManagement02">
 
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Add New User</h4>
-                    Create a brand new user and add them to this Operando
-                </div>
-                <div class="modal-body">
-                    <div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <form class="form-horizontal" role="form">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Username</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="Report_add" class="form-control" placeholder="Username required">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Description</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="Description_add" class="form-control" placeholder="Enter report description">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Version</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="Version_add" class="form-control" placeholder="Enter report Version">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Location</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="Location_add" class="form-control" placeholder="Enter Location URL">
-                                        </div>
-                                    </div>
+        <div class="portlet light bordered">
+            <div class="portlet-body">
+                <div class="tabbable-custom tabbable-custom-operando-top">
 
+                    <div class="tab-content">
+                        <div class="portlet light">
+                            <div class="portlet-title">
 
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">User type</label>
-                                        <div class="col-md-9">
-                                            <select id="OSPs_add" class="form-control bs-select">
-                                                <option value="0" selected="">UPP</option>
-                                                <option value="1" selected="">OSP Admin</option>
-                                                <option value="2" selected="">PSP Admin</option>
-                                                <option value="3" selected="">PSP Analyst</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Send user notification</label>
-                                        <div class="col-md-9">
-                                            <label class="mt-checkbox mt-checkbox-outline">
-                                                <input name="tnc" type="checkbox"> Send the new user an email about their account<span></span>
-                                            </label>
-                                        </div></label>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="button_add" onclick="" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add new user</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-
-    <!--  ------------------------------------------------------------------------------------------- -->
-    <!--  --------------------------- modal Edit User ----------------------------------------------- -->
-    <!--  ------------------------------------------------------------------------------------------- -->
-
-    <div class="tab-content">
-        <div class="tab-pane fade in" id="tabUserManagement03">
-
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Edit User</h4>
-
-                    </div>
-                    <div class="modal-body">
-                        <div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Username</label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="Report_add" class="form-control" placeholder="Enter report name">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">E-mail</label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="Description_add" class="form-control" placeholder="Enter report description">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Version</label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="Version_add" class="form-control" placeholder="Enter report Version">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Location</label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="Location_add" class="form-control" placeholder="Enter Location URL">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Parameters</label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="Parameters_add" class="form-control" placeholder="Enter parameters list">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">User type</label>
-                                            <div class="col-md-9">
-                                                <select id="addNewUser-userType" class="form-control bs-select" multiple>
-                                                    <option>UPP</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </form>
+                                <div class="caption">
+                                    <span class="caption-subject font-dark bold uppercase">Add New User</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
+                            <span class="font-dark">Create a brand new user and add them to this Operando</span>
 
-                        <button type="button" id="button_add" onclick="" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Update user</button>
-                    </div>
+
+                        </div>
+
+                        <div class="portlet-body">
+                            <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Username</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="Username_add" class="form-control" placeholder="Username required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">E-mail</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="E-mail_add" class="form-control" placeholder="E-mail required">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">User type</label>
+                                                <div class="col-md-6">
+                                                    <select id="UserType_add" class="form-control bs-select">
+                                                        <option value="0" selected="">UPP</option>
+                                                        <option value="1" selected="">OSP Admin</option>
+                                                        <option value="2" selected="">PSP Admin</option>
+                                                        <option value="3" selected="">PSP Analyst</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Send user notification</label>
+                                                <div class="col-md-6">
+                                                    <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input name="tnc" type="checkbox" checked> Send the new user an email about their account<span></span>
+                                                    </label>
+                                                </div></label>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="portlet-footer">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-6">
+                                        <button type="button" id="button_add" onclick="" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add new user</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                                                    
+                        </div>
+                        </div>
+                  
                 </div>
             </div>
         </div>
-
     </div>
-
-    <!--  ------------------------------------------------------------------------------------------- -->
-    <!--  ------------------------------  END PAGE BASE CONTENT ------------------------------------- -->
-    <!--  ------------------------------------------------------------------------------------------- -->
+</div>
 
 
+        <!--  ------------------------------------------------------------------------------------------- -->
+        <!--  --------------------------- modal Edit User ----------------------------------------------- -->
+        <!--  ------------------------------------------------------------------------------------------- -->
+
+        <div class="tab-content">
+            <div class="tab-pane fade in" id="tabUserManagement03">
+
+                <div class="portlet light bordered">
+                    <div class="portlet-body">
+                        <div class="tabbable-custom tabbable-custom-operando-top">
+
+                            <div class="tab-content">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase">Edit User</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="porlet-body">
+                                    <div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Username</label>
+                                                        <div class="col-md-6">
+                                                            <input disabled type="text" id="Report_add" class="form-control" placeholder="atrenti">
+                                                        </div><div class="col-md-3">Usernames cannot be changed</div>
+</div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">User type</label>
+                                                        <div class="col-md-6">
+                                                            <select id="addNewUser-userType" class="form-control bs-select" multiple>
+                                                                <option>UPP</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 
 
-    @section PagePluginStyles {
-        <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
-        <link href="~/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-        <link href="~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
-        <link href="~/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
-        <link href="~/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="~/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-        <link href="~/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-    }
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">E-mail</label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" id="Description_add" class="form-control" placeholder="atrenti@libero.it">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Full name</label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" id="Version_add" class="form-control" placeholder="Alessandro Trenti">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Address</label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" id="Location_add" class="form-control" placeholder="Via Milano 12">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">City</label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" id="Parameters_add" class="form-control" placeholder="Modena">
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portlet-footer">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-6">
+                                        <button type="button" id="button_add" onclick="" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Update user</button>
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
 
-    @section PageStyles {
+                </div>
 
-    }
+                <!--  ------------------------------------------------------------------------------------------- -->
+                <!--  ------------------------------  END PAGE BASE CONTENT ------------------------------------- -->
+                <!--  ------------------------------------------------------------------------------------------- -->
 
-    @section PagePlugins {
-        <script src="~/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
-        <script src="~/assets/global/scripts/datatable.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/jquery.input-ip-address-control-1.0.min.js" type="text/javascript"></script>
-        <script src="~/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-    }
 
-    @section PageScripts {
-        <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
-        <script src="~/assets/pages/scripts/ui-sweetalert_operandoReportsManager.js" type="text/javascript"></script>
-        <script src="~/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
-        <script src="~/assets/pages/scripts/components-bootstrap-touchspin.js" type="text/javascript"></script>
-        <script src="~/assets/pages/scripts/form-input-mask.js" type="text/javascript"></script>
-        <script src="~/Scripts/jquery.numeric.min.js" type="text/javascript"></script>
 
-        @* the next js creates filter, search and pagination on the tables *@
-        <script src="~/assets/pages/scripts/operando-usermanagement-table-managed.js" type="text/javascript"></script>
-        <script src="~/assets/pages/scripts/operando-usermanagement-bootstrap-select.js" type="text/javascript"></script>
-    }
+
+                @section PagePluginStyles {
+                    <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+                    <link href="~/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+                    <link href="~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+                    <link href="~/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+                    <link href="~/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.css" rel="stylesheet" type="text/css" />
+                    <link href="~/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+                    <link href="~/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+                }
+
+                @section PageStyles {
+
+                }
+
+                @section PagePlugins {
+                    <script src="~/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
+                    <script src="~/assets/global/scripts/datatable.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/jquery.input-ip-address-control-1.0.min.js" type="text/javascript"></script>
+                    <script src="~/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+                }
+
+                @section PageScripts {
+                    <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
+                    <script src="~/assets/pages/scripts/ui-sweetalert_operandoReportsManager.js" type="text/javascript"></script>
+                    <script src="~/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+                    <script src="~/assets/pages/scripts/components-bootstrap-touchspin.js" type="text/javascript"></script>
+                    <script src="~/assets/pages/scripts/form-input-mask.js" type="text/javascript"></script>
+                    <script src="~/Scripts/jquery.numeric.min.js" type="text/javascript"></script>
+
+                    @* the next js creates filter, search and pagination on the tables *@
+                    <script src="~/assets/pages/scripts/operando-usermanagement-table-managed.js" type="text/javascript"></script>
+                    <script src="~/assets/pages/scripts/operando-usermanagement-bootstrap-select.js" type="text/javascript"></script>
+                }
