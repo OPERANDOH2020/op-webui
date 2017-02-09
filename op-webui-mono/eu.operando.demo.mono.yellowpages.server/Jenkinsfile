@@ -15,7 +15,7 @@ node {
    stage ('Source Adaptation'){
 	   // http://stackoverflow.com/questions/37353963/how-can-i-reference-the-jenkinsfile-directory-with-pipeline
 	   // checkout scm no way	
-	   chmod 750 mono/op-webui-mono/eu.operando.demo.mono.yellowpages.server/adapt_net_to_mono.sh   
+	   sh "chmod 750 mono/op-webui-mono/eu.operando.demo.mono.yellowpages.server/adapt_net_to_mono.sh"   
 	   sh "mono/op-webui-mono/eu.operando.demo.mono.yellowpages.server/adapt_net_to_mono.sh"   
    }
    stage ('Image build'){
