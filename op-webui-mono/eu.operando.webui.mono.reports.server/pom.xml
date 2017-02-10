@@ -55,7 +55,7 @@
 				</dependencies>
 				<configuration>
 					<driver>com.mysql.jdbc.Driver</driver>
-					<url>jdbc:mysql://${mysql.host}:${mysql.port}/${mysql.dbname}</url>
+					<url>jdbc:mysql://${mysql.host}:${mysql.port}/</url>
 					<username>root</username>
 					<password>root</password>
 				</configuration>
@@ -87,6 +87,20 @@
 			empty for docker hub; use e.g. "localhost:5000/" for a local docker registry -->
 		<docker.repository.name>${docker.registry.name}tecnalia/${project.artifactId}</docker.repository.name>
 		<docker.mono.port>8122</docker.mono.port>
+		<mysql.host>localhost</mysql.host>
+        <mysql.port>3306</mysql.port>		
 	</properties>
-
+	<profiles>
+		<profile>
+			<id>jenkins-dev</id>
+			<activation>
+				<property>
+					<name>ci</name>
+				</property>
+			</activation>
+			<properties>
+	        	<mysql.host>mysql.integration.operando.dmz.lab.esilab.org</mysql.host>
+			</properties>
+		</profile>
+	</profiles>
 </project>
