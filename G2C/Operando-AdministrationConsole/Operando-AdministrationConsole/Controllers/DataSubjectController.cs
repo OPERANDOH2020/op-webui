@@ -109,7 +109,7 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult AccessPreferences()
         {
             //string pdbBasePath = "http://172.16.0.59:8080/pdb-server/policy_database";
-            string pdbBasePath = "http://server02tecnalia.westeurope.cloudapp.azure.com:8096/operando/core/pdb";
+            string pdbBasePath = "http://integration.operando.esilab.org:8096/operando/core/pdb";
 
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(pdbBasePath);
 
@@ -145,7 +145,7 @@ namespace Operando_AdministrationConsole.Controllers
             policiesKey.RemoveAt(resp.Count - 1);
 
             //string pdbBasePath = "http://172.16.0.59:8080/pdb-server/policy_database";
-            string pdbBasePath = "http://server02tecnalia.westeurope.cloudapp.azure.com:8096/operando/core/pdb";
+            string pdbBasePath = "http://integration.operando.esilab.org:8096/operando/core/pdb";
 
             var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(pdbBasePath);
 

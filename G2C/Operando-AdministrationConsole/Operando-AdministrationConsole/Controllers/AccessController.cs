@@ -40,12 +40,27 @@ namespace Operando_AdministrationConsole.Controllers
                     Debug.Print("Got a ticket: " + ticket);
                     Session["Username"] = user.Username;
                     Session["TGT"] = ticket;
-                    Session["Usertype"] = "normal-user";
 
                     // get user profile, DISSABLED as server does not fully supports this operation yet
                     var usr = userInstance.UserUsernameGet(user.Username);
                     Debug.Print("USER PROFILE:" + usr.ToJson());
                     // UPDATE PROFILE PAGE ...
+                    Newtonsoft.Json.Linq.JObject jProfile = Newtonsoft.Json.Linq.JObject.Parse(usr.ToJson());
+                    foreach (var attr in jProfile["optionalAttrs"])
+                    {
+                        if (attr["attrName"].ToString() == "user_type")
+                        {
+                            Session["Usertype"] = attr["attrValue"].ToString();
+                        }
+                        if (attr["attrName"].ToString() == "fullname")
+                        {
+                            Session["Fullname"] = attr["attrValue"].ToString();
+                        }
+                        if (attr["attrName"].ToString() == "email")
+                        {
+                            Session["Email"] = attr["attrValue"].ToString();
+                        }
+                    }
 
                     return RedirectToAction("Index", "Dashboard");
                 }

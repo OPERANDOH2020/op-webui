@@ -18,7 +18,7 @@
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name"> @Session["Username"] </div>
-                    <div class="profile-usertitle-job font-yellow-gold"> Administrator </div>
+                    <div class="profile-usertitle-job font-yellow-gold"> @Session["Usertype"] </div>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
@@ -80,11 +80,11 @@
                                     <form role="form" action="#">
                                         <div class="form-group">
                                             <label class="control-label">First Name</label>
-                                            <input type="text" value="John" class="form-control" />
+                                            <input type="text" value="@Session["Username"]" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Last Name</label>
-                                            <input type="text" value="Doe" class="form-control" />
+                                            <input type="text" value="@Session["Fullname"]" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Mobile Number</label>
@@ -96,11 +96,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Occupation</label>
-                                            <input type="text" value="PSP Administrator" class="form-control" />
+                                            <input type="text" value="PSP @Session["Usertype"]" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">About</label>
-                                            <textarea class="form-control" rows="3">Lorem ipsum dolor sit amet diam nonummy nibh dolore.</textarea>
+                                            <textarea class="form-control" rows="3">@Session["Email"] Lorem ipsum dolor sit amet diam nonummy nibh dolore.</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Website Url</label>
