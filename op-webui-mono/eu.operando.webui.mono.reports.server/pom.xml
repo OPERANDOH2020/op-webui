@@ -55,7 +55,7 @@
 				</dependencies>
 				<configuration>
 					<driver>com.mysql.jdbc.Driver</driver>
-					<url>jdbc:mysql://${mysql.host}:${mysql.port}/${mysql.dbname}</url>
+					<url>jdbc:mysql://${mysql.host}:${mysql.port}</url>
 					<username>root</username>
 					<password>root</password>
 				</configuration>
