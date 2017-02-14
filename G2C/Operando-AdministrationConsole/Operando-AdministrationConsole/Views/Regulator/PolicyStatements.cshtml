@@ -10,28 +10,10 @@
     // Il numero che gli viene passato è quello da mantenere, gli altri vengono nascosti
     function hideTab(prefisso, numero)
     {
-        var numeroString = numero.toString();
-        if (numero < 10)
-            numeroString = "0" + numeroString;
-
-        for (var i=1; i<50; i++)
-        {
-            var indice;
-
-            if (i < 10)
-                indice = "0" + i.toString();
-            else
-                indice = i.toString();
-
-            if ($('#'+prefisso+indice).length>0)
-            {
-                if (indice != numeroString)
-                {
-                    $('#' + prefisso + indice).removeClass('active');
-                }
-            }
-        }
+        $('div[id^=' + prefisso + ']').hide();
+        $('#' + prefisso + numero).show();
     }
+
 </script>
 
 <!-- BEGIN PAGE BASE CONTENT -->
@@ -64,38 +46,28 @@
                     <div class="portlet light">
                         <div class="portlet-title">
                             <div class="caption">
-                                REGULATION COMPLIANCE - filename.ext</span>
+                                POLICY STATEMENTS</span>
                             </div>
                         </div>
 
-                        <!-- BEGIN FORM-->
-                        <form action="#" class="form-horizontal form-bordered">
-                            <div class="form-body">
-
-                                <div class="form-group">
-                                    <label class="col-md-1 control-label">File</label>
-                                    <div class="col-md-11">
-                                        <textarea class="form-control" rows="15"></textarea>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn yellow-gold">
-                                            Save
-                                        </button>
-
-                                        <button type="button" class="btn default">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- END FORM-->
+                        <div class="dataTables_length" id="reports_osp_length">
+                            <label>
+                                Regulation
+                                <select name="selcetPolicyStatements" aria-controls="reports_psp" class="form-control input-sm input-xsmall input-inline">
+                                    <option value="">Select...</option>
+                                    <option value="Cancel">Regulation 1</option>
+                                    <option value="Cancel">Regulation 2</option>
+                                </select>
+                            </label>&nbsp;<button type="submit" class="btn orange uppercase">Show</button>
+                        </div>
                     </div>
 
 
+
+                    <div class="tab-content">
+
+                        No regulation has been selected
+                    </div>
 
                 </div>
 

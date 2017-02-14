@@ -10,28 +10,10 @@
     // Il numero che gli viene passato è quello da mantenere, gli altri vengono nascosti
     function hideTab(prefisso, numero)
     {
-        var numeroString = numero.toString();
-        if (numero < 10)
-            numeroString = "0" + numeroString;
-
-        for (var i=1; i<50; i++)
-        {
-            var indice;
-
-            if (i < 10)
-                indice = "0" + i.toString();
-            else
-                indice = i.toString();
-
-            if ($('#'+prefisso+indice).length>0)
-            {
-                if (indice != numeroString)
-                {
-                    $('#' + prefisso + indice).removeClass('active');
-                }
-            }
-        }
+        $('div[id^=' + prefisso + ']').hide();
+        $('#' + prefisso + numero).show();
     }
+
 </script>
 
 <!-- BEGIN PAGE BASE CONTENT -->
@@ -71,20 +53,23 @@
                         <div class="dataTables_length" id="reports_osp_length">
                             <label>
                                 Regulation
-                                <select name="selcetPolicyStatements" aria-controls="reports_psp" class="form-control input-sm input-xsmall input-inline">
+                                <select id="selectRegulation" name="selcetPolicyStatements" aria-controls="reports_psp" class="form-control input-sm input-xsmall input-inline">
                                     <option value="">Select...</option>
-                                    <option value="Cancel">Regulation 1</option>
-                                    <option value="Cancel">Regulation 2</option>
+                                    <option value="1">Regulation 1</option>
+                                    <option value="2">Regulation 2</option>
                                 </select>
-                            </label>&nbsp;<button type="submit" class="btn orange uppercase">Show</button>
+                            </label>&nbsp;<button type="submit" onclick="hideTab('tabRegulation', $('#selectRegulation').val());" class="btn orange uppercase">Show</button>
                         </div>
                     </div>
 
 
 
-                    <div class="tab-content">
+                    <div style="display:none" id="tabRegulation1" class="tab-content">
+                        Example 1
+                    </div>
 
-                        No regulation has been selected
+                    <div style="display:none" id="tabRegulation2" class="tab-content">
+                        Example 2
                     </div>
 
                 </div>

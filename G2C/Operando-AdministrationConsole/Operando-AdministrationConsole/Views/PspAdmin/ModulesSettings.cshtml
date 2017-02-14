@@ -89,17 +89,22 @@
                                             <div class="form-group">
                                                <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore01" class="form-control" readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore01').attr('readonly',''); $('#edit-PaCore01').show(); $('#save-PaCore01').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore01').attr('readonly',''); $('#edit-PaCore01').show(); $('#save-PaCore01').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01"class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore01').removeAttr('readonly'); $('#edit-PaCore01').hide(); $('#save-PaCore01').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -132,17 +137,22 @@
                                             <div class="form-group">
                                                 <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore02" class="form-control" readonly  rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore02').attr('readonly',''); $('#edit-PaCore02').show(); $('#save-PaCore02').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore02').attr('readonly',''); $('#edit-PaCore02').show(); $('#save-PaCore02').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore02').removeAttr('readonly'); $('#edit-PaCore02').hide(); $('#save-PaCore02').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -174,17 +184,22 @@
                                             <div class="form-group">
                                                 <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore03" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore03').attr('readonly',''); $('#edit-PaCore03').show(); $('#save-PaCore03').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore03').attr('readonly',''); $('#edit-PaCore03').show(); $('#save-PaCore03').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore03').removeAttr('readonly'); $('#edit-PaCore03').hide(); $('#save-PaCore03').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -216,17 +231,22 @@
                                             <div class="form-group">
                                                 <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore04" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore04').attr('readonly',''); $('#edit-PaCore04').show(); $('#save-PaCore04').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore04').attr('readonly',''); $('#edit-PaCore04').show(); $('#save-PaCore04').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore04').removeAttr('readonly'); $('#edit-PaCore04').hide(); $('#save-PaCore04').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -258,17 +278,22 @@
                                             <div class="form-group">
                                                 <!--  <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore05" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore05" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore05').attr('readonly',''); $('#edit-PaCore05').show(); $('#save-PaCore05').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore05').attr('readonly',''); $('#edit-PaCore05').show(); $('#save-PaCore05').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore05').removeAttr('readonly'); $('#edit-PaCore05').hide(); $('#save-PaCore05').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -300,17 +325,22 @@
                                             <div class="form-group">
                                                 <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore06" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore06').attr('readonly',''); $('#edit-PaCore06').show(); $('#save-PaCore06').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore06').attr('readonly',''); $('#edit-PaCore06').show(); $('#save-PaCore06').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore06').removeAttr('readonly'); $('#edit-PaCore06').hide(); $('#save-PaCore06').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -342,17 +372,22 @@
                                             <div class="form-group">
                                                 <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore07" class="form-control" readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore07').attr('readonly',''); $('#edit-PaCore07').show(); $('#save-PaCore07').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore07').attr('readonly',''); $('#edit-PaCore07').show(); $('#save-PaCore07').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore07').removeAttr('readonly'); $('#edit-PaCore07').hide(); $('#save-PaCore07').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -384,17 +419,22 @@
                                             <div class="form-group">
                                                <!--  <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore08" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore08').attr('readonly',''); $('#edit-PaCore08').show(); $('#save-PaCore08').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore08').attr('readonly',''); $('#edit-PaCore08').show(); $('#save-PaCore08').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore08').removeAttr('readonly'); $('#edit-PaCore08').hide(); $('#save-PaCore08').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -426,17 +466,22 @@
                                             <div class="form-group">
                                                <!--  <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PaCore09" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PaCore01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PaCore09').attr('readonly',''); $('#edit-PaCore09').show(); $('#save-PaCore09').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PaCore09').attr('readonly',''); $('#edit-PaCore09').show(); $('#save-PaCore09').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PaCore01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PaCore09').removeAttr('readonly'); $('#edit-PaCore09').hide(); $('#save-PaCore09').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -493,17 +538,22 @@
                                             <div class="form-group">
                                                <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PersonalDataRepository01" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PersonalDataRepository01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PersonalDataRepository01').attr('readonly', ''); $('#edit-PersonalDataRepository01').show(); $('#save-PersonalDataRepository01').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PersonalDataRepository01').attr('readonly', ''); $('#edit-PersonalDataRepository01').show(); $('#save-PersonalDataRepository01').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PersonalDataRepository01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PersonalDataRepository01').removeAttr('readonly'); $('#edit-PersonalDataRepository01').hide(); $('#save-PersonalDataRepository01').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -549,19 +599,21 @@
                                             <div class="form-group">
                                               <!--  <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PersonalDataRepository02" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
-
-
-
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PersonalDataRepository02" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PersonalDataRepository02').attr('readonly', ''); $('#edit-PersonalDataRepository02').show(); $('#save-PersonalDataRepository02').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PersonalDataRepository02').attr('readonly', ''); $('#edit-PersonalDataRepository02').show(); $('#save-PersonalDataRepository02').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PersonalDataRepository02" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PersonalDataRepository02').removeAttr('readonly'); $('#edit-PersonalDataRepository02').hide(); $('#save-PersonalDataRepository02').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -606,7 +658,7 @@
                                             <div class="form-group">
                                                <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PersonalDataRepository04" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
@@ -615,10 +667,15 @@
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PersonalDataRepository04" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PersonalDataRepository04').attr('readonly', ''); $('#edit-PersonalDataRepository04').show(); $('#save-PersonalDataRepository04').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PersonalDataRepository04').attr('readonly', ''); $('#edit-PersonalDataRepository04').show(); $('#save-PersonalDataRepository04').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PersonalDataRepository04" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PersonalDataRepository04').removeAttr('readonly'); $('#edit-PersonalDataRepository04').hide(); $('#save-PersonalDataRepository04').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -649,17 +706,22 @@
                                             <div class="form-group">
                                                <!-- <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-PersonalDataRepository03" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-PersonalDataRepository03" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-PersonalDataRepository03').attr('readonly', ''); $('#edit-PersonalDataRepository03').show(); $('#save-PersonalDataRepository03').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-PersonalDataRepository03').attr('readonly', ''); $('#edit-PersonalDataRepository03').show(); $('#save-PersonalDataRepository03').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-PersonalDataRepository03" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-PersonalDataRepository03').removeAttr('readonly'); $('#edit-PersonalDataRepository03').hide(); $('#save-PersonalDataRepository03').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -717,17 +779,22 @@
                                             <div class="form-group">
                                                <!--  <label class="col-md-1 control-label"></label> -->
                                                 <div class="col-md-12">
-                                                    <textarea class="form-control" rows="15"></textarea>
+                                                    <textarea id="textarea-WebUi01" class="form-control"  readonly rows="15"></textarea>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                <div id="save-WebUi01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                    <button onclick="$('#textarea-WebUi01').attr('readonly', ''); $('#edit-WebUi01').show(); $('#save-WebUi01').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                    <button type="button" class="btn default">Cancel</button>
+                                                    <button onclick="$('#textarea-WebUi01').attr('readonly', ''); $('#edit-WebUi01').show(); $('#save-WebUi01').hide();" type="button" class="btn default">Cancel</button>
+                                                </div>
+                                                <div id="edit-WebUi01" class="col-md-offset-6 col-md-6">
+                                                    <button onclick="$('#textarea-WebUi01').removeAttr('readonly'); $('#edit-WebUi01').hide(); $('#save-WebUi01').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -805,17 +872,22 @@
                                                         <div class="form-group">
                                                            <!-- <label class="col-md-1 control-label"></label> -->
                                                             <div class="col-md-12">
-                                                                <textarea class="form-control" rows="15"></textarea>
+                                                                <textarea id="textarea-ExternalInterfaces01" class="form-control"  readonly rows="15"></textarea>
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                     <div class="form-actions">
                                                         <div class="row">
-                                                            <div class="col-md-offset-3 col-md-9">
-                                                                <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                            <div id="save-ExternalInterfaces01" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                                <button onclick="$('#textarea-ExternalInterfaces01').attr('readonly', ''); $('#edit-ExternalInterfaces01').show(); $('#save-ExternalInterfaces01').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                                <button type="button" class="btn default">Cancel</button>
+                                                                <button onclick="$('#textarea-ExternalInterfaces01').attr('readonly', ''); $('#edit-ExternalInterfaces01').show(); $('#save-ExternalInterfaces01').hide();" type="button" class="btn default">Cancel</button>
+                                                            </div>
+                                                            <div id="edit-ExternalInterfaces01" class="col-md-offset-6 col-md-6">
+                                                                <button onclick="$('#textarea-ExternalInterfaces01').removeAttr('readonly'); $('#edit-ExternalInterfaces01').hide(); $('#save-ExternalInterfaces01').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -848,17 +920,22 @@
                                                         <div class="form-group">
                                                          <!--   <label class="col-md-1 control-label"></label> -->
                                                             <div class="col-md-12">
-                                                                <textarea class="form-control" rows="15"></textarea>
+                                                                <textarea id="textarea-ExternalInterfaces02" class="form-control"  readonly rows="15"></textarea>
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                     <div class="form-actions">
                                                         <div class="row">
-                                                            <div class="col-md-offset-3 col-md-9">
-                                                                <button class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
+                                                            <div id="save-ExternalInterfaces02" class="col-md-offset-6 col-md-6" style="display: none;">
+                                                                <button onclick="$('#textarea-ExternalInterfaces02').attr('readonly', ''); $('#edit-ExternalInterfaces02').show(); $('#save-ExternalInterfaces02').hide();" class="btn yellow-gold mt-sweetalert" type="button" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Save</button>
 
-                                                                <button type="button" class="btn default">Cancel</button>
+                                                                <button onclick="$('#textarea-ExternalInterfaces02').attr('readonly', ''); $('#edit-ExternalInterfaces02').show(); $('#save-ExternalInterfaces02').hide();" type="button" class="btn default">Cancel</button>
+                                                            </div>
+                                                            <div id="edit-ExternalInterfaces02" class="col-md-offset-6 col-md-6">
+                                                                <button onclick="$('#textarea-ExternalInterfaces02').removeAttr('readonly'); $('#edit-ExternalInterfaces02').hide(); $('#save-ExternalInterfaces02').show(); " class="btn yellow-gold" type="button" data-title="Edit">Edit</button>
+
+
                                                             </div>
                                                         </div>
                                                     </div>
