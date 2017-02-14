@@ -100,7 +100,8 @@
                                                                     <td>pjg@it-innovation.action.ac.uk</td>
                                                                     <td>
                                                                         <div class="btn-group btn-group-circle">
-                                                                            <button type="button" onclick="$('#tabUserManagement01').removeClass('active'); $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_1" data-toggle="tab" id="editButtonScheduler_1" href="#tabUserManagement03"> Edit </button>
+                                                                            <button type="button" class="btn btn-outline green btn-sm scheduleDetail_1" onclick="location.href='@Url.Action("UsersManagementEdit", "PspAdmin")';return false;">Edit</button>
+                                                                            <!-- <button type="button" onclick="$('#tabUserManagement01').removeClass('active'); $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_1" data-toggle="tab" id="editButtonScheduler_1" href="#tabUserManagement03"> Edit </button> -->
                                                                             <button type="button" class="btn btn-outline red btn-sm scheduleDetail_1" data-toggle="confirmation" id="deleteButtonScheduler_1" data-id="1" data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteRowClick">Delete</button>
                                                                         </div>
                                                                     </td>
@@ -274,6 +275,7 @@
                                     <label class="col-md-3 control-label"></label>
                                     <div class="col-md-6">
                                         <button type="button" id="button_add" onclick="" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add new user</button>
+                                        <button onclick="$('#tabUserManagement02').removeClass('active'); $('#tabUserManagement01').addClass('active');" type="button" class="btn default">Cancel</button>
                                     </div>
                                 </div>
 
@@ -622,6 +624,7 @@
                                                         <label class="col-md-3 control-label"></label>
                                                         <div class="col-md-6">
                                                             <button type="button" id="button_add" onclick="" data-dismiss="modal" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Update user</button>
+                                                            <button onclick="$('#tabUserManagement03').removeClass('active'); $('#tabUserManagement01').addClass('active');" type="button" class="btn default">Cancel</button>
                                                         </div>
                                                     </div>
 

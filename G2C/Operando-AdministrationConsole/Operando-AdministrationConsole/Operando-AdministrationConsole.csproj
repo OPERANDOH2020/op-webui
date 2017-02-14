@@ -5786,6 +5786,8 @@
     <Content Include="Views\Regulator\Reports.cshtml" />
     <Content Include="Views\Regulator\RegulationCompliance.cshtml" />
     <Content Include="Views\Regulator\PolicyStatements.cshtml" />
+    <Content Include="Views\PspAdmin\UsersManagementEdit.cshtml" />
+    <Content Include="Views\PspAdmin\UsersManagementAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

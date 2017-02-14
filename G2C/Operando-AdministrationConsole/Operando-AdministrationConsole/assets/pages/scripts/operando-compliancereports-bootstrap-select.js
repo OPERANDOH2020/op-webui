@@ -1,7 +1,7 @@
 ﻿var ComplianceReportsBootstrapSelect = function () {
 
     var handleBootstrapSelect = function (id) {
-        $('.bs-select'+id).selectpicker({
+        $('.bs-select').selectpicker({
             iconBase: 'fa',
             tickIcon: 'fa-check',
             actionsBox: true

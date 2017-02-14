@@ -540,6 +540,18 @@ namespace Operando_AdministrationConsole.Controllers
            return View();
         }
 
+
+        public ActionResult UsersManagementEdit()
+        {
+            return View();
+        }
+
+
+        public ActionResult UsersManagementAdd()
+        {
+            return View();
+        }
+
         // ----------------------------------
         // ------ MODULES SETTINGS ----------
         // ----------------------------------
