@@ -50,10 +50,10 @@
                             </div>
                         </div>
 
-                        <div class="dataTables_length" id="reports_osp_length">
+                        <div class="dataTables_length"  id="reports_osp_length">
                             <label>
                                 Regulation
-                                <select id="selectRegulation" name="selcetPolicyStatements" aria-controls="reports_psp" class="form-control input-sm input-xsmall input-inline">
+                                <select id="selectRegulation" name="selcetPolicyStatements" aria-controls="reports_psp" style="min-width:200px;font-size:16px" class="form-control input-sm input-xsmall input-inline">
                                     <option value="">Select...</option>
                                     <option value="1">Regulation 1</option>
                                     <option value="2">Regulation 2</option>
@@ -63,13 +63,256 @@
                     </div>
 
 
+                    <!--  ------------------------------------------------------------------------------------------ -->
+                    <!--  -------------------------- BEGIN TAB 01 CONTENT ------------------------------------------ -->
+                    <!--  ------------------------------------------------------------------------------------------ -->
+                    <div class="portlet light tab-pane" id="tabRegulation1">
 
-                    <div style="display:none" id="tabRegulation1" class="tab-content">
-                        Example 1
-                    </div>
 
-                    <div style="display:none" id="tabRegulation2" class="tab-content">
-                        Example 2
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    REGULATION 1
+                                </div>
+                            </div>
+
+                            <div class="dataTables_length" id="reports_osp_length">
+
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="menuReports01">
+
+
+                                    <!-- .....................................................   -->
+
+                                    <div class="portlet-body">
+
+                                        <div class="row">
+                                            <div class="form-group col-md-6 col-md-offset-6" style="padding-right: 0;">
+                                                <form class="form-horizontal">
+                                                    <label class="col-md-6 control-label">Filter by user Type</label>
+                                                    <div class="col-md-6" style="padding-right: 0;">
+                                                        <div class="btn-group bootstrap-select show-tick form-control bs-select">
+                                                            <select class="form-control bs-select" id="compliance-report-type-select1" multiple>
+                                                                <option value="0" selected>UPP</option>
+                                                                <option value="1" selected>OSP</option>
+                                                                <option value="2" selected>PSP</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <!--  ----------------------------------------------------   -->
+                                            <!--  ----------------   TABLE   -------------------------   -->
+                                            <!--  ----------------------------------------------------   -->
+                                            <div>
+                                                <table class="table table-striped table-bordered table-hover order-column" id="ComplianceReports1_psp">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="sorting col-md-3">OSP</th>
+                                                            <th class="sorting col-md-3">Comply</th>
+                                                            <th class="sorting">Action</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="PSP" class="odd gradeX">
+                                                            <td>OSP-A</td>
+                                                            <td>YES</td>
+                                                            <td><button onclick="$('#ComplianceReports1_psp').hide();" class="btn yellow-gold mt-sweetalert" type="button" href="#policyStatements">Details</button></td>
+
+                                                        </tr>
+
+                                                        <tr id="UPP" class="even gradeX">
+                                                            <td>Doctor</td>
+                                                            <td>Patient</td>
+                                                            <td>Biometric</td>
+                                                            <td>to assess health risks</td>
+
+                                                        </tr>
+
+                                                        <tr id="PSP" class="odd gradeX">
+                                                            <td>Doctor</td>
+                                                            <td>Patient</td>
+                                                            <td>Medication</td>
+                                                            <td>to check for drug interaction</td>
+
+                                                        </tr>
+
+                                                        <tr id="UPP" class="even gradeX">
+                                                            <td>Doctor</td>
+                                                            <td>Doctor</td>
+                                                            <td>Medical</td>
+                                                            <td>to ask a consultancy</td>
+
+                                                        </tr>
+
+                                                        <tr id="PSP" class="odd gradeX">
+                                                            <td>Receptionist</td>
+                                                            <td>Patient</td>
+                                                            <td>Contact</td>
+                                                            <td>to change appointments</td>
+
+                                                        </tr>
+                                                        <tr id="PSP" class="odd gradeX">
+                                                            <td>Receptionist 2</td>
+                                                            <td>Patient 2</td>
+                                                            <td>Contact 2</td>
+                                                            <td>to change appointments 2</td>
+
+                                                        </tr>
+
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- .................................................................... -->
+
+
+                                <!--  ------------------------------------------------------------------------------------------ -->
+                                <!--  -------------------------- BEGIN TAB 01 CONTENT ------------------------------------------ -->
+                                <!--  ------------------------------------------------------------------------------------------ -->
+                                <div style="display:none" class="portlet light tab-pane active" id="tabRegulation2">
+
+
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                REGULATION 2
+                                            </div>
+                                        </div>
+
+                                        <div class="dataTables_length" id="reports_osp_length">
+
+                                        </div>
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="menuReports01">
+
+
+                                                <!-- .....................................................   -->
+
+                                                <div class="portlet-body">
+
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6 col-md-offset-6" style="padding-right: 0;">
+                                                            <form class="form-horizontal">
+                                                                <label class="col-md-6 control-label">Filter by user Type</label>
+                                                                <div class="col-md-6" style="padding-right: 0;">
+                                                                    <div class="btn-group bootstrap-select show-tick form-control bs-select">
+                                                                        <select class="form-control bs-select" id="compliance-report-type-select1" multiple>
+                                                                            <option value="0" selected>UPP</option>
+                                                                            <option value="1" selected>OSP</option>
+                                                                            <option value="2" selected>PSP</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <!--  ----------------------------------------------------   -->
+                                                        <!--  ----------------   TABLE   -------------------------   -->
+                                                        <!--  ----------------------------------------------------   -->
+                                                        <div>
+                                                            <table class="table table-striped table-bordered table-hover order-column" id="ComplianceReports1_psp">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="sorting col-md-2">User type of data user</th>
+                                                                        <th class="sorting col-md-2">User type of data subject</th>
+                                                                        <th class="sorting col-md-2">Type of information used</th>
+                                                                        <th class="sorting">Reason for use</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr id="PSP" class="odd gradeX">
+                                                                        <td>Receptionist</td>
+                                                                        <td>Patient</td>
+                                                                        <td>Contact</td>
+                                                                        <td>to arrange appointments</td>
+
+                                                                    </tr>
+
+                                                                    <tr id="UPP" class="even gradeX">
+                                                                        <td>Doctor</td>
+                                                                        <td>Patient</td>
+                                                                        <td>Biometric</td>
+                                                                        <td>to assess health risks</td>
+
+                                                                    </tr>
+
+                                                                    <tr id="PSP" class="odd gradeX">
+                                                                        <td>Doctor</td>
+                                                                        <td>Patient</td>
+                                                                        <td>Medication</td>
+                                                                        <td>to check for drug interaction</td>
+
+                                                                    </tr>
+
+                                                                    <tr id="UPP" class="even gradeX">
+                                                                        <td>Doctor</td>
+                                                                        <td>Doctor</td>
+                                                                        <td>Medical</td>
+                                                                        <td>to ask a consultancy</td>
+
+                                                                    </tr>
+
+                                                                    <tr id="PSP" class="odd gradeX">
+                                                                        <td>Receptionist</td>
+                                                                        <td>Patient</td>
+                                                                        <td>Contact</td>
+                                                                        <td>to change appointments</td>
+
+                                                                    </tr>
+                                                                    <tr id="PSP" class="odd gradeX">
+                                                                        <td>Receptionist 2</td>
+                                                                        <td>Patient 2</td>
+                                                                        <td>Contact 2</td>
+                                                                        <td>to change appointments 2</td>
+
+                                                                    </tr>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <!-- .................................................................... -->
+
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+                                <!-- ................................................................................. -->
+
+
+                            </div>
+                        </div>
+
+
+
+
                     </div>
 
                 </div>

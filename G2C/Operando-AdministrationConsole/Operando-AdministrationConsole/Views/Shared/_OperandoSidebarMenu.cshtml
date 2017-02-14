@@ -363,16 +363,16 @@
                         }
                     </a>
                 </li>
-                <li class='nav-item @if (currentController == "Regulator" && currentAction == "PolicyStatements") { @activeClass }'>
-                    <a href="@Url.Action("PolicyStatements", "Regulator")" class="nav-link ">
-                        <i class="icon-docs"></i>
-                        <span class="title">Policy Statements</span>
-                        @if (currentController == "Regulator" && currentAction == "PolicyStatements")
-                        {
-                            @:<span class="selected"></span>
-                        }
-                    </a>
-                </li>
+               @* <li class='nav-item @if (currentController == "Regulator" && currentAction == "PolicyStatements") { @activeClass }'>
+        <a href="@Url.Action("PolicyStatements", "Regulator")" class="nav-link ">
+            <i class="icon-docs"></i>
+            <span class="title">Policy Statements</span>
+            @if (currentController == "Regulator" && currentAction == "PolicyStatements")
+            {
+                @:<span class="selected"></span>
+            }
+        </a>
+    </li> *@
             </ul>
         </li>
 
