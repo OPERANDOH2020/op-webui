@@ -1,8 +1,17 @@
 ﻿@{ 
-    string userName = "John";
-    string userSurname = "Doe";
-    //string userName = Session["Username"].ToString();
-    //string userSurname = "";
+    //string userName = "John";
+    //string userSurname = "Doe";
+
+
+    // WORKAROUND: Remove this line when login will work again
+    if (Session["Username"] == null)
+    {
+        Session["Username"] = "Wendy";
+    }
+
+
+    string userName = Session["Username"].ToString();
+    string userSurname = "";
 
     //string avatarUrl = "~/assets/layouts/operando/img/avatar_operando.png";
 
