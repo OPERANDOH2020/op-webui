@@ -21,6 +21,8 @@ namespace Operando_AdministrationConsole.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
+            String _mysqlDBError = "Can not connect to MySql Report DB, please change MySQLConnection inside web.config";
+
             // creo gli oggetti per popolare la pagina
             reportManager.resultsObj = new Results();
             reportManager.requestsObj = new Requests();
@@ -104,7 +106,15 @@ namespace Operando_AdministrationConsole.Controllers
             }
             catch (MySqlException e)
             {
-                throw e;
+                //throw e;
+                Results results = new Results();
+                results.ID = 0;
+                results.ExecutionDate = DateTime.Now;
+                results.FileName = "#";
+                results.Report = "Error";
+                results.ReportDescription = _mysqlDBError;
+                results.ReportVersion = "";
+                reportManager.resultsObj.ResultList.Add(results);
             }
             connection.Close();
 
@@ -167,7 +177,14 @@ namespace Operando_AdministrationConsole.Controllers
             }
             catch (MySqlException e)
             {
-                throw e;
+                //throw e;
+                Requests request = new Requests();
+                request.ID = 0;
+                request.Description = _mysqlDBError;
+                request.Email = "#";
+                request.InsertDate = DateTime.Now;
+                request.Name = "#";
+                reportManager.requestsObj.RequestList.Add(request);
             }
             connection.Close();
 

@@ -1,6 +1,6 @@
 ﻿var ComplianceReportsBootstrapSelect = function () {
 
-    var handleBootstrapSelect = function () {
+    var handleBootstrapSelect = function (id) {
         $('.bs-select').selectpicker({
             iconBase: 'fa',
             tickIcon: 'fa-check',
@@ -16,22 +16,38 @@
     };
 }();
 
+function setTrovato(idTabella, opt)
+{
+    $('#' + idTabella + ' > tbody  > tr').each(function () {
+        var trovato = false;
+        var ID = this.attributes['ID'].value.toString();
+        $.each(opt, function (r, value) {
+            if (ID.indexOf(opt[r]) >= 0) {
+                trovato = true;
+            }
+        });
+        if (trovato) {
+            this.classList.add('visible');
+            this.classList.remove('hidden');
+        }
+        else {
+            this.classList.add('hidden');
+            this.classList.remove('visible');
+        }
 
+    });
 
-if (App.isAngularJsApp() === false) {
-    jQuery(document).ready(function () {
+}
 
-        ComplianceReportsBootstrapSelect.init();
-
-        //report tab
-
-        // opt[] is the array containing the list of selected options
+function setSelect(idSelect, idTabella, opt)
+{
+    $("#"+idSelect).change(function () {
         var opt = [];
-        $('#compliance-report-type-select :selected').each(function (i, selected) {
+        $('#'+idSelect+' :selected').each(function (i, selected) {
             opt[i] = $(selected).text();
         });
 
-        $('#ComplianceReports_psp > tbody  > tr').each(function () {
+        $('#'+idTabella+' > tbody  > tr').each(function () {
             var trovato = false;
             var ID = this.attributes['ID'].value.toString();
             $.each(opt, function (r, value) {
@@ -50,35 +66,37 @@ if (App.isAngularJsApp() === false) {
 
         });
 
-        // on changing selected options recharge opt[]
-        $("#compliance-report-type-select").change(function () {
-            var opt = [];
-            $('#compliance-report-type-select :selected').each(function (i, selected) {
-                opt[i] = $(selected).text();
-            });
-
-            $('#ComplianceReports_psp > tbody  > tr').each(function () {
-                var trovato = false;
-                var ID = this.attributes['ID'].value.toString();
-                $.each(opt, function (r, value) {
-                    if (ID.indexOf(opt[r]) >= 0) {
-                        trovato = true;
-                    }
-                });
-                if (trovato) {
-                    this.classList.add('visible');
-                    this.classList.remove('hidden');
-                }
-                else {
-                    this.classList.add('hidden');
-                    this.classList.remove('visible');
-                }
-
-            });
-
-        });
-
     });
+}
+
+if (App.isAngularJsApp() === false) {
+    jQuery(document).ready(function () {
+
+        ComplianceReportsBootstrapSelect.init();
+
+        //report tab
+
+        // opt[] is the array containing the list of selected options
+        var opt = [];
+        $('#compliance-report-type-select1 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
+        $('#compliance-report-type-select2 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
+        $('#compliance-report-type-select3 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
+        $('#compliance-report-type-select4 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
+        $('#compliance-report-type-select5 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
+
+        setTrovato('ComplianceReports1_psp', opt);
+        setTrovato('ComplianceReports2_psp', opt);
+        setTrovato('ComplianceReports3_psp', opt);
+        setTrovato('ComplianceReports4_psp', opt);
+        setTrovato('ComplianceReports5_psp', opt);
+
+        setSelect('compliance-report-type-select1', 'ComplianceReports1_psp', opt);
+        setSelect('compliance-report-type-select2', 'ComplianceReports2_psp', opt);
+        setSelect('compliance-report-type-select3', 'ComplianceReports3_psp', opt);
+        setSelect('compliance-report-type-select4', 'ComplianceReports4_psp', opt);
+        setSelect('compliance-report-type-select5', 'ComplianceReports5_psp', opt);
+
+      });
 }
 
 
