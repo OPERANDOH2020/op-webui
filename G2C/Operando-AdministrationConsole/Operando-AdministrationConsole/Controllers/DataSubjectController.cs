@@ -19,6 +19,8 @@ namespace Operando_AdministrationConsole.Controllers
     public class DataSubjectController : Controller
     {
         public string errMsg = String.Empty;
+        string stHeaderName = "Service-Ticket";
+        string pdbOSPSId = "pdb/OSP/.*";
 
         public ActionResult DataAccessLogs()
         {
@@ -105,18 +107,36 @@ namespace Operando_AdministrationConsole.Controllers
             return View(logList);
         }
 
+
         /* Method modified by IT Innovation Centre 2016 */
         public ActionResult AccessPreferences()
         {
-            //string pdbBasePath = "http://172.16.0.59:8080/pdb-server/policy_database";
             string pdbBasePath = "http://integration.operando.esilab.org:8096/operando/core/pdb";
 
-            var instance = new eu.operando.core.pdb.cli.Api.GETApi(pdbBasePath);
+            // get OSP service ticket
+            string aapiBasePath = "http://integration.operando.esilab.org:8135/operando/interfaces/aapi";
+            var aapiInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(aapiBasePath);
 
-            Debug.Print("SESSION USER: " + Session["Username"]);
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            
+            try
+            {
+                // OSP service ticket call
+                string st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), pdbOSPSId);
+                Debug.Print("Got PDB ST: " + st);
+                configuration.AddDefaultHeader(stHeaderName, st);
+            }
+            catch (eu.operando.interfaces.aapi.Client.ApiException ex)
+            {
+                Debug.Print("Exception failed to make API call to AapiTicketsTgtPost: " + ex.Message);
+            }
+           
+            //var instance = new eu.operando.core.pdb.cli.Api.GETApi(pdbBasePath);
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 
             try
             {
+                // OSP call to get the list of service providers
                 var filter = "filter=\"%7B%27policyText%27:%27%27%7D\"";
                 var response = instance.OSPGet(filter);
                 ViewBag.ospppList = response;
