@@ -165,7 +165,6 @@ namespace Operando_AdministrationConsole.Controllers
                         reportManager.requestsObj.RequestList.Add(request);
                     }
                     reader.Close();
-
                 }
                 catch (MySqlException e)
                 {
