@@ -1,6 +1,7 @@
 ﻿using eu.operando.interfaces.aapi.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -24,8 +25,8 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult Login(Models.UserAccount user)
         {
             Debug.Print("LVM after:");
-            string tgtBasePath = "http://integration.operando.esilab.org:8135/operando/interfaces/aapi";
-            string userBasePath = "http://integration.operando.esilab.org:8135/operando/interfaces/aapi/aapi";
+            string tgtBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
             
             var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
             var tgtInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(tgtBasePath);
@@ -90,7 +91,7 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 Debug.Print("REGISTRATION is valid.");
                 ModelState.Clear();
-                string userBasePath = "http://integration.operando.esilab.org:8135/operando/interfaces/aapi";
+                string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
                 var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
                 try
                 {

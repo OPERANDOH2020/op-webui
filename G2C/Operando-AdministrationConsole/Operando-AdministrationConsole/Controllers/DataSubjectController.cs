@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using System.Globalization;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
+using System.Configuration;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -105,18 +106,43 @@ namespace Operando_AdministrationConsole.Controllers
             return View(logList);
         }
 
-        /* Method modified by IT Innovation Centre 2016 */
-        public ActionResult AccessPreferences()
+        private string getServiceTicket()
         {
-            //string pdbBasePath = "http://172.16.0.59:8080/pdb-server/policy_database";
-            string pdbBasePath = "http://integration.operando.esilab.org:8096/operando/core/pdb";
+            string st = "";
+            string pdbOSPSId = ConfigurationManager.AppSettings["pdbOSPSId"];
 
-            var instance = new eu.operando.core.pdb.cli.Api.GETApi(pdbBasePath);
-
-            Debug.Print("SESSION USER: " + Session["Username"]);
+            // get OSP service ticket
+            string aapiBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            var aapiInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(aapiBasePath);
 
             try
             {
+                // OSP service ticket call
+                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), pdbOSPSId);
+                Debug.Print("Got PDB ST: " + st);
+            }
+            catch (eu.operando.interfaces.aapi.Client.ApiException ex)
+            {
+                Debug.Print("Exception failed to make API call to AapiTicketsTgtPost: " + ex.Message);
+            }
+
+            return st;
+        }
+
+        /* Method modified by IT Innovation Centre 2016 */
+        public ActionResult AccessPreferences()
+        {
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, getServiceTicket());
+            
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+
+            try
+            {
+                // OSP call to get the list of service providers
                 var filter = "filter=\"%7B%27policyText%27:%27%27%7D\"";
                 var response = instance.OSPGet(filter);
                 ViewBag.ospppList = response;
@@ -143,15 +169,18 @@ namespace Operando_AdministrationConsole.Controllers
             }
 
             policiesKey.RemoveAt(resp.Count - 1);
+            
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
 
-            //string pdbBasePath = "http://172.16.0.59:8080/pdb-server/policy_database";
-            string pdbBasePath = "http://integration.operando.esilab.org:8096/operando/core/pdb";
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, getServiceTicket());            
+            
+            var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 
-            var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(pdbBasePath);
+            var putInstance = new eu.operando.core.pdb.cli.Api.PUTApi(configuration);
 
-            var putInstance = new eu.operando.core.pdb.cli.Api.PUTApi(pdbBasePath);
-
-            var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(pdbBasePath);
+            var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
 
             try
             {
@@ -196,10 +225,8 @@ namespace Operando_AdministrationConsole.Controllers
                     }
                 }
 
-
                 Debug.Print("Selected OSP updated: " + selectedOSP.ToJson());
 
-                //var username = "pjgrace";
                 var username = Session["Username"].ToString();
                 UserPrivacyPolicy userUPP;
                 try
