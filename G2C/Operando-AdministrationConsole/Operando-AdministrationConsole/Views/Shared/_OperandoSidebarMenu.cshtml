@@ -135,6 +135,37 @@
                 </li>
             </ul>
         </li>
+		
+		  <!-- ............................................... -->
+
+        <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "UppManagementTool")) { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-briefcase"></i>
+                <span class="title">UPP Management Tool</span>
+                <span class="arrow open"></span>
+                @if (currentController == "OspAdmin" && (currentAction == "UppManagementTool"))
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UppManagementTool") { @activeClass }'>
+                    <a href="@Url.Action("UppManagementTool", "OspAdmin")" class="nav-link ">
+                        <i class="icon-bulb"></i>
+                        <span class="title">UPP Management</span>
+                        @if (currentController == "OspAdmin" && currentAction == "UppManagementTool")
+                        {
+                            @:<span class="selected"></span>
+                        }
+                    </a>
+                </li>
+                </ul></li>
+
+
+
+                <!-- ............................................... -->
+		
+		
         <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-globe"></i>
