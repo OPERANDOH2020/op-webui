@@ -33,6 +33,8 @@ if (App.isAngularJsApp() === false) {
 
         $('#userManagement_psp > tbody  > tr').each(function () {
             var trovato = false;
+            if (this.attributes['ID'] == undefined) // aggiungere in tutti i bootstrap select per gestire quando non c'è l'attributo "ID"
+                return;
             var ID = this.attributes['ID'].value.toString();
             $.each(opt, function (r, value) {
                 if (ID.indexOf(opt[r]) >= 0)

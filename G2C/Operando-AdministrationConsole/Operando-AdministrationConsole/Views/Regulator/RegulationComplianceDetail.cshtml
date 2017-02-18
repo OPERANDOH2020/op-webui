@@ -32,7 +32,9 @@
         return vars;
     }
 
-    $( document ).ready(function() {
+    $(document).ready(function () {
+
+        $('#warningNoModule').hide();
         var regulation = getUrlVars()["regulation"];
         if (parseInt(regulation) == 1)
         {
@@ -47,9 +49,26 @@
                 $('#warningNoModule').hide();
                 $('#tabRegulation' + regulation).show();
             }
+            else
+                $('#warningNoModule').show();
 
-        //var osp = getUrlVars()["regulation"] + "  " + getUrlVars()["osp"];
-        //$('#lblRegulationTitle').text(osp);
+        var osp1 = getUrlVars()["regulation"] + "  " + getUrlVars()["osp"];
+        $('#lblRegulation1Title').text(osp1);
+        $('#lblRegulation2Title').text(osp1);
+
+        var osp2 = getUrlVars()["osp"];
+        $('#lblRegulationTitleRegulation1Osp1').text(osp2);
+        $('#lblRegulationTitleRegulation1Osp2').text(osp2);
+        $('#lblRegulationTitleRegulation1Osp3').text(osp2);
+        $('#lblRegulationTitleRegulation1Osp4').text(osp2);
+        $('#lblRegulationTitleRegulation1Osp5').text(osp2);
+        $('#lblRegulationTitleRegulation1Osp6').text(osp2);
+        $('#lblRegulationTitleRegulation2Osp1').text(osp2);
+        $('#lblRegulationTitleRegulation2Osp2').text(osp2);
+        $('#lblRegulationTitleRegulation2Osp3').text(osp2);
+        $('#lblRegulationTitleRegulation2Osp4').text(osp2);
+        $('#lblRegulationTitleRegulation2Osp5').text(osp2);
+        $('#lblRegulationTitleRegulation2Osp6').text(osp2);
     });
 
 </script>
@@ -97,11 +116,11 @@
                                     <option value="1">REGULATION 1</option>
                                     <option value="2">REGULATION 2</option>
                                 </select>
-                            </label>&nbsp;<button type="submit" onclick="hideTab('tabRegulation', $('#selectRegulation').val());" class="btn orange uppercase">Show</button>
+                            </label>&nbsp;<button type="submit" onclick="location.href='@Url.Action("RegulationCompliance", "Regulator")?regulation='+$('#selectRegulation').val()" class="btn orange uppercase">Show</button>
                         </div>
                     </div>
                     
-                    <div class="portlet-body" id="warningNoModule">
+                    <div class="portlet-body" style="display:none" id="warningNoModule">
 
                         This module doesn't require settings
                     </div>
@@ -109,7 +128,7 @@
                 </div>
 
                     <!--  ------------------------------------------------------------------------------------------ -->
-                    <!--  -------------------------- BEGIN TAB 01 CONTENT ------------------------------------------ -->
+                    <!--  -------------------------- BEGIN TAB 01 CONTENT DETAILS ---------------------------------- -->
                     <!--  ------------------------------------------------------------------------------------------ -->
                     <div class="portlet light tab-pane" id="tabRegulation1" style="display:none;">
 
@@ -117,7 +136,7 @@
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    REGULATION 1
+                                    REGULATION <label id="lblRegulation1Title"></label>
                                 </div>
                             </div>
                        
@@ -139,14 +158,13 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6 col-md-offset-6" style="padding-right: 0;">
                                                     <form class="form-horizontal">
-                                                        <label class="col-md-6 control-label">Filter by user type</label>
+                                                        <label class="col-md-6 control-label">Filter by                                                        </label>
                                                         <div class="col-md-6" style="padding-right: 14px;">
                                                             <div class="btn-group bootstrap-select show-tick form-control bs-select">
 
                                                                 <select class="form-control bs-select" id="compliance-regulation-type-select1" style="max-height: 327.55px; overflow: hidden; min-height: 37px;" multiple tabindex="-98">
-                                                                    <option value="0" selected>UPP</option>
-                                                                    <option value="1" selected>OSP</option>
-                                                                    <option value="2" selected>PSP</option>
+                                                                    <option value="0" selected>YES</option>
+                                                                    <option value="1" selected>NO</option>                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -163,51 +181,72 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="sorting col-md-3">OSP</th>
-                                                            <th class="sorting col-md-3">Comply</th>
-                                                            <th class="sorting">Action</th>
+                                                            <th class="sorting col-md-3">Data user</th>
+                                                            <th class="sorting">Data subject</th>
+                                                            <th class="sorting">Type of information used</th>
+                                                            <th class="sorting">Reason for use</th>
+                                                            <th class="sorting">Comply</th>
 
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr id="PSP" class="odd gradeX">
-                                                            <td>OSP-A</td>
+                                                        <tr id="YES" class="odd gradeX">
+                                                            <td><label id="lblRegulationTitleRegulation1Osp1"></label></td>
+                                                            <td>Receptionist</td>
+                                                            <td>Patient</td>
+                                                            <td>Contact</td>
+                                                            <td>to arrange appointments</td>
                                                             <td>YES</td>
-                                                            <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-A';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                         </tr>
 
-                                                        <tr id="UPP" class="even gradeX">
-                                                            <td>OSP-B</td>
+                                                        <tr id="NO" class="even gradeX">
+                                                            <td><label id="lblRegulationTitleRegulation1Osp2"></label></td>
+                                                            <td>Doctor</td>
+                                                            <td>Patient</td>
+                                                            <td>Biometric</td>
+                                                            <td>to assess health risks</td>
+                                                            <td>NO</td>
+                                                            
+
+                                                        </tr>
+
+                                                        <tr id="YES" class="odd gradeX">
+                                                            <td><label id="lblRegulationTitleRegulation1Osp3"></label></td>
+                                                            <td>Doctor</td>
+                                                            <td>Patient</td>
+                                                            <td>Medication</td>
+                                                            <td>to check for drug interaction</td>
                                                             <td>YES</td>
-                                                            <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-B';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                         </tr>
 
-                                                        <tr id="PSP" class="odd gradeX">
-                                                            <td>OSP-C</td>
-                                                            <td>NO</td>
-                                                            <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-C';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
-
-                                                        </tr>
-
-                                                        <tr id="UPP" class="even gradeX">
-                                                            <td>OSP-D</td>
-                                                            <td>NO</td>
-                                                            <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-D';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
-
-                                                        </tr>
-
-                                                        <tr id="PSP" class="odd gradeX">
-                                                            <td>OSP-E</td>
-                                                            <td>NO</td>
-                                                            <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-E';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
-
-                                                        </tr>
-                                                        <tr id="PSP" class="odd gradeX">
-                                                            <td>OSP-F</td>
+                                                        <tr id="YES" class="even gradeX">
+                                                            <td><label id="lblRegulationTitleRegulation1Osp4"></label></td>
+                                                            <td>Doctor</td>
+                                                            <td>Patient</td>
+                                                            <td>Medical</td>
+                                                            <td>to ask a consultancy</td>
                                                             <td>YES</td>
-                                                            <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-F';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
+                                                        </tr>
+
+                                                        <tr id="YES" class="odd gradeX">
+                                                            <td><label id="lblRegulationTitleRegulation1Osp5"></label></td>
+                                                            <td>Doctor</td>
+                                                            <td>Patient</td>
+                                                            <td>Contact</td>
+                                                            <td>to change appointments</td>
+                                                            <td>YES</td>
+
+                                                        </tr>
+                                                        <tr id="YES" class="odd gradeX">
+                                                            <td><label id="lblRegulationTitleRegulation1Osp6"></label></td>
+                                                            <td>Doctor</td>
+                                                            <td>Patient</td>
+                                                            <td>Biometric</td>
+                                                            <td>to assess health risks</td>
+                                                            <td>YES</td>
                                                         </tr>
 
                                                 </table>
@@ -227,7 +266,7 @@
                     </div>
 
                 <!--  ------------------------------------------------------------------------------------------ -->
-                <!--  -------------------------- BEGIN TAB 02 CONTENT ------------------------------------------ -->
+                <!--  -------------------------- BEGIN TAB 01 CONTENT DETAILS ---------------------------------- -->
                 <!--  ------------------------------------------------------------------------------------------ -->
                 <div class="portlet light tab-pane" id="tabRegulation2" style="display:none;">
 
@@ -235,7 +274,7 @@
                     <div class="portlet light">
                         <div class="portlet-title">
                             <div class="caption">
-                                REGULATION 2
+                                REGULATION <label id="lblRegulation2Title"></label>
                             </div>
                         </div>
 
@@ -244,27 +283,26 @@
                         </div>
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="menuReports02">
+                            <div class="tab-pane fade in active" id="menuReports01">
 
 
                                 <!-- .....................................................   -->
 
                                 <div class="portlet-body">
-
                                     <div class="row">
+
                                         <!-- .......................................................................... -->
 
                                         <div class="row">
                                             <div class="form-group col-md-6 col-md-offset-6" style="padding-right: 0;">
                                                 <form class="form-horizontal">
-                                                    <label class="col-md-6 control-label">Filter by user type</label>
+                                                    <label class="col-md-6 control-label">Filter by</label>
                                                     <div class="col-md-6" style="padding-right: 14px;">
                                                         <div class="btn-group bootstrap-select show-tick form-control bs-select">
 
                                                             <select class="form-control bs-select" id="compliance-regulation-type-select2" style="max-height: 327.55px; overflow: hidden; min-height: 37px;" multiple tabindex="-98">
-                                                                <option value="0" selected>UPP</option>
-                                                                <option value="1" selected>OSP</option>
-                                                                <option value="2" selected>PSP</option>
+                                                                <option value="0" selected>YES</option>
+                                                                <option value="1" selected>NO</option>                                                                
                                                             </select>
                                                         </div>
                                                     </div>
@@ -281,51 +319,72 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="sorting col-md-3">OSP</th>
-                                                        <th class="sorting col-md-3">Comply</th>
-                                                        <th class="sorting">Action</th>
+                                                        <th class="sorting col-md-3">Data user</th>
+                                                        <th class="sorting">Data subject</th>
+                                                        <th class="sorting">Type of information used</th>
+                                                        <th class="sorting">Reason for use</th>
+                                                        <th class="sorting">Comply</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr id="PSP" class="odd gradeX">
-                                                        <td>OSP-A</td>
-                                                        <td>NO</td>
-                                                        <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-A';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
-
-                                                    </tr>
-
-                                                    <tr id="UPP" class="even gradeX">
-                                                        <td>OSP-B</td>
-                                                        <td>NO</td>
-                                                        <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-B';return false;;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
-
-                                                    </tr>
-
-                                                    <tr id="PSP" class="odd gradeX">
-                                                        <td>OSP-C</td>
-                                                        <td>NO</td>
-                                                        <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-C';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
-
-                                                    </tr>
-
-                                                    <tr id="UPP" class="even gradeX">
-                                                        <td>OSP-D</td>
-                                                        <td>NO</td>
-                                                        <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-D';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
-
-                                                    </tr>
-
-                                                    <tr id="PSP" class="odd gradeX">
-                                                        <td>OSP-E</td>
+                                                    <tr id="YES" class="odd gradeX">
+                                                        <td><label id="lblRegulationTitleRegulation2Osp1"></label></td>
+                                                        <td>Receptionist</td>
+                                                        <td>Patient</td>
+                                                        <td>Contact</td>
+                                                        <td>to arrange appointments</td>
                                                         <td>YES</td>
-                                                        <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-E';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                     </tr>
-                                                    <tr id="PSP" class="odd gradeX">
-                                                        <td>OSP-F</td>
-                                                        <td>YES</td>
-                                                        <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-F';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
+                                                    <tr id="NO" class="even gradeX">
+                                                        <td><label id="lblRegulationTitleRegulation2Osp2"></label></td>
+                                                        <td>Doctor</td>
+                                                        <td>Patient</td>
+                                                        <td>Biometric</td>
+                                                        <td>to assess health risks</td>
+                                                        <td>NO</td>
+
+
+                                                    </tr>
+
+                                                    <tr id="YES" class="odd gradeX">
+                                                        <td><label id="lblRegulationTitleRegulation2Osp3"></label></td>
+                                                        <td>Doctor</td>
+                                                        <td>Patient</td>
+                                                        <td>Medication</td>
+                                                        <td>to check for drug interaction</td>
+                                                        <td>YES</td>
+
+                                                    </tr>
+
+                                                    <tr id="YES" class="even gradeX">
+                                                        <td><label id="lblRegulationTitleRegulation2Osp4"></label></td>
+                                                        <td>Doctor</td>
+                                                        <td>Patient</td>
+                                                        <td>Medical</td>
+                                                        <td>to ask a consultancy</td>
+                                                        <td>YES</td>
+
+                                                    </tr>
+
+                                                    <tr id="YES" class="odd gradeX">
+                                                        <td><label id="lblRegulationTitleRegulation2Osp5"></label></td>
+                                                        <td>Doctor</td>
+                                                        <td>Patient</td>
+                                                        <td>Contact</td>
+                                                        <td>to change appointments</td>
+                                                        <td>YES</td>
+
+                                                    </tr>
+                                                    <tr id="YES" class="odd gradeX">
+                                                        <td><label id="lblRegulationTitleRegulation2Osp6"></label></td>
+                                                        <td>Doctor</td>
+                                                        <td>Patient</td>
+                                                        <td>Biometric</td>
+                                                        <td>to assess health risks</td>
+                                                        <td>YES</td>
                                                     </tr>
 
                                             </table>
@@ -344,15 +403,7 @@
 
                 </div>
 
-
-
-                                <!-- .................................................................... -->
-
-
-
-
-
-                       
+                <!-- ------------------------------------------------------------------------------ -->                       
                
 
             </div>
@@ -380,7 +431,6 @@
 
 @section PageStyles {
     <style>
-       
         div#ComplianceRegulation1_psp_filter.dataTables_filter label input.form-control.input-sm.input-small.input-inline { font-size: 15px;  }
         div#ComplianceRegulation2_psp_filter.dataTables_filter label input.form-control.input-sm.input-small.input-inline { font-size: 15px;  }
 
@@ -427,6 +477,6 @@
     <script src="~/Scripts/jquery.numeric.min.js" type="text/javascript"></script>
 
     @* the next js creates filter, search and pagination on the tables *@
-    <script src="~/assets/pages/scripts/operando-complianceregulation-table-managed.js" type="text/javascript"></script>
-    <script src="~/assets/pages/scripts/operando-complianceregulation-bootstrap-select.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/operando-complianceregulationdetail-table-managed.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/operando-complianceregulationdetail-bootstrap-select.js" type="text/javascript"></script>
 }

@@ -1,4 +1,4 @@
-﻿var ComplianceReportsBootstrapSelect = function () {
+﻿var ComplianceRegulationBootstrapSelect = function () {
 
     var handleBootstrapSelect = function (id) {
         $('.bs-select').selectpicker({
@@ -74,29 +74,21 @@ function setSelect(idSelect, idTabella, opt)
 if (App.isAngularJsApp() === false) {
     jQuery(document).ready(function () {
 
-        ComplianceReportsBootstrapSelect.init();
+        ComplianceRegulationBootstrapSelect.init();
 
         //report tab
 
         // opt[] is the array containing the list of selected options
         var opt = [];
-        $('#compliance-report-type-select1 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
-        $('#compliance-report-type-select2 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
-        $('#compliance-report-type-select3 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
-        $('#compliance-report-type-select4 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
-        $('#compliance-report-type-select5 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
+        $('#compliance-regulation-type-select1 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
+        $('#compliance-regulation-type-select2 :selected').each(function (i, selected) { opt[i] = $(selected).text(); });
 
-        setTrovato('ComplianceReports1_psp', opt);
-        setTrovato('ComplianceReports2_psp', opt);
-        setTrovato('ComplianceReports3_psp', opt);
-        setTrovato('ComplianceReports4_psp', opt);
-        setTrovato('ComplianceReports5_psp', opt);
+        setTrovato('ComplianceRegulation1_psp', opt);
+        setTrovato('ComplianceRegulation2_psp', opt);
 
-        setSelect('compliance-report-type-select1', 'ComplianceReports1_psp', opt);
-        setSelect('compliance-report-type-select2', 'ComplianceReports2_psp', opt);
-        setSelect('compliance-report-type-select3', 'ComplianceReports3_psp', opt);
-        setSelect('compliance-report-type-select4', 'ComplianceReports4_psp', opt);
-        setSelect('compliance-report-type-select5', 'ComplianceReports5_psp', opt);
+        setSelect('compliance-regulation-type-select1', 'ComplianceRegulation1_psp', opt);
+        setSelect('compliance-regulation-type-select2', 'ComplianceRegulation2_psp', opt);
+        
 
       });
 }

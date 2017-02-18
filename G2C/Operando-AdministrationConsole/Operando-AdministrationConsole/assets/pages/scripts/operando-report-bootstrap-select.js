@@ -36,6 +36,8 @@ if (App.isAngularJsApp() === false) {
 
         $('#reports_psp > tbody  > tr').each(function () {
             var trovato = false;
+            if (this.attributes['ID'] == undefined) // aggiungere in tutti i bootstrap select per gestire quando non c'è l'attributo "ID"
+                return;
             var ID = this.attributes['ID'].value.toString();
             $.each(opt, function (r, value) {
                 if (ID.indexOf(opt[r]) >= 0)
@@ -65,6 +67,8 @@ if (App.isAngularJsApp() === false) {
 
             $('#reports_psp > tbody  > tr').each(function () {
                 var trovato = false;
+                if (this.attributes['ID'] == undefined)
+                    return;
                 var ID = this.attributes['ID'].value.toString();
                 $.each(opt, function (r, value) {
                     if (ID.indexOf(opt[r]) >= 0)
