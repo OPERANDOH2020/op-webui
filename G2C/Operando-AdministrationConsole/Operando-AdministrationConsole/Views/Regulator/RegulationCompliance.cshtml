@@ -139,14 +139,13 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6 col-md-offset-6" style="padding-right: 0;">
                                                     <form class="form-horizontal">
-                                                        <label class="col-md-6 control-label">Filter by user type</label>
+                                                        <label class="col-md-6 control-label">Filter by</label>
                                                         <div class="col-md-6" style="padding-right: 14px;">
                                                             <div class="btn-group bootstrap-select show-tick form-control bs-select">
 
                                                                 <select class="form-control bs-select" id="compliance-regulation-type-select1" style="max-height: 327.55px; overflow: hidden; min-height: 37px;" multiple tabindex="-98">
-                                                                    <option value="0" selected>UPP</option>
-                                                                    <option value="1" selected>OSP</option>
-                                                                    <option value="2" selected>PSP</option>
+                                                                    <option value="0" selected>YES</option>
+                                                                    <option value="1" selected>NO</option>                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -169,41 +168,41 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr id="PSP" class="odd gradeX">
+                                                        <tr id="YES" class="odd gradeX">
                                                             <td>OSP-A</td>
                                                             <td>YES</td>
                                                             <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-A';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                         </tr>
 
-                                                        <tr id="UPP" class="even gradeX">
+                                                        <tr id="YES" class="even gradeX">
                                                             <td>OSP-B</td>
                                                             <td>YES</td>
                                                             <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-B';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                         </tr>
 
-                                                        <tr id="PSP" class="odd gradeX">
+                                                        <tr id="NO" class="odd gradeX">
                                                             <td>OSP-C</td>
                                                             <td>NO</td>
                                                             <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-C';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                         </tr>
 
-                                                        <tr id="UPP" class="even gradeX">
+                                                        <tr id="NO" class="even gradeX">
                                                             <td>OSP-D</td>
                                                             <td>NO</td>
                                                             <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-D';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                         </tr>
 
-                                                        <tr id="PSP" class="odd gradeX">
+                                                        <tr id="NO" class="odd gradeX">
                                                             <td>OSP-E</td>
                                                             <td>NO</td>
                                                             <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-E';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                         </tr>
-                                                        <tr id="PSP" class="odd gradeX">
+                                                        <tr id="YES" class="odd gradeX">
                                                             <td>OSP-F</td>
                                                             <td>YES</td>
                                                             <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=1&osp=OSP-F';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
@@ -262,9 +261,8 @@
                                                         <div class="btn-group bootstrap-select show-tick form-control bs-select">
 
                                                             <select class="form-control bs-select" id="compliance-regulation-type-select2" style="max-height: 327.55px; overflow: hidden; min-height: 37px;" multiple tabindex="-98">
-                                                                <option value="0" selected>UPP</option>
-                                                                <option value="1" selected>OSP</option>
-                                                                <option value="2" selected>PSP</option>
+                                                                <option value="0" selected>YES</option>
+                                                                <option value="1" selected>NO</option>                                                                
                                                             </select>
                                                         </div>
                                                     </div>
@@ -287,41 +285,41 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr id="PSP" class="odd gradeX">
+                                                    <tr id="NO" class="odd gradeX">
                                                         <td>OSP-A</td>
                                                         <td>NO</td>
                                                         <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-A';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                     </tr>
 
-                                                    <tr id="UPP" class="even gradeX">
+                                                    <tr id="NO" class="even gradeX">
                                                         <td>OSP-B</td>
                                                         <td>NO</td>
                                                         <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-B';return false;;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                     </tr>
 
-                                                    <tr id="PSP" class="odd gradeX">
+                                                    <tr id="NO" class="odd gradeX">
                                                         <td>OSP-C</td>
                                                         <td>NO</td>
                                                         <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-C';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                     </tr>
 
-                                                    <tr id="UPP" class="even gradeX">
+                                                    <tr id="NO" class="even gradeX">
                                                         <td>OSP-D</td>
                                                         <td>NO</td>
                                                         <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-D';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                     </tr>
 
-                                                    <tr id="PSP" class="odd gradeX">
+                                                    <tr id="YES" class="odd gradeX">
                                                         <td>OSP-E</td>
                                                         <td>YES</td>
                                                         <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-E';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
 
                                                     </tr>
-                                                    <tr id="PSP" class="odd gradeX">
+                                                    <tr id="YES" class="odd gradeX">
                                                         <td>OSP-F</td>
                                                         <td>YES</td>
                                                         <td><button onclick="location.href='@Url.Action("RegulationComplianceDetail", "Regulator")?regulation=2&osp=OSP-F';return false;" class="btn yellow-gold mt-sweetalert" type="button">Details</button></td>
