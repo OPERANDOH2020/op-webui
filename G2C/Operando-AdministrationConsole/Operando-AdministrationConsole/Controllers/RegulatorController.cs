@@ -29,6 +29,11 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        public ActionResult RegulationComplianceDetail()
+        {
+            return View();
+        }
+
         public ActionResult PolicyStatements()
         {
             return View();

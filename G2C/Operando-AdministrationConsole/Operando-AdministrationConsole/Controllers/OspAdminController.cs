@@ -485,6 +485,11 @@ namespace Operando_AdministrationConsole.Controllers
         {
             return View();
         }
+		
+		public ActionResult UppManagementTool()
+        {
+            return View();
+        }
 
         public async Task<ActionResult> BigDataAnalytics()
         {
