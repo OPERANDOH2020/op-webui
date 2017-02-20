@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 
 public class RestReportsHandler : IHttpHandler
@@ -16,6 +17,38 @@ public class RestReportsHandler : IHttpHandler
         {
             return true;
         }
+    }
+
+    private string ReadHtmlBase64(string url)
+    {
+        var httpRequest = WebRequest.Create(url) as HttpWebRequest;
+        HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+
+        string htmlData = "";
+        if (httpResponse.StatusCode == HttpStatusCode.OK)
+        {
+            Stream receiveStream = httpResponse.GetResponseStream();
+            StreamReader readStream = null;
+
+            if (httpResponse.CharacterSet == null)
+            {
+                readStream = new StreamReader(receiveStream);
+            }
+            else
+            {
+                readStream = new StreamReader(receiveStream, Encoding.GetEncoding(httpResponse.CharacterSet));
+            }
+
+            htmlData = readStream.ReadToEnd();
+
+            httpResponse.Close();
+            readStream.Close();
+        }
+        else
+            throw new Exception(httpResponse.StatusDescription);
+
+        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(htmlData);
+        return System.Convert.ToBase64String(plainTextBytes);
     }
 
     private string ReadPdfBase64(string url)
@@ -138,72 +171,82 @@ public class RestReportsHandler : IHttpHandler
 
             //if (appSettings["BirtUrl"] != null)
             //{
-                //string url = appSettings["BirtUrl"] + "?";
+            //string url = appSettings["BirtUrl"] + "?";
 
-                if (string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_reportid"]))
-                    throw new Exception("Missing parameter _reportid");
+            if (string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_reportid"]))
+                throw new Exception("Missing parameter _reportid");
 
-                int idReport;
-                if (!Int32.TryParse(HttpContext.Current.Request.QueryString["_reportid"], out idReport))
-                    throw new Exception("_reportId must be interger value");
+            int idReport;
+            if (!Int32.TryParse(HttpContext.Current.Request.QueryString["_reportid"], out idReport))
+                throw new Exception("_reportId must be interger value");
 
-                string reportName = "";
-                string reportFileName = "";
-                string reportDescription = "";
-                string reportLocation = "";
+            string reportFormat="pdf";
+            if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_format"]))
+                reportFormat = HttpContext.Current.Request.QueryString["_format"].ToLower();
 
-                MySqlConnection connection = new MySqlConnection();
-                connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
-                connection.Open();
-                MySqlTransaction transaction = connection.BeginTransaction();
-                try
+            if (!reportFormat.Equals("html") &&
+                !reportFormat.Equals("htm") &&
+                !reportFormat.Equals("pdf"))
+                throw new Exception("Unsupported format");
+
+            string reportName = "";
+            string reportFileName = "";
+            string reportDescription = "";
+            string reportLocation = "";
+
+            MySqlConnection connection = new MySqlConnection();
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+            connection.Open();
+            MySqlTransaction transaction = connection.BeginTransaction();
+            try
+            {
+                reportLocation = GetReportLocation(idReport, transaction);
+                reportLocation = reportLocation.Replace("/frameset", "/preview");
+
+                reportFileName = GetReportFileName(idReport, transaction);
+                reportName = GetReportName(idReport, transaction);
+                reportDescription = GetReportDescription(idReport, transaction);
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+                throw e;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            if (string.IsNullOrEmpty(reportName))
+                throw new Exception("No report found for this ID");
+
+            reportLocation += "?__format="+ reportFormat;
+            reportLocation += "&__report=" + HttpUtility.UrlEncode(reportFileName);
+
+            foreach (string param in HttpContext.Current.Request.QueryString.AllKeys)
+            {
+                if (param != null)
                 {
-                    reportLocation = GetReportLocation(idReport, transaction);
-                    reportLocation = reportLocation.Replace("/frameset", "/preview");
-
-                    reportFileName = GetReportFileName(idReport, transaction);
-                    reportName = GetReportName(idReport, transaction);
-                    reportDescription = GetReportDescription(idReport, transaction);
-                    transaction.Commit();
+                    if (!param.ToLower().Equals("_reportid"))
+                        reportLocation += "&" + HttpUtility.UrlEncode(param) + "=" + HttpUtility.UrlEncode(HttpContext.Current.Request.QueryString[param]);
                 }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    throw e;
-                }
-                finally
-                {
-                    connection.Close();
-                }
+            }
 
-                if (string.IsNullOrEmpty(reportName))
-                    throw new Exception("No report found for this ID");
+            report.ID = idReport;
+            report.Name = reportName;
+            report.Description = reportDescription;
 
-                reportLocation += "?__format=pdf";
-                reportLocation += "&__report=" + HttpUtility.UrlEncode(reportFileName);
-
-                foreach (string param in HttpContext.Current.Request.QueryString.AllKeys)
-                {
-                    if (param != null)
-                    {
-                        if (!param.ToLower().Equals("_reportid"))
-                            reportLocation += "&" + HttpUtility.UrlEncode(param) + "=" + HttpUtility.UrlEncode(HttpContext.Current.Request.QueryString[param]);
-                    }
-                }
-
-                report.ID = idReport;
-                report.Name = reportName;
-                report.Description = reportDescription;
+            if (reportFormat.Equals("html") || reportFormat.Equals("htm"))
+                report.Base64 = ReadHtmlBase64(reportLocation);
+            else
                 report.Base64 = ReadPdfBase64(reportLocation);
 
-                //byte[] bytes = System.Convert.FromBase64String(report.Base64);
-                //FileStream fs = File.OpenWrite(@"C:\Users\federico.dibernardo\Desktop\Lavoro\Operando\Sorgente\ReportRESTsite\test.pdf");
-                //fs.Write(bytes, 0, bytes.Length);
-                //fs.Close();
-            //}
-            //else
-            //   throw new Exception("BirtUrl is not defined in web.config");
-
+            /*byte[] bytes = System.Convert.FromBase64String(report.Base64);
+            FileStream fs = File.OpenWrite(@"C:\Users\federico.dibernardo\Desktop\Lavoro\Operando\Sorgente\op-webui\reportsREST_WP\reportsREST_WP\test.pdf");
+            fs.Write(bytes, 0, bytes.Length);
+            fs.Close();*/
+      
             context.Response.Write(JsonConvert.SerializeObject(report));
         }
         catch (Exception e)
