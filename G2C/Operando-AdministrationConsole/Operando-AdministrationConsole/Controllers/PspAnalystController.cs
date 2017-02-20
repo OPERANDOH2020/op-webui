@@ -12,6 +12,9 @@ using System.Text.RegularExpressions;
 using Operando_AdministrationConsole.Helper;
 using System.Net;
 using System.Text;
+using eu.operando.common;
+using eu.operando.common.Services;
+using eu.operando.core.bda;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -20,6 +23,13 @@ namespace Operando_AdministrationConsole.Controllers
         private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
 
         private static readonly Uri RegulationsRoot = new Uri("http://localhost:8080/stub-pdb/api/regulations/");
+
+        private readonly IBdaClient _bdaClient;
+
+        public PspAnalystController()
+        {
+            _bdaClient = new BdaClient(new Uri("http://localhost:8080/stub-bda/bda/"));
+        }
 
         // GET: PspAnalyst
         public async Task<ActionResult> Regulations()
@@ -90,9 +100,11 @@ namespace Operando_AdministrationConsole.Controllers
 
         public async Task<ActionResult> BigDataAnalyticsConfig()
         {
-            List<BdaJob> jobs = await helper.get<List<BdaJob>>("http://localhost:8080/stub-bda/bda/jobs?osp=Ami");
-            BdaPageModel model = new BdaPageModel();
-            model.Jobs = jobs;
+            var jobs = await _bdaClient.GetJobsAsync("ami");
+            BdaPageModel model = new BdaPageModel
+            {
+                Jobs = jobs.Select(_ => new BdaJob(_)).ToList()
+            };
             return View(model);
         }
     }

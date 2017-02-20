@@ -10,6 +10,10 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Net.Http;
 using System.Text;
+using eu.operando.common;
+using eu.operando.common.Services;
+using eu.operando.core.bda;
+using eu.operando.core.bda.Model;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -17,6 +21,14 @@ namespace Operando_AdministrationConsole.Controllers
     {
         private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
         ReportManagerOSP reportManagerOSP = new ReportManagerOSP();
+
+
+        private readonly IBdaClient _bdaClient;
+
+        public OspAdminController()
+        {
+            _bdaClient = new BdaClient(new Uri("http://localhost:8080/stub-bda/bda/"));
+        }
 
         private Uri OSPRoot(string id)
         {
@@ -493,7 +505,10 @@ namespace Operando_AdministrationConsole.Controllers
 
         public async Task<ActionResult> BigDataAnalytics()
         {
-            List<BdaJob> executions = await helper.get<List<BdaJob>>("http://localhost:8080/stub-bda/bda/jobs?osp=Ami");
+            ICollection<Job> jobs = await _bdaClient.GetJobsAsync("ami");
+
+            var executions = jobs.Select(_ => new BdaJob(_)).ToList();
+
             return View(executions);
         }
     }

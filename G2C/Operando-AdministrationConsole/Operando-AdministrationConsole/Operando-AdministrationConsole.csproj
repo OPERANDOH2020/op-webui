@@ -242,8 +242,6 @@
     <Compile Include="Models\ReportsOSP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Helper\HttpHelper.cs" />
-    <Compile Include="Helper\JsonHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ASPXSaveAjax\DeleteSchedule.aspx" />
@@ -5816,6 +5814,14 @@
     <ProjectReference Include="..\aapi_client\src\IO.Swagger\eu.operando.interfaces.aapi.csproj">
       <Project>{594234d1-bb49-41ac-a663-2a1c38807015}</Project>
       <Name>eu.operando.interfaces.aapi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eu.operando.common\eu.operando.common.csproj">
+      <Project>{2CC03D98-B10E-45AA-B859-FE1BE8B6CD99}</Project>
+      <Name>eu.operando.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eu.operando.core.bda\eu.operando.core.bda.csproj">
+      <Project>{00664eb8-aaf9-4e34-a9f5-6fc5cca7dd70}</Project>
+      <Name>eu.operando.core.bda</Name>
     </ProjectReference>
     <ProjectReference Include="..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>

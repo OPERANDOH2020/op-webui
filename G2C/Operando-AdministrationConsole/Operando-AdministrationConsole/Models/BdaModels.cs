@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using eu.operando.common.Entities;
+using eu.operando.core.bda.Model;
 
 namespace Operando_AdministrationConsole.Models
 {
@@ -30,11 +32,31 @@ namespace Operando_AdministrationConsole.Models
 
     public class BdaJob
     {
+        /// <summary>
+        /// Default Ctor required for MVC serialization
+        /// </summary>
+        public BdaJob()
+        {
+            
+        }
+
+        public BdaJob(Job job)
+        {
+            JobName = job.JobName;
+            Description = job.Description;
+            CurrentVersionNumber = job.CurrentVersionNumber;
+            DefinitionLocation = job.DefinitionLocation;
+            CostPerExecution = job.CostPerExecution;
+            Osps = job.Osps;
+            Schedules = job.Schedules.Select(_ => new BdaSchedule(_)).ToList();
+            Executions = job.Executions.Select(_ => new BdaExecution(_)).ToList();
+        }
+
         public string JobName { get; set; }
         public string Description { get; set; }
         public string CurrentVersionNumber { get; set; }
         public string DefinitionLocation { get; set; }
-        public string CostPerExecution { get; set; }
+        public Money CostPerExecution { get; set; }
         public List<string> Osps { get; set; }
         public List<BdaSchedule> Schedules { get; set; }
         public List<BdaExecution> Executions { get; set; }
@@ -82,7 +104,20 @@ namespace Operando_AdministrationConsole.Models
     }
 
     public class BdaExecution
-    {
+    { /// <summary>
+      /// Default Ctor required for MVC serialization
+      /// </summary>
+        public BdaExecution()
+        {
+        }
+
+        public BdaExecution(Execution execution)
+        {
+            OspScheduled = execution.OspScheduled;
+            ExecutionDate = execution.ExecutionDate;
+            VersionNumber = execution.VersionNumber;
+            DownloadLink = execution.DownloadLink;
+        }
         public string ExecutionDate { get; set; }
         public string VersionNumber { get; set; }
         public string OspScheduled { get; set; }
@@ -91,6 +126,24 @@ namespace Operando_AdministrationConsole.Models
 
     public class BdaSchedule
     {
+        /// <summary>
+        /// Default Ctor required for MVC serialization
+        /// </summary>
+        public BdaSchedule()
+        {
+            
+        }
+
+        public BdaSchedule(Schedule schedule)
+        {
+            OspScheduled = schedule.OspScheduled;
+            StartDate = schedule.StartDate;
+            StartTime = schedule.StartTime;
+            RepeatIntervalUnit = schedule.RepeatIntervalUnit;
+            RepeatIntervalValue = schedule.RepeatIntervalValue;
+            StoragePeriod = schedule.StoragePeriod;
+        }
+
         public string OspScheduled { get; set; }
         public string StartDate { get; set; }
         public string StartTime { get; set; }

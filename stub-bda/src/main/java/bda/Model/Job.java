@@ -1,20 +1,20 @@
-package bda;
+package bda.Model;
 
 import java.util.Vector;
 
-public class BdaJob
+public class Job
 {
 	private String jobName = "";
 	private String description = "";
 	private String currentVersionNumber = "";
 	private String definitionLocation = "";
-	private String costPerExecution = "";
+	private Money costPerExecution = null;
 	private Vector<String> osps = new Vector<String>();
-	private Vector<BdaSchedule> schedules = new Vector<BdaSchedule>();
-	private Vector<BdaExecution> executions = new Vector<BdaExecution>();
+	private Vector<Schedule> schedules = new Vector<Schedule>();
+	private Vector<Execution> executions = new Vector<Execution>();
 	
-	public BdaJob(String jobName, String description, String currentVersionNumber, String definitionLocation, String costPerExecution, Vector<String> osps,
-			Vector<BdaSchedule> schedules, Vector<BdaExecution> executions)
+	public Job(String jobName, String description, String currentVersionNumber, String definitionLocation, Money costPerExecution, Vector<String> osps,
+			Vector<Schedule> schedules, Vector<Execution> executions)
 	{
 		super();
 		this.jobName = jobName;
@@ -67,12 +67,12 @@ public class BdaJob
 		this.currentVersionNumber = currentVersionNumber;
 	}
 
-	public String getCostPerExecution()
+	public Money getCostPerExecution()
 	{
 		return costPerExecution;
 	}
 
-	public void setCostPerExecution(String costPerExecution)
+	public void setCostPerExecution(Money costPerExecution)
 	{
 		this.costPerExecution = costPerExecution;
 	}
@@ -87,22 +87,22 @@ public class BdaJob
 		this.osps = osps;
 	}
 
-	public Vector<BdaSchedule> getSchedules()
+	public Vector<Schedule> getSchedules()
 	{
 		return schedules;
 	}
 
-	public void setSchedules(Vector<BdaSchedule> schedules)
+	public void setSchedules(Vector<Schedule> schedules)
 	{
 		this.schedules = schedules;
 	}
 
-	public Vector<BdaExecution> getExecutions()
+	public Vector<Execution> getExecutions()
 	{
 		return executions;
 	}
 
-	public void setExecutions(Vector<BdaExecution> executions)
+	public void setExecutions(Vector<Execution> executions)
 	{
 		this.executions = executions;
 	}

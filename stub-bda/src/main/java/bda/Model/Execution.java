@@ -1,13 +1,13 @@
-package bda;
+package bda.Model;
 
-public class BdaExecution
+public class Execution
 {
 	private String executionDate = null;
 	private String versionNumber = "";
 	private String ospScheduled = "";
 	private String downloadLink = "";
 	
-	public BdaExecution(String executionDate, String versionNumber, String ospScheduled, String downloadLink)
+	public Execution(String executionDate, String versionNumber, String ospScheduled, String downloadLink)
 	{
 		super();
 		this.executionDate = executionDate;
