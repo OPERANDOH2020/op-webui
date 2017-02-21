@@ -5788,8 +5788,8 @@
     <Content Include="Views\Regulator\PolicyStatements.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementEdit.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementAdd.cshtml" />
-    <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
-  </ItemGroup>
+    <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
+    <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />  </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\apps\img\" />
