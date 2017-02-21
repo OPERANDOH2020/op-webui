@@ -294,6 +294,11 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        public ActionResult PrivacyQuestionnaire()
+        {
+            return View();
+        }
+
 
     }
 }
