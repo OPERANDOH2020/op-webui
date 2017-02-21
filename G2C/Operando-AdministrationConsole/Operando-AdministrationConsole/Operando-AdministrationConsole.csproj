@@ -5227,6 +5227,7 @@
     <Content Include="assets\pages\scripts\maps-google.min.js" />
     <Content Include="assets\pages\scripts\maps-vector.js" />
     <Content Include="assets\pages\scripts\maps-vector.min.js" />
+    <Content Include="assets\pages\scripts\operando-complianceregulation-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-complianceregulation-table-managed.js" />
     <Content Include="assets\pages\scripts\operando-complianceregulationdetail-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-complianceregulationdetail-table-managed.js" />
@@ -5795,6 +5796,7 @@
     <Content Include="Views\PspAdmin\UsersManagementAdd.cshtml" />
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
+    <Content Include="Views\Regulator\RegulationComplianceDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

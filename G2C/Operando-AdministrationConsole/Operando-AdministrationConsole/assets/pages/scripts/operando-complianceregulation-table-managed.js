@@ -41,6 +41,7 @@
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>
@@ -141,6 +142,7 @@
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>

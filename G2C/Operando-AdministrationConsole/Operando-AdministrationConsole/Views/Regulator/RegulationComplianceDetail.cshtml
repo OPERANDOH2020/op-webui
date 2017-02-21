@@ -52,11 +52,13 @@
             else
                 $('#warningNoModule').show();
 
-        var osp1 = getUrlVars()["regulation"] + "  " + getUrlVars()["osp"];
+        var osp1 = getUrlVars()["regulation"];
         $('#lblRegulation1Title').text(osp1);
         $('#lblRegulation2Title').text(osp1);
 
         var osp2 = getUrlVars()["osp"];
+        $('#lblRegulation1Osp').text(osp2);
+        $('#lblRegulation2Osp').text(osp2);
         $('#lblRegulationTitleRegulation1Osp1').text(osp2);
         $('#lblRegulationTitleRegulation1Osp2').text(osp2);
         $('#lblRegulationTitleRegulation1Osp3').text(osp2);
@@ -136,7 +138,8 @@
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    REGULATION <label id="lblRegulation1Title"></label>
+                                    REGULATION <label id="lblRegulation1Title"></label><br />
+                                    <label id="lblRegulation1Osp"></label>
                                 </div>
                             </div>
                        
@@ -180,12 +183,12 @@
                                                 <table style="width:100%" class="table table-striped col-md-12 table-bordered table-hover order-column" id="ComplianceRegulation1_psp">
                                                     <thead>
                                                         <tr>
-                                                            <th class="sorting col-md-3">OSP</th>
-                                                            <th class="sorting col-md-3">Data user</th>
-                                                            <th class="sorting">Data subject</th>
-                                                            <th class="sorting">Type of information used</th>
-                                                            <th class="sorting">Reason for use</th>
-                                                            <th class="sorting">Comply</th>
+                                                            <th class="sorting col-md-1">OSP</th>
+                                                            <th class="sorting col-md-1">Data user</th>
+                                                            <th class="sorting col-md-2">Data subject</th>
+                                                            <th class="sorting col-md-2">Type of information used</th>
+                                                            <th class="sorting col-md-2">Reason for use</th>
+                                                            <th class="sorting col-md-1">Comply</th>
 
                                                         </tr>
                                                     </thead>
@@ -274,7 +277,8 @@
                     <div class="portlet light">
                         <div class="portlet-title">
                             <div class="caption">
-                                REGULATION <label id="lblRegulation2Title"></label>
+                                REGULATION <label id="lblRegulation2Title"></label><br />
+                            <label id="lblRegulation2Osp"></label>
                             </div>
                         </div>
 
@@ -318,12 +322,12 @@
                                             <table style="width:100%" class="table table-striped col-md-12 table-bordered table-hover order-column" id="ComplianceRegulation2_psp">
                                                 <thead>
                                                     <tr>
-                                                        <th class="sorting col-md-3">OSP</th>
-                                                        <th class="sorting col-md-3">Data user</th>
-                                                        <th class="sorting">Data subject</th>
-                                                        <th class="sorting">Type of information used</th>
-                                                        <th class="sorting">Reason for use</th>
-                                                        <th class="sorting">Comply</th>
+                                                        <th class="sorting col-md-1">OSP</th>
+                                                        <th class="sorting col-md-1">Data user</th>
+                                                        <th class="sorting col-md-2">Data subject</th>
+                                                        <th class="sorting col-md-2">Type of information used</th>
+                                                        <th class="sorting col-md-2">Reason for use</th>
+                                                        <th class="sorting col-md-1">Comply</th>
 
                                                     </tr>
                                                 </thead>
