@@ -64,7 +64,7 @@ var UppManagementToolTables = function () {
                 [5, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 5,            
+            "pageLength": 15,            
             "pagingType": "bootstrap_full_number",
             "columnDefs": [
                 {  // set default column settings
@@ -78,7 +78,7 @@ var UppManagementToolTables = function () {
                 },
     
                 {
-                    "className": "dt-right", 
+                    "className": "dt-right" 
                     //"targets": [2]
                 },
                 {
@@ -155,7 +155,7 @@ var UppManagementToolTables = function () {
                 [5, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 5,
+            "pageLength": 15,
             "pagingType": "bootstrap_full_number",
             "columnDefs": [
                 {  // set default column settings
