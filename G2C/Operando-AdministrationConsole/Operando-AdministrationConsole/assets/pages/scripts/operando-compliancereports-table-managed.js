@@ -2,7 +2,7 @@
 
     var initTable1 = function () {
 
-        var table = $('#ComplianceReports1_psp');
+        var table = $('#ComplianceRegulation1_psp');
 
         // begin first table
         table.dataTable({
@@ -41,6 +41,7 @@
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>
@@ -101,7 +102,7 @@
 
     var initTable2 = function () {
 
-        var table = $('#ComplianceReports2_psp');
+        var table = $('#ComplianceRegulation2_psp');
 
         // begin first table
         table.dataTable({
@@ -140,6 +141,7 @@
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>
@@ -200,7 +202,7 @@
 
     var initTable3 = function () {
 
-        var table = $('#ComplianceReports3_psp');
+        var table = $('#ComplianceRegulation3_psp');
 
         // begin first table
         table.dataTable({
@@ -239,6 +241,7 @@
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>
