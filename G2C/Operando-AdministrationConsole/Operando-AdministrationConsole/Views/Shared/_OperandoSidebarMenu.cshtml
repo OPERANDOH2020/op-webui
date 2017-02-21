@@ -95,6 +95,16 @@
                             }
                     </a>
                 </li>
+                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire") { @activeClass }'>
+                    <a href="@Url.Action("PrivacyQuestionnaire", "DataSubject")" class="nav-link ">
+                        <i class="icon-question"></i>
+                        <span class="title">Privacy Questionnaire</span>
+                        @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire")
+                        {
+                            @:<span class="selected"></span>
+                            }
+                    </a>
+                </li>
 
             </ul>
         </li>
