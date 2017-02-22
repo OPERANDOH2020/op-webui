@@ -145,6 +145,7 @@ function drawStuff4() {
 
 // ..............................................................
 
+function drawStuff5() {
 var data = new google.visualization.arrayToDataTable([
       ['1', 'Percentage'],
       ["2", 44],
