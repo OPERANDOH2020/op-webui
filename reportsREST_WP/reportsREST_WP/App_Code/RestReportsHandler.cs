@@ -163,6 +163,7 @@ public class RestReportsHandler : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
+        throw new Exception("error");
         try
         {
             context.Response.ContentType = "application/json";
