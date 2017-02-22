@@ -93,6 +93,7 @@ var UppManagementToolTables = function () {
 
         //var tableWrapper = jQuery('#reports_osp_wrapper');
     }
+
     var initTable2 = function () {
 
         var table = $('#UppManagementTool2_psp');
