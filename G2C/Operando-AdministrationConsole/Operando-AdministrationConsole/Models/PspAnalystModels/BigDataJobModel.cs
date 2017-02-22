@@ -29,9 +29,9 @@ namespace Operando_AdministrationConsole.Models.PspAnalystModels
 
         public string SelectedOsp { get; set; }
 
-        public Money.CurrencyCode[] AvailableCurrencies { get; } = Money.AvailableCurrencyCodes;
+        public Money.CurrencyCode[] AvailableCurrencies { get; set; }
 
-        public string[] AvailableOsps { get; set; } = new string[0];
+        public string[] AvailableOsps { get; set; }
 
         /// <summary>
         /// Default ctor required for MVC model serialization
@@ -40,17 +40,6 @@ namespace Operando_AdministrationConsole.Models.PspAnalystModels
         public BigDataJobModel()
         {
             
-        }
-
-        public BigDataJobModel(Job job)
-        {
-            JobId = job.Id;
-            JobName = job.JobName;
-            Description = job.Description;
-            CurrentVersionNumber = job.CurrentVersionNumber;
-            DefinitionLocation = job.DefinitionLocation;
-            CostPerExecution = job.CostPerExecution.Value;
-            SelectedCurrency = job.CostPerExecution.Currency;
         }
     }
 }

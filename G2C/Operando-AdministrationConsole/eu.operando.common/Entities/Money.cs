@@ -31,7 +31,7 @@ namespace eu.operando.common.Entities
         /// <summary>
         /// All currency codes
         /// </summary>
-        public static CurrencyCode[] AvailableCurrencyCodes => Enum.GetValues(typeof(CurrencyCode)).Cast<CurrencyCode>().ToArray();
+        public static CurrencyCode[] AvailableCurrencyCodes { get; } = Enum.GetValues(typeof(CurrencyCode)).Cast<CurrencyCode>().ToArray();
 
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Currencies are written this way")]
         public enum CurrencyCode

@@ -13,8 +13,10 @@ using Operando_AdministrationConsole.Helper;
 using System.Net;
 using System.Text;
 using eu.operando.common;
+using eu.operando.common.Entities;
 using eu.operando.common.Services;
 using eu.operando.core.bda;
+using eu.operando.core.bda.Model;
 using Operando_AdministrationConsole.Models.PspAnalystModels;
 
 namespace Operando_AdministrationConsole.Controllers
@@ -27,7 +29,15 @@ namespace Operando_AdministrationConsole.Controllers
 
         private readonly IBdaClient _bdaClient;
 
+        /// <summary>
+        /// TODO where should this come from?
+        /// </summary>
         private readonly string[] _availableOsps = {"OCC", "PDI", "ITI"};
+
+        /// <summary>
+        /// TODO where should this come from?
+        /// </summary>
+        private readonly Money.CurrencyCode[] _availablecurrencyCodes = Money.AvailableCurrencyCodes;
 
         public PspAnalystController()
         {
@@ -116,6 +126,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             var model = new BigDataJobModel
             {
+                AvailableCurrencies = _availablecurrencyCodes,
                 AvailableOsps = _availableOsps
             };
 
@@ -138,9 +149,18 @@ namespace Operando_AdministrationConsole.Controllers
                 return HttpNotFound();
             }
 
-            var model = new BigDataJobModel(job)
+            var model = new BigDataJobModel
             {
-                AvailableOsps = _availableOsps
+                AvailableCurrencies = _availablecurrencyCodes,
+                AvailableOsps = _availableOsps,
+
+                JobId = job.Id,
+                JobName = job.JobName,
+                Description = job.Description,
+                CurrentVersionNumber = job.CurrentVersionNumber,
+                DefinitionLocation = job.DefinitionLocation,
+                CostPerExecution = job.CostPerExecution.Value,
+                SelectedCurrency = job.CostPerExecution.Currency
             };
 
             return PartialView("_editBigDataJobModal", model);
