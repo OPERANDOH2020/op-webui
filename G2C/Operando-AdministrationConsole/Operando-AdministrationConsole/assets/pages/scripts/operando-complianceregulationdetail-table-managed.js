@@ -39,8 +39,8 @@
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
-
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>
@@ -137,8 +137,8 @@
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
-
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>
