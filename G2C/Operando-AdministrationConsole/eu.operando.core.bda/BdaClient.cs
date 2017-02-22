@@ -11,6 +11,9 @@ using eu.operando.core.bda.Model;
 
 namespace eu.operando.core.bda
 {
+    /// <summary>
+    /// TODO -- this needs wiring up against a real BDA module service
+    /// </summary>
     public class BdaClient : IBdaClient
     {
         private readonly Uri _rootUrl;
@@ -44,7 +47,14 @@ namespace eu.operando.core.bda
 
         public Task AddJobAsync(Job job)
         {
-            throw new NotImplementedException();
+            // No-op. Should be Task.CompletedTask but that is not available until .NET 4.6 (this is .NET 4.0)
+            return Task.FromResult(true);
+        }
+
+        public Task UpdateJobAsync(Job job)
+        {
+            // No-op. Should be Task.CompletedTask but that is not available until .NET 4.6 (this is .NET 4.0)
+            return Task.FromResult(true);
         }
 
         private async Task<T> GetAsync<T>(Uri url)

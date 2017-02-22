@@ -8,7 +8,7 @@ namespace eu.operando.core.bda
 {
     public interface IBdaClient
     {
-        [NotNull]
+        [ItemNotNull]
         Task<ICollection<Job>> GetJobsAsync(string osp);
 
         /// <summary>
@@ -17,6 +17,17 @@ namespace eu.operando.core.bda
         [ItemCanBeNull]
         Task<Job> GetJobByIdAsync(Guid jobId);
 
-        Task AddJobAsync(Job job);
+        /// <summary>
+        /// Create a big data job
+        /// </summary>
+        [NotNull]
+        Task AddJobAsync([NotNull] Job job);
+
+        /// <summary>
+        /// Update the job
+        /// </summary>
+        /// <exception cref="InvalidOperationException">If a job with the specified ID does not exist</exception>
+        [NotNull]
+        Task UpdateJobAsync([NotNull] Job job);
     }
 }

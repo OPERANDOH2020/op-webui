@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using eu.operando.common.Entities;
-using eu.operando.core.bda.Model;
 
 namespace Operando_AdministrationConsole.Models.PspAnalystModels
 {
@@ -27,7 +25,7 @@ namespace Operando_AdministrationConsole.Models.PspAnalystModels
         [Required]
         public Money.CurrencyCode SelectedCurrency { get; set; }
 
-        public string SelectedOsp { get; set; }
+        public string[] SelectedOsps { get; set; }
 
         public Money.CurrencyCode[] AvailableCurrencies { get; set; }
 

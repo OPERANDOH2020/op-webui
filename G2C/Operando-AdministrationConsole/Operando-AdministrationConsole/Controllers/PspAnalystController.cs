@@ -134,9 +134,33 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddJob(BigDataJobModel model)
+        public async Task<ActionResult> AddJob(BigDataJobModel model)
         {
-            return RedirectToAction("BigDataAnalyticsConfig");
+            try
+            {
+                var job = new Job
+                {
+                    JobName = model.JobName,
+                    Description = model.Description,
+                    CurrentVersionNumber = model.CurrentVersionNumber,
+                    DefinitionLocation = model.DefinitionLocation,
+                    CostPerExecution = new Money
+                    {
+                        Currency = model.SelectedCurrency,
+                        Value = model.CostPerExecution
+                    },
+                    Osps = model.SelectedOsps.ToList()
+                };
+
+
+                await _bdaClient.AddJobAsync(job);
+
+                return RedirectToAction("BigDataAnalyticsConfig");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         [HttpGet]
@@ -160,7 +184,8 @@ namespace Operando_AdministrationConsole.Controllers
                 CurrentVersionNumber = job.CurrentVersionNumber,
                 DefinitionLocation = job.DefinitionLocation,
                 CostPerExecution = job.CostPerExecution.Value,
-                SelectedCurrency = job.CostPerExecution.Currency
+                SelectedCurrency = job.CostPerExecution.Currency,
+                SelectedOsps = job.Osps.ToArray()
             };
 
             return PartialView("_editBigDataJobModal", model);
