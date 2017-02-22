@@ -68,7 +68,7 @@ function drawStuff2() {
         bar: { groupWidth: "40%" }
     };
 
-    var chart = new google.charts.Bar(document.getElementById('upp-chart-1'));
+    var chart = new google.charts.Bar(document.getElementById('upp-chart-2'));
     // Convert the Classic options to Material options.
     chart.draw(data, google.charts.Bar.convertOptions(options));
 };
@@ -103,7 +103,7 @@ function drawStuff3() {
         bar: { groupWidth: "40%" }
     };
 
-    var chart = new google.charts.Bar(document.getElementById('upp-chart-1'));
+    var chart = new google.charts.Bar(document.getElementById('upp-chart-3'));
     // Convert the Classic options to Material options.
     chart.draw(data, google.charts.Bar.convertOptions(options));
 };
@@ -138,7 +138,7 @@ function drawStuff4() {
         bar: { groupWidth: "40%" }
     };
 
-    var chart = new google.charts.Bar(document.getElementById('upp-chart-1'));
+    var chart = new google.charts.Bar(document.getElementById('upp-chart-4'));
     // Convert the Classic options to Material options.
     chart.draw(data, google.charts.Bar.convertOptions(options));
 };
@@ -173,7 +173,7 @@ var options = {
     bar: { groupWidth: "40%" }
 };
 
-var chart = new google.charts.Bar(document.getElementById('upp-chart-1'));
+var chart = new google.charts.Bar(document.getElementById('upp-chart-5'));
 // Convert the Classic options to Material options.
 chart.draw(data, google.charts.Bar.convertOptions(options));
 };
