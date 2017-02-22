@@ -15,6 +15,7 @@ using System.Text;
 using eu.operando.common;
 using eu.operando.common.Services;
 using eu.operando.core.bda;
+using Operando_AdministrationConsole.Models.PspAnalystModels;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -25,6 +26,8 @@ namespace Operando_AdministrationConsole.Controllers
         private static readonly Uri RegulationsRoot = new Uri("http://localhost:8080/stub-pdb/api/regulations/");
 
         private readonly IBdaClient _bdaClient;
+
+        private readonly string[] _availableOsps = {"OCC", "PDI", "ITI"};
 
         public PspAnalystController()
         {
@@ -106,6 +109,47 @@ namespace Operando_AdministrationConsole.Controllers
                 Jobs = jobs.Select(_ => new BdaJob(_)).ToList()
             };
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult AddJob()
+        {
+            var model = new BigDataJobModel
+            {
+                AvailableOsps = _availableOsps
+            };
+
+            return PartialView("_addBigDataJobModal", model);
+        }
+
+        [HttpPost]
+        public ActionResult AddJob(BigDataJobModel model)
+        {
+            return RedirectToAction("BigDataAnalyticsConfig");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditJob(Guid jobId)
+        {
+            var job = await _bdaClient.GetJobByIdAsync(jobId);
+
+            if (job == null)
+            {
+                return HttpNotFound();
+            }
+
+            var model = new BigDataJobModel(job)
+            {
+                AvailableOsps = _availableOsps
+            };
+
+            return PartialView("_editBigDataJobModal", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditJob(BigDataJobModel model)
+        {
+            return RedirectToAction("BigDataAnalyticsConfig");
         }
     }
 }

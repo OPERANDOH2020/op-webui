@@ -12,18 +12,7 @@ namespace Operando_AdministrationConsole.Models
     {
         public List<BdaJob> Jobs { get; set; }
 
-        public List<string> Osps
-        {
-            get
-            {
-                List<string> ospsUnique = new List<string>();
-                foreach (BdaJob job in Jobs)
-                {
-                    ospsUnique.Union(job.Osps);
-                }
-                return ospsUnique;
-            }
-        }
+        public List<string> Osps => Jobs?.SelectMany(_ => _.Osps).Distinct().ToList();
 
         /*public List<BdaExecution> Executions
         {
@@ -42,6 +31,7 @@ namespace Operando_AdministrationConsole.Models
 
         public BdaJob(Job job)
         {
+            JobId = job.Id;
             JobName = job.JobName;
             Description = job.Description;
             CurrentVersionNumber = job.CurrentVersionNumber;
@@ -51,6 +41,8 @@ namespace Operando_AdministrationConsole.Models
             Schedules = job.Schedules.Select(_ => new BdaSchedule(_)).ToList();
             Executions = job.Executions.Select(_ => new BdaExecution(_)).ToList();
         }
+
+        public Guid JobId { get; set; }
 
         public string JobName { get; set; }
         public string Description { get; set; }

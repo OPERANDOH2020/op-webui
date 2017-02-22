@@ -235,6 +235,7 @@
     <Compile Include="Models\DataAccessLog.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="Models\PrivacyPolicy.cs" />
+    <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
     <Compile Include="Models\Regulation.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -5225,6 +5226,7 @@
     <Content Include="assets\pages\scripts\maps-google.min.js" />
     <Content Include="assets\pages\scripts\maps-vector.js" />
     <Content Include="assets\pages\scripts\maps-vector.min.js" />
+    <Content Include="assets\pages\scripts\operando-bda-modal.js" />
     <Content Include="assets\pages\scripts\operando-compliancereports-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-compliancereports-table-managed.js" />
     <Content Include="assets\pages\scripts\operando-custom-bootstrap-select.js" />
@@ -5728,6 +5730,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\PspAnalyst\ModelEditors\BigDataJobModelEditor.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5786,6 +5789,8 @@
     <Content Include="Views\Regulator\PolicyStatements.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementEdit.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementAdd.cshtml" />
+    <Content Include="Views\PspAnalyst\_addBigDataJobModal.cshtml" />
+    <Content Include="Views\PspAnalyst\_editBigDataJobModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
