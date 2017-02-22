@@ -7,28 +7,27 @@ google.charts.setOnLoadCallback(drawStuff5);
 
 function drawStuff1() {
     var data = new google.visualization.arrayToDataTable([
-      ['1', 'preferences'],
-      ['2', 8],
-      ['3', 7],
-      ['4', 4],
-      ['5', 8],
-      ['6', 10],
-      ['7', 3],
-      ['8', 3],
-      ['9', 3],
-      ['10', 3],
-      ['11', 3],
+             [' ', ''],
+      ["1", 1],
+      ["2", 8],
+      ["3", 7],
+      ["4", 4],
+      ["5", 8],
+      ["6", 10],
+      ["7", 3],
+      ["8", 10],
+      ["9", 3],
+      ["10", 3],
     ]);
 
     var options = {
         title: '',
         width: 900,
-        height: 300,
-        legend: { position: 'bottom' },
+        legend: { position: 'none' },
         chart: { subtitle: 'none' },
         axes: {
             x: {
-                0: { side: 'bottom', label: ''} // Top x-axis.
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
         },
         bar: { groupWidth: "40%" }
@@ -43,28 +42,27 @@ function drawStuff1() {
 
 function drawStuff2() {
     var data = new google.visualization.arrayToDataTable([
-      ['1', 'preferences'],
-      ["2", 2],
-      ['3', 7],
-      ['4', 10],
-      ['5', 8],
-      ['6', 10],
-      ['7', 3],
-      ['8', 2],
-      ['9', 3],
-      ['10', 10],
-      ['11', 10],
+             [' ', ''],
+      ["1", 1],
+      ["2", 8],
+      ["3", 7],
+      ["4", 4],
+      ["5", 8],
+      ["6", 1],
+      ["7", 3],
+      ["8", 1],
+      ["9", 3],
+      ["10", 3],
     ]);
 
     var options = {
         title: '',
         width: 900,
-        height: 300,
-        legend: { position: 'bottom' },
+        legend: { position: 'none' },
         chart: { subtitle: 'none' },
         axes: {
             x: {
-                0: { side: 'bottom', label: '' } // Top x-axis.
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
         },
         bar: { groupWidth: "40%" }
@@ -79,28 +77,27 @@ function drawStuff2() {
 
 function drawStuff3() {
     var data = new google.visualization.arrayToDataTable([
-      ['1', 'preferences'],
-      ['2', 1],
-      ['3', 7],
-      ['4', 4],
-      ['5', 8],
-      ['6', 1],
-      ['7', 3],
-      ['8', 3],
-      ['9', 3],
-      ['10', 1],
-            ['11', 10],
+             [' ', ''],
+      ["1", 1],
+      ["2", 8],
+      ["3", 1],
+      ["4", 4],
+      ["5", 8],
+      ["6", 1],
+      ["7", 3],
+      ["8", 10],
+      ["9", 3],
+      ["10", 3],
     ]);
 
     var options = {
         title: '',
         width: 900,
-        height: 300,
-        legend: { position: 'bottom' },
+        legend: { position: 'none' },
         chart: { subtitle: 'none' },
         axes: {
             x: {
-                0: { side: 'bottom', label: '' } // Top x-axis.
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
         },
         bar: { groupWidth: "40%" }
@@ -115,28 +112,27 @@ function drawStuff3() {
 
 function drawStuff4() {
     var data = new google.visualization.arrayToDataTable([
-            ['1', 'preferences'],
-      ['2', 8],
-      ['3', 7],
-      ['4', 4],
-      ['5', 8],
-      ['6', 1],
-      ['7', 3],
-      ['8', 3],
-      ['9', 3],
-      ['10', 3],
-            ['11', 10],
+            [' ', ''],
+      ["1", 8],
+      ["2", 8],
+      ["3", 7],
+      ["4", 4],
+      ["5", 8],
+      ["6", 1],
+      ["7", 3],
+      ["8", 10],
+      ["9", 3],
+      ["10", 3],            
     ]);
 
     var options = {
         title: '',
         width: 900,
-        height: 300,
-        legend: { position: 'bottom' },
+        legend: { position: 'none' },
         chart: { subtitle: 'none' },
         axes: {
             x: {
-                0: { side: 'bottom', label: '' } // Top x-axis.
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
         },
         bar: { groupWidth: "40%" }
@@ -151,32 +147,31 @@ function drawStuff4() {
 
 function drawStuff5() {
 var data = new google.visualization.arrayToDataTable([
-         ['1', 'preferences'],
-      ['2', 8],
-      ['3', 7],
-      ['4', 10],
-      ['5', 8],
-      ['6', 10],
-      ['7', 3],
-      ['8', 3],
-      ['9', 3],
-      ['10', 10],
-            ['11', 10],
+               [' ', ''],
+      ["1", 8],
+      ["2", 8],
+      ["3", 7],
+      ["4", 4],
+      ["5", 8],
+      ["6", 1],
+      ["7", 3],
+      ["8", 10],
+      ["9", 3],
+      ["10", 3],
 ]);
 
-var options = {
-    title: '',
-    width: 900,
-    height: 300,
-    legend: { position: 'bottom' },
-    chart: { subtitle: 'none' },
-    axes: {
-        x: {
-            0: { side: 'bottom', label: ''} // Top x-axis.
-        }
-    },
-    bar: { groupWidth: "40%" }
-};
+    var options = {
+        title: '',
+        width: 900,
+        legend: { position: 'none' },
+        chart: { subtitle: 'none' },
+        axes: {
+            x: {
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
+            }
+        },
+        bar: { groupWidth: "40%" }
+    };
 
 var chart = new google.charts.Bar(document.getElementById('upp-chart-5'));
 // Convert the Classic options to Material options.
