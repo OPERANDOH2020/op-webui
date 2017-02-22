@@ -71,7 +71,7 @@
 
 
                                                                 <!-- .......................................................................... -->
-                                                               
+
 
                                                                 <div class="row">
                                                                     <!--  ----------------------------------------------------   -->
@@ -81,7 +81,8 @@
                                                                         <div class="portlet">
                                                                             <table style="width:100%; background-color:white;" class="table table-striped table-bordered table-hover order-column" id="UppManagementTool1_psp">
                                                                                 <thead>
-                                                                                    <tr><th class="col-md-1"></th>
+                                                                                    <tr>
+                                                                                        <th class="col-md-1"></th>
                                                                                         <th class="sorting col-md-2"> ID </th>
                                                                                         <th class="sorting col-md-9"> User name </th>
 
@@ -90,7 +91,7 @@
                                                                                 <tbody>
 
                                                                                     <!-- ........................................... -->
-                                                                                    
+
                                                                                     <tr id="tabID01" class="odd gradeX">
                                                                                         <td><i onclick="$('#tabList01').toggle()" class="fa fa-plus visible"></i></td>
                                                                                         <td>40</td>
@@ -101,15 +102,15 @@
                                                                                     <!-- ........................................... -->
 
                                                                                     <tr style="display:none;" class="active accordion-body collapse visible" id="tabList01">
-                                                                                      
-                                                                                        <td width="100%"  colspan="3">
+
+                                                                                        <td width="100%" colspan="3">
                                                                                             <div class="portlet light">
                                                                                                 <div class="portlet-title">
                                                                                                     <div class="caption">
                                                                                                         <span class="caption-subject font-dark bold uppercase">User Preferences</span>
-                                                                                                    </div>     
+                                                                                                    </div>
                                                                                                 </div>
-                                                                                                </div>
+                                                                                            </div>
                                                                                             <div>
                                                                                                 <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="tabUppResult1">
                                                                                                     <thead>
@@ -186,7 +187,7 @@
 
                                                                                                 </table>
                                                                                             </div>
-                                                                                            </td>
+                                                                                        </td>
                                                                                         <td style="background-color:white;border:0;padding:0;margin:0;"></td>
                                                                                         <td style="background-color:white;border:0;padding:0;margin:0;"></td>
                                                                                     </tr>
@@ -203,10 +204,10 @@
 
                                                                                     <!-- ........................................... -->
 
-                                                                                                                                                               
+
                                                                                     <tr style="display:none;" class="active accordion-body collapse visible" id="tabList02">
 
-                                                                                        <td width="100%"  colspan="3">
+                                                                                        <td width="100%" colspan="3">
                                                                                             <div class="portlet light">
                                                                                                 <div class="portlet-title">
                                                                                                     <div class="caption">
@@ -294,8 +295,8 @@
                                                                                         <td style="background-color:white;border:0;padding:0;margin:0;"></td>
                                                                                         <td style="background-color:white;border:0;padding:0;margin:0;"></td>
                                                                                     </tr>
-                                                                            
-                                                                          
+
+
                                                                                     <!-- ........................................... -->
 
                                                                                     <tr id="tabID03" class="even gradeX">
@@ -307,7 +308,7 @@
 
                                                                                     <!-- ........................................... -->
 
-                                                                                    <tr id="tabList03" style="display:none;" class="active accordion-body collapse visible" >
+                                                                                    <tr id="tabList03" style="display:none;" class="active accordion-body collapse visible">
 
                                                                                         <td width="100%" colspan="3">
                                                                                             <div class="portlet light">
@@ -411,7 +412,7 @@
                                                                                     <!-- ........................................... -->
 
 
-                                                                                    <tr id="tabList04" style="display:none;" class="active accordion-body collapse visible" >
+                                                                                    <tr id="tabList04" style="display:none;" class="active accordion-body collapse visible">
 
                                                                                         <td width="100%" colspan="3">
                                                                                             <div class="portlet light">
@@ -611,15 +612,15 @@
 
 
 
-                                                                              </table>
+                                                                            </table>
 
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                    </div>
 
 
                                                 <!--  ------------------------------------------------------------------------------------------- -->
@@ -641,94 +642,587 @@
                                                             </div>
 
                                                             <div class="portlet-body">
+
+
+                                                                <!-- .......................................................................... -->
+
+
                                                                 <div class="row">
+                                                                    <!--  ----------------------------------------------------   -->
+                                                                    <!--  ----------------   USERS TABLE   -------------------   -->
+                                                                    <!--  ----------------------------------------------------   -->
+                                                                    <div class="col-xs-12 col-md-12">
+                                                                        <div class="portlet">
+                                                                            <table style="width:100%; background-color:white;" class="table table-striped table-bordered table-hover order-column" id="UppManagementTool2_psp">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="col-md-1"></th>
+                                                                                        <th class="sorting col-md-2">Role</th>
+                                                                                        <th class="sorting col-md-2">Action</th>
+                                                                                        <th class="sorting col-md-2">Type</th>
+                                                                                        <th class="sorting col-md-1"> % YES</th>
+                                                                                        <th style="sorting col-md-1">% NO</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
 
-                                                                <div class="col-xs-12 col-md-12">
-                                                                    <div class="">
-                                                                        <table style="width:100%;"class="table table-striped table-bordered table-hover order-column" id="UppManagementTool2_psp">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th class="sorting "> Role </th>
-                                                                                    <th class="sorting" style="width:125px;"> Action </th>
-                                                                                    <th class="sorting" style="width:125px;"> Type </th>
-                                                                                    <th class="sorting" style="width:85px;"> % YES </th>
-                                                                                    <th style="width:85px;"> % NO</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <tr id="ID" class="odd gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
+                                                                                    <!-- ........................................... -->
 
-                                                                                </tr>
+                                                                                    <tr id="tabID11" class="odd gradeX">
+                                                                                        <td><i onclick="$('#tabList11').toggle()" class="fa fa-plus visible"></i></td>
+                                                                                        <td>Receptionist</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
 
-                                                                                <tr id="ID" class="even gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
+                                                                                    </tr>
 
-                                                                                </tr>
+                                                                                    <!-- ........................................... -->
 
-                                                                                <tr id="ID" class="odd gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
+                                                                                    <tr style="display:none;" class="active accordion-body collapse visible" id="tabList11">
 
-                                                                                </tr>
+                                                                                        <td width="100%" colspan="3">
+                                                                                            <div class="portlet light">
+                                                                                                <div class="portlet-title">
+                                                                                                    <div class="caption">
+                                                                                                        <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div>
+                                                                                                <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="tabUppResult11">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th class="sorting"> Role </th>
+                                                                                                            <th class="sorting" style="width:125px;"> Action </th>
+                                                                                                            <th class="sorting" style="width:125px;"> Type </th>
+                                                                                                            <th class="sorting" style="width:85px;"> Preference </th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>10</td>
 
-                                                                                <tr id="ID" class="even gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
 
-                                                                                </tr>
+                                                                                                        </tr>
 
-                                                                                <tr id="ID" class="odd gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>7</td>
 
-                                                                                </tr>
+                                                                                                        </tr>
 
-                                                                                <tr id="ID" class="odd gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>3</td>
 
-                                                                                </tr>
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>3</td>
 
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
+                                                                                                        </tr>
 
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>1</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                    </tr>
+
+                                                                                    <!-- ........................................... -->
+
+                                                                                    <tr id="tabID12" class="even gradeX">
+                                                                                        <td class=""><i onclick="$('#tabList12').toggle()" class="fa fa-plus"></i></td>
+                                                                                        <td>Receptionist</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+
+                                                                                    <!-- ........................................... -->
+
+
+                                                                                    <tr style="display:none;" class="active accordion-body collapse visible" id="tabList12">
+
+                                                                                        <td width="100%" colspan="3">
+                                                                                            <div class="portlet light">
+                                                                                                <div class="portlet-title">
+                                                                                                    <div class="caption">
+                                                                                                        <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div>
+                                                                                                <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="tabUppResult12">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th class="sorting"> Role </th>
+                                                                                                            <th class="sorting" style="width:125px;"> Action </th>
+                                                                                                            <th class="sorting" style="width:125px;"> Type </th>
+                                                                                                            <th class="sorting" style="width:85px;"> Preference </th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>9</td>
+
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>7</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>3</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>3</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>1</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                    </tr>
+
+
+                                                                                    <!-- ........................................... -->
+
+                                                                                    <tr id="tabID13" class="even gradeX">
+                                                                                        <td class=""><i onclick="$('#tabList13').toggle()" class="fa fa-plus"></i></td>
+                                                                                        <td>Receptionist</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+                                                                                    <!-- ........................................... -->
+
+                                                                                    <tr id="tabList13" style="display:none;" class="active accordion-body collapse visible">
+
+                                                                                        <td width="100%" colspan="3">
+                                                                                            <div class="portlet light">
+                                                                                                <div class="portlet-title">
+                                                                                                    <div class="caption">
+                                                                                                        <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div>
+                                                                                                <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="tabUppResult13">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th class="sorting"> Role </th>
+                                                                                                            <th class="sorting" style="width:125px;"> Action </th>
+                                                                                                            <th class="sorting" style="width:125px;"> Type </th>
+                                                                                                            <th class="sorting" style="width:85px;"> Preference </th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>9</td>
+
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>7</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>3</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>3</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>1</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                    </tr>
+
+                                                                                    <!-- ........................................... -->
+
+                                                                                    <tr id="tabID14" class="even gradeX">
+                                                                                        <td class=""><i onclick="$('#tabList14').toggle()" class="fa fa-plus"></i></td>
+                                                                                        <td>Receptionist</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+
+                                                                                    <!-- ........................................... -->
+
+
+                                                                                    <tr id="tabList14" style="display:none;" class="active accordion-body collapse visible">
+
+                                                                                        <td width="100%" colspan="3">
+                                                                                            <div class="portlet light">
+                                                                                                <div class="portlet-title">
+                                                                                                    <div class="caption">
+                                                                                                        <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div>
+                                                                                                <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="tabUppResult14">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th class="sorting col-md-2"> Role </th>
+                                                                                                            <th class="sorting col-md-2"> Action </th>
+                                                                                                            <th class="sorting col-md-2"> Type </th>
+                                                                                                            <th class="sorting col-md-2"> Preference </th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>9</td>
+
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>7</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>3</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>3</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>1</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                    </tr>
+
+                                                                                    <!-- ........................................... -->
+
+                                                                                    <tr id="tabID15" class="even gradeX">
+                                                                                        <td class=""><i onclick="$('#tabList05').toggle()" class="fa fa-plus"></i></td>
+                                                                                        <td>Receptionist</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+
+                                                                                    <!-- ........................................... -->
+
+
+                                                                                    <tr id="tabList15" style="display:none;" class="active accordion-body collapse visible">
+
+                                                                                        <td width="100%" colspan="3">
+                                                                                            <div class="portlet light">
+                                                                                                <div class="portlet-title">
+                                                                                                    <div class="caption">
+                                                                                                        <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div>
+                                                                                                <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="tabUppResult15">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th class="sorting col-md-2"> Role </th>
+                                                                                                            <th class="sorting col-md-2"> Action </th>
+                                                                                                            <th class="sorting col-md-2"> Type </th>
+                                                                                                            <th class="sorting col-md-2"> Preference </th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>9</td>
+
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>7</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>3</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Doctor</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>3</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="even gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>weight</td>
+                                                                                                            <td>1</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>name</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>age</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+                                                                                                        <tr id="ID" class="odd gradeX">
+                                                                                                            <td>Receptionist</td>
+                                                                                                            <td>read</td>
+                                                                                                            <td>sex</td>
+                                                                                                            <td>10</td>
+
+                                                                                                        </tr>
+
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                    </tr>
+
+                                                                                    <!-- ........................................... -->
+
+
+
+
+                                                                            </table>
+
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
 
 
-                                                        <!-- -------------------------------------------------------------------------------------------- -->
-                                                        <!-- ---------------------------- END TAB 2 ----------------------------------------------------- -->
-                                                        <!-- -------------------------------------------------------------------------------------------- -->
-                                                        <!-- -------------------------------------------------------------------------------------------- -->
-                                                        <!-- ---------------------------- BEGIN TAB 3 --------------------------------------------------- -->
-                                                        <!--  ------------------------------------------------------------------------------------------- -->
-                                                        <!--  ------------------------------------------------------------------------------------------- -->
+
+                                                <!-- -------------------------------------------------------------------------------------------- -->
+                                                <!-- ---------------------------- END TAB 2 ----------------------------------------------------- -->
+                                                <!-- -------------------------------------------------------------------------------------------- -->
+                                                <!-- -------------------------------------------------------------------------------------------- -->
+                                                <!-- ---------------------------- BEGIN TAB 3 --------------------------------------------------- -->
+                                                <!--  ------------------------------------------------------------------------------------------- -->
+                                                <!--  ------------------------------------------------------------------------------------------- -->
 
 
                                                 <div class="tab-pane fade in" id="tabUppManagementTool3" style="display:none;">
@@ -740,21 +1234,92 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="portlet-body ">
+                                                            <div class="portlet-body">
                                                                 <div class="row">
-                                                                    
+
+                                                                    <div class="col-xs-12 col-md-12">
+                                                                        <div class="">
+                                                                            <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="UppManagementTool2_psp">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="sorting "> Role </th>
+                                                                                        <th class="sorting" style="width:125px;"> Action </th>
+                                                                                        <th class="sorting" style="width:125px;"> Type </th>
+                                                                                        <th class="sorting" style="width:85px;"> % YES </th>
+                                                                                        <th style="width:85px;"> % NO</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr id="ID" class="odd gradeX">
+                                                                                        <td>Doctor</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+                                                                                    <tr id="ID" class="even gradeX">
+                                                                                        <td>Doctor</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+                                                                                    <tr id="ID" class="odd gradeX">
+                                                                                        <td>Doctor</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+                                                                                    <tr id="ID" class="even gradeX">
+                                                                                        <td>Doctor</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+                                                                                    <tr id="ID" class="odd gradeX">
+                                                                                        <td>Doctor</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+                                                                                    <tr id="ID" class="odd gradeX">
+                                                                                        <td>Doctor</td>
+                                                                                        <td>read</td>
+                                                                                        <td>weight</td>
+                                                                                        <td>70</td>
+                                                                                        <td>30</td>
+
+                                                                                    </tr>
+
+                                                                            </table>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <!--  ------------------------------------------------------------------------------------------- -->
-                                                        <!-- ---------------------------- END TAB 3 ----------------------------------------------------- -->
-                                                        <!--  ------------------------------------------------------------------------------------------- -->
-
                                                     </div>
+                                                </div>
+
+
+                                                <!--  ------------------------------------------------------------------------------------------- -->
+                                                <!-- ---------------------------- END TAB 3 ----------------------------------------------------- -->
+                                                <!--  ------------------------------------------------------------------------------------------- -->
+
+                                            </div>
                                                 </div>
                                     </div>
                         </div>
