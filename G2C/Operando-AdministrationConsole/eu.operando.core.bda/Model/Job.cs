@@ -23,22 +23,8 @@ namespace eu.operando.core.bda.Model
 
         public string DetermineDateMostRecentExecution()
         {
-            string dateMostRecentExecution = "";
-            for (int i = 0; i < Executions.Count; i++)
-            {
-                Execution execution = Executions[i];
-                string executionDate = execution.ExecutionDate;
-                bool moreRecentExecutionDate = string.Compare(executionDate, dateMostRecentExecution) > 0;
-                if (i == 0)
-                {
-                    dateMostRecentExecution = execution.ExecutionDate;
-                }
-                else if (moreRecentExecutionDate)
-                {
-                    dateMostRecentExecution = executionDate;
-                }
-            }
-            return dateMostRecentExecution;
+            // TODO
+            return "Not implemented";
         }
 
         public string DetermineDateNextExecution()

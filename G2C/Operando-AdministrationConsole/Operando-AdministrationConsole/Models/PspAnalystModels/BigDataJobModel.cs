@@ -25,7 +25,7 @@ namespace Operando_AdministrationConsole.Models.PspAnalystModels
         [Required]
         public Money.CurrencyCode SelectedCurrency { get; set; }
 
-        public string[] SelectedOsps { get; set; }
+        public string[] SelectedOsps { get; set; } = { };
 
         public Money.CurrencyCode[] AvailableCurrencies { get; set; }
 

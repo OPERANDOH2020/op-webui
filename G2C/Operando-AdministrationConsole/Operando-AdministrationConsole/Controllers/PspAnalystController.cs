@@ -41,7 +41,7 @@ namespace Operando_AdministrationConsole.Controllers
 
         public PspAnalystController()
         {
-            _bdaClient = new BdaClient(new Uri("http://localhost:8080/stub-bda/bda/"));
+            _bdaClient = new BdaClient();
         }
 
         // GET: PspAnalyst
@@ -113,7 +113,7 @@ namespace Operando_AdministrationConsole.Controllers
 
         public async Task<ActionResult> BigDataAnalyticsConfig()
         {
-            var jobs = await _bdaClient.GetJobsAsync("ami");
+            var jobs = await _bdaClient.GetJobsAsync();
             BdaPageModel model = new BdaPageModel
             {
                 Jobs = jobs.Select(_ => new BdaJob(_)).ToList()

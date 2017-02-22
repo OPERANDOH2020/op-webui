@@ -27,7 +27,7 @@ namespace Operando_AdministrationConsole.Controllers
 
         public OspAdminController()
         {
-            _bdaClient = new BdaClient(new Uri("http://localhost:8080/stub-bda/bda/"));
+            _bdaClient = new BdaClient();
         }
 
         private Uri OSPRoot(string id)
@@ -505,7 +505,7 @@ namespace Operando_AdministrationConsole.Controllers
 
         public async Task<ActionResult> BigDataAnalytics()
         {
-            ICollection<Job> jobs = await _bdaClient.GetJobsAsync("ami");
+            ICollection<Job> jobs = await _bdaClient.GetJobsAsync();
 
             var executions = jobs.Select(_ => new BdaJob(_)).ToList();
 

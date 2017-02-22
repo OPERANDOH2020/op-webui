@@ -8,8 +8,13 @@ namespace eu.operando.core.bda
 {
     public interface IBdaClient
     {
+        /// <summary>
+        /// Get the jobs.
+        /// </summary>
+        /// <param name="osp">If provided, filter on the jobs for the specified OSP</param>
+        /// <returns></returns>
         [ItemNotNull]
-        Task<ICollection<Job>> GetJobsAsync(string osp);
+        Task<ICollection<Job>> GetJobsAsync([CanBeNull] string osp = null);
 
         /// <summary>
         /// Get the job for the specified Id. If no job exists with that id, return null

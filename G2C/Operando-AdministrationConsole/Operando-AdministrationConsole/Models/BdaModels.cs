@@ -104,8 +104,8 @@ namespace Operando_AdministrationConsole.Models
         public BdaExecution(Execution execution)
         {
             OspScheduled = execution.OspScheduled;
-            ExecutionDate = execution.ExecutionDate;
-            VersionNumber = execution.VersionNumber;
+            ExecutionDate = execution.ExecutionDate.ToString();
+            VersionNumber = execution.VersionNumber.ToString();
             DownloadLink = execution.DownloadLink;
         }
         public string ExecutionDate { get; set; }
@@ -127,11 +127,11 @@ namespace Operando_AdministrationConsole.Models
         public BdaSchedule(Schedule schedule)
         {
             OspScheduled = schedule.OspScheduled;
-            StartDate = schedule.StartDate;
-            StartTime = schedule.StartTime;
-            RepeatIntervalUnit = schedule.RepeatIntervalUnit;
-            RepeatIntervalValue = schedule.RepeatIntervalValue;
-            StoragePeriod = schedule.StoragePeriod;
+            StartDate = schedule.StartDate.Date.ToString();
+            StartTime = schedule.StartDate.TimeOfDay.ToString();
+            RepeatIntervalUnit = "Minutes";
+            RepeatIntervalValue = schedule.RepeatInterval.TotalMinutes.ToString();
+            StoragePeriod = schedule.StoragePeriod.ToString();
         }
 
         public string OspScheduled { get; set; }
