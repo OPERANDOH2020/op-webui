@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Cost per execution</label>
                         <div class="col-md-6">
-                            @Html.TextBoxFor(job => job.CostPerExecution, new {id = "mask_currency3", @class = "form-control", type = "text"})
+                            @Html.TextBoxFor(job => job.CostPerExecution, new { @class = "form-control" })
                         </div>
                         <div class="col-md-3">
                             @Html.DropDownListFor(job => job.SelectedCurrency, new SelectList(Model.AvailableCurrencies), new {@class = "form-control"})

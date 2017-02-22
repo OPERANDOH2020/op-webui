@@ -24,7 +24,6 @@
                 applySpinnerToElement();
                 
                 $target.load(url, function () {
-                    FormInputMask.init();
                     ComponentsBootstrapSelect.init();
                     $target.modal();
                 });
