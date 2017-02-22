@@ -15,7 +15,7 @@ namespace eu.operando.core.bda
         /// Get the job for the specified Id. If no job exists with that id, return null
         /// </summary>
         [ItemCanBeNull]
-        Task<Job> GetJobByIdAsync(Guid jobId);
+        Task<Job> GetJobByIdAsync([NotNull] string jobId);
 
         /// <summary>
         /// Create a big data job

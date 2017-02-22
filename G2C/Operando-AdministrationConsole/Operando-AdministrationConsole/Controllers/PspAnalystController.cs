@@ -159,12 +159,13 @@ namespace Operando_AdministrationConsole.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error");
+                // TODO -- exception should be logged here
+                return View("Error", new HandleErrorInfo(ex, "PspAnalyst", "AddJob"));
             }
         }
 
         [HttpGet]
-        public async Task<ActionResult> EditJob(Guid jobId)
+        public async Task<ActionResult> EditJob(string jobId)
         {
             var job = await _bdaClient.GetJobByIdAsync(jobId);
 
@@ -192,9 +193,38 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditJob(BigDataJobModel model)
+        public async Task<ActionResult> EditJob(BigDataJobModel model)
         {
-            return RedirectToAction("BigDataAnalyticsConfig");
+            var job = await _bdaClient.GetJobByIdAsync(model.JobId);
+
+            if (job == null)
+            {
+                return HttpNotFound();
+            }
+
+            try
+            {
+                // Copy over fields
+                job.JobName = model.JobName;
+                job.Description = model.Description;
+                job.CurrentVersionNumber = model.CurrentVersionNumber;
+                job.DefinitionLocation = model.DefinitionLocation;
+                job.CostPerExecution = new Money
+                {
+                    Currency = model.SelectedCurrency,
+                    Value = model.CostPerExecution
+                };
+                job.Osps = model.SelectedOsps.ToList();
+
+                await _bdaClient.UpdateJobAsync(job);
+
+                return RedirectToAction("BigDataAnalyticsConfig");
+            }
+            catch (Exception ex)
+            {
+                // TODO -- exception should be logged here
+                return View("Error", new HandleErrorInfo(ex, "PspAnalyst", "AddJob"));
+            }
         }
     }
 }

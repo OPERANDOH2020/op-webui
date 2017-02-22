@@ -35,7 +35,7 @@ namespace eu.operando.core.bda
             return entity;
         }
 
-        public async Task<Job> GetJobByIdAsync(Guid jobId)
+        public async Task<Job> GetJobByIdAsync(string jobId)
         {
             // TODO
             var urlBuilder = new UriBuilder(_rootUrl);
