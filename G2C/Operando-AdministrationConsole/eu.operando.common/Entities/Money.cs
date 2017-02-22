@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 
 namespace eu.operando.common.Entities
 {
 
-    [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Currencies are written this way")]
-    public enum Currency
-    {
-        EUR,
-        USD,
-        CAD,
-        GBP,
-        AUD,
-        JPJ
-    }
+    
 
     /// <summary>
     /// Contains an amount and the currency that it is in
@@ -27,13 +19,29 @@ namespace eu.operando.common.Entities
         {
         }
 
-        public Currency Currency { get; set; }
+        public CurrencyCode Currency { get; set; }
 
         public decimal Value { get; set; }
 
         public override string ToString()
         {
             return $"{Value} ({Currency})";
+        }
+
+        /// <summary>
+        /// All currency codes
+        /// </summary>
+        public static CurrencyCode[] AvailableCurrencyCodes => Enum.GetValues(typeof(CurrencyCode)).Cast<CurrencyCode>().ToArray();
+
+        [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Currencies are written this way")]
+        public enum CurrencyCode
+        {
+            EUR,
+            USD,
+            CAD,
+            GBP,
+            AUD,
+            JPY
         }
     }
 }
