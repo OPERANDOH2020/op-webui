@@ -7,23 +7,24 @@ google.charts.setOnLoadCallback(drawStuff5);
 
 function drawStuff1() {
     var data = new google.visualization.arrayToDataTable([
-      ['1', 'Percentage'],
-      ["2", 44],
-      ["3", 31],
-      ["4", 12],
-      ["5", 10],
-      ['6', 3],
+      ['1', 'preferences'],
+      ['2', 8],
+      ['3', 7],
+      ['4', 4],
+      ['5', 8],
+      ['6', 10],
       ['7', 3],
       ['8', 3],
       ['9', 3],
       ['10', 3],
+      ['11', 3],
     ]);
 
     var options = {
         title: '',
         width: 900,
         height: 300,
-        legend: { position: 'none' },
+        legend: { position: 'bottom' },
         chart: { subtitle: 'none' },
         axes: {
             x: {
@@ -42,23 +43,24 @@ function drawStuff1() {
 
 function drawStuff2() {
     var data = new google.visualization.arrayToDataTable([
-      ['1', 'Percentage'],
-      ["2", 44],
-      ["3", 31],
-      ["4", 12],
-      ["5", 10],
-      ['6', 3],
+      ['1', 'preferences'],
+      ["2", 2],
+      ['3', 7],
+      ['4', 10],
+      ['5', 8],
+      ['6', 10],
       ['7', 3],
-      ['8', 3],
+      ['8', 2],
       ['9', 3],
-      ['10', 3],
+      ['10', 10],
+      ['11', 10],
     ]);
 
     var options = {
         title: '',
         width: 900,
         height: 300,
-        legend: { position: 'none' },
+        legend: { position: 'bottom' },
         chart: { subtitle: 'none' },
         axes: {
             x: {
@@ -77,23 +79,24 @@ function drawStuff2() {
 
 function drawStuff3() {
     var data = new google.visualization.arrayToDataTable([
-       ['1', 'Percentage'],
-       ["2", 44],
-       ["3", 31],
-       ["4", 12],
-       ["5", 10],
-       ['6', 3],
-       ['7', 3],
-       ['8', 3],
-       ['9', 3],
-       ['10', 3],
+      ['1', 'preferences'],
+      ['2', 1],
+      ['3', 7],
+      ['4', 4],
+      ['5', 8],
+      ['6', 1],
+      ['7', 3],
+      ['8', 3],
+      ['9', 3],
+      ['10', 1],
+            ['11', 10],
     ]);
 
     var options = {
         title: '',
         width: 900,
         height: 300,
-        legend: { position: 'none' },
+        legend: { position: 'bottom' },
         chart: { subtitle: 'none' },
         axes: {
             x: {
@@ -112,23 +115,24 @@ function drawStuff3() {
 
 function drawStuff4() {
     var data = new google.visualization.arrayToDataTable([
-       ['1', 'Percentage'],
-       ["2", 44],
-       ["3", 31],
-       ["4", 12],
-       ["5", 10],
-       ['6', 3],
-       ['7', 3],
-       ['8', 3],
-       ['9', 3],
-       ['10', 3],
+            ['1', 'preferences'],
+      ['2', 8],
+      ['3', 7],
+      ['4', 4],
+      ['5', 8],
+      ['6', 1],
+      ['7', 3],
+      ['8', 3],
+      ['9', 3],
+      ['10', 3],
+            ['11', 10],
     ]);
 
     var options = {
         title: '',
         width: 900,
         height: 300,
-        legend: { position: 'none' },
+        legend: { position: 'bottom' },
         chart: { subtitle: 'none' },
         axes: {
             x: {
@@ -147,23 +151,24 @@ function drawStuff4() {
 
 function drawStuff5() {
 var data = new google.visualization.arrayToDataTable([
-      ['1', 'Percentage'],
-      ["2", 44],
-      ["3", 31],
-      ["4", 12],
-      ["5", 10],
-      ['6', 3],
+         ['1', 'preferences'],
+      ['2', 8],
+      ['3', 7],
+      ['4', 10],
+      ['5', 8],
+      ['6', 10],
       ['7', 3],
       ['8', 3],
       ['9', 3],
-      ['10', 3],
+      ['10', 10],
+            ['11', 10],
 ]);
 
 var options = {
     title: '',
     width: 900,
     height: 300,
-    legend: { position: 'none' },
+    legend: { position: 'bottom' },
     chart: { subtitle: 'none' },
     axes: {
         x: {
