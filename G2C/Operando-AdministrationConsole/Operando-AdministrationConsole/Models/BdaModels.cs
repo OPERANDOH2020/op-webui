@@ -1,8 +1,6 @@
 ﻿using Operando_AdministrationConsole.Helper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using eu.operando.common.Entities;
 using eu.operando.core.bda.Model;
 
@@ -42,7 +40,7 @@ namespace Operando_AdministrationConsole.Models
             Executions = job.Executions.Select(_ => new BdaExecution(_)).ToList();
         }
 
-        public Guid JobId { get; set; }
+        public string JobId { get; set; }
 
         public string JobName { get; set; }
         public string Description { get; set; }

@@ -2,6 +2,7 @@ package bda;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.UUID;
 import java.util.Vector;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -61,7 +62,7 @@ public class Api
 			Vector<String> osps = generateOsps(i);
 			Money costPerExecution = new Money(Currency.getInstance("EUR"), new BigDecimal(i + "0.00"));
 			
-			jobs.addElement(new Job("Job" + i, "Description" + i, "v1." + (3-i), "http://", costPerExecution, osps, schedules, executions));
+			jobs.addElement(new Job(UUID.randomUUID(), "Job" + i, "Description" + i, "v1." + (3-i), "http://", costPerExecution, osps, schedules, executions));
 		}
 
 		String json = createStringJsonFollowingOperandoConventions(jobs);

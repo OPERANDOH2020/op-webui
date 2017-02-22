@@ -1,9 +1,11 @@
 package bda.Model;
 
+import java.util.UUID;
 import java.util.Vector;
 
 public class Job
 {
+	private UUID id;
 	private String jobName = "";
 	private String description = "";
 	private String currentVersionNumber = "";
@@ -13,10 +15,11 @@ public class Job
 	private Vector<Schedule> schedules = new Vector<Schedule>();
 	private Vector<Execution> executions = new Vector<Execution>();
 	
-	public Job(String jobName, String description, String currentVersionNumber, String definitionLocation, Money costPerExecution, Vector<String> osps,
+	public Job(UUID id, String jobName, String description, String currentVersionNumber, String definitionLocation, Money costPerExecution, Vector<String> osps,
 			Vector<Schedule> schedules, Vector<Execution> executions)
 	{
 		super();
+		this.setId(id);
 		this.jobName = jobName;
 		this.description = description;
 		this.currentVersionNumber = currentVersionNumber;
@@ -105,5 +108,13 @@ public class Job
 	public void setExecutions(Vector<Execution> executions)
 	{
 		this.executions = executions;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 }

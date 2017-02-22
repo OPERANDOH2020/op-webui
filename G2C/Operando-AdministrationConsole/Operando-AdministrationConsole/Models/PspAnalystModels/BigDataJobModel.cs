@@ -7,7 +7,7 @@ namespace Operando_AdministrationConsole.Models.PspAnalystModels
 {
     public class BigDataJobModel
     {
-        public Guid? JobId { get; set; }
+        public string JobId { get; set; }
 
         [Required]
         public string JobName { get; set; }
