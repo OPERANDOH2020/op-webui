@@ -7,176 +7,175 @@ google.charts.setOnLoadCallback(drawStuff5);
 
 function drawStuff1() {
     var data = new google.visualization.arrayToDataTable([
-      ['Recepionist', 'YES', 'NO'],
-      ['Recepionist', 70, 30],
-      ['Recepionist', 60, 40],
-      ['Doctor', 60, 40],
-      ['Doctor', 50, 50],
-      ['Doctor', 50, 50]
+             [' ', ''],
+      ["1", 1],
+      ["2", 8],
+      ["3", 7],
+      ["4", 4],
+      ["5", 8],
+      ["6", 10],
+      ["7", 3],
+      ["8", 10],
+      ["9", 3],
+      ["10", 3],
     ]);
 
     var options = {
+        title: '',
         width: 900,
-        height: 500,
-        chart: {
-            title: '',
-            subtitle: ''
-        },
-        series: {
-            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
-        },
+        legend: { position: 'none' },
+        chart: { subtitle: 'none' },
         axes: {
-            y: {
-                distance: { label: '' }, // Left y-axis.              
+            x: {
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
-        }
+        },
+        bar: { groupWidth: "40%" }
     };
 
-
-
-    var chart1 = new google.charts.Bar(document.getElementById('upp-chart-1'));
-    chart1.draw(data, options);
+    var chart = new google.charts.Bar(document.getElementById('upp-chart-1'));
+    // Convert the Classic options to Material options.
+        chart.draw(data, google.charts.Bar.convertOptions(options));
 };
 
 // ..............................................................
 
 function drawStuff2() {
     var data = new google.visualization.arrayToDataTable([
-      ['Recepionist', 'YES', 'NO'],
-      ['Recepionist', 50, 50],
-      ['Recepionist', 50, 50],
-      ['Doctor', 40, 60],
-      ['Doctor', 50, 50],
-      ['Doctor', 50, 50]
+             [' ', ''],
+      ["1", 1],
+      ["2", 8],
+      ["3", 7],
+      ["4", 4],
+      ["5", 8],
+      ["6", 1],
+      ["7", 3],
+      ["8", 1],
+      ["9", 3],
+      ["10", 3],
     ]);
 
     var options = {
+        title: '',
         width: 900,
-        height: 500,
-        chart: {
-            title: '',
-            subtitle: ''
-        },
-        series: {
-            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
-        },
+        legend: { position: 'none' },
+        chart: { subtitle: 'none' },
         axes: {
-            y: {
-                distance: { label: '' }, // Left y-axis.              
+            x: {
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
-        }
+        },
+        bar: { groupWidth: "40%" }
     };
 
-    var chart2 = new google.charts.Bar(document.getElementById('upp-chart-2'));
-    chart2.draw(data, options);
-
+    var chart = new google.charts.Bar(document.getElementById('upp-chart-2'));
+    // Convert the Classic options to Material options.
+    chart.draw(data, google.charts.Bar.convertOptions(options));
 };
 
 // ..............................................................
 
 function drawStuff3() {
     var data = new google.visualization.arrayToDataTable([
-      ['Recepionist', 'YES', 'NO'],
-      ['Recepionist', 70, 30],
-      ['Recepionist', 70, 30],
-      ['Doctor', 70, 30],
-      ['Doctor', 70, 30],
-      ['Doctor', 50, 50]
+             [' ', ''],
+      ["1", 1],
+      ["2", 8],
+      ["3", 1],
+      ["4", 4],
+      ["5", 8],
+      ["6", 1],
+      ["7", 3],
+      ["8", 10],
+      ["9", 3],
+      ["10", 3],
     ]);
 
     var options = {
+        title: '',
         width: 900,
-        height: 500,
-        chart: {
-            title: '',
-            subtitle: ''
-        },
-        series: {
-            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
-        },
+        legend: { position: 'none' },
+        chart: { subtitle: 'none' },
         axes: {
-            y: {
-                distance: { label: '' }, // Left y-axis.              
+            x: {
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
-        }
+        },
+        bar: { groupWidth: "40%" }
     };
 
-
-    var chart3 = new google.charts.Bar(document.getElementById('upp-chart-3'));
-    chart3.draw(data, options);
+    var chart = new google.charts.Bar(document.getElementById('upp-chart-3'));
+    // Convert the Classic options to Material options.
+    chart.draw(data, google.charts.Bar.convertOptions(options));
 };
 
 // ..............................................................
 
 function drawStuff4() {
     var data = new google.visualization.arrayToDataTable([
-      ['Recepionist', 'YES', 'NO'],
-      ['Recepionist', 70, 30],
-      ['Recepionist', 70, 30],
-      ['Doctor', 70, 30],
-      ['Doctor', 70, 30],
-      ['Doctor', 50, 50]
+            [' ', ''],
+      ["1", 8],
+      ["2", 8],
+      ["3", 7],
+      ["4", 4],
+      ["5", 8],
+      ["6", 1],
+      ["7", 3],
+      ["8", 10],
+      ["9", 3],
+      ["10", 3],            
     ]);
 
     var options = {
+        title: '',
         width: 900,
-        height: 500,
-        chart: {
-            title: '',
-            subtitle: ''
-        },
-        series: {
-            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
-        },
+        legend: { position: 'none' },
+        chart: { subtitle: 'none' },
         axes: {
-            y: {
-                distance: { label: '' }, // Left y-axis.              
+            x: {
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
-        }
+        },
+        bar: { groupWidth: "40%" }
     };
 
-
-    var chart4 = new google.charts.Bar(document.getElementById('upp-chart-4'));
-    chart4.draw(data, options);
+    var chart = new google.charts.Bar(document.getElementById('upp-chart-4'));
+    // Convert the Classic options to Material options.
+    chart.draw(data, google.charts.Bar.convertOptions(options));
 };
 
 // ..............................................................
 
 function drawStuff5() {
-    var data = new google.visualization.arrayToDataTable([
-      ['Recepionist', 'YES', 'NO'],
-      ['Recepionist', 70, 30],
-      ['Recepionist', 70, 30],
-      ['Doctor', 70, 30],
-      ['Doctor', 70, 30],
-      ['Doctor', 50, 50]
-    ]);
+var data = new google.visualization.arrayToDataTable([
+               [' ', ''],
+      ["1", 8],
+      ["2", 8],
+      ["3", 7],
+      ["4", 4],
+      ["5", 8],
+      ["6", 1],
+      ["7", 3],
+      ["8", 10],
+      ["9", 3],
+      ["10", 3],
+]);
 
     var options = {
+        title: '',
         width: 900,
-        height: 500,
-        chart: {
-            title: '',
-            subtitle: ''
-        },
-        series: {
-            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
-        },
+        legend: { position: 'none' },
+        chart: { subtitle: 'none' },
         axes: {
-            y: {
-                distance: { label: '' }, // Left y-axis.              
+            x: {
+                0: { side: 'top', label: 'preferences' } // Top x-axis.
             }
-        }
+        },
+        bar: { groupWidth: "40%" }
     };
 
-
-    var chart5 = new google.charts.Bar(document.getElementById('upp-chart-5'));
-    chart5.draw(data, options);
+var chart = new google.charts.Bar(document.getElementById('upp-chart-5'));
+// Convert the Classic options to Material options.
+chart.draw(data, google.charts.Bar.convertOptions(options));
 };
 
 // ..............................................................
-
-
-
-
-
