@@ -5,8 +5,14 @@
 }
 
 @using Operando_AdministrationConsole.Models;
-@using Operando_AdministrationConsole.Models.PspAnalystModels
 @model BdaPageModel
+    
+@{
+    const string jobTabId = "jobTab";
+    const string resultsTabId = "resultsTab";
+    const string schedulesTabId = "schedulesTab";
+
+}
 
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
@@ -23,18 +29,18 @@
                 <div class="tabbable-custom tabbable-custom-operando-top">
                     <ul class="nav nav-tabs border-yellow-gold">
                         <li class="active">
-                            <a href="#tab_1_1" data-toggle="tab"> Jobs </a>
+                            <a href="#@jobTabId" data-toggle="tab"> Jobs </a>
                         </li>
                         <li>
-                            <a href="#tab_1_2" data-toggle="tab"> Results </a>
+                            <a href="#@resultsTabId" data-toggle="tab"> Results </a>
                         </li>
                         <li>
-                            <a href="#tab_1_3" data-toggle="tab"> Schedules </a>
+                            <a href="#@schedulesTabId" data-toggle="tab"> Schedules </a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <!-- BEGIN TAB 1 (JOBS) CONTENT -->
-                        <div class="tab-pane active" id="tab_1_1">
+                        <div class="tab-pane active" id="@jobTabId">
                             <div class="portlet light">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -92,7 +98,7 @@
                                                             <a class="btn btn-circle btn-sm yellow-gold"> View @Operando_AdministrationConsole.Helper.StaticStrings.NotImplemented</a>
                                                         </td>
                                                         <td>
-                                                            <a class="btn btn-circle btn-sm yellow-gold"> View @Operando_AdministrationConsole.Helper.StaticStrings.NotImplemented</a>
+                                                            <button class="btn btn-circle btn-sm yellow-gold" data-toggle="tab-then-show-row" data-tab-id="#@schedulesTabId" data-row-id="#@job.JobId-schedule"> View</button>
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-circle btn-sm yellow-gold" data-toggle="modal-ajax" data-source="@Url.Action("EditJob", "PspAnalyst", new { jobId = job.JobId })"> Edit</a>
@@ -107,7 +113,7 @@
                         </div>
                         <!-- END TAB 1 (REPORTS) CONTENT -->
                         <!-- BEGIN TAB 2 (RESULTS) CONTENT -->
-                        <div class="tab-pane" id="tab_1_2">
+                        <div class="tab-pane" id="@resultsTabId">
                             <div class="portlet light">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -163,7 +169,7 @@
                         </div>
                         <!-- END TAB 2 (RESULTS) CONTENT -->
                         <!-- BEGIN TAB 3 (SCHEDULES) CONTENT -->
-                        <div class="tab-pane" id="tab_1_3">
+                        <div class="tab-pane" id="@schedulesTabId">
                             <div class="portlet light">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -202,7 +208,7 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="tab-pane" id="tab_1_2">
+                                        <div class="tab-pane">
                                             <div class="portlet-body">
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <thead>
@@ -219,7 +225,7 @@
                                                         @foreach (BdaJob job in Model.Jobs)
                                                         {
                                                         <tr>
-                                                            <td class="accordion-toggle" data-toggle="collapse" data-target="#@job.JobName-schedule">
+                                                            <td class="accordion-toggle" data-toggle="collapse" data-target="#@job.JobId-schedule">
                                                                 <i class="fa fa-caret-right"></i>&nbsp;&nbsp;@job.JobName
                                                             </td>
                                                             <td> @job.Description </td>
@@ -228,7 +234,7 @@
                                                             <td> @job.DetermineDateMostRecentExecution() </td>
                                                             <td> @job.DetermineDateNextExecution() </td>
                                                         </tr>
-                                                        <tr class="active accordion-body collapse" id="@job.JobName-schedule">
+                                                        <tr class="active accordion-body collapse" id="@job.JobId-schedule">
                                                             <td colspan="6">
                                                                 <div class="portlet light">
                                                                     <div class="portlet-title">
