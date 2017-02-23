@@ -5226,7 +5226,7 @@
     <Content Include="assets\pages\scripts\maps-google.min.js" />
     <Content Include="assets\pages\scripts\maps-vector.js" />
     <Content Include="assets\pages\scripts\maps-vector.min.js" />
-    <Content Include="assets\pages\scripts\operando-bda-modal.js" />
+    <Content Include="assets\pages\scripts\operando-bda-page.js" />
     <Content Include="assets\pages\scripts\operando-compliancereports-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-compliancereports-table-managed.js" />
     <Content Include="assets\pages\scripts\operando-custom-bootstrap-select.js" />
