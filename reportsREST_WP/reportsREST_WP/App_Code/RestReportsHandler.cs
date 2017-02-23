@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -65,7 +66,7 @@ public class RestReportsHandler : IHttpHandler
         return base64;
     }
 
-    private string GetReportFileName(int idReport, MySqlTransaction transaction)
+    /*private string GetReportFileName(int idReport, MySqlTransaction transaction)
     {
         MySqlCommand cmd = new MySqlCommand();
         cmd.Connection = transaction.Connection;
@@ -159,105 +160,184 @@ public class RestReportsHandler : IHttpHandler
         }
 
         return string.Empty;
-    }
+    }*/
 
     public void ProcessRequest(HttpContext context)
     {
+        var appSettings = ConfigurationManager.AppSettings;
+
+        #region Check if ticket exists
+        if (context.Request.Headers["service-ticket"] == null)
+        {
+            context.Response.StatusCode = 401;
+            context.Response.StatusDescription = "Missing service-ticket";
+            context.Response.Flush(); // Sends all currently buffered output to the client.
+            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            return;
+        }
+        #endregion
+
+        #region Validate ticket
+        string ticketId = context.Request.Headers["service-ticket"].ToString();
+        string aapiUrl = appSettings["aapiBasePath"];
+        string serviceId = appSettings["serviceId"];
+
+        HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create(aapiUrl + "/aapi/tickets/" + ticketId + "/validate?serviceId=" + serviceId);
+        //HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create("http://integration.operando.esilab.org:8135/operando/interfaces/aapi/aapi/tickets/ST-153-IdpicdDveXntfoZiR0Jz-casdotoperandodoteu/validate?serviceId=GET/osp/reports/.*");
         try
         {
-            context.Response.ContentType = "application/json";
-            var appSettings = ConfigurationManager.AppSettings;
-            Report report = new Report();
+            var response = (HttpWebResponse)ticketValidationRequest.GetResponse();
+        }
+        catch (WebException ex)
+        {
+            HttpWebResponse errResponse = (HttpWebResponse)ex.Response;
+            context.Response.StatusCode = (int)errResponse.StatusCode;
+            context.Response.StatusDescription = errResponse.StatusDescription;
+            context.Response.Flush(); // Sends all currently buffered output to the client.
+            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            return;
+        }
+        #endregion
 
-            //if (appSettings["BirtUrl"] != null)
-            //{
-            //string url = appSettings["BirtUrl"] + "?";
+        #region Validate query string param
+        if (string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_reportid"]))
+        {
+            context.Response.StatusCode = 400;
+            context.Response.StatusDescription = "Missing _reportId";
+            context.Response.Flush(); // Sends all currently buffered output to the client.
+            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            return;
+        }
 
-            if (string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_reportid"]))
-                throw new Exception("Missing parameter _reportid");
+        int idReport = -1;
+        if (!Int32.TryParse(HttpContext.Current.Request.QueryString["_reportid"], out idReport))
+        {
+            context.Response.StatusCode = 400;
+            context.Response.StatusDescription = "_reportid must be integer value";
+            context.Response.Flush(); // Sends all currently buffered output to the client.
+            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            return;
+        }
 
-            int idReport;
-            if (!Int32.TryParse(HttpContext.Current.Request.QueryString["_reportid"], out idReport))
-                throw new Exception("_reportId must be interger value");
+        if (string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_format"]))
+        {
+            context.Response.StatusCode = 400;
+            context.Response.StatusDescription = "Missing _format";
+            context.Response.Flush(); // Sends all currently buffered output to the client.
+            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            return;
+        }
 
-            string reportFormat="pdf";
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_format"]))
-                reportFormat = HttpContext.Current.Request.QueryString["_format"].ToLower();
+        string reportFormat = HttpContext.Current.Request.QueryString["_format"].ToLower();
+        if (!reportFormat.Equals("html") &&
+            !reportFormat.Equals("htm") &&
+            !reportFormat.Equals("pdf"))
+        {
+            context.Response.StatusCode = 400;
+            context.Response.StatusDescription = "Invalid _format";
+            context.Response.Flush(); // Sends all currently buffered output to the client.
+            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            return;
+        }
+        #endregion
 
-            if (!reportFormat.Equals("html") &&
-                !reportFormat.Equals("htm") &&
-                !reportFormat.Equals("pdf"))
-                throw new Exception("Unsupported format");
+        MySqlConnection connection = null;
+        MySqlDataReader reader = null;
 
-            string reportName = "";
-            string reportFileName = "";
-            string reportDescription = "";
-            string reportLocation = "";
-
-            MySqlConnection connection = new MySqlConnection();
+        try
+        {
+            connection = new MySqlConnection();
             connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
             connection.Open();
-            MySqlTransaction transaction = connection.BeginTransaction();
-            try
+
+            string query = "SELECT * FROM t_report_mng_list where id = " + idReport;
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            reader = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(reader);
+
+            if (dt.Rows.Count <= 0)
             {
-                reportLocation = GetReportLocation(idReport, transaction);
-                reportLocation = reportLocation.Replace("/frameset", "/preview");
-
-                reportFileName = GetReportFileName(idReport, transaction);
-                reportName = GetReportName(idReport, transaction);
-                reportDescription = GetReportDescription(idReport, transaction);
-                transaction.Commit();
+                context.Response.StatusCode = 404;
+                context.Response.StatusDescription = "Report not found";
+                context.Response.Flush(); // Sends all currently buffered output to the client.
+                context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+                context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+                return;
             }
-            catch (Exception e)
-            {
-                transaction.Rollback();
-                throw e;
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            if (string.IsNullOrEmpty(reportName))
-                throw new Exception("No report found for this ID");
-
-            reportLocation += "?__format="+ reportFormat;
-            reportLocation += "&__report=" + HttpUtility.UrlEncode(reportFileName);
-
-            foreach (string param in HttpContext.Current.Request.QueryString.AllKeys)
-            {
-                if (param != null)
-                {
-                    if (!param.ToLower().Equals("_reportid"))
-                        reportLocation += "&" + HttpUtility.UrlEncode(param) + "=" + HttpUtility.UrlEncode(HttpContext.Current.Request.QueryString[param]);
-                }
-            }
-
-            report.ID = idReport;
-            report.Name = reportName;
-            report.Description = reportDescription;
-
-            if (reportFormat.Equals("html") || reportFormat.Equals("htm"))
-                report.Base64 = ReadHtmlBase64(reportLocation);
             else
-                report.Base64 = ReadPdfBase64(reportLocation);
+            {
+                string reportLocation = dt.Rows[0]["Location"].ToString();
+                string reportFileName = "";
 
-            /*byte[] bytes = System.Convert.FromBase64String(report.Base64);
-            FileStream fs = File.OpenWrite(@"C:\Users\federico.dibernardo\Desktop\Lavoro\Operando\Sorgente\op-webui\reportsREST_WP\reportsREST_WP\test.pdf");
-            fs.Write(bytes, 0, bytes.Length);
-            fs.Close();*/
-      
-            context.Response.Write(JsonConvert.SerializeObject(report));
+                string parametri = dt.Rows[0]["Parameters"].ToString();
+                string[] arrayParametri = parametri.Split('&');
+                foreach (string parametro in arrayParametri)
+                {
+                    if (parametro.ToLower().StartsWith("__report"))
+                        reportFileName = parametro.Split('=')[1];
+                }
+
+                string reportName = dt.Rows[0]["Report"].ToString();
+                string reportDescription = dt.Rows[0]["Description"].ToString();
+
+                reportLocation = reportLocation.Replace("/frameset", "/preview");
+                reportLocation += "?__format=" + reportFormat;
+                reportLocation += "&__report=" + HttpUtility.UrlEncode(reportFileName);
+
+                foreach (string param in HttpContext.Current.Request.QueryString.AllKeys)
+                {
+                    if (param != null)
+                    {
+                        if (!param.ToLower().Equals("_reportid"))
+                            reportLocation += "&" + HttpUtility.UrlEncode(param) + "=" + HttpUtility.UrlEncode(HttpContext.Current.Request.QueryString[param]);
+                    }
+                }
+
+                Report report = new Report();
+                report.ID = idReport;
+                report.Name = reportName;
+                report.Description = reportDescription;
+
+                if (reportFormat.Equals("html") || reportFormat.Equals("htm"))
+                    report.Base64 = ReadHtmlBase64(reportLocation);
+                else
+                    report.Base64 = ReadPdfBase64(reportLocation);
+
+                /* USA SEMPRE QUESTO PER STAMPARE IN HTM O PDF
+                byte[] bytes = System.Convert.FromBase64String(report.Base64);
+                FileStream fs = File.OpenWrite(@"C:\Users\federico.dibernardo\Desktop\Lavoro\Operando\Sorgente\op-webui\reportsREST_WP\reportsREST_WP\test.htm");
+                fs.Write(bytes, 0, bytes.Length);
+                fs.Close();*/
+
+                context.Response.Write(JsonConvert.SerializeObject(report));
+            }
         }
         catch (Exception e)
         {
-            Error error = new Error();
-            error.ErrorType = e.GetType().ToString();
-            error.ErrorDescription = e.Message;
-            error.ErrorUrl = HttpContext.Current.Request.RawUrl;
-            error.ErrorStackTrace = e.StackTrace;
-            context.Response.Write(JsonConvert.SerializeObject(error));
+            throw e;
         }
+        finally
+        {
+            if (reader != null)
+            {
+                reader.Close();
+            }
+
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        return;
+
     }
 
     public class Report
@@ -269,12 +349,12 @@ public class RestReportsHandler : IHttpHandler
         public Report() { }
     }
 
-    public class Error
+    /*public class Error
     {
         public string ErrorType { get; set; }
         public string ErrorDescription { get; set; }
         public string ErrorStackTrace { get; set; }
         public string ErrorUrl { get; set; }
         public Error() { }
-    }
+    }*/
 }
