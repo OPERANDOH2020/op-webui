@@ -86,7 +86,7 @@
                     //"targets": [2]
                 },
                  {
-                     "searchable": false,
+                     "orderable": false,
                      "targets": [2]
                  },
                 {
@@ -187,7 +187,7 @@
                     "targets": [1]
                 },
                 {
-                    "searchable": false,
+                    "orderable": false,
                     "targets": [2]
                 },
                 {
