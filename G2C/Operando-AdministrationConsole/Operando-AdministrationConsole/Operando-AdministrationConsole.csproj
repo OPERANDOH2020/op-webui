@@ -5212,6 +5212,7 @@
     <Content Include="assets\pages\scripts\google-loader.js" />
     <Content Include="assets\pages\scripts\inbox.js" />
     <Content Include="assets\pages\scripts\inbox.min.js" />
+    <Content Include="assets\pages\scripts\operando-form-wizard.js" />
     <Content Include="assets\pages\scripts\operando-uppmanagementtool-chart.js" />
     <Content Include="assets\pages\scripts\jquery-gantt.js" />
     <Content Include="assets\pages\scripts\jquery-gantt.min.js" />
