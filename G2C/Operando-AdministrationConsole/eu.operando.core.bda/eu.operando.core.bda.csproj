@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BdaClient.cs" />
+    <Compile Include="Model\ExtractionRequest.cs" />
     <Compile Include="Stub\StubBdaClient.cs" />
     <Compile Include="IBdaClient.cs" />
     <Compile Include="Model\Execution.cs" />

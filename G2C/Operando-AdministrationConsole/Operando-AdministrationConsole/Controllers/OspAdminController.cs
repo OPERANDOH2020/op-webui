@@ -525,7 +525,14 @@ namespace Operando_AdministrationConsole.Controllers
         {
             try
             {
-                await _bdaClient.RequestNewBdaExtraction();
+                var request = new ExtractionRequest
+                {
+                    RequesterName = model.RequesterName,
+                    ContactEmail = model.ContactEmail,
+                    RequestSummary = model.RequestSummary
+                };
+
+                await _bdaClient.RequestNewBdaExtraction(request);
 
                 return RedirectToAction("BigDataAnalytics");
             }

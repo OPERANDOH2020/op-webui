@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using eu.operando.core.bda.Model;
 using eu.operando.core.bda.Stub;
 
@@ -61,7 +60,7 @@ namespace eu.operando.core.bda
             Repository.Jobs.Add(job);
         }
 
-        public Task RequestNewBdaExtraction()
+        public Task RequestNewBdaExtraction(ExtractionRequest extractionRequest)
         {
             // No-op. Should be Task.CompletedTask but that is not available until .NET 4.6 (this is .NET 4.0)
             return Task.FromResult(true);

@@ -4,10 +4,10 @@ namespace Operando_AdministrationConsole.Models.OspAdminModels
 {
     public class RequestNewBdaExtractModel
     {
-        public string Name { get; set; }
+        public string RequesterName { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string ContactEmail { get; set; }
 
         public string RequestSummary { get; set; }
 

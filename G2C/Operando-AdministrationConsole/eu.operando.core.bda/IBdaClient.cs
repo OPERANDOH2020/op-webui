@@ -36,6 +36,6 @@ namespace eu.operando.core.bda
         Task UpdateJobAsync([NotNull] Job job);
 
         [NotNull]
-        Task RequestNewBdaExtraction();
+        Task RequestNewBdaExtraction([NotNull] ExtractionRequest extractionRequest);
     }
 }
