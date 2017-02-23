@@ -234,6 +234,7 @@
     <Compile Include="Models\BdaModels.cs" />
     <Compile Include="Models\DataAccessLog.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
+    <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
     <Compile Include="Models\PrivacyPolicy.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
     <Compile Include="Models\Regulation.cs" />
@@ -5730,6 +5731,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\OspAdmin\_requestNewBdaExtractionModal.cshtml" />
     <Content Include="Views\PspAnalyst\ModelEditors\BigDataJobModelEditor.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

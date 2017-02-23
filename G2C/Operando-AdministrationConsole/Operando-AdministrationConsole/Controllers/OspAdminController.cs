@@ -8,12 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Text;
 using eu.operando.common;
 using eu.operando.common.Services;
 using eu.operando.core.bda;
 using eu.operando.core.bda.Model;
+using Operando_AdministrationConsole.Models.OspAdminModels;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -510,6 +512,28 @@ namespace Operando_AdministrationConsole.Controllers
             var executions = jobs.Select(_ => new BdaJob(_)).ToList();
 
             return View(executions);
+        }
+
+        [HttpGet]
+        public ActionResult RequestNewBdaExtract()
+        {
+            return PartialView("_requestNewBdaExtractionModal");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RequestNewBdaExtract(RequestNewBdaExtractModel model)
+        {
+            try
+            {
+                await _bdaClient.RequestNewBdaExtraction();
+
+                return RedirectToAction("BigDataAnalytics");
+            }
+            catch (Exception ex)
+            {
+                // TODO -- exception should be logged here
+                return View("Error", new HandleErrorInfo(ex, "OspAdmin", "RequestNewBdaExtract"));
+            }
         }
     }
 }

@@ -34,5 +34,8 @@ namespace eu.operando.core.bda
         /// <exception cref="InvalidOperationException">If a job with the specified ID does not exist</exception>
         [NotNull]
         Task UpdateJobAsync([NotNull] Job job);
+
+        [NotNull]
+        Task RequestNewBdaExtraction();
     }
 }

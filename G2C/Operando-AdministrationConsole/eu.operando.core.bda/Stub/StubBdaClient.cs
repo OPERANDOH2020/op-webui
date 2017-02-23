@@ -60,5 +60,11 @@ namespace eu.operando.core.bda
             Repository.Jobs.Remove(repoJob);
             Repository.Jobs.Add(job);
         }
+
+        public Task RequestNewBdaExtraction()
+        {
+            // No-op. Should be Task.CompletedTask but that is not available until .NET 4.6 (this is .NET 4.0)
+            return Task.FromResult(true);
+        }
     }
 }
