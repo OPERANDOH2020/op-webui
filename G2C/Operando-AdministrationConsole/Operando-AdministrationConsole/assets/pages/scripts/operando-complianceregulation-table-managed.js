@@ -85,6 +85,10 @@
                     "className": "dt-right",
                     //"targets": [2]
                 },
+                 {
+                     "searchable": false,
+                     "targets": [2]
+                 },
                 {
                     "type": "string",
                     "targets": [0]
@@ -182,6 +186,10 @@
                     "searchable": true,
                     "targets": [1]
                 },
+                   {
+                       "searchable": false,
+                       "targets": [2]
+                   },
                 {
                     "className": "dt-right",
                     //"targets": [2]
