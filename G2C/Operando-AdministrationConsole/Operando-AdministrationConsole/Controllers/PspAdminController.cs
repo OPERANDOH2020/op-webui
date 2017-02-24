@@ -560,6 +560,15 @@ namespace Operando_AdministrationConsole.Controllers
         {
             return View();
         }
+
+        // ----------------------------------
+        // ------ SERVICE MONITORING ----------
+        // ----------------------------------
+
+        public ActionResult ServiceMonitoring()
+        {
+            return View();
+        }
     }
 
 }
