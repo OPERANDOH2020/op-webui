@@ -544,16 +544,42 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddSchedule(BdaSchedule model)
+        public async Task<ActionResult> AddSchedule(BdaSchedule model)
         {
+            var schedule = new Schedule
+            {
+                JobId = model.JobId,
+                StartTime = model.StartTime,
+                RepeatInterval = TimeSpan.FromDays(model.RepeatIntervalDays),
+                OspScheduled = OspForCurrentUser
+            };
+
+            await _bdaClient.AddScheduleAsync(schedule);
+
             return RedirectToAction("BigDataAnalytics");
         }
 
         [HttpPost]
-        public ActionResult EditSchedule(BdaSchedule model)
+        public async Task<ActionResult> EditSchedule(BdaSchedule model)
         {
+            var schedule = await _bdaClient.GetScheduleByIdAsync(model.Id);
+
+            if (schedule == null || schedule.OspScheduled != OspForCurrentUser)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            schedule.StartTime = model.StartTime;
+            schedule.RepeatInterval = TimeSpan.FromDays(model.RepeatIntervalDays);
+
+            await _bdaClient.EditScheduleAsync(schedule);
 
             return RedirectToAction("BigDataAnalytics");
         }
+
+        /// <summary>
+        /// TODO -- how to get the OSP the current user (an OSP admin) works for
+        /// </summary>
+        private string OspForCurrentUser { get; } = "OCC";
     }
 }

@@ -37,5 +37,17 @@ namespace eu.operando.core.bda
 
         [NotNull]
         Task RequestNewBdaExtraction([NotNull] ExtractionRequest extractionRequest);
+
+        /// <summary>
+        /// Get the schedule for the specified Id. If no schedule exists with that id, return null
+        /// </summary>
+        [ItemCanBeNull]
+        Task<Schedule> GetScheduleByIdAsync([NotNull] string scheduleId);
+
+        [NotNull]
+        Task AddScheduleAsync([NotNull] Schedule schedule);
+
+        [NotNull]
+        Task EditScheduleAsync([NotNull] Schedule schedule);
     }
 }

@@ -65,5 +65,43 @@ namespace eu.operando.core.bda
             // No-op. Should be Task.CompletedTask but that is not available until .NET 4.6 (this is .NET 4.0)
             return Task.FromResult(true);
         }
+
+        public Task<Schedule> GetScheduleByIdAsync(string scheduleId)
+        {
+            var schedule = Repository.Schedules.SingleOrDefault(_ => _.Id == scheduleId);
+
+            return Task.FromResult(schedule);
+        }
+
+        public async Task AddScheduleAsync(Schedule schedule)
+        {
+            var job = await GetJobByIdAsync(schedule.JobId);
+            
+            if (job == null) throw new ArgumentException($"Job with id {schedule.JobId} does not exist in repository");
+
+            schedule.Id = Guid.NewGuid().ToString();
+
+            job.Schedules.Add(schedule);
+            Repository.Schedules.Add(schedule);
+        }
+
+        public async Task EditScheduleAsync(Schedule schedule)
+        {
+            var repoSchedule = await GetScheduleByIdAsync(schedule.Id);
+
+            if (repoSchedule == null) throw new ArgumentException($"Schedule with id {schedule.Id} does not exist in repository");
+
+            Repository.Schedules.Remove(repoSchedule);
+            Repository.Schedules.Add(schedule);
+
+            foreach (var job in Repository.Jobs)
+            {
+                if (job.Schedules.Contains(repoSchedule))
+                {
+                    job.Schedules.Remove(repoSchedule);
+                    job.Schedules.Add(schedule);
+                }
+            }
+        }
     }
 }

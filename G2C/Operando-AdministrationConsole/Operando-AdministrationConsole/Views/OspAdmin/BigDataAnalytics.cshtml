@@ -119,8 +119,7 @@
                                                                         <tr>
                                                                             <th style="width: 130px;">Start</th>
                                                                             <th>Run every</th>
-                                                                            <th style="min-width: 130px;">On</th>
-                                                                            <th style="width: 125px;">Actions @Operando_AdministrationConsole.Helper.StaticStrings.NotImplemented</th>
+                                                                            <th style="width: 125px;">Actions</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -128,8 +127,7 @@
                                                                         {
                                                                             <tr data-toggle="edit-schedule">
                                                                                 <td data-action="view">@schedule.StartTime</td>
-                                                                                <td data-action="view">@schedule.RepeatIntervalValue @(schedule.RepeatIntervalUnit)(s)</td>
-                                                                                <td data-action="view">@schedule.RepeatOn</td>
+                                                                                <td data-action="view">@schedule.RepeatIntervalDays (days)</td>
                                                                                 <td data-action="view">
                                                                                     <div class="btn-group btn-group-circle">
                                                                                         <button type="button" class="btn btn-outline green btn-sm" data-action="toggle-edit">Edit</button>
@@ -143,7 +141,7 @@
                                                                         }
                                                                     <tr class="add-row">
                                                                         <td colspan="4">
-                                                                            @Html.Partial("_addSchedule", new BdaSchedule())
+                                                                            @Html.Partial("_addSchedule", new BdaSchedule { JobId = job.JobId })
                                                                         </td>
                                                                     </tr>
                                                                     @*EXAMPLE ROWS FOR DIFFERENT SCHEDULING

@@ -1,4 +1,5 @@
-﻿using Operando_AdministrationConsole.Helper;
+﻿using System;
+using Operando_AdministrationConsole.Helper;
 using System.Collections.Generic;
 using System.Linq;
 using eu.operando.common.Entities;
@@ -103,11 +104,16 @@ namespace Operando_AdministrationConsole.Models
 
         public BdaExecution(Execution execution)
         {
+            Id = execution.Id;
+            JobId = execution.JobId;
             OspScheduled = execution.OspScheduled;
             ExecutionDate = execution.ExecutionDate.ToString();
             VersionNumber = execution.VersionNumber.ToString();
             DownloadLink = execution.DownloadLink;
         }
+
+        public string Id { get; set; }
+        public string JobId { get; set; }
         public string ExecutionDate { get; set; }
         public string VersionNumber { get; set; }
         public string OspScheduled { get; set; }
@@ -126,21 +132,17 @@ namespace Operando_AdministrationConsole.Models
 
         public BdaSchedule(Schedule schedule)
         {
+            Id = schedule.Id;
+            JobId = schedule.JobId;
             OspScheduled = schedule.OspScheduled;
-            StartDate = schedule.StartDate.Date.ToString();
-            StartTime = schedule.StartDate.TimeOfDay.ToString();
-            RepeatIntervalUnit = "Minutes";
-            RepeatIntervalValue = schedule.RepeatInterval.TotalMinutes.ToString();
-            StoragePeriod = schedule.StoragePeriod.ToString();
+            StartTime = schedule.StartTime;
+            RepeatIntervalDays = schedule.RepeatInterval.Days;
         }
 
         public string Id { get; set; }
+        public string JobId { get; set; }
         public string OspScheduled { get; set; }
-        public string StartDate { get; set; }
-        public string StartTime { get; set; }
-        public string RepeatIntervalUnit { get; set; }
-        public string RepeatIntervalValue { get; set; }
-        public string RepeatOn { get; set; }
-        public string StoragePeriod { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public double RepeatIntervalDays { get; set; }
     }
 }

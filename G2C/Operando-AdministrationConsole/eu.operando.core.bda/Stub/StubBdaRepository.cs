@@ -24,10 +24,10 @@ namespace eu.operando.core.bda.Stub
             for (var index = 0; index < 3; index++)
             {
                 var job = SeedJob(index);
-                job.Schedules.Add(SeedSchedule(index));
-                job.Schedules.Add(SeedSchedule(index * 10));
-                job.Executions.Add(SeedExecution(index));
-                job.Executions.Add(SeedExecution(index * 10));
+                job.Schedules.Add(SeedSchedule(job, index));
+                job.Schedules.Add(SeedSchedule(job, index * 10));
+                job.Executions.Add(SeedExecution(job, index));
+                job.Executions.Add(SeedExecution(job, index * 10));
             }
         }
 
@@ -53,18 +53,17 @@ namespace eu.operando.core.bda.Stub
             return job;
         }
 
-        private Schedule SeedSchedule(int index)
+        private Schedule SeedSchedule(Job job, int index)
         {
             var arbitraryTimespan = TimeSpan.FromHours(index);
 
             var schedule = new Schedule
             {
                 Id = Guid.NewGuid().ToString(),
+                JobId = job.Id,
                 OspScheduled = "OCC",
-                StartDate = DateTime.UtcNow.Date,
+                StartTime = DateTime.UtcNow.TimeOfDay,
                 RepeatInterval = arbitraryTimespan,
-                RepeatOn = true.ToString(),
-                StoragePeriod = arbitraryTimespan
             };
 
             Schedules.Add(schedule);
@@ -72,12 +71,14 @@ namespace eu.operando.core.bda.Stub
             return schedule;
         }
 
-        private Execution SeedExecution(int index)
+        private Execution SeedExecution(Job job, int index)
         {
             var arbitraryDate = DateTime.UtcNow.AddDays(-index);
 
             var execution = new Execution
             {
+                Id = Guid.NewGuid().ToString(),
+                JobId = job.Id,
                 ExecutionDate = arbitraryDate,
                 OspScheduled = "OCC",
                 VersionNumber = new Version(0, index),
