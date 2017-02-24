@@ -5793,6 +5793,9 @@
     <Content Include="Views\PspAdmin\UsersManagementAdd.cshtml" />
     <Content Include="Views\PspAnalyst\_addBigDataJobModal.cshtml" />
     <Content Include="Views\PspAnalyst\_editBigDataJobModal.cshtml" />
+    <Content Include="Views\OspAdmin\ModelEditors\ScheduleEditor.cshtml" />
+    <Content Include="Views\OspAdmin\_editSchedule.cshtml" />
+    <Content Include="Views\OspAdmin\_addSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

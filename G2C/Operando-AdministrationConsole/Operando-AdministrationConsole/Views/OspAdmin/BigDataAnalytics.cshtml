@@ -93,7 +93,7 @@
                                         @foreach (BdaJob job in Model)
                                         {
                                             <tr>
-                                                <td class="accordion-toggle" data-toggle="collapse" data-target="#@job.JobName-schedule">
+                                                <td class="accordion-toggle" data-toggle="collapse" data-target="#@job.JobId-schedule">
                                                     <i class="fa fa-caret-right"></i>&nbsp;&nbsp;@job.JobName
                                                 </td>
                                                 <td> @job.Description </td>
@@ -102,7 +102,7 @@
                                                 <td> @job.DetermineDateMostRecentExecution() </td>
                                                 <td> @job.DetermineDateNextExecution() </td>
                                             </tr>
-                                            <tr class="active accordion-body collapse" id="@job.JobName-schedule">
+                                            <tr class="active accordion-body collapse" id="@job.JobId-schedule">
                                                 <td colspan="6">
                                                     <div class="portlet light">
                                                         <div class="portlet-title">
@@ -137,8 +137,19 @@
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
+                                                                            <tr class="edit-row">
+                                                                                <td colspan="4">
+                                                                                    @Html.Partial("_editSchedule", schedule)
+                                                                                </td>
+                                                                            </tr>
                                                                         }
                                                                     <tr class="add-row">
+                                                                        <td colspan="4">
+                                                                            @Html.Partial("_addSchedule", new BdaSchedule())
+                                                                        </td>
+                                                                    </tr>
+                                                                    @*EXAMPLE ROWS FOR DIFFERENT SCHEDULING
+                                                                    <tr>
                                                                         <td>
                                                                             <div class="input-group">
                                                                                 <input type="text" class="form-control timepicker timepicker-24">
@@ -172,9 +183,8 @@
                                                                                 <button type="button" class="btn btn-circle yellow-gold btn-sm">Add <i class="fa fa-plus"></i></button>
                                                                             </div>
                                                                         </td>
-                                                                    </tr>
-                                                                    @*EXAMPLE ROWS FOR DIFFERENT SCHEDULING
-                                                                    <tr>
+                                                                </tr>
+                                                                <tr>  
                                                                     <td>
                                                                         <div class="input-group">
                                                                             <input type="text" class="form-control timepicker timepicker-24">
