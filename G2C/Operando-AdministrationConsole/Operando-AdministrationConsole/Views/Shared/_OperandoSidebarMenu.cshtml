@@ -366,6 +366,31 @@
             </ul>
         </li>
 
+        <li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ServiceMonitoring")) { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-server"></i>
+                <span class="title">Service Monitoring</span>
+                <span class="arrow open"></span>
+                @if (currentController == "PspAdmin" && currentAction == "ServiceMonitoring")
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">
+                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ServiceMonitoring") { @activeClass }'>
+                    <a href="@Url.Action("ServiceMonitoring", "PspAdmin")" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">Service Monitoring</span>
+                        @if (currentController == "PspAdmin" && currentAction == "ServiceMonitoring")
+                        {
+                            @:<span class="selected"></span>
+                            }
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
         @* ---------------------------------------------------------------------------- *@
         @* ----------------------------- REGULATOR ------------------------------------ *@
         @* ---------------------------------------------------------------------------- *@

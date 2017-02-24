@@ -122,7 +122,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_list where Report not IN (Select DISTINCT report FROM T_report_mng_schedules)";
+                cmd.CommandText = "select * from t_report_mng_list where Report not IN (Select DISTINCT report FROM t_report_mng_schedules)";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -208,7 +208,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from T_report_mng_results ";
+                cmd.CommandText = "select * from t_report_mng_results ";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -284,9 +284,9 @@ namespace Operando_AdministrationConsole.Controllers
                 connection.Open();
 
                 cmd.CommandText = @"select A.Report, LR.Lastrun, NS.NextScheduled 
-                from T_report_mng_schedules A
-                join (select report, MAX(Lastrun) as Lastrun from T_report_mng_schedules Group By Report) LR ON LR.report = A.report
-                join (select report, MIN(NextScheduled) as NextScheduled from T_report_mng_schedules Group By Report) NS ON NS.report = A.report
+                from t_report_mng_schedules A
+                join (select report, MAX(Lastrun) as Lastrun from t_report_mng_schedules Group By Report) LR ON LR.report = A.report
+                join (select report, MIN(NextScheduled) as NextScheduled from t_report_mng_schedules Group By Report) NS ON NS.report = A.report
                 Group By A.Report";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -367,7 +367,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from T_report_mng_schedules";
+                cmd.CommandText = "select * from t_report_mng_schedules";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -557,6 +557,15 @@ namespace Operando_AdministrationConsole.Controllers
         // ----------------------------------
 
         public ActionResult ModulesSettings()
+        {
+            return View();
+        }
+
+        // ----------------------------------
+        // ------ SERVICE MONITORING ----------
+        // ----------------------------------
+
+        public ActionResult ServiceMonitoring()
         {
             return View();
         }

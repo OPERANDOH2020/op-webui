@@ -5800,6 +5800,7 @@
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
     <Content Include="Views\Regulator\RegulationComplianceDetail.cshtml" />
+    <Content Include="Views\PspAdmin\ServiceMonitoring.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
