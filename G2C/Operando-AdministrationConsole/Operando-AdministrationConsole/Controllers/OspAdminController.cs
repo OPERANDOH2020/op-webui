@@ -176,7 +176,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from T_report_mng_results ";
+                cmd.CommandText = "select * from t_report_mng_results ";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -248,7 +248,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select Report, Description, Version, LastRun, NextScheduled from T_report_mng_schedules Group By Report";
+                cmd.CommandText = "select Report, Description, Version, LastRun, NextScheduled from t_report_mng_schedules Group By Report";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -338,7 +338,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from T_report_mng_schedules";
+                cmd.CommandText = "select * from t_report_mng_schedules";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 

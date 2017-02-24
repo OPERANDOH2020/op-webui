@@ -43,7 +43,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from T_report_mng_results ORDER BY ExecutionDate DESC Limit 0,3";
+                cmd.CommandText = "select * from t_report_mng_results ORDER BY ExecutionDate DESC Limit 0,3";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
