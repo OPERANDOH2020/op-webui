@@ -129,10 +129,13 @@
                                                                                 <td data-action="view">@schedule.StartTime</td>
                                                                                 <td data-action="view">@schedule.RepeatIntervalDays (days)</td>
                                                                                 <td data-action="view">
-                                                                                    <div class="btn-group btn-group-circle">
-                                                                                        <button type="button" class="btn btn-outline green btn-sm" data-action="toggle-edit">Edit</button>
-                                                                                        <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                                    </div>
+                                                                                    @using (Html.BeginForm("DeleteSchedule", "OspAdmin", new { id = schedule.Id }, FormMethod.Post))
+                                                                                    {
+                                                                                        <div class="btn-group btn-group-circle">
+                                                                                            <button type="button" class="btn btn-outline green btn-sm" data-action="toggle-edit">Edit</button>
+                                                                                            <button type="submit" class="btn btn-outline red btn-sm">Delete</button>
+                                                                                        </div>
+                                                                                    }
                                                                                 </td>
                                                                                 <td data-action="edit" colspan="4" style="display: none">
                                                                                     @Html.Partial("_editSchedule", schedule)
@@ -285,7 +288,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm" data-date-start-date="+0d">
+                                                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm" data-date-start-date="0d">
                                                                             <input type="text" class="form-control" readonly>
                                                                             <span class="input-group-btn">
                                                                                 <button class="btn default" type="button">

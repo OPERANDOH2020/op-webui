@@ -103,5 +103,24 @@ namespace eu.operando.core.bda
                 }
             }
         }
+
+        public async Task DeleteScheduleAsync(Schedule schedule)
+        {
+            if (schedule == null) throw new ArgumentNullException(nameof(schedule));
+
+            var repoSchedule = await GetScheduleByIdAsync(schedule.Id);
+
+            if (repoSchedule == null) throw new ArgumentException($"Schedule with id {schedule.Id} does not exist in repository");
+
+            Repository.Schedules.Remove(repoSchedule);
+
+            foreach (var job in Repository.Jobs)
+            {
+                if (job.Schedules.Contains(repoSchedule))
+                {
+                    job.Schedules.Remove(repoSchedule);
+                }
+            }
+        }
     }
 }

@@ -577,6 +577,20 @@ namespace Operando_AdministrationConsole.Controllers
             return RedirectToAction("BigDataAnalytics");
         }
 
+        public async Task<ActionResult> DeleteSchedule(string id)
+        {
+            var schedule = await _bdaClient.GetScheduleByIdAsync(id);
+
+            if (schedule == null || schedule.OspScheduled != OspForCurrentUser)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            await _bdaClient.DeleteScheduleAsync(schedule);
+
+            return RedirectToAction("BigDataAnalytics");
+        }
+
         /// <summary>
         /// TODO -- how to get the OSP the current user (an OSP admin) works for
         /// </summary>

@@ -49,5 +49,10 @@ namespace eu.operando.core.bda
 
         [NotNull]
         Task EditScheduleAsync([NotNull] Schedule schedule);
+
+        [NotNull]
+        Task DeleteScheduleAsync([NotNull] Schedule schedule);
+
+
     }
 }
