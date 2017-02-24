@@ -1,6 +1,6 @@
 ﻿@model Operando_AdministrationConsole.Models.BdaSchedule
 
-@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-inline" }))
+@using (Html.BeginForm("AddSchedule", "OspAdmin", FormMethod.Post, new { @class = "form-inline" }))
 {
     <div class="pull-left">
         @Html.Partial("ModelEditors/ScheduleEditor", Model)

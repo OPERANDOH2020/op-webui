@@ -134,6 +134,7 @@ namespace Operando_AdministrationConsole.Models
             StoragePeriod = schedule.StoragePeriod.ToString();
         }
 
+        public string Id { get; set; }
         public string OspScheduled { get; set; }
         public string StartDate { get; set; }
         public string StartTime { get; set; }

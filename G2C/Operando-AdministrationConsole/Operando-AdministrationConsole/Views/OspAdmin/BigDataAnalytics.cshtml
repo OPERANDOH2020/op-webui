@@ -126,19 +126,17 @@
                                                                     <tbody>
                                                                         @foreach (BdaSchedule schedule in job.Schedules)
                                                                         {
-                                                                            <tr>
-                                                                                <td>@schedule.StartTime</td>
-                                                                                <td>@schedule.RepeatIntervalValue @(schedule.RepeatIntervalUnit)(s)</td>
-                                                                                <td>@schedule.RepeatOn</td>
-                                                                                <td>
+                                                                            <tr data-toggle="edit-schedule">
+                                                                                <td data-action="view">@schedule.StartTime</td>
+                                                                                <td data-action="view">@schedule.RepeatIntervalValue @(schedule.RepeatIntervalUnit)(s)</td>
+                                                                                <td data-action="view">@schedule.RepeatOn</td>
+                                                                                <td data-action="view">
                                                                                     <div class="btn-group btn-group-circle">
-                                                                                        <button type="button" class="btn btn-outline green btn-sm">Edit</button>
+                                                                                        <button type="button" class="btn btn-outline green btn-sm" data-action="toggle-edit">Edit</button>
                                                                                         <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
                                                                                     </div>
                                                                                 </td>
-                                                                            </tr>
-                                                                            <tr class="edit-row">
-                                                                                <td colspan="4">
+                                                                                <td data-action="edit" colspan="4" style="display: none">
                                                                                     @Html.Partial("_editSchedule", schedule)
                                                                                 </td>
                                                                             </tr>
@@ -359,5 +357,5 @@
 
 @* the next js creates filter, search and pagination on the tables *@
 <script src="~/assets/pages/scripts/operando-bda-table-managed.js" type="text/javascript"></script> 
-<script src="~/assets/pages/scripts/operando-bda-page.js" type="text/javascript"></script> 
+<script src="~/assets/pages/scripts/operando-bda.js" type="text/javascript"></script> 
 }

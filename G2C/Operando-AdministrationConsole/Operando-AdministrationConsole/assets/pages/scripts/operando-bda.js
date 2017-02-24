@@ -46,6 +46,25 @@
         });
     };
 
+    var bindEditSchedules = function() {
+        $("[data-toggle='edit-schedule']").each(function (idx, e) {
+            var $element = $(e),
+                $viewCells = $element.find("[data-action='view']"),
+                $editCells = $element.find("[data-action='edit']"),
+                $editBtn = $element.find("[data-action='toggle-edit']");
+
+            $editCells.hide();
+
+            $editBtn.click(function() {
+                $viewCells.toggle();
+                $editCells.toggle();
+            });
+
+            
+        });
+    }
+
     $(bindAjaxModals);
     $(bindViewSchedules);
+    $(bindEditSchedules);
 }();

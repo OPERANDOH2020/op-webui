@@ -542,5 +542,18 @@ namespace Operando_AdministrationConsole.Controllers
                 return View("Error", new HandleErrorInfo(ex, "OspAdmin", "RequestNewBdaExtract"));
             }
         }
+
+        [HttpPost]
+        public ActionResult AddSchedule(BdaSchedule model)
+        {
+            return RedirectToAction("BigDataAnalytics");
+        }
+
+        [HttpPost]
+        public ActionResult EditSchedule(BdaSchedule model)
+        {
+
+            return RedirectToAction("BigDataAnalytics");
+        }
     }
 }

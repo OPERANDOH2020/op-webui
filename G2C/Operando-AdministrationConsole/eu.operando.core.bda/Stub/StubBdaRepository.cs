@@ -59,6 +59,7 @@ namespace eu.operando.core.bda.Stub
 
             var schedule = new Schedule
             {
+                Id = Guid.NewGuid().ToString(),
                 OspScheduled = "OCC",
                 StartDate = DateTime.UtcNow.Date,
                 RepeatInterval = arbitraryTimespan,

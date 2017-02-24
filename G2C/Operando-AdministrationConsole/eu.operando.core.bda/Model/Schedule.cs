@@ -4,6 +4,7 @@ namespace eu.operando.core.bda.Model
 {
     public class Schedule
     {
+        public string Id { get; set; }
         public string OspScheduled { get; set; }
         public DateTime StartDate { get; set; }
         public TimeSpan RepeatInterval { get; set; }
