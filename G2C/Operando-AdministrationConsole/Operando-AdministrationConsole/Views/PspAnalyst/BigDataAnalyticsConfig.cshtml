@@ -257,7 +257,7 @@
                                                                                     {
                                                                                     <tr data-toggle="edit-schedule">
                                                                                         <td>@schedule.OspScheduled</td>
-                                                                                        <td data-action="view">@schedule.StartTime</td>
+                                                                                        <td data-action="view">@schedule.StartTime.ToString(@"h\:mm")</td>
                                                                                         <td data-action="view">@schedule.RepeatIntervalDays (days)</td>
                                                                                         <td data-action="view">
                                                                                             @using (Html.BeginForm("DeleteSchedule", "PspAnalyst", new { id = schedule.Id }, FormMethod.Post))
