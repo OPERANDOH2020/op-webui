@@ -25,6 +25,7 @@
                 
                 $target.load(url, function () {
                     ComponentsBootstrapSelect.init();
+                    ComponentsDateTimePickers.init();
                     $target.modal();
                 });
             });
