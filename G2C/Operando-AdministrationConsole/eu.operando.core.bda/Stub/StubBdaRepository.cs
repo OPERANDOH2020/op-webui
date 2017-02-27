@@ -31,18 +31,18 @@ namespace eu.operando.core.bda.Stub
             }
         }
 
-        private Job SeedJob(int index)
+        private Job SeedJob(int arbitraryNumber)
         {
             var job = new Job
             {
                 Id = Guid.NewGuid().ToString(),
-                JobName = $"Job {index}",
-                Description = $"Description {index}",
-                DefinitionLocation = $"http://www.example.com/joblocation/{index}",
+                JobName = $"Job {arbitraryNumber}",
+                Description = $"Description {arbitraryNumber}",
+                DefinitionLocation = $"http://www.example.com/joblocation/{arbitraryNumber}",
                 CostPerExecution = new Money
                 {
                     Currency = Money.CurrencyCode.EUR,
-                    Value = index * 10.0m
+                    Value = arbitraryNumber * 10.0m
                 },
                 Osps = new List<string> { "OCC", "ITI" },
                 Schedules = new List<Schedule>(),
@@ -53,9 +53,9 @@ namespace eu.operando.core.bda.Stub
             return job;
         }
 
-        private Schedule SeedSchedule(Job job, int index)
+        private Schedule SeedSchedule(Job job, int arbitraryNumber)
         {
-            var arbitraryTimespan = TimeSpan.FromHours(index);
+            var arbitraryTimespan = TimeSpan.FromHours(arbitraryNumber);
 
             var schedule = new Schedule
             {
@@ -71,9 +71,9 @@ namespace eu.operando.core.bda.Stub
             return schedule;
         }
 
-        private Execution SeedExecution(Job job, int index)
+        private Execution SeedExecution(Job job, int arbitraryNumber)
         {
-            var arbitraryDate = DateTime.UtcNow.AddDays(-index);
+            var arbitraryDate = DateTime.UtcNow.AddDays(-arbitraryNumber);
 
             var execution = new Execution
             {
@@ -81,8 +81,8 @@ namespace eu.operando.core.bda.Stub
                 JobId = job.Id,
                 ExecutionDate = arbitraryDate,
                 OspScheduled = "OCC",
-                VersionNumber = new Version(0, index),
-                DownloadLink = $"http://www.example.com/execution/download/{index}"
+                VersionNumber = new Version(0, arbitraryNumber),
+                DownloadLink = $"http://www.example.com/execution/download/{arbitraryNumber}"
             };
 
             Executions.Add(execution);

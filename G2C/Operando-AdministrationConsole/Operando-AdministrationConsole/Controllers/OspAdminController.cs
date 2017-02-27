@@ -532,7 +532,7 @@ namespace Operando_AdministrationConsole.Controllers
                     RequestSummary = model.RequestSummary
                 };
 
-                await _bdaClient.RequestNewBdaExtraction(request);
+                await _bdaClient.RequestNewBdaExtractionAsync(request);
 
                 return RedirectToAction("BigDataAnalytics");
             }
@@ -572,7 +572,7 @@ namespace Operando_AdministrationConsole.Controllers
             schedule.StartTime = model.StartTime;
             schedule.RepeatInterval = TimeSpan.FromDays(model.RepeatIntervalDays);
 
-            await _bdaClient.EditScheduleAsync(schedule);
+            await _bdaClient.UpdateScheduleAsync(schedule);
 
             return RedirectToAction("BigDataAnalytics");
         }

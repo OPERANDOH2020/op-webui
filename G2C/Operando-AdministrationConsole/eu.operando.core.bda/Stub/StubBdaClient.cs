@@ -60,7 +60,7 @@ namespace eu.operando.core.bda
             Repository.Jobs.Add(job);
         }
 
-        public Task RequestNewBdaExtraction(ExtractionRequest extractionRequest)
+        public Task RequestNewBdaExtractionAsync(ExtractionRequest extractionRequest)
         {
             // No-op. Should be Task.CompletedTask but that is not available until .NET 4.6 (this is .NET 4.0)
             return Task.FromResult(true);
@@ -85,7 +85,7 @@ namespace eu.operando.core.bda
             Repository.Schedules.Add(schedule);
         }
 
-        public async Task EditScheduleAsync(Schedule schedule)
+        public async Task UpdateScheduleAsync(Schedule schedule)
         {
             var repoSchedule = await GetScheduleByIdAsync(schedule.Id);
 

@@ -36,7 +36,7 @@ namespace eu.operando.core.bda
         Task UpdateJobAsync([NotNull] Job job);
 
         [NotNull]
-        Task RequestNewBdaExtraction([NotNull] ExtractionRequest extractionRequest);
+        Task RequestNewBdaExtractionAsync([NotNull] ExtractionRequest extractionRequest);
 
         /// <summary>
         /// Get the schedule for the specified Id. If no schedule exists with that id, return null
@@ -48,7 +48,7 @@ namespace eu.operando.core.bda
         Task AddScheduleAsync([NotNull] Schedule schedule);
 
         [NotNull]
-        Task EditScheduleAsync([NotNull] Schedule schedule);
+        Task UpdateScheduleAsync([NotNull] Schedule schedule);
 
         [NotNull]
         Task DeleteScheduleAsync([NotNull] Schedule schedule);
