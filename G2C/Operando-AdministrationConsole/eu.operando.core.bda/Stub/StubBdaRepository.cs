@@ -55,7 +55,7 @@ namespace eu.operando.core.bda.Stub
 
         private Schedule SeedSchedule(Job job, int arbitraryNumber)
         {
-            var arbitraryTimespan = TimeSpan.FromHours(arbitraryNumber);
+            var arbitraryTimespan = TimeSpan.FromDays(arbitraryNumber);
 
             var schedule = new Schedule
             {

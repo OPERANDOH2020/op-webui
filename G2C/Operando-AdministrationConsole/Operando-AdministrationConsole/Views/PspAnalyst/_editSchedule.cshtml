@@ -1,0 +1,14 @@
+﻿@model Operando_AdministrationConsole.Models.BdaSchedule
+
+@using (Html.BeginForm("EditSchedule", "PspAnalyst", FormMethod.Post, new { @class = "form-inline" }))
+{
+    <div class="pull-left">
+        @Html.Partial("ModelEditors/ScheduleEditor", Model)
+    </div>
+    <div class="btn-group btn-group-circle pull-right">
+        <button type="button" class="btn btn-outline btn-sm" data-action="toggle-edit">Cancel</button>
+        <button type="submit" class="btn btn-outline green btn-sm">Save</button>
+    </div>
+
+    <div class="clearfix"></div>
+}

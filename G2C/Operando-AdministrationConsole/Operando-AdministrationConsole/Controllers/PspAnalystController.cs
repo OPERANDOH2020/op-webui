@@ -226,5 +226,40 @@ namespace Operando_AdministrationConsole.Controllers
                 return View("Error", new HandleErrorInfo(ex, "PspAnalyst", "AddJob"));
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> EditSchedule(BdaSchedule model)
+        {
+            var schedule = await _bdaClient.GetScheduleByIdAsync(model.Id);
+
+            if (schedule == null)
+            {
+                // TODO -- log that schedule id was not valid
+                return new HttpUnauthorizedResult();
+            }
+
+            schedule.StartTime = model.StartTime;
+            schedule.RepeatInterval = TimeSpan.FromDays(model.RepeatIntervalDays);
+            // changing the scheduled OSP is not allowed. It can be achieved by deleting a schedule and creating a new one. 
+
+            await _bdaClient.UpdateScheduleAsync(schedule);
+
+            return RedirectToAction("BigDataAnalyticsConfig");
+        }
+
+        public async Task<ActionResult> DeleteSchedule(string id)
+        {
+            var schedule = await _bdaClient.GetScheduleByIdAsync(id);
+
+            if (schedule == null)
+            {
+                // TODO -- log that schedule id was not valid
+                return new HttpUnauthorizedResult();
+            }
+
+            await _bdaClient.DeleteScheduleAsync(schedule);
+
+            return RedirectToAction("BigDataAnalyticsConfig");
+        }
     }
 }

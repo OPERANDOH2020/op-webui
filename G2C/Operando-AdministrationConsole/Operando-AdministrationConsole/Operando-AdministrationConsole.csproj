@@ -237,6 +237,7 @@
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
     <Compile Include="Models\PrivacyPolicy.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
+    <Compile Include="Models\PspAnalystModels\BigDataScheduleModel.cs" />
     <Compile Include="Models\Regulation.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -5796,6 +5797,9 @@
     <Content Include="Views\OspAdmin\ModelEditors\ScheduleEditor.cshtml" />
     <Content Include="Views\OspAdmin\_editSchedule.cshtml" />
     <Content Include="Views\OspAdmin\_addSchedule.cshtml" />
+    <Content Include="Views\PspAnalyst\_addSchedule.cshtml" />
+    <Content Include="Views\PspAnalyst\_editSchedule.cshtml" />
+    <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

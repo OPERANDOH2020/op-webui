@@ -255,15 +255,20 @@
                                                                             <tbody>
                                                                                 @foreach (BdaSchedule schedule in job.Schedules)
                                                                                     {
-                                                                                    <tr>
+                                                                                    <tr data-toggle="edit-schedule">
                                                                                         <td>@schedule.OspScheduled</td>
-                                                                                        <td>@schedule.StartTime</td>
-                                                                                        <td>@schedule.RepeatIntervalDays (days)</td>
-                                                                                        <td>
-                                                                                            <div class="btn-group btn-group-circle">
-                                                                                                <button type="button" class="btn btn-outline green btn-sm">Edit</button>
-                                                                                                <button type="button" class="btn btn-outline red btn-sm" data-toggle="confirmation" data-original-title="Are you sure ?" data-placement="left">Delete</button>
-                                                                                            </div>
+                                                                                        <td data-action="view">@schedule.StartTime</td>
+                                                                                        <td data-action="view">@schedule.RepeatIntervalDays (days)</td>
+                                                                                        <td data-action="view">
+                                                                                            @using (Html.BeginForm("DeleteSchedule", "PspAnalyst", new { id = schedule.Id }, FormMethod.Post))
+                                                                                            {
+                                                                                                <div class="btn-group btn-group-circle">
+                                                                                                    <button type="button" class="btn btn-outline green btn-sm" data-action="toggle-edit">Edit</button>
+                                                                                                    <button type="submit" class="btn btn-outline red btn-sm">Delete</button>
+                                                                                                </div>
+                                                                                            }
+                                                                                        <td data-action="edit" colspan="3" style="display: none">
+                                                                                            @Html.Partial("_editSchedule", schedule)
                                                                                         </td>
                                                                                     </tr>
                                                                                     }
