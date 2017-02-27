@@ -18,6 +18,11 @@ namespace Operando_AdministrationConsole.Controllers
         ReportManager reportManager = new ReportManager();
         private readonly IBdaClient _bdaClient;
 
+        /// <summary>
+        /// TODO -- how to get the OSP the current user (an OSP admin) works for
+        /// </summary>
+        private string OspForCurrentUser { get; } = "OCC";
+
         public DashboardController()
         {
             _bdaClient = new BdaClient();
@@ -228,6 +233,30 @@ namespace Operando_AdministrationConsole.Controllers
             });
 
             return PartialView("Widgets/_DataExtractRequests", model);
+        }
+
+        [HttpGet]
+        public async Task<PartialViewResult> DataExtractsWidget(int count = 3)
+        {
+            var executions = await _bdaClient.GetLatestExecutionsForOspAsync(OspForCurrentUser, count);
+
+            Task<DataExtractsModel>[] modelTasks = executions.Select(async _ =>
+            {
+                var job = await _bdaClient.GetJobByIdAsync(_.JobId);
+
+                return new DataExtractsModel
+                {
+                    ExtractionDate = _.ExecutionDate,
+                    Version = _.VersionNumber,
+                    DownloadUrl = _.DownloadLink,
+                    JobName = job?.JobName
+                };
+            })
+            .ToArray();
+
+            var model = await Task.WhenAll(modelTasks);
+
+            return PartialView("Widgets/_DataExtracts", model);
         }
 
         #endregion Widgets

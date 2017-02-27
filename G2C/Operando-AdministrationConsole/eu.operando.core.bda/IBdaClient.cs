@@ -60,6 +60,13 @@ namespace eu.operando.core.bda
         [NotNull]
         Task DeleteScheduleAsync([NotNull] Schedule schedule);
 
-
+        /// <summary>
+        /// Get the latest extractions executed for the specified osp
+        /// </summary>
+        /// <param name="osp">the osp the extractions have been created for</param>
+        /// <param name="count">the maximum number of results to return</param>
+        /// <returns></returns>
+        [ItemNotNull]
+        Task<IEnumerable<Execution>> GetLatestExecutionsForOspAsync([NotNull] string osp, int count);
     }
 }

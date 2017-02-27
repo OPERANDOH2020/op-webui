@@ -108,7 +108,7 @@ namespace Operando_AdministrationConsole.Models
             JobId = execution.JobId;
             OspScheduled = execution.OspScheduled;
             ExecutionDate = execution.ExecutionDate.ToString();
-            VersionNumber = execution.VersionNumber.ToString();
+            VersionNumber = execution.VersionNumber;
             DownloadLink = execution.DownloadLink;
         }
 

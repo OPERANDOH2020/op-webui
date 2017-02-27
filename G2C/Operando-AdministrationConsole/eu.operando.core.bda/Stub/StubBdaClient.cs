@@ -129,5 +129,15 @@ namespace eu.operando.core.bda
                 }
             }
         }
+
+        public Task<IEnumerable<Execution>> GetLatestExecutionsForOspAsync(string osp, int count)
+        {
+            IEnumerable<Execution> extractions = Repository.Executions
+                .Where(_ => _.OspScheduled == osp)
+                .OrderByDescending(_ => _.ExecutionDate)
+                .Take(count);
+
+            return Task.FromResult(extractions);
+        }
     }
 }

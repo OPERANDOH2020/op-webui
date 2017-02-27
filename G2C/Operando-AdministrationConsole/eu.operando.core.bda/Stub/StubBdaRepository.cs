@@ -85,7 +85,7 @@ namespace eu.operando.core.bda.Stub
                 JobId = job.Id,
                 ExecutionDate = arbitraryDate,
                 OspScheduled = "OCC",
-                VersionNumber = new Version(0, arbitraryNumber),
+                VersionNumber = new Version(0, arbitraryNumber).ToString(),
                 DownloadLink = $"http://www.example.com/execution/download/{arbitraryNumber}"
             };
 
