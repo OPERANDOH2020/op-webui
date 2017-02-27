@@ -65,7 +65,17 @@
         });
     }
 
+    var bindSubmitConfirmation = function() {
+        $("[data-toggle=submit-confirmation]").confirmation({
+            rootSelector: "[data-toggle=submit-confirmation]",
+            onConfirm: function() {
+                $(this).closest("form").submit();
+            }
+        })
+    }
+
     $(bindAjaxModals);
     $(bindViewSchedules);
     $(bindEditSchedules);
+    $(bindSubmitConfirmation);
 }();
