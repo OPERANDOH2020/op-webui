@@ -62,8 +62,15 @@ namespace eu.operando.core.bda
 
         public Task RequestNewBdaExtractionAsync(ExtractionRequest extractionRequest)
         {
+            Repository.ExtractionRequests.Add(extractionRequest);
             // No-op. Should be Task.CompletedTask but that is not available until .NET 4.6 (this is .NET 4.0)
             return Task.FromResult(true);
+        }
+
+        public Task<IEnumerable<ExtractionRequest>> GetUnfulfilledBdaExtractionRequestsAsync()
+        {
+            IEnumerable<ExtractionRequest> requests = Repository.ExtractionRequests;
+            return Task.FromResult(requests);
         }
 
         public Task<Schedule> GetScheduleByIdAsync(string scheduleId)

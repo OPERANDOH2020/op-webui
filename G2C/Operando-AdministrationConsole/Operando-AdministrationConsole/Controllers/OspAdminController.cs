@@ -529,7 +529,9 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     RequesterName = model.RequesterName,
                     ContactEmail = model.ContactEmail,
-                    RequestSummary = model.RequestSummary
+                    RequestSummary = model.RequestSummary,
+                    Osp = OspForCurrentUser,
+                    RequestDate = DateTime.UtcNow
                 };
 
                 await _bdaClient.RequestNewBdaExtractionAsync(request);

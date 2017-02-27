@@ -39,6 +39,13 @@ namespace eu.operando.core.bda
         Task RequestNewBdaExtractionAsync([NotNull] ExtractionRequest extractionRequest);
 
         /// <summary>
+        /// Get Extraction Requests that are waiting to be actioned by (e.g.) a PSP Analyst
+        /// </summary>
+        /// <returns></returns>
+        [ItemNotNull]
+        Task<IEnumerable<ExtractionRequest>> GetUnfulfilledBdaExtractionRequestsAsync();
+
+        /// <summary>
         /// Get the schedule for the specified Id. If no schedule exists with that id, return null
         /// </summary>
         [ItemCanBeNull]
