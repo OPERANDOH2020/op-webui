@@ -227,6 +227,41 @@ namespace Operando_AdministrationConsole.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<ActionResult> AddSchedule()
+        {
+            var jobs = await _bdaClient.GetJobsAsync();
+
+            var model = new BigDataScheduleModel(new Schedule(), _availableOsps, jobs);
+
+            return PartialView("_addBigDataScheduleModal", model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddSchedule(BigDataScheduleModel model)
+        {
+            try
+            {
+                var schedule = new Schedule
+                {
+                    JobId = model.JobId,
+                    OspScheduled = model.OspScheduled,
+                    StartTime = model.StartTime,
+                    RepeatInterval = TimeSpan.FromDays(model.RepeatIntervalDays)
+                };
+
+
+                await _bdaClient.AddScheduleAsync(schedule);
+
+                return RedirectToAction("BigDataAnalyticsConfig");
+            }
+            catch (Exception ex)
+            {
+                // TODO -- exception should be logged here
+                return View("Error", new HandleErrorInfo(ex, "PspAnalyst", "AddSchedule"));
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> EditSchedule(BdaSchedule model)
         {

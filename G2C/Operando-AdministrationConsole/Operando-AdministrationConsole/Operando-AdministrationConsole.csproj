@@ -5797,9 +5797,10 @@
     <Content Include="Views\OspAdmin\ModelEditors\ScheduleEditor.cshtml" />
     <Content Include="Views\OspAdmin\_editSchedule.cshtml" />
     <Content Include="Views\OspAdmin\_addSchedule.cshtml" />
-    <Content Include="Views\PspAnalyst\_addSchedule.cshtml" />
+    <Content Include="Views\PspAnalyst\_addBigDataScheduleModal.cshtml" />
     <Content Include="Views\PspAnalyst\_editSchedule.cshtml" />
-    <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditor.cshtml" />
+    <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditorInline.cshtml" />
+    <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditorModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

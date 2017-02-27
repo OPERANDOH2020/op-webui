@@ -3,7 +3,7 @@
 @using (Html.BeginForm("EditSchedule", "PspAnalyst", FormMethod.Post, new { @class = "form-inline" }))
 {
     <div class="pull-left">
-        @Html.Partial("ModelEditors/ScheduleEditor", Model)
+        @Html.Partial("ModelEditors/ScheduleEditorInline", Model)
     </div>
     <div class="btn-group btn-group-circle pull-right">
         <button type="button" class="btn btn-outline btn-sm" data-action="toggle-edit">Cancel</button>
