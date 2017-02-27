@@ -5734,7 +5734,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\OspAdmin\_requestNewBdaExtractionModal.cshtml" />
+    <Content Include="Views\OspAdmin\RequestNewBdaExtraction.cshtml" />
     <Content Include="Views\PspAnalyst\ModelEditors\BigDataJobModelEditor.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

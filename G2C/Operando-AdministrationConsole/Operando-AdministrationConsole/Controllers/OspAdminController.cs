@@ -517,12 +517,17 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpGet]
         public ActionResult RequestNewBdaExtract()
         {
-            return PartialView("_requestNewBdaExtractionModal");
+            return View("RequestNewBdaExtraction");
         }
 
         [HttpPost]
         public async Task<ActionResult> RequestNewBdaExtract(RequestNewBdaExtractModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("RequestNewBdaExtraction", model);
+            }
+
             try
             {
                 var request = new ExtractionRequest

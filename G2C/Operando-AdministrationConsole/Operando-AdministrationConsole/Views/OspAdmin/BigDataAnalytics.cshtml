@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="portlet-body text-right">
-                <a class="btn yellow-gold" data-toggle="modal-ajax" data-source="@Url.Action("RequestNewBdaExtract")">Request Now</a>
+                @Html.ActionLink("Request Now", "RequestNewBdaExtract", null, new { @class = "btn yellow-gold" })
             </div>
         </div>
         <!-- END PORTLET -->
