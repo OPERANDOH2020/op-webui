@@ -99,7 +99,7 @@ namespace eu.operando.core.bda.Stub
             var request = new ExtractionRequest
             {
                 RequesterName = "P. M. O. Kent",
-                ContactEmail = $"princess_mike_{arbitraryNumber}@yahoo.com",
+                ContactEmail = $"p.m.{arbitraryNumber}.kent@yahoo.com",
                 RequestSummary = "Hello, I would like some new analytics to be set up, to analyse how the number of requests for dietary data varies over the course of a day. This should show the number of requests in an hour, and a new report should be created every morning, showing the analytics for the previous day. For further information, please feel free to contact me by calling 01234567890 Thanks for your help",
                 Osp = "OCC",
                 RequestDate = DateTime.UtcNow.AddDays(-arbitraryNumber)

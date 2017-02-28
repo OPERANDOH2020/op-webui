@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var extract in Model.OrderByDescending(_ => _.ExtractionDate))
+                @foreach (var extract in Model.OrderBy(_ => _.ExtractionDate))
                 {
                     <tr class="">
                         <td> @extract.ExtractionDate.ToString("g") </td>
