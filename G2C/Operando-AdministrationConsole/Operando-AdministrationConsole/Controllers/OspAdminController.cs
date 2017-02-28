@@ -10,6 +10,8 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Net.Http;
 using System.Text;
+using System.Diagnostics;
+using eu.operando.core.pdb.cli.Model;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -485,9 +487,98 @@ namespace Operando_AdministrationConsole.Controllers
         {
             return View();
         }
-		
-		public ActionResult UppManagementTool()
+
+        /* Method modified by IT Innovation Centre 2017 */
+        private string getUPPServiceTicket()
         {
+            string st = "";
+            string pdbUPPSId = ConfigurationManager.AppSettings["pdbUPPSId"];
+
+            // get UPP service ticket
+            string aapiBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            var aapiInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(aapiBasePath);
+
+            try
+            {
+                // UPP service ticket call
+                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), pdbUPPSId);
+                Debug.Print("Got UPP ST: " + st);
+            }
+            catch (eu.operando.interfaces.aapi.Client.ApiException ex)
+            {
+                Debug.Print("Exception failed to make API call to AapiTicketsTgtPost: " + ex.Message);
+            }
+
+            return st;
+        }
+
+        /* Method modified by IT Innovation Centre 2017 */
+        public ActionResult UppManagementTool()
+        {
+            string ospId = "587f7eb56e157a10eece95d3"; // local for http://10.136.24.87:8080/pdb
+            ospId = "58b4cf1c5908010001a31aec";
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            //pdbBasePath = "http://10.136.24.87:8080/pdb";
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket());
+
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+
+            try
+            {
+                // UPP call to get the list of upp entries
+                //var filter = "filter=\"%7B%27subscribed_osp_policies.osp_id%27:%27" + ospId + "%27%7D\"";
+                var filter = "{\"subscribed_osp_policies.osp_id\":\"" + ospId + "\"}";
+                List<UserPrivacyPolicy> response = instance.UserPrivacyPolicyGet(filter);
+
+                /* response is a list of UserPrivacyPolicy we need to filter those for
+                 * OSPConsents that match the ospId. we create a new list of OSPConsent type
+                 * HOWEVER just for display purposes the ospId will contain the userId from UPP
+                 */
+                List<OSPConsents> modOspConsents = new List<OSPConsents>();
+                Dictionary<string, List<bool>> uppStats = new Dictionary<string, List<bool>>();
+                foreach(UserPrivacyPolicy upp in response)
+                {
+                    Debug.Print("upp found: " + upp.ToString());
+                    OSPConsents ospConsents = new OSPConsents();                    
+                    foreach(OSPConsents ospCons in upp.SubscribedOspPolicies)
+                    {
+                        if (ospCons.OspId == ospId)
+                        {
+                            // overwriting ospId with userId
+                            ospConsents.OspId = upp.UserId;
+                            ospConsents.AccessPolicies = ospCons.AccessPolicies;
+                            modOspConsents.Add(ospConsents);
+                            foreach(eu.operando.core.pdb.cli.Model.AccessPolicy ap in ospCons.AccessPolicies)
+                            {
+                                string key = ap.Subject + ap.Action + ap.Resource;
+                                if (!uppStats.ContainsKey(key))
+                                {
+                                    uppStats.Add(key, new List<bool>(new bool[] { (bool)ap.Permission }));
+                                }
+                                else
+                                {
+                                    uppStats[key].Add((bool)ap.Permission);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Debug.Print("UPP response:" + response.ToString());
+                //ViewBag.uppList = response;
+                //return View(response);
+                ViewBag.modOspConsents = modOspConsents;
+                ViewBag.uppStats = uppStats;
+                return View();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserPrivacyPolicy GET: " + e.Message);
+            }
+
             return View();
         }
 

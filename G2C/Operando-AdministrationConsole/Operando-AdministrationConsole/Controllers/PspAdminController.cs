@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Operando_AdministrationConsole.Models;
+using System.Diagnostics;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -534,10 +535,10 @@ namespace Operando_AdministrationConsole.Controllers
         // ----------------------------------
         // ------ USERS MANAGEMENT ----------
         // ----------------------------------
-
+        
         public ActionResult UsersManagement()
         {
-           return View();
+            return View();
         }
 
 

@@ -106,6 +106,7 @@ namespace Operando_AdministrationConsole.Controllers
             return View(logList);
         }
 
+        /* Method modified by IT Innovation Centre 2017 */
         private string getServiceTicket()
         {
             string st = "";
@@ -256,7 +257,7 @@ namespace Operando_AdministrationConsole.Controllers
                         found = true;
                         Debug.Print("Found matching UPP consent for UPDATE:" + consent.ToString());
                         OSPConsents updateConsent = new OSPConsents();
-                        updateConsent.OspId = selectedOSP.PolicyUrl;
+                        updateConsent.OspId = selectedOSP.OspPolicyId;
                         updateConsent.AccessPolicies = selectedOSP.Policies;
                         newSOP.Add(updateConsent);
                     }
@@ -272,7 +273,7 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     Debug.Print("Add new consent to OSP policy: " + selectedOSP.PolicyUrl);
                     OSPConsents newConsents = new OSPConsents();
-                    newConsents.OspId = selectedOSP.PolicyUrl;
+                    newConsents.OspId = selectedOSP.OspPolicyId;
                     newConsents.AccessPolicies = selectedOSP.Policies;
                     newSOP.Add(newConsents);
                 }
