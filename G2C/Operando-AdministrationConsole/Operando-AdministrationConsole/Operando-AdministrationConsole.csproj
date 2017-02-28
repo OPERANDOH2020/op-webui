@@ -232,6 +232,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BdaModels.cs" />
+    <Compile Include="Models\DashboardModels\WidgetModels\DataRequestsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractRequestModel.cs" />
     <Compile Include="Models\DataAccessLog.cs" />
@@ -5805,6 +5806,7 @@
     <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditorModal.cshtml" />
     <Content Include="Views\Dashboard\Widgets\_DataExtractRequests.cshtml" />
     <Content Include="Views\Dashboard\Widgets\_DataExtracts.cshtml" />
+    <Content Include="Views\Dashboard\Widgets\_DataRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

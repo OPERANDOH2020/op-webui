@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Operando_AdministrationConsole.Models.DashboardModels.WidgetModels.DataRequestsModel>
+
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-dark hide"></i>
+            <span class="caption-subject font-dark bold uppercase">Data Requests</span>
+        </div>
+        <div class="tools">
+            <a href="@Url.Action("DataAccessLogs", "DataSubject")">View all <i class="icon-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <ul class="feeds">
+            <li class="font-grey-gallery">
+                <div class="col1">
+                    <div class="cont">
+                        <div class="cont-col1">
+                            <div class="label label-sm label-success">
+                                <i class="fa fa-info-circle"></i>
+                            </div>
+                        </div>
+                        <div class="cont-col2">
+                            <div class="desc"> ASLBG requested Age data for medical purpose </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col2">
+                    <div class="date"> 2016-09-20 09:47:37 </div>
+                </div>
+            </li>
+            <li class="font-grey-gallery">
+                <div class="col1">
+                    <div class="cont">
+                        <div class="cont-col1">
+                            <div class="label label-sm label-danger">
+                                <i class="fa fa-warning"></i>
+                            </div>
+                        </div>
+                        <div class="cont-col2">
+                            <div class="desc"> GASLINI requested Sex data for medical purpose </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col2">
+                    <div class="date"> 2016-08-20 11:47:37 </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>

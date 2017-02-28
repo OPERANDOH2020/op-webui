@@ -218,6 +218,15 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         #region Widgets
+
+        [HttpGet]
+        public PartialViewResult DataRequestsWidget(int count = 5)
+        {
+            var model = new List<DataRequestsModel>();
+
+            return PartialView("Widgets/_DataRequests", model);
+        }
+
         [HttpGet]
         public async Task<PartialViewResult> DataExtractRequestsWidget()
         {
