@@ -9,6 +9,7 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Threading.Tasks;
 using eu.operando.core.bda;
+using Operando_AdministrationConsole.Helper;
 using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels;
 
 namespace Operando_AdministrationConsole.Controllers
@@ -17,6 +18,7 @@ namespace Operando_AdministrationConsole.Controllers
     {
         ReportManager reportManager = new ReportManager();
         private readonly IBdaClient _bdaClient;
+        private readonly LdbService _ldbService;
 
         /// <summary>
         /// TODO -- how to get the OSP the current user (an OSP admin) works for
@@ -26,6 +28,7 @@ namespace Operando_AdministrationConsole.Controllers
         public DashboardController()
         {
             _bdaClient = new BdaClient();
+            _ldbService = new LdbService();
         }
 
         public ActionResult EmptyPage()
@@ -222,7 +225,17 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpGet]
         public PartialViewResult DataRequestsWidget(int count = 5)
         {
-            var model = new List<DataRequestsModel>();
+            // TODO filter in the GetDataAccessLogs rather than afterwards
+            var logMessages = _ldbService.GetDataAccessLogs();
+
+            var model = logMessages.Select(_ => new DataRequestsModel
+            {
+                Description = _.description,
+                Timestamp = _.logDate,
+                WasAllowed = true // TODO how should we determine if the request should have been allowed or not?
+            })
+            .OrderByDescending(_ => _.Timestamp)
+            .Take(count);
 
             return PartialView("Widgets/_DataRequests", model);
         }
