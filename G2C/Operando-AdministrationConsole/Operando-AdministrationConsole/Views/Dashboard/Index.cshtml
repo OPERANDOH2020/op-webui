@@ -1,4 +1,5 @@
-﻿@model Operando_AdministrationConsole.Models.ReportManager
+﻿@using Operando_AdministrationConsole.Models.DashboardModels
+@model DashboardModel
 @{
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
     ViewBag.Title = "Dashboard";
@@ -122,131 +123,90 @@
 </div>
 <!-- END BOX NOTIFICATIONS -->
 
-<!-- BEGIN DATA ACCESS SUMMARY & INFO -->
-<div class="row">
-    <!-- BEGIN BOX DATA REQUESTS -->
-    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-equalizer font-dark hide"></i>
-                    <span class="caption-subject font-dark bold uppercase">Data Requests</span>
+@if (Model.UserType == UserType.StandardUser)
+{
+    <!-- BEGIN DATA ACCESS SUMMARY & INFO -->
+    <div class="row">
+        <!-- BEGIN BOX DATA REQUESTS -->
+        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-equalizer font-dark hide"></i>
+                        <span class="caption-subject font-dark bold uppercase">Data Requests</span>
+                    </div>
+                    <div class="tools">
+                        <a href="@Url.Action("DataAccessLogs", "DataSubject")">View all <i class="icon-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="tools">
-                    <a href="@Url.Action("DataAccessLogs", "DataSubject")">View all <i class="icon-arrow-right"></i></a>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <ul class="feeds">
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-success">
-                                        <i class="fa fa-info-circle"></i>
+                <div class="portlet-body">
+                    <ul class="feeds">
+                        <li class="font-grey-gallery">
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-success">
+                                            <i class="fa fa-info-circle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> ASLBG requested Age data for medical purpose </div>
                                     </div>
                                 </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> ASLBG requested Age data for medical purpose </div>
-                                </div>
                             </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-09-20 09:47:37 </div>
-                        </div>
-                    </li>
-                    <li class="font-grey-gallery">
-                        <div class="col1">
-                            <div class="cont">
-                                <div class="cont-col1">
-                                    <div class="label label-sm label-danger">
-                                        <i class="fa fa-warning"></i>
+                            <div class="col2">
+                                <div class="date"> 2016-09-20 09:47:37 </div>
+                            </div>
+                        </li>
+                        <li class="font-grey-gallery">
+                            <div class="col1">
+                                <div class="cont">
+                                    <div class="cont-col1">
+                                        <div class="label label-sm label-danger">
+                                            <i class="fa fa-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"> GASLINI requested Sex data for medical purpose </div>
                                     </div>
                                 </div>
-                                <div class="cont-col2">
-                                    <div class="desc"> GASLINI requested Sex data for medical purpose </div>
-                                </div>
                             </div>
-                        </div>
-                        <div class="col2">
-                            <div class="date"> 2016-08-20 11:47:37 </div>
-                        </div>
-                    </li>
-                </ul>
+                            <div class="col2">
+                                <div class="date"> 2016-08-20 11:47:37 </div>
+                            </div>
+                        </li>
+                    </ul>
 
-            </div>
-        </div>
-    </div>
-    <!-- END BOX DATA REQUESTS -->
-    <!-- BEGIN BOX REQUESTS SUMMARY -->
-    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-equalizer font-dark hide"></i>
-                    <span class="caption-subject font-dark bold uppercase">Requests Summary</span>
-                    <span class="caption-helper">monthly stats...</span>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="sparkline-chart">
-                            <div class="number" id="sparkline_bar5"><canvas width="113" height="55" style="display: inline-block; width: 113px; height: 55px; vertical-align: top;"></canvas></div>
-                            <a class="title" href="javascript:;">
-                                ASLBG
-                                <i class="icon-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="margin-bottom-10 visible-sm"> </div>
-                    <div class="col-md-4">
-                        <div class="sparkline-chart">
-                            <div class="number" id="sparkline_bar6"><canvas width="107" height="55" style="display: inline-block; width: 107px; height: 55px; vertical-align: top;"></canvas></div>
-                            <a class="title" href="javascript:;">
-                                GASLINI
-                                <i class="icon-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="margin-bottom-10 visible-sm"> </div>
-                    <div class="col-md-4">
-                        <div class="sparkline-chart">
-                            <div class="number" id="sparkline_bar2"><canvas width="100" height="55" style="display: inline-block; width: 100px; height: 55px; vertical-align: top;"></canvas></div>
-                            <a class="title" href="javascript:;">
-                                AMI'
-                                <i class="icon-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+        <!-- END BOX DATA REQUESTS -->
     </div>
-    <!-- END BOX REQUESTS SUMMARY -->
-</div>
-<!-- END DATA ACCESS SUMMARY & INFO -->
+    <!-- END DATA ACCESS SUMMARY & INFO -->
+}
 
-<!-- BEGIN BOX REPORTS & DATA EXTRACTS -->
-<div class="row">
-    <!-- DATA EXTRACTS -->
-    <div class="col-md-6">
-        @Html.Action("DataExtractsWidget")
-    </div>
-    <!-- REPORTS -->
-    <div class="col-md-6">
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <span class="caption-subject font-dark bold uppercase">REPORTS</span>
+@if (Model.UserType == UserType.OspAdmin)
+{
+    <!-- BEGIN BOX REPORTS & DATA EXTRACTS -->
+    <div class="row">
+        <!-- DATA EXTRACTS -->
+        <div class="col-md-6">
+            @Html.Action("DataExtractsWidget")
+        </div>
+        <!-- REPORTS -->
+        <div class="col-md-6">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-dark bold uppercase">REPORTS</span>
+                    </div>
+                    <div class="tools">
+                        <a href="@Url.Action("Reports", "OspAdmin")">View all <i class="icon-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="tools">
-                    <a href="@Url.Action("Reports", "OspAdmin")">View all <i class="icon-arrow-right"></i></a>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover order-column" id="reports_osp">
-                    <thead>
+                <div class="portlet-body">
+                    <table class="table table-striped table-bordered table-hover order-column" id="reports_osp">
+                        <thead>
                         <tr>
                             <th> Date </th>
                             <th> Report </th>
@@ -254,9 +214,9 @@
                             <th> Version </th>
                             <th> Actions </th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.resultsObj.ResultList)
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.Results.ResultList)
                         {
                             <tr class="odd gradeX">
                                 <td>@item.ExecutionDate</td>
@@ -268,59 +228,59 @@
                                 </td>
                             </tr>
                         }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- END BOX BDA -->
+    <!-- END BOX BDA -->
 
-<!-- BEGIN BOX REPORT REQUESTS & BDA REQUESTS -->
-<div class="row">
-    <!-- DATA EXTRACTS REQUESTS -->
-    <div class="col-lg-6 col-xs-12 col-sm-12">
-        @Html.Action("DataExtractRequestsWidget")
-    </div>
-    <!-- REPORTS REQUESTS -->
-    <div class="col-lg-6 col-xs-12 col-sm-12">
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption caption-md">
-                    <i class="icon-bar-chart font-dark hide"></i>
-                    <span class="caption-subject font-dark bold uppercase">Reports Requests</span>
+    <!-- BEGIN BOX REPORT REQUESTS & BDA REQUESTS -->
+    <div class="row">
+        <!-- DATA EXTRACTS REQUESTS -->
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+            @Html.Action("DataExtractRequestsWidget")
+        </div>
+        <!-- REPORTS REQUESTS -->
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart font-dark hide"></i>
+                        <span class="caption-subject font-dark bold uppercase">Reports Requests</span>
+                    </div>
                 </div>
-            </div>
-            <div class="portlet-body">
-                <div class="scroller" style="height: 338px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-                    <div class="general-item-list">
-                        @foreach (var item in Model.requestsObj.RequestList)
-                        {
-                            <div class="item">
-                                <div class="item-head">
-                                    <div class="item-details">
-                                        <a href="mailto:@item.Email" class="item-name primary-link">@item.Name</a>
-                                        <span class="item-label">@item.InsertDate</span>
-                                    </div>
-                                    @*<span class="item-status">
+                <div class="portlet-body">
+                    <div class="scroller" style="height: 338px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                        <div class="general-item-list">
+                            @foreach (var item in Model.Requests.RequestList)
+                            {
+                                <div class="item">
+                                    <div class="item-head">
+                                        <div class="item-details">
+                                            <a href="mailto:@item.Email" class="item-name primary-link">@item.Name</a>
+                                            <span class="item-label">@item.InsertDate</span>
+                                        </div>
+                                        @*<span class="item-status">
                         <span class="badge badge-empty badge-success"></span> Open
                     </span>*@
+                                    </div>
+                                    <div class="item-body">
+                                        <p class="text">
+                                            @item.Description
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="item-body">
-                                    <p class="text">
-                                        @item.Description
-                                    </p>
-                                </div>
-                            </div>
-                        }             
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- BEGIN BOX REPORT REQUESTS & BDA REQUESTS -->
-
+    <!-- BEGIN BOX REPORT REQUESTS & BDA REQUESTS -->
+}
 <!-- END PAGE BASE CONTENT -->
 
 
