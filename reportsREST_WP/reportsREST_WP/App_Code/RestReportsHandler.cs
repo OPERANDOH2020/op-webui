@@ -1,9 +1,11 @@
-﻿using MySql.Data.MySqlClient;
+﻿using HtmlAgilityPack;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,6 +14,8 @@ using System.Web;
 
 public class RestReportsHandler : IHttpHandler
 {
+    private bool _bypassAuth = false;
+
     public bool IsReusable
     {
         get
@@ -20,9 +24,65 @@ public class RestReportsHandler : IHttpHandler
         }
     }
 
+    private byte[] turnImageToByteArray(System.Drawing.Image img)
+    {
+        MemoryStream ms = new MemoryStream();
+        img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+        return ms.ToArray();
+    }
+
+    /// <summary>
+    /// Replace all 'src' of 'img' tag with encoded version of image file
+    /// </summary>
+    /// <param name="url"></param>
+    /// <param name="cookies"></param>
+    /// <param name="htmlData"></param>
+    /// <returns></returns>
+    private string replaceHtmlTagImg(string url, CookieContainer cookies, string htmlData)
+    {
+        HtmlDocument doc = new HtmlDocument();
+        doc.LoadHtml(htmlData);
+        var imgs = doc.DocumentNode.SelectNodes("//img");
+
+        foreach (var img in imgs)
+        {
+            string orig = img.Attributes["src"].Value;
+            Uri uri = new Uri(url);
+            string host = uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port;
+            host = host + HttpUtility.HtmlDecode(orig);
+
+            HttpWebRequest imgRequest = (HttpWebRequest)WebRequest.Create(host);
+            imgRequest.CookieContainer = cookies;
+            HttpWebResponse imgResponse = (HttpWebResponse)imgRequest.GetResponse();
+            
+
+            if (imgResponse.StatusCode == HttpStatusCode.OK)
+            {
+                Image imgObj = Image.FromStream(imgResponse.GetResponseStream());
+                byte[] imgBytes = turnImageToByteArray(imgObj);
+                string imgBase64String = Convert.ToBase64String(imgBytes);
+                imgResponse.Close();
+                img.SetAttributeValue("src", "data:image/png;base64," + imgBase64String);
+            }
+            else
+            {
+                throw new Exception(imgResponse.StatusDescription);
+            }
+        }
+
+        return doc.DocumentNode.OuterHtml;
+    }
+
+    /// <summary>
+    /// Call Birt and obtain report in HTML format
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
     private string ReadHtmlBase64(string url)
     {
+        CookieContainer cookies = new CookieContainer();
         var httpRequest = WebRequest.Create(url) as HttpWebRequest;
+        httpRequest.CookieContainer = cookies;
         HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
 
         string htmlData = "";
@@ -31,7 +91,7 @@ public class RestReportsHandler : IHttpHandler
             Stream receiveStream = httpResponse.GetResponseStream();
             StreamReader readStream = null;
 
-            if (httpResponse.CharacterSet == null)
+            if (httpResponse.CharacterSet == null && httpResponse.CharacterSet == "")
             {
                 readStream = new StreamReader(receiveStream);
             }
@@ -46,12 +106,20 @@ public class RestReportsHandler : IHttpHandler
             readStream.Close();
         }
         else
+        {
             throw new Exception(httpResponse.StatusDescription);
+        }
 
+        htmlData = replaceHtmlTagImg(url, cookies, htmlData);
         var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(htmlData);
         return System.Convert.ToBase64String(plainTextBytes);
     }
 
+    /// <summary>
+    /// Call Birt and obtain report in PDF format
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
     private string ReadPdfBase64(string url)
     {
         var httpRequest = WebRequest.Create(url) as HttpWebRequest;
@@ -166,40 +234,43 @@ public class RestReportsHandler : IHttpHandler
     {
         var appSettings = ConfigurationManager.AppSettings;
 
-        #region Check if ticket exists
-        if (context.Request.Headers["service-ticket"] == null)
+        if (_bypassAuth == false)
         {
-            context.Response.StatusCode = 401;
-            context.Response.StatusDescription = "Missing service-ticket";
-            context.Response.Flush(); // Sends all currently buffered output to the client.
-            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
-            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
-            return;
-        }
-        #endregion
+            #region Check if ticket exists
+            if (context.Request.Headers["service-ticket"] == null)
+            {
+                context.Response.StatusCode = 401;
+                context.Response.StatusDescription = "Missing service-ticket";
+                context.Response.Flush(); // Sends all currently buffered output to the client.
+                context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+                context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+                return;
+            }
+            #endregion
 
-        #region Validate ticket
-        string ticketId = context.Request.Headers["service-ticket"].ToString();
-        string aapiUrl = appSettings["aapiBasePath"];
-        string serviceId = appSettings["serviceId"];
+            #region Validate ticket
+            string ticketId = context.Request.Headers["service-ticket"].ToString();
+            string aapiUrl = appSettings["aapiBasePath"];
+            string serviceId = appSettings["serviceId"];
 
-        HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create(aapiUrl + "/aapi/tickets/" + ticketId + "/validate?serviceId=" + serviceId);
-        //HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create("http://integration.operando.esilab.org:8135/operando/interfaces/aapi/aapi/tickets/ST-153-IdpicdDveXntfoZiR0Jz-casdotoperandodoteu/validate?serviceId=GET/osp/reports/.*");
-        try
-        {
-            var response = (HttpWebResponse)ticketValidationRequest.GetResponse();
+            HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create(aapiUrl + "/aapi/tickets/" + ticketId + "/validate?serviceId=" + serviceId);
+            //HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create("http://integration.operando.esilab.org:8135/operando/interfaces/aapi/aapi/tickets/ST-153-IdpicdDveXntfoZiR0Jz-casdotoperandodoteu/validate?serviceId=GET/osp/reports/.*");
+            try
+            {
+                var response = (HttpWebResponse)ticketValidationRequest.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                HttpWebResponse errResponse = (HttpWebResponse)ex.Response;
+                context.Response.StatusCode = (int)errResponse.StatusCode;
+                context.Response.StatusDescription = errResponse.StatusDescription;
+                context.Response.Flush(); // Sends all currently buffered output to the client.
+                context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+                context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+                return;
+            }
+            #endregion
         }
-        catch (WebException ex)
-        {
-            HttpWebResponse errResponse = (HttpWebResponse)ex.Response;
-            context.Response.StatusCode = (int)errResponse.StatusCode;
-            context.Response.StatusDescription = errResponse.StatusDescription;
-            context.Response.Flush(); // Sends all currently buffered output to the client.
-            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
-            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
-            return;
-        }
-        #endregion
 
         #region Validate query string param
         if (string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["_reportid"]))
@@ -337,7 +408,6 @@ public class RestReportsHandler : IHttpHandler
         }
 
         return;
-
     }
 
     public class Report
