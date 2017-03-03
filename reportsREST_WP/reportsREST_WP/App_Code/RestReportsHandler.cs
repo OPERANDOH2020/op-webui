@@ -47,26 +47,31 @@ public class RestReportsHandler : IHttpHandler
         foreach (var img in imgs)
         {
             string orig = img.Attributes["src"].Value;
-            Uri uri = new Uri(url);
-            string host = uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port;
-            host = host + HttpUtility.HtmlDecode(orig);
 
-            HttpWebRequest imgRequest = (HttpWebRequest)WebRequest.Create(host);
-            imgRequest.CookieContainer = cookies;
-            HttpWebResponse imgResponse = (HttpWebResponse)imgRequest.GetResponse();
-            
+            if (orig.IndexOf("__sessionid", StringComparison.InvariantCultureIgnoreCase) >= 0 &&
+                orig.IndexOf("__imageid", StringComparison.InvariantCultureIgnoreCase) >= 0)
+            {
+                Uri uri = new Uri(url);
+                string host = uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port;
+                host = host + HttpUtility.HtmlDecode(orig);
 
-            if (imgResponse.StatusCode == HttpStatusCode.OK)
-            {
-                Image imgObj = Image.FromStream(imgResponse.GetResponseStream());
-                byte[] imgBytes = turnImageToByteArray(imgObj);
-                string imgBase64String = Convert.ToBase64String(imgBytes);
-                imgResponse.Close();
-                img.SetAttributeValue("src", "data:image/png;base64," + imgBase64String);
-            }
-            else
-            {
-                throw new Exception(imgResponse.StatusDescription);
+                HttpWebRequest imgRequest = (HttpWebRequest)WebRequest.Create(host);
+                imgRequest.CookieContainer = cookies;
+                HttpWebResponse imgResponse = (HttpWebResponse)imgRequest.GetResponse();
+
+
+                if (imgResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    Image imgObj = Image.FromStream(imgResponse.GetResponseStream());
+                    byte[] imgBytes = turnImageToByteArray(imgObj);
+                    string imgBase64String = Convert.ToBase64String(imgBytes);
+                    imgResponse.Close();
+                    img.SetAttributeValue("src", "data:image/png;base64," + imgBase64String);
+                }
+                //else
+                //{
+                //    throw new Exception(imgResponse.StatusDescription);
+                //}
             }
         }
 
