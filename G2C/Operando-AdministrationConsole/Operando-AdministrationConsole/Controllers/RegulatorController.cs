@@ -9,19 +9,30 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Text.RegularExpressions;
+using eu.operando.interfaces.rapi;
 using Operando_AdministrationConsole.Helper;
+using Operando_AdministrationConsole.Models.RegulatorModels;
 
 namespace Operando_AdministrationConsole.Controllers
 {
     public class RegulatorController : Controller
     {
 
-        // GET: Regulator
-       
+        private readonly IRapiClient _rapiClient;
 
-        public ActionResult Reports()
+        public RegulatorController()
         {
-            return View();
+            _rapiClient = new RapiClient();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Reports(string ospId)
+        {
+            var complianceReport = await _rapiClient.GetComplianceReportForOspAsync(ospId);
+
+            var model = new ReportsModel();
+
+            return View(model);
         }
 
         public ActionResult RegulationCompliance()
