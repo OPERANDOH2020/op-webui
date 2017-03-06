@@ -95,14 +95,6 @@
         //var tableWrapper = jQuery('#reports_osp_wrapper');
     }
 
-    var loadTable = function(jId, url) {
-        $(jId)
-            .load(url,
-                function() {
-                    initTable(jId);
-                });
-    }
-
     // -------------------------------------------------------------------
 
     return {
@@ -124,8 +116,7 @@
                         break;
                     } else {
                         var jId = `#${id}`;
-                        var url = $(jId).attr("ajaxurl");
-                        loadTable(jId, url);
+                        initTable(jId);
                     }
                 }
             });

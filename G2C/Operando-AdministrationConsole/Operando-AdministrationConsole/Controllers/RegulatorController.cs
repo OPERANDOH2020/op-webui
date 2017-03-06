@@ -28,44 +28,33 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpGet]
         public async Task<ActionResult> Reports()
         {
+            var osps = await _rapiClient.GetOsps();
 
-            //TODO get ospIds
+            var reports = new List<ComplianceReportModel>();
+
+            foreach (var osp in osps)
+            {
+                var entity = await _rapiClient.GetComplianceReportForOspAsync(osp);
+
+                reports.Add(new ComplianceReportModel()
+                {
+                    OspId = entity?.PrivacyPolicy.OspPolicyId,
+                    Sections = entity?.PrivacyPolicy.Policies.Select(p => new ComplianceReportModel.Section()
+                    {
+                        User = p.DataUser,
+                        Subject = p.DataSubjectType,
+                        DataType = p.DataType,
+                        Reason = p.Reason
+                    }).ToList() ?? new List<ComplianceReportModel.Section>()
+                });
+            }
 
             var model = new ReportsModel()
             {
-                OspIds = new List<string>()
-                {
-                    "OSP-A",
-                    "OSP-B",
-                    "OSP-C",
-                    "OSP-D",
-                    "OSP-E"
-                }
+                Reports = reports
             };
 
             return View(model);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> _ComplianceReport(string ospId)
-        {
-            var complianceReport = await _rapiClient.GetComplianceReportForOspAsync(ospId);
-
-            var sections = complianceReport?.PrivacyPolicy.Policies.Select(p => new ComplianceReportModel.Section()
-            {
-                User = p.DataUser,
-                Subject = p.DataSubjectType,
-                DataType = p.DataType,
-                Reason = p.Reason
-            }).ToList();
-
-            var model = new ComplianceReportModel()
-            {
-                OspId = ospId,
-                Sections = sections
-            };
-
-            return PartialView(model);
         }
 
         public ActionResult RegulationCompliance()

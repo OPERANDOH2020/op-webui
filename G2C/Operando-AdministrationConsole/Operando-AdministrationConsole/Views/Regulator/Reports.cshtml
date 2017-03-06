@@ -31,10 +31,10 @@
     <div class="tabbable-custom-operando col-md-1 col-sm-1 col-xs-1">
         <ul class="nav nav-tabs tabs-left">
             @{ var count = 0;}
-            @foreach (var ospId in Model.OspIds)
+            @foreach (var report in Model.Reports)
             {
                 count++;
-                <li class="@((count==1) ? "active" : "")"><a href="#tab@(count)" onclick="hideTab('tab', '@(count)'); $('#menuReports@(count)').addClass('active');" data-toggle="tab" aria-expanded="@(count == 1 ? "true" : "false")">@ospId</a></li>
+                <li class="@((count==1) ? "active" : "")"><a href="#tab@(count)" onclick="hideTab('tab', '@(count)'); $('#menuReports@(count)').addClass('active');" data-toggle="tab" aria-expanded="@(count == 1 ? "true" : "false")">@(report.OspId)</a></li>
             }
             @if(count == 0){
                 @*TODO no osps message*@
@@ -53,7 +53,7 @@
                 
                 @{ count = 0;}
                 
-                @foreach (var ospId in Model.OspIds)
+                @foreach (var report in Model.Reports)
                 {
                     count++;
                     <!-- ------------------------------------------------------------------------------------------------ -->
@@ -63,7 +63,7 @@
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    @(ospId) REGULATION COMPLIANCE
+                                    @(report.OspId) REGULATION COMPLIANCE
                                 </div>
                             </div>
                             <div class="dataTables_length" id="reports_osp_length@(count)">
@@ -86,9 +86,9 @@
                                                         <div class="btn-group bootstrap-select show-tick form-control bs-select">
                                                             <select class="form-control bs-select" id="compliance-report-type-select@(count)" multiple>
                                                                 @{ var menuCount = 0;}
-                                                                @foreach (var menuOspId in Model.OspIds)
+                                                                @foreach (var menuReport in Model.Reports)
                                                                 {
-                                                                    <option value="@(menuCount)" selected>@(menuOspId)</option>
+                                                                    <option value="@(menuCount)" selected>@(menuReport.OspId)</option>
                                                                     menuCount++;
                                                                 }
                                                             </select>
@@ -103,8 +103,29 @@
                                             <!-- ---------------- TABLE ------------------------- -->
                                             <!-- ---------------------------------------------------- -->
                                             <div>
-                                                <table style="width: 100%" class="table table-striped table-bordered table-hover order-column" id="ComplianceReports@(count)_psp" ajaxurl="@(Url.Action("_ComplianceReport", new { ospId = ospId } ))">
-                                                    <!-- data will load into here -->
+                                                <table style="width: 100%" class="table table-striped table-bordered table-hover order-column" id="ComplianceReports@(count)_psp">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="sorting col-md-2">User type of data user</th>
+                                                            <th class="sorting col-md-2">User type of data subject</th>
+                                                            <th class="sorting col-md-2">Type of information used</th>
+                                                            <th class="col-md-2">Reason for use</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{ var odd = true; }
+                                                        @foreach (var section in report.Sections)
+                                                        {
+                                                            <tr id="@(report.OspId)" class="@(odd ? "odd" : "even") gradeX">
+                                                                <td>@(section.User)</td>
+                                                                <td>@(section.Subject)</td>
+                                                                <td>@(section.DataType)</td>
+                                                                <td>@(section.Reason)</td>
+                                                            </tr>
+                                                            odd = !odd;
+                                                        }
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>

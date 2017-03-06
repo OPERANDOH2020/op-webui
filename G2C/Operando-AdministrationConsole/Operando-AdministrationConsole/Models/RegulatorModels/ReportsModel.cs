@@ -4,7 +4,7 @@ namespace Operando_AdministrationConsole.Models.RegulatorModels
 {
     public class ReportsModel
     {
-        public IList<string> OspIds { get; set; }
+        public IList<ComplianceReportModel> Reports { get; set; }
 
     }
 }
