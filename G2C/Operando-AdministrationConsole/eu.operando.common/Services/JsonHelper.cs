@@ -1,13 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using Operando_AdministrationConsole.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text.RegularExpressions;
-using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
-namespace Operando_AdministrationConsole.Helper
+namespace eu.operando.common.Services
 {
     public class JsonHelper
     {

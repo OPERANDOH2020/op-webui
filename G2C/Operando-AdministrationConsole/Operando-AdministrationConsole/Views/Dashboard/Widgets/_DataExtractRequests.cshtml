@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Operando_AdministrationConsole.Models.DashboardModels.WidgetModels.DataExtractRequestModel>
+
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption caption-md">
+            <i class="icon-bar-chart font-dark hide"></i>
+            <span class="caption-subject font-dark bold uppercase">Data Extract Requests</span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" style="height: 338px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+            <div class="general-item-list">
+                @foreach (var request in Model)
+                {
+                    <div class="item">
+                        <div class="item-head">
+                            <div class="item-details">
+                                <a href="mailto:@request.RequesterEmail" class="item-name primary-link">@request.RequesterName</a>
+                                <span class="item-label">@request.RequestDate</span>
+                            </div>
+                        </div>
+                        <div class="item-body">
+                            <p class="text">@request.RequestDetail</p>
+                            <p>OSP: @request.RequesterOsp</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

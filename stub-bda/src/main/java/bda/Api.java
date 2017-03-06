@@ -1,5 +1,8 @@
 package bda;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.UUID;
 import java.util.Vector;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -10,6 +13,11 @@ import javax.ws.rs.core.Response;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import bda.Model.Execution;
+import bda.Model.Job;
+import bda.Model.Money;
+import bda.Model.Schedule;
 
 @Path("/bda")
 public class Api
@@ -23,7 +31,7 @@ public class Api
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getExecutions()
 	{
-		Vector<BdaExecution> executions = new Vector<BdaExecution>();
+		Vector<Execution> executions = new Vector<Execution>();
 		for (int i = 1; i < 10; i++)
 		{
 			String osp = "PDI";
@@ -31,7 +39,7 @@ public class Api
 			{
 				osp = "OCC";
 			}
-			executions.add(new BdaExecution("2016-09-0" + i, "versionNumber" + i, osp, "http://downloadLink" + i));
+			executions.add(new Execution("2016-09-0" + i, "versionNumber" + i, osp, "http://downloadLink" + i));
 		}
 
 		String json = createStringJsonFollowingOperandoConventions(executions);
@@ -45,15 +53,16 @@ public class Api
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getJobs()
 	{
-		Vector<BdaJob> jobs = new Vector<BdaJob>();
+		Vector<Job> jobs = new Vector<Job>();
 		
 		for (int i=1; i<=3; i++)
 		{
-			Vector<BdaExecution> executions = generateExecutions(i);
-			Vector<BdaSchedule> schedules = generateSchedules(i);
+			Vector<Execution> executions = generateExecutions(i);
+			Vector<Schedule> schedules = generateSchedules(i);
 			Vector<String> osps = generateOsps(i);
+			Money costPerExecution = new Money(Currency.getInstance("EUR"), new BigDecimal(i + "0.00"));
 			
-			jobs.addElement(new BdaJob("Job" + i, "Description" + i, "v1." + (3-i), "http://", "€" + i + ".00", osps, schedules, executions));
+			jobs.addElement(new Job(UUID.randomUUID(), "Job" + i, "Description" + i, "v1." + (3-i), "http://", costPerExecution, osps, schedules, executions));
 		}
 
 		String json = createStringJsonFollowingOperandoConventions(jobs);
@@ -81,9 +90,9 @@ public class Api
 		return osps;
 	}
 
-	private Vector<BdaExecution> generateExecutions(int i)
+	private Vector<Execution> generateExecutions(int i)
 	{
-		Vector<BdaExecution> executions = new Vector<BdaExecution>();
+		Vector<Execution> executions = new Vector<Execution>();
 		for (int j = 1; j <= 5; j++)
 		{
 			String osp = "PDI";
@@ -91,14 +100,14 @@ public class Api
 			{
 				osp = "OCC";
 			}
-			executions.add(new BdaExecution("2016-09-0" + (i+j), "versionNumber" + j, osp, "http://downloadLink" + j));
+			executions.add(new Execution("2016-09-0" + (i+j), "versionNumber" + j, osp, "http://downloadLink" + j));
 		}
 		return executions;
 	}
 
-	private Vector<BdaSchedule> generateSchedules(int i)
+	private Vector<Schedule> generateSchedules(int i)
 	{
-		Vector<BdaSchedule> schedules = new Vector<BdaSchedule>();
+		Vector<Schedule> schedules = new Vector<Schedule>();
 		for (int j = 1; j <= 5; j++)
 		{
 			String repeatIntervalUnit = "day";
@@ -129,7 +138,7 @@ public class Api
 				osp = OSP_3;
 			}
 			
-			schedules.add(new BdaSchedule(osp, "2017-01-0" + (i+j-1), "19:" + j + "0", repeatIntervalUnit, "" + j, repeatOn, "Indefinite"));
+			schedules.add(new Schedule(osp, "2017-01-0" + (i+j-1), "19:" + j + "0", repeatIntervalUnit, "" + j, repeatOn, "Indefinite"));
 		}
 		return schedules;
 	}

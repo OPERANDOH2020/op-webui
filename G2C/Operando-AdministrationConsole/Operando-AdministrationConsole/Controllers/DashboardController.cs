@@ -7,17 +7,32 @@ using System.Web.Mvc.Html;
 using Operando_AdministrationConsole.Models;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Threading.Tasks;
+using eu.operando.core.bda;
+using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels;
 
 namespace Operando_AdministrationConsole.Controllers
 {
     public class DashboardController : Controller
     {
+        ReportManager reportManager = new ReportManager();
+        private readonly IBdaClient _bdaClient;
+
+        /// <summary>
+        /// TODO -- how to get the OSP the current user (an OSP admin) works for
+        /// </summary>
+        private string OspForCurrentUser { get; } = "OCC";
+
+        public DashboardController()
+        {
+            _bdaClient = new BdaClient();
+        }
+
         public ActionResult EmptyPage()
         {
             return View();
         }
 
-        ReportManager reportManager = new ReportManager();
         // GET: Dashboard
         public ActionResult Index()
         {
@@ -202,7 +217,51 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-        
+        #region Widgets
+        [HttpGet]
+        public async Task<PartialViewResult> DataExtractRequestsWidget()
+        {
+            var requests = await _bdaClient.GetUnfulfilledBdaExtractionRequestsAsync();
+
+            var model = requests.Select(_ => new DataExtractRequestModel
+            {
+                RequesterName = _.RequesterName,
+                RequesterEmail = _.ContactEmail,
+                RequestDetail = _.RequestSummary,
+                RequesterOsp = _.Osp,
+                RequestDate = _.RequestDate
+            });
+
+            return PartialView("Widgets/_DataExtractRequests", model);
+        }
+
+        [HttpGet]
+        public async Task<PartialViewResult> DataExtractsWidget(int count = 3)
+        {
+            var executions = await _bdaClient.GetLatestExecutionsForOspAsync(OspForCurrentUser, count);
+
+            Task<DataExtractsModel>[] modelTasks = executions.Select(async _ =>
+            {
+                var job = await _bdaClient.GetJobByIdAsync(_.JobId);
+
+                return new DataExtractsModel
+                {
+                    ExtractionDate = _.ExecutionDate,
+                    Version = _.VersionNumber,
+                    DownloadUrl = _.DownloadLink,
+                    JobName = job?.JobName
+                };
+            })
+            .ToArray();
+
+            var model = await Task.WhenAll(modelTasks);
+
+            return PartialView("Widgets/_DataExtracts", model);
+        }
+
+        #endregion Widgets
+
+
 
 
         //// GET: Dashboard/Details/5

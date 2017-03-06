@@ -232,9 +232,14 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BdaModels.cs" />
+    <Compile Include="Models\DashboardModels\WidgetModels\DataExtractsModel.cs" />
+    <Compile Include="Models\DashboardModels\WidgetModels\DataExtractRequestModel.cs" />
     <Compile Include="Models\DataAccessLog.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
+    <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
     <Compile Include="Models\PrivacyPolicy.cs" />
+    <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
+    <Compile Include="Models\PspAnalystModels\BigDataScheduleModel.cs" />
     <Compile Include="Models\Regulation.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -242,8 +247,6 @@
     <Compile Include="Models\ReportsOSP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Helper\HttpHelper.cs" />
-    <Compile Include="Helper\JsonHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ASPXSaveAjax\DeleteSchedule.aspx" />
@@ -5230,6 +5233,7 @@
     <Content Include="assets\pages\scripts\maps-google.min.js" />
     <Content Include="assets\pages\scripts\maps-vector.js" />
     <Content Include="assets\pages\scripts\maps-vector.min.js" />
+    <Content Include="assets\pages\scripts\operando-bda.js" />
     <Content Include="assets\pages\scripts\operando-complianceregulation-bootstrap-select.js" />
     <Content Include="assets\pages\scripts\operando-complianceregulation-table-managed.js" />
     <Content Include="assets\pages\scripts\operando-complianceregulationdetail-bootstrap-select.js" />
@@ -5740,6 +5744,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\OspAdmin\RequestNewBdaExtraction.cshtml" />
+    <Content Include="Views\PspAnalyst\ModelEditors\BigDataJobModelEditor.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5798,6 +5804,17 @@
     <Content Include="Views\Regulator\PolicyStatements.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementEdit.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementAdd.cshtml" />
+    <Content Include="Views\PspAnalyst\_addBigDataJobModal.cshtml" />
+    <Content Include="Views\PspAnalyst\_editBigDataJobModal.cshtml" />
+    <Content Include="Views\OspAdmin\ModelEditors\ScheduleEditor.cshtml" />
+    <Content Include="Views\OspAdmin\_editSchedule.cshtml" />
+    <Content Include="Views\OspAdmin\_addSchedule.cshtml" />
+    <Content Include="Views\PspAnalyst\_addBigDataScheduleModal.cshtml" />
+    <Content Include="Views\PspAnalyst\_editSchedule.cshtml" />
+    <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditorInline.cshtml" />
+    <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditorModal.cshtml" />
+    <Content Include="Views\Dashboard\Widgets\_DataExtractRequests.cshtml" />
+    <Content Include="Views\Dashboard\Widgets\_DataExtracts.cshtml" />
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
     <Content Include="Views\Regulator\RegulationComplianceDetail.cshtml" />
@@ -5830,6 +5847,14 @@
     <ProjectReference Include="..\aapi_client\src\IO.Swagger\eu.operando.interfaces.aapi.csproj">
       <Project>{594234d1-bb49-41ac-a663-2a1c38807015}</Project>
       <Name>eu.operando.interfaces.aapi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eu.operando.common\eu.operando.common.csproj">
+      <Project>{2CC03D98-B10E-45AA-B859-FE1BE8B6CD99}</Project>
+      <Name>eu.operando.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eu.operando.core.bda\eu.operando.core.bda.csproj">
+      <Project>{00664eb8-aaf9-4e34-a9f5-6fc5cca7dd70}</Project>
+      <Name>eu.operando.core.bda</Name>
     </ProjectReference>
     <ProjectReference Include="..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>
