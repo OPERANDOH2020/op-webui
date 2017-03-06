@@ -22,21 +22,35 @@ namespace Operando_AdministrationConsole.Controllers
 
         private Uri OSPRoot(string id)
         {
-            return new Uri($"http://localhost:8080/stub-pdb/api/OSP/{id}/privacy-policy");
+            //return new Uri($"http://localhost:8080/stub-pdb/api/OSP/{id}/privacy-policy");
+            return new Uri($"http://10.136.24.87:8080/pdb/OSP/587f80549e86b2c3b0a43eaa/privacy-policy");
         }
 
-        public async Task<ActionResult> PrivacyPolicy()
+        public ActionResult PrivacyPolicy()
         {
             // TODO: Get the OSP ID in some way
-            string ospId = "ami";
+            string ospId = "587f7eb56e157a10eece95d3";
 
+            /* old code starts
             PrivacyPolicy policies = await
                 helper.get<PrivacyPolicy>(OSPRoot(ospId).ToString());
-            return View(policies);
+            */
+
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+            string pdbOSPSId = ConfigurationManager.AppSettings["pdbOSPSId"];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket(pdbOSPSId));
+
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+            OSPReasonPolicy ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospId);
+
+            return View(ospReasonPolicy);
         }
 
         [HttpPost]
-        public async Task<ActionResult> NewPrivacyPolicy(PrivacyPolicy policy)
+        public async Task<ActionResult> NewPrivacyPolicy(OSPReasonPolicy policy)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -48,7 +62,19 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdatePrivacyPolicy(PrivacyPolicy policy)
+        public async Task<ActionResult> UpdatePrivacyPolicy(OSPReasonPolicy policy)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(policy), Encoding.UTF8, "application/json");
+                var result = await client.PutAsync(OSPRoot(policy.OspPolicyId), OperandoJson);
+                Response.StatusCode = (int)result.StatusCode;
+                return Content(await result.Content.ReadAsStringAsync());
+            }
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeletePrivacyPolicy(OSPReasonPolicy policy)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -489,10 +515,9 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         /* Method modified by IT Innovation Centre 2017 */
-        private string getUPPServiceTicket()
+        private string getUPPServiceTicket(string serviceName)
         {
             string st = "";
-            string pdbUPPSId = ConfigurationManager.AppSettings["pdbUPPSId"];
 
             // get UPP service ticket
             string aapiBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
@@ -501,7 +526,7 @@ namespace Operando_AdministrationConsole.Controllers
             try
             {
                 // UPP service ticket call
-                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), pdbUPPSId);
+                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), serviceName);
                 Debug.Print("Got UPP ST: " + st);
             }
             catch (eu.operando.interfaces.aapi.Client.ApiException ex)
@@ -516,13 +541,13 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult UppManagementTool()
         {
             string ospId = "587f7eb56e157a10eece95d3"; // local for http://10.136.24.87:8080/pdb
-            ospId = "58b4cf1c5908010001a31aec";
+            // ospId = "58b4cf1c5908010001a31aec";
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
-            //pdbBasePath = "http://10.136.24.87:8080/pdb";
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+            string pdbUPPSId = ConfigurationManager.AppSettings["pdbUPPSId"];
 
             var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket());
+            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket(pdbUPPSId));
 
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 
@@ -538,7 +563,7 @@ namespace Operando_AdministrationConsole.Controllers
                  * HOWEVER just for display purposes the ospId will contain the userId from UPP
                  */
                 List<OSPConsents> modOspConsents = new List<OSPConsents>();
-                Dictionary<string, List<bool>> uppStats = new Dictionary<string, List<bool>>();
+                Dictionary<string, UppTab2> uppStats = new Dictionary<string, UppTab2>();
                 foreach(UserPrivacyPolicy upp in response)
                 {
                     Debug.Print("upp found: " + upp.ToString());
@@ -556,11 +581,35 @@ namespace Operando_AdministrationConsole.Controllers
                                 string key = ap.Subject + ap.Action + ap.Resource;
                                 if (!uppStats.ContainsKey(key))
                                 {
-                                    uppStats.Add(key, new List<bool>(new bool[] { (bool)ap.Permission }));
+                                    UppTab2 tmpUpp = new UppTab2();
+                                    tmpUpp.key = key;
+                                    tmpUpp.action = ap.Action.ToString();
+                                    tmpUpp.role = ap.Subject.ToString();
+                                    tmpUpp.apType = ap.Resource.ToString();
+                                    tmpUpp.stats = new List<bool>(new bool[] { (bool)ap.Permission });
+                                    if(ap.Permission == true)
+                                    {
+                                        tmpUpp.yes = 1;
+                                        tmpUpp.no = 0;
+                                    }
+                                    else
+                                    {
+                                        tmpUpp.yes = 0;
+                                        tmpUpp.no = 1;
+                                    }
+                                    uppStats.Add(key, tmpUpp);
                                 }
                                 else
                                 {
-                                    uppStats[key].Add((bool)ap.Permission);
+                                    uppStats[key].stats.Add((bool)ap.Permission);                                    
+                                    if(ap.Permission == true)
+                                    {
+                                        uppStats[key].yes++;
+                                    }
+                                    else
+                                    {
+                                        uppStats[key].no++;
+                                    }
                                 }
                             }
                         }

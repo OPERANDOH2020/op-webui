@@ -19,6 +19,16 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        public ActionResult Login1(Models.UserAccount user)
+        {
+            Debug.Print("LVM after:");
+            Session["Username"] = "testme";
+            Session["TGT"] = "ticket_ticket";
+            Session["Usertype"] = "user";
+            Session["Fullname"] = "Test Me";
+            Session["Email"] = "tets@test.com";
+            return RedirectToAction("Index", "Dashboard");
+        }
         /* Method modified by IT Innovation Centre 2016 */
         // POST: Access
         [HttpPost]
