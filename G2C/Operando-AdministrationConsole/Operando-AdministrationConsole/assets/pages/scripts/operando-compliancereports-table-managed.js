@@ -1,7 +1,6 @@
 ﻿var ComplianceReportsTables = function () {
 
     var initTable = function (jId) {
-
         var table = $(jId);
 
         // begin first table
@@ -96,10 +95,10 @@
         //var tableWrapper = jQuery('#reports_osp_wrapper');
     }
 
-    var loadTable = function (jId, url) {
+    var loadTable = function(jId, url) {
         $(jId)
             .load(url,
-                function () {
+                function() {
                     initTable(jId);
                 });
     }

@@ -34,7 +34,7 @@
             @foreach (var ospId in Model.OspIds)
             {
                 count++;
-                <li @((count==1) ? "class=\"active\"" : "")><a href="#tab@(count)" onclick="hideTab('tab', '@(count)'); $('#menuReports@(count)').addClass('active');" data-toggle="tab" aria-expanded="true">@ospId</a></li>
+                <li class="@((count==1) ? "active" : "")"><a href="#tab@(count)" onclick="hideTab('tab', '@(count)'); $('#menuReports@(count)').addClass('active');" data-toggle="tab" aria-expanded="@(count == 1 ? "true" : "false")">@ospId</a></li>
             }
             @if(count == 0){
                 @*TODO no osps message*@
@@ -59,7 +59,7 @@
                     <!-- ------------------------------------------------------------------------------------------------ -->
                     <!-- -------------------------- BEGIN TAB @(count) CONTENT ------------------------------------------ -->
                     <!-- ------------------------------------------------------------------------------------------------ -->
-                    <div class="portlet light tab-pane active" id="tab@(count)">
+                    <div class="portlet light tab-pane @(count == 1 ? "active" : "")" id="tab@(count)">
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="caption">
