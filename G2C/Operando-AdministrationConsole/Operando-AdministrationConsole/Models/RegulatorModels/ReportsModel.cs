@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Operando_AdministrationConsole.Models.RegulatorModels
 {
     public class ReportsModel
     {
+        public IList<string> OspIds { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using eu.operando.interfaces.rapi.Model;
 using JetBrains.Annotations;
 

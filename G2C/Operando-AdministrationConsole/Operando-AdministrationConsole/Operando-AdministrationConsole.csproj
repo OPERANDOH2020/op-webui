@@ -236,6 +236,8 @@
     <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="Models\PrivacyPolicy.cs" />
     <Compile Include="Models\Regulation.cs" />
+    <Compile Include="Models\RegulatorModels\ComplianceReportModel.cs" />
+    <Compile Include="Models\RegulatorModels\ReportsModel.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -5127,6 +5129,7 @@
     <Content Include="assets\pages\scripts\charts-morris.min.js" />
     <Content Include="assets\pages\scripts\coming-soon.js" />
     <Content Include="assets\pages\scripts\coming-soon.min.js" />
+    <Content Include="assets\pages\scripts\operando-compliancereports.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-maxlength.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-maxlength.min.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-multiselect.js" />
@@ -5721,6 +5724,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Views\Regulator\_ComplianceReport.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -5830,6 +5834,10 @@
     <ProjectReference Include="..\aapi_client\src\IO.Swagger\eu.operando.interfaces.aapi.csproj">
       <Project>{594234d1-bb49-41ac-a663-2a1c38807015}</Project>
       <Name>eu.operando.interfaces.aapi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eu.operando.interfaces.rapi\eu.operando.interfaces.rapi.csproj">
+      <Project>{9D503EFC-4772-4A76-B32E-5F075CD8F27C}</Project>
+      <Name>eu.operando.interfaces.rapi</Name>
     </ProjectReference>
     <ProjectReference Include="..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>

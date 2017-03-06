@@ -26,13 +26,46 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Reports(string ospId)
+        public async Task<ActionResult> Reports()
+        {
+
+            //TODO get ospIds
+
+            var model = new ReportsModel()
+            {
+                OspIds = new List<string>()
+                {
+                    "OSP-A",
+                    "OSP-B",
+                    "OSP-C",
+                    "OSP-D",
+                    "OSP-E"
+                }
+            };
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> _ComplianceReport(string ospId)
         {
             var complianceReport = await _rapiClient.GetComplianceReportForOspAsync(ospId);
 
-            var model = new ReportsModel();
+            var sections = complianceReport?.PrivacyPolicy.Policies.Select(p => new ComplianceReportModel.Section()
+            {
+                User = p.DataUser,
+                Subject = p.DataSubjectType,
+                DataType = p.DataType,
+                Reason = p.Reason
+            }).ToList();
 
-            return View(model);
+            var model = new ComplianceReportModel()
+            {
+                OspId = ospId,
+                Sections = sections
+            };
+
+            return PartialView(model);
         }
 
         public ActionResult RegulationCompliance()
