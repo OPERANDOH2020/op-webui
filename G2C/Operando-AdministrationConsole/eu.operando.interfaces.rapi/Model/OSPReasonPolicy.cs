@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
@@ -18,25 +19,33 @@ using Newtonsoft.Json;
 namespace eu.operando.interfaces.rapi.Model
 {
     /// <summary>
-    /// An OSP&#39;s compliance report 
+    /// OSPReasonPolicy
     /// </summary>
     [DataContract]
-    public partial class ComplianceReport :  IEquatable<ComplianceReport>, IValidatableObject
+    public partial class OSPReasonPolicy :  IEquatable<OSPReasonPolicy>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ComplianceReport" /> class.
+        /// Initializes a new instance of the <see cref="OSPReasonPolicy" /> class.
         /// </summary>
-        /// <param name="privacyPolicy">Privacypolicy.</param>
-        public ComplianceReport(OSPReasonPolicy privacyPolicy = default(OSPReasonPolicy))
+        /// <param name="OspPolicyId">OspPolicyId.</param>
+        /// <param name="Policies">The list of access reasons to use a particular data subject types data .</param>
+        public OSPReasonPolicy(string OspPolicyId = default(string), List<AccessReason> Policies = default(List<AccessReason>))
         {
-            this.PrivacyPolicy = privacyPolicy;
+            this.OspPolicyId = OspPolicyId;
+            this.Policies = Policies;
         }
         
         /// <summary>
-        /// Gets or Sets Privacypolicy
+        /// Gets or Sets OspPolicyId
         /// </summary>
-        [DataMember(Name="privacypolicy", EmitDefaultValue=false)]
-        public OSPReasonPolicy PrivacyPolicy { get; set; }
+        [DataMember(Name="osp_policy_id", EmitDefaultValue=false)]
+        public string OspPolicyId { get; set; }
+        /// <summary>
+        /// The list of access reasons to use a particular data subject types data 
+        /// </summary>
+        /// <value>The list of access reasons to use a particular data subject types data </value>
+        [DataMember(Name="policies", EmitDefaultValue=false)]
+        public List<AccessReason> Policies { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -44,8 +53,9 @@ namespace eu.operando.interfaces.rapi.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ComplianceReport {\n");
-            sb.Append("  Privacypolicy: ").Append(PrivacyPolicy).Append("\n");
+            sb.Append("class OSPReasonPolicy {\n");
+            sb.Append("  OspPolicyId: ").Append(OspPolicyId).Append("\n");
+            sb.Append("  Policies: ").Append(Policies).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -67,15 +77,15 @@ namespace eu.operando.interfaces.rapi.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as ComplianceReport);
+            return this.Equals(obj as OSPReasonPolicy);
         }
 
         /// <summary>
-        /// Returns true if ComplianceReport instances are equal
+        /// Returns true if OSPReasonPolicy instances are equal
         /// </summary>
-        /// <param name="other">Instance of ComplianceReport to be compared</param>
+        /// <param name="other">Instance of OSPReasonPolicy to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ComplianceReport other)
+        public bool Equals(OSPReasonPolicy other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
@@ -83,9 +93,14 @@ namespace eu.operando.interfaces.rapi.Model
 
             return 
                 (
-                    this.PrivacyPolicy == other.PrivacyPolicy ||
-                    this.PrivacyPolicy != null &&
-                    this.PrivacyPolicy.Equals(other.PrivacyPolicy)
+                    this.OspPolicyId == other.OspPolicyId ||
+                    this.OspPolicyId != null &&
+                    this.OspPolicyId.Equals(other.OspPolicyId)
+                ) && 
+                (
+                    this.Policies == other.Policies ||
+                    this.Policies != null &&
+                    this.Policies.SequenceEqual(other.Policies)
                 );
         }
 
@@ -100,8 +115,10 @@ namespace eu.operando.interfaces.rapi.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.PrivacyPolicy != null)
-                    hash = hash * 59 + this.PrivacyPolicy.GetHashCode();
+                if (this.OspPolicyId != null)
+                    hash = hash * 59 + this.OspPolicyId.GetHashCode();
+                if (this.Policies != null)
+                    hash = hash * 59 + this.Policies.GetHashCode();
                 return hash;
             }
         }

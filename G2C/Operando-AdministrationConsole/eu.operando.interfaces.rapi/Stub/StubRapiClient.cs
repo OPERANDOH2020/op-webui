@@ -75,7 +75,7 @@ namespace eu.operando.interfaces.rapi.Stub
 
             ComplianceReport result = new ComplianceReport()
             {
-              PrivacyPolicy  = new ReasonPolicy()
+              PrivacyPolicy  = new OSPReasonPolicy()
               {
                   OspPolicyId = osp,
                   Policies = new List<AccessReason>()

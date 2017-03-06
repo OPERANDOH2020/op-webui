@@ -38,7 +38,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 reports.Add(new ComplianceReportModel()
                 {
-                    OspId = entity?.PrivacyPolicy.OspPolicyId,
+                    OspId = osp,
                     Sections = entity?.PrivacyPolicy.Policies.Select(p => new ComplianceReportModel.Section()
                     {
                         User = p.DataUser,

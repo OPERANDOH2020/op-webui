@@ -18,25 +18,25 @@ using Newtonsoft.Json;
 namespace eu.operando.interfaces.rapi.Model
 {
     /// <summary>
-    /// An OSP&#39;s compliance report 
+    /// RegulationBody
     /// </summary>
     [DataContract]
-    public partial class ComplianceReport :  IEquatable<ComplianceReport>, IValidatableObject
+    public partial class RegulationBody :  IEquatable<RegulationBody>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ComplianceReport" /> class.
+        /// Initializes a new instance of the <see cref="RegulationBody" /> class.
         /// </summary>
-        /// <param name="privacyPolicy">Privacypolicy.</param>
-        public ComplianceReport(OSPReasonPolicy privacyPolicy = default(OSPReasonPolicy))
+        /// <param name="Regulation">Regulation.</param>
+        public RegulationBody(PrivacyRegulationInput Regulation = default(PrivacyRegulationInput))
         {
-            this.PrivacyPolicy = privacyPolicy;
+            this.Regulation = Regulation;
         }
         
         /// <summary>
-        /// Gets or Sets Privacypolicy
+        /// Gets or Sets Regulation
         /// </summary>
-        [DataMember(Name="privacypolicy", EmitDefaultValue=false)]
-        public OSPReasonPolicy PrivacyPolicy { get; set; }
+        [DataMember(Name="regulation", EmitDefaultValue=false)]
+        public PrivacyRegulationInput Regulation { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -44,8 +44,8 @@ namespace eu.operando.interfaces.rapi.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ComplianceReport {\n");
-            sb.Append("  Privacypolicy: ").Append(PrivacyPolicy).Append("\n");
+            sb.Append("class RegulationBody {\n");
+            sb.Append("  Regulation: ").Append(Regulation).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -67,15 +67,15 @@ namespace eu.operando.interfaces.rapi.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as ComplianceReport);
+            return this.Equals(obj as RegulationBody);
         }
 
         /// <summary>
-        /// Returns true if ComplianceReport instances are equal
+        /// Returns true if RegulationBody instances are equal
         /// </summary>
-        /// <param name="other">Instance of ComplianceReport to be compared</param>
+        /// <param name="other">Instance of RegulationBody to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ComplianceReport other)
+        public bool Equals(RegulationBody other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
@@ -83,9 +83,9 @@ namespace eu.operando.interfaces.rapi.Model
 
             return 
                 (
-                    this.PrivacyPolicy == other.PrivacyPolicy ||
-                    this.PrivacyPolicy != null &&
-                    this.PrivacyPolicy.Equals(other.PrivacyPolicy)
+                    this.Regulation == other.Regulation ||
+                    this.Regulation != null &&
+                    this.Regulation.Equals(other.Regulation)
                 );
         }
 
@@ -100,8 +100,8 @@ namespace eu.operando.interfaces.rapi.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.PrivacyPolicy != null)
-                    hash = hash * 59 + this.PrivacyPolicy.GetHashCode();
+                if (this.Regulation != null)
+                    hash = hash * 59 + this.Regulation.GetHashCode();
                 return hash;
             }
         }
