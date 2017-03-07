@@ -15,46 +15,17 @@ namespace Operando_AdministrationConsole.Helper
     public class LdbService
     {
 
-        public List<DataAccessLog> GetDataAccessLogs()
+        public List<DataAccessLog> GetDataAccessLogs(string userId)
         {
             List<DataAccessLog> logList = new List<DataAccessLog>();
 
-            // TODO: SUBSTITUTE WITH REAL LOGGED USER ID -- WAITING FOR FEEDBACK FROM PAUL
-            //string loggedUserId = "1"; 
-
-            // TODO: STILL PROBLEMS WITH FILTERING -- WAITING FOR FEEDBACK FROM COSTAS
-            //var jsonURL = String.Format("http://server02tecnalia.westeurope.cloudapp.azure.com:8091/operando/core/ldbsearch/log/search/?dateFrom&dateTo&logLevel&requesterType={0}&requesterId={1}&logPriority&title&keyWords", "USER", loggedUserId );
-            var jsonURL = "http://integration.operando.esilab.org:8091/operando/core/ldbsearch/log/search";
+            var baseURL = "http://integration.operando.esilab.org:8091/operando/core/ldbsearch/log/search";
+            var searchUrl =$"?logType=data_access&affectedUserId={userId}";
 
             string jsonString;
             using (WebClient client = new WebClient())
             {
-                jsonString = client.DownloadString(jsonURL);
-
-                // da cancellare
-                /*string jsonString;
-                try
-                {
-                    jsonString = client.DownloadString(jsonURL);
-                }
-                catch(Exception e)
-                {
-                    DataAccessLog logItem = new DataAccessLog();
-                    string data = "22/11/2016";
-
-                    logItem.logDate = Convert.ToDateTime(data);
-                    logItem.requesterType = "requesterType";
-                    logItem.requesterId = "requesterId";
-                    logItem.logPriority = "logPriority";
-                    logItem.logLevel = "INFO";
-                    logItem.title = "title";
-                    logItem.description = "description";
-
-                    logList.Add(logItem);
-
-                    return View(logList);
-                }*/
-                // fine cancellare
+                jsonString = client.DownloadString(baseURL + searchUrl);
             }
 
 
@@ -87,6 +58,12 @@ namespace Operando_AdministrationConsole.Helper
                             logItem.title = prop.Value.ToString();
                         if (prop.Name == "description")
                             logItem.description = prop.Value.ToString();
+                        if (prop.Name == "logType")
+                            logItem.logType = prop.Value.ToString();
+                        if (prop.Name == "affectedUserId")
+                            logItem.affectedUserId = prop.Value.ToString();
+                        if (prop.Name == "viewed")
+                            logItem.viewed = bool.Parse(prop.Value.ToString());
                     }
 
                     logList.Add(logItem);

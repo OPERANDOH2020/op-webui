@@ -28,9 +28,11 @@ namespace Operando_AdministrationConsole.Controllers
 
             try
             {
+                var username = Session["Username"] as string;
+
                 var ldbService = new LdbService();
 
-                logList = ldbService.GetDataAccessLogs();
+                logList = ldbService.GetDataAccessLogs(username);
             }
             catch (Exception)
             {

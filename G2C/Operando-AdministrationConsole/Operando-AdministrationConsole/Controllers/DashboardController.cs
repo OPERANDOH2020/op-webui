@@ -225,14 +225,15 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpGet]
         public PartialViewResult DataRequestsWidget(int count = 5)
         {
-            // TODO filter in the GetDataAccessLogs rather than afterwards
-            var logMessages = _ldbService.GetDataAccessLogs();
+            var username = Session["Username"] as string;
+
+            var logMessages = _ldbService.GetDataAccessLogs(username);
 
             var model = logMessages.Select(_ => new DataRequestsModel
             {
                 Description = _.description,
                 Timestamp = _.logDate,
-                WasAllowed = true // TODO how should we determine if the request should have been allowed or not?
+                WasAllowed = _.logLevel == "INFO" 
             })
             .OrderByDescending(_ => _.Timestamp)
             .Take(count);
