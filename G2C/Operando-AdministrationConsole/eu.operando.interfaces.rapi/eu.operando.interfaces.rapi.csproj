@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="eu.operando.interfaces.rapi">
-      <HintPath>..\Operando-AdministrationConsole\Bin\eu.operando.interfaces.rapi.dll</HintPath>
-    </Reference>
     <Reference Include="JetBrains.Annotations">
       <HintPath>..\packages\JetBrains.Annotations.10.2.1\lib\net\JetBrains.Annotations.dll</HintPath>
     </Reference>
@@ -65,7 +62,6 @@
     <Compile Include="Client\ExceptionFactory.cs" />
     <Compile Include="Client\IApiAccessor.cs" />
     <Compile Include="Model\AccessReason.cs" />
-    <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\ComplianceReport.cs" />
     <Compile Include="Model\OSPReasonPolicy.cs" />
     <Compile Include="Model\PrivacyRegulation.cs" />
