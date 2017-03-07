@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Threading.Tasks;
 using eu.operando.core.bda;
 using Operando_AdministrationConsole.Helper;
+using Operando_AdministrationConsole.Models.DashboardModels;
 using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels;
 
 namespace Operando_AdministrationConsole.Controllers
@@ -212,7 +213,20 @@ namespace Operando_AdministrationConsole.Controllers
 
         public ActionResult Notifications()
         {
-            return View();
+            var username = Session["Username"] as string;
+
+            var logMessages = _ldbService.GetNotifications(username);
+
+            var model = logMessages.Select(_ => new NotificationsModel
+            {
+                Title = _.title,
+                Description = _.description,
+                TimeStamp = _.logDate
+            })
+            .OrderByDescending(_ => _.TimeStamp)
+            .ToList();
+
+            return View(model);
         }
 
         public ActionResult UserProfile()
@@ -229,7 +243,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             var logMessages = _ldbService.GetNotifications(username);
 
-            var model = logMessages.Select(_ => new NotificationsModel
+            var model = logMessages.Select(_ => new NotificationsWidgetModel
             {
                 Description = _.description,
                 TimeStamp = _.logDate
@@ -302,80 +316,6 @@ namespace Operando_AdministrationConsole.Controllers
 
         #endregion Widgets
 
-
-
-
-        //// GET: Dashboard/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //// GET: Dashboard/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: Dashboard/Create
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: Dashboard/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Dashboard/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: Dashboard/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Dashboard/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 
 
