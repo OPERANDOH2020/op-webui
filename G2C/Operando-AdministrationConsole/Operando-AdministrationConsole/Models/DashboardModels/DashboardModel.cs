@@ -18,6 +18,6 @@ namespace Operando_AdministrationConsole.Models.DashboardModels
     {
         StandardUser,
         OspAdmin,
-        PspAdmin,
+        PrivacyAnalyst,
     }
 }

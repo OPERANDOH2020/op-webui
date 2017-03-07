@@ -36,11 +36,17 @@ namespace Operando_AdministrationConsole.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            // TODO get type of current user
             var userTypeStr = Session["Usertype"] as string;
             UserType userType;
             switch (userTypeStr)
             {
+                case "osp_admin":
+                    userType = UserType.OspAdmin;
+                    break;
+                case "privacy_analyst":
+                    userType = UserType.PrivacyAnalyst;
+                    break;
+                case "normal_user":
                 default:
                     userType = UserType.StandardUser;
                     break;
