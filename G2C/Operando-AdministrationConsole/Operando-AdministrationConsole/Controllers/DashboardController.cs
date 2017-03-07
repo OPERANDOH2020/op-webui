@@ -227,7 +227,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             var username = Session["Username"] as string;
 
-            var logMessages = _ldbService.GetNotifications(username);
+            var logMessages = _ldbService.GetDataAccessLogs(username);
 
             var model = logMessages.Select(_ => new DataRequestsModel
             {
