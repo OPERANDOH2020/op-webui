@@ -37,14 +37,21 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult Index()
         {
             // TODO get type of current user
-            UserType usertype = UserType.StandardUser;
+            var userTypeStr = Session["Usertype"] as string;
+            UserType userType;
+            switch (userTypeStr)
+            {
+                default:
+                    userType = UserType.StandardUser;
+                    break;
+            }
 
             var model = new DashboardModel()
             {
-                UserType = usertype
+                UserType = userType
             };
 
-            if (usertype == UserType.OspAdmin)
+            if (userType == UserType.OspAdmin)
             {
                 String _mysqlDBError =
                     "Can not connect to MySql Report DB, please change MySQLConnection inside web.config";
