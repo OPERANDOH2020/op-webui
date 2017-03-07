@@ -17,15 +17,24 @@ namespace Operando_AdministrationConsole.Helper
 
         public List<DataAccessLog> GetDataAccessLogs(string userId)
         {
+            return RequestDataAccessLogs($"logType=data_access&affectedUserId={userId}");
+        }
+
+        public List<DataAccessLog> GetNotifications(string userId)
+        {
+            return RequestDataAccessLogs($"logType=notification&affectedUserId={userId}&viewed=false");
+        }
+
+        private List<DataAccessLog> RequestDataAccessLogs(string searchString)
+        {
             List<DataAccessLog> logList = new List<DataAccessLog>();
 
             var baseURL = "http://integration.operando.esilab.org:8091/operando/core/ldbsearch/log/search";
-            var searchUrl =$"?logType=data_access&affectedUserId={userId}";
 
             string jsonString;
             using (WebClient client = new WebClient())
             {
-                jsonString = client.DownloadString(baseURL + searchUrl);
+                jsonString = client.DownloadString(baseURL + "?" + searchString);
             }
 
 
