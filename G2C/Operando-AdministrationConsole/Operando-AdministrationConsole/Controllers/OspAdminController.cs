@@ -26,51 +26,51 @@ namespace Operando_AdministrationConsole.Controllers
             return new Uri($"http://10.136.24.87:8080/pdb/OSP/587f80549e86b2c3b0a43eaa/privacy-policy");
         }
 
+        private eu.operando.core.pdb.cli.Client.Configuration getConfiguration(string serviceIdKey)
+        {
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+            string pdbOSPSId = ConfigurationManager.AppSettings[serviceIdKey];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket(pdbOSPSId));
+
+            return configuration;
+        }
+
         public ActionResult PrivacyPolicy()
         {
             // TODO: Get the OSP ID in some way
             string ospId = "587f7eb56e157a10eece95d3";
 
-            /* old code starts
-            PrivacyPolicy policies = await
-                helper.get<PrivacyPolicy>(OSPRoot(ospId).ToString());
-            */
-
-            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
-            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
-            string pdbOSPSId = ConfigurationManager.AppSettings["pdbOSPSId"];
-
-            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket(pdbOSPSId));
-
-            var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(getConfiguration("pdbOSPSId"));
             OSPReasonPolicy ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospId);
 
             return View(ospReasonPolicy);
         }
 
         [HttpPost]
-        public async Task<ActionResult> NewPrivacyPolicy(OSPReasonPolicy policy)
+        public ActionResult NewPrivacyPolicy(OSPReasonPolicy policy)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(policy), Encoding.UTF8, "application/json");
-                var result = await client.PostAsync(OSPRoot(policy.OspPolicyId), OperandoJson);
-                Response.StatusCode = (int)result.StatusCode;
-                return Content(await result.Content.ReadAsStringAsync());
-            }
+            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            OSPReasonPolicyInput ospRPI = new OSPReasonPolicyInput();
+            ospRPI.Policies = policy.Policies;
+
+            instance.OSPOspIdPrivacyPolicyPut(policy.OspPolicyId, ospRPI);
+
+            return View(policy);
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdatePrivacyPolicy(OSPReasonPolicy policy)
+        public ActionResult UpdatePrivacyPolicy(OSPReasonPolicy policy)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(policy), Encoding.UTF8, "application/json");
-                var result = await client.PutAsync(OSPRoot(policy.OspPolicyId), OperandoJson);
-                Response.StatusCode = (int)result.StatusCode;
-                return Content(await result.Content.ReadAsStringAsync());
-            }
+            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            OSPReasonPolicyInput ospRPI = new OSPReasonPolicyInput();
+            ospRPI.Policies = policy.Policies;
+
+            instance.OSPOspIdPrivacyPolicyPut(policy.OspPolicyId, ospRPI);
+
+            return Content(policy.ToString());
         }
 
         [HttpDelete]
