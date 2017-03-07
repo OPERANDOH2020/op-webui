@@ -14,6 +14,9 @@ namespace Operando_AdministrationConsole.Models
         public string logLevel { get; set; }
         public string title { get; set; }
         public string description { get; set; }
+        public string logType { get; set; }
+        public string affectedUserId { get; set; }
+        public bool viewed { get; set; }
     }
 
     
