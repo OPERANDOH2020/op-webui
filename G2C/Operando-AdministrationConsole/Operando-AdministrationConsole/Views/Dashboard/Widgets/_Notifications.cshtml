@@ -1,0 +1,38 @@
+﻿@using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels
+@model IList<NotificationsModel>
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-bell"></i>
+            <span class="caption-subject font-dark bold uppercase">NOTIFICATIONS</span>
+        </div>
+        <div class="tools">
+            <a href="@Url.Action("Notifications", "Dashboard")">View all <i class="icon-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <ul class="feeds">
+            @foreach (var notification in Model)
+            {
+                <li class="font-grey-gallery">
+                    <div class="col1">
+                        <div class="cont">
+                            <div class="cont-col1">
+                                <div class="label label-sm label-default">
+                                    <i class="icon-bell"></i>
+                                </div>
+                            </div>
+                            <div class="cont-col2">
+                                <div class="desc">@notification.Description</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="date">@notification.TimeStamp</div>
+                    </div>
+                </li>
+            }
+        </ul>
+
+    </div>
+</div>

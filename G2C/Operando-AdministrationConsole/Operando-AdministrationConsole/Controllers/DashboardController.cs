@@ -223,6 +223,24 @@ namespace Operando_AdministrationConsole.Controllers
         #region Widgets
 
         [HttpGet]
+        public PartialViewResult NotificationsWidget(int count = 5)
+        {
+            var username = Session["Username"] as string;
+
+            var logMessages = _ldbService.GetNotifications(username);
+
+            var model = logMessages.Select(_ => new NotificationsModel
+            {
+                Description = _.description,
+                TimeStamp = _.logDate
+            })
+            .OrderByDescending(_ => _.TimeStamp)
+            .Take(count).ToList();
+
+            return PartialView("Widgets/_Notifications", model);
+        }
+
+        [HttpGet]
         public PartialViewResult DataRequestsWidget(int count = 5)
         {
             var username = Session["Username"] as string;

@@ -22,7 +22,7 @@ namespace Operando_AdministrationConsole.Helper
 
         public List<DataAccessLog> GetNotifications(string userId)
         {
-            return RequestDataAccessLogs($"logType=notification&affectedUserId={userId}&viewed=false");
+            return RequestDataAccessLogs($"logType=notification&affectedUserId={userId}");
         }
 
         private List<DataAccessLog> RequestDataAccessLogs(string searchString)
@@ -71,8 +71,6 @@ namespace Operando_AdministrationConsole.Helper
                             logItem.logType = prop.Value.ToString();
                         if (prop.Name == "affectedUserId")
                             logItem.affectedUserId = prop.Value.ToString();
-                        if (prop.Name == "viewed")
-                            logItem.viewed = bool.Parse(prop.Value.ToString());
                     }
 
                     logList.Add(logItem);

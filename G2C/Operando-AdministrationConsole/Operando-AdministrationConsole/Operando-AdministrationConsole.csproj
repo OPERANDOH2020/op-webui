@@ -236,6 +236,7 @@
     <Compile Include="Models\DashboardModels\WidgetModels\DataRequestsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractRequestModel.cs" />
+    <Compile Include="Models\DashboardModels\WidgetModels\NotificationsModel.cs" />
     <Compile Include="Models\DataAccessLog.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
@@ -5808,6 +5809,7 @@
     <Content Include="Views\Dashboard\Widgets\_DataExtractRequests.cshtml" />
     <Content Include="Views\Dashboard\Widgets\_DataExtracts.cshtml" />
     <Content Include="Views\Dashboard\Widgets\_DataRequests.cshtml" />
+    <Content Include="Views\Dashboard\Widgets\_Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
