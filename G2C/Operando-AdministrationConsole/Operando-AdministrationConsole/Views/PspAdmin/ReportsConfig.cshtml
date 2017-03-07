@@ -738,10 +738,7 @@
                                                             <td>@item.Location</td>
                                                             <td>@item.Parameters</td>
                                                             <td>
-                                                                @foreach (var tmp in item.OSPs)
-                                                                {
-                                                                    @Html.Raw(tmp + "-")
-                                                                }
+                                                                @Html.Raw(string.Join(" - ", item.OSPs))
                                                             </td>
                                                             <th> <a target="_blank" href="@item.Location?@item.Parameters" class="btn btn-circle btn-sm yellow-gold"> View </a> </th>
                                                             <th> <a class="btn btn-circle btn-sm yellow-gold" data-toggle="tab" href="#tab_1_3" onclick="javascript: $('#tab_reports').removeAttr('class'); $('#tab_schedule').attr('class', 'active');"> Schedules </a> </th>
@@ -809,7 +806,7 @@
                                                         <td>
                                                             @foreach (var tmp in item.OSPs)
                                                             {
-                                                                @Html.Raw(tmp + "-")
+                                                                @Html.Raw(tmp.Replace("-"," - "))
                                                             }
                                                         </td>
                                                         <td>
@@ -929,7 +926,7 @@
                                                                                         @* ---[ OSP ]---*@
                                                                                         <td>
                                                                                             <div class="scheduleDetail_@details.ID">
-                                                                                                <label id="labelOSP_@details.ID">@Html.Raw(string.Join(", ", details.OSPs))</label>
+                                                                                                <label id="labelOSP_@details.ID">@Html.Raw(string.Join(" - ", details.OSPs))</label>
                                                                                             </div>
                                                                                             @* ---[ edit ]---*@
                                                                                             <div style="display:none" class="input-group scheduleDetail_@details.ID">

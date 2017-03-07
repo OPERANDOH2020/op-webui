@@ -48,6 +48,7 @@
                         }
                     </a>
                 </li>
+                <!-- 
                 <li class="nav-item @if (currentController == "Dashboard" && currentAction == "UserProfile") { @activeClass }">
                     <a href="@Url.Action("UserProfile", "Dashboard")" class="nav-link ">
                         <i class="icon-user"></i>
@@ -58,12 +59,15 @@
                         }
                     </a>
                 </li>
+                -->
             </ul>
         </li>
 
+        <!-- 
         <li class="heading">
             <h3 class="uppercase">End User</h3>
         </li>
+        -->
         <li class='nav-item @if (currentController == "DataSubject") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
@@ -109,9 +113,11 @@
             </ul>
         </li>
         
+        <!--
         <li class="heading">
             <h3 class="uppercase">OSP Admin</h3>
         </li>
+        -->
         <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "PrivacyPolicy" || currentAction == "UserQuestionnaireGenerator")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-eye"></i>
@@ -225,10 +231,11 @@
             </ul>
         </li>
 
-
+        <!--
         <li class="heading">
             <h3 class="uppercase">PSP Analyst</h3>
         </li>
+        -->
         <li class='nav-item @if (currentController == "PSPAnalyst") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-feed"></i>
@@ -273,10 +280,11 @@
             </ul>
         </li>
 
-
+        <!--
         <li class="heading">
             <h3 class="uppercase">PSP Admin</h3>
         </li>
+        -->
 
         @* ---------------------------------------------------------------------------- *@
         @* ----------------------------- REPORTS CONFIG ------------------------------- *@
@@ -394,10 +402,13 @@
         @* ---------------------------------------------------------------------------- *@
         @* ----------------------------- REGULATOR ------------------------------------ *@
         @* ---------------------------------------------------------------------------- *@
-
+        
+        <!--
         <li class="heading">
             <h3 class="uppercase">Regulator</h3>
         </li>
+        -->
+
         <li class='nav-item @if (currentController == "Regulator") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-folder"></i>
