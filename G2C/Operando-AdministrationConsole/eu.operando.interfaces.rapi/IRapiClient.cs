@@ -7,14 +7,14 @@ namespace eu.operando.interfaces.rapi
 {
     public interface IRapiClient
     {
-        Task<IList<string>> GetOsps();
+        Task<IList<string>> GetOsps(string serviceTicket);
 
 
         /// <summary>
         /// Get the compliance report for an osp.
         /// </summary>
         [ItemCanBeNull]
-        Task<ComplianceReport> GetComplianceReportForOspAsync([NotNull] string osp);
+        Task<ComplianceReport> GetComplianceReportForOspAsync([NotNull] string osp, [NotNull] string serviceTicket);
 
     }
 }

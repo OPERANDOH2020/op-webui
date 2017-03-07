@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,13 +30,15 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpGet]
         public async Task<ActionResult> Reports()
         {
-            var osps = await _rapiClient.GetOsps();
+            var serviceTicket = GetServiceTicket();
+
+            var osps = await _rapiClient.GetOsps(serviceTicket);
 
             var reports = new List<ComplianceReportModel>();
 
             foreach (var osp in osps)
             {
-                var entity = await _rapiClient.GetComplianceReportForOspAsync(osp);
+                var entity = await _rapiClient.GetComplianceReportForOspAsync(osp, serviceTicket);
 
                 reports.Add(new ComplianceReportModel()
                 {
@@ -70,6 +74,30 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult PolicyStatements()
         {
             return View();
+        }
+
+        // copied and modified from DataSubjectController
+        private string GetServiceTicket()
+        {
+            string st = "";
+            string rapiComplianceReportId = ConfigurationManager.AppSettings["rapiComplianceReportId"];
+
+            // get OSP service ticket
+            string aapiBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            var aapiInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(aapiBasePath);
+
+            try
+            {
+                // OSP service ticket call
+                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"]?.ToString(), rapiComplianceReportId);
+                Debug.Print("Got RAPI Service Ticket: " + st);
+            }
+            catch (eu.operando.interfaces.aapi.Client.ApiException ex)
+            {
+                Debug.Print("Exception failed to make API call to AapiTicketsTgtPost: " + ex.Message);
+            }
+
+            return st;
         }
 
     }

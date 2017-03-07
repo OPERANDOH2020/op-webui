@@ -9,7 +9,7 @@ namespace eu.operando.interfaces.rapi.Stub
 {
     public class StubRapiClient : IRapiClient
     {
-        public Task<IList<string>> GetOsps()
+        public Task<IList<string>> GetOsps(string serviceTicket)
         {
             IList<string> result = new List<string>()
             {
@@ -23,7 +23,7 @@ namespace eu.operando.interfaces.rapi.Stub
             return Task.FromResult(result);
         }
 
-        public Task<ComplianceReport> GetComplianceReportForOspAsync(string osp)
+        public Task<ComplianceReport> GetComplianceReportForOspAsync(string osp, string serviceTicket)
         {
             var policy1 = new AccessReason()
             {

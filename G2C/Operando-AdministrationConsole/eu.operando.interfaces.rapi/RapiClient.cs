@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,11 @@ namespace eu.operando.interfaces.rapi
     {
         public RapiClient()
         {
-            _api = new ReportsApi("");
+            var basePath = ConfigurationManager.AppSettings["rapiBasePath"];
+            _api = new ReportsApi(basePath);
         }
 
-        public Task<IList<string>> GetOsps()
+        public Task<IList<string>> GetOsps(string serviceTicket)
         {
             //TODO use proper implementation
             IList<string> result = new List<string>()
@@ -30,9 +32,9 @@ namespace eu.operando.interfaces.rapi
             return Task.FromResult(result);
         }
 
-        public Task<ComplianceReport> GetComplianceReportForOspAsync(string osp)
+        public Task<ComplianceReport> GetComplianceReportForOspAsync(string osp, string serviceTicket)
         {
-            var result = _api.OspsOspIdComplianceReportGetAsync("", osp);
+            var result = _api.OspsOspIdComplianceReportGetAsync(serviceTicket, osp);
 
             return result;
         }
