@@ -397,7 +397,7 @@ public class RestReportsHandler : IHttpHandler
         }
         catch (Exception e)
         {
-            context.Response.Write(e.Message + " stack trace: " + e.StackTrace);
+            throw e;
         }
         finally
         {
