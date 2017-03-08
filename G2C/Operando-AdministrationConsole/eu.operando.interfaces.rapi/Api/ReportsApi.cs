@@ -237,7 +237,7 @@ namespace eu.operando.interfaces.rapi.Api
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             localVarPathParams.Add("format", "json");
             if (ospId != null) localVarPathParams.Add("osp-id", Configuration.ApiClient.ParameterToString(ospId)); // path parameter
-            if (serviceTicket != null) localVarHeaderParams.Add("service ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
+            if (serviceTicket != null) localVarHeaderParams.Add("service-ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
 
 
             // make the HTTP request
@@ -314,7 +314,7 @@ namespace eu.operando.interfaces.rapi.Api
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             localVarPathParams.Add("format", "json");
             if (ospId != null) localVarPathParams.Add("osp-id", Configuration.ApiClient.ParameterToString(ospId)); // path parameter
-            if (serviceTicket != null) localVarHeaderParams.Add("service ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
+            if (serviceTicket != null) localVarHeaderParams.Add("service-ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
 
 
             // make the HTTP request

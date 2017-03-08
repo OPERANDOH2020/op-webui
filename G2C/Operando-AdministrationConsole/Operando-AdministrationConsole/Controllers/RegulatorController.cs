@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Net.Http;
-using Operando_AdministrationConsole.Models;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Text.RegularExpressions;
 using eu.operando.interfaces.rapi;
-using Operando_AdministrationConsole.Helper;
+using eu.operando.interfaces.rapi.Client;
+using eu.operando.interfaces.rapi.Model;
 using Operando_AdministrationConsole.Models.RegulatorModels;
 
 namespace Operando_AdministrationConsole.Controllers
@@ -38,8 +33,16 @@ namespace Operando_AdministrationConsole.Controllers
 
             foreach (var osp in osps)
             {
-                var entity = await _rapiClient.GetComplianceReportForOspAsync(osp, serviceTicket);
-
+                ComplianceReport entity;
+                try
+                {
+                    entity = await _rapiClient.GetComplianceReportForOspAsync(osp, serviceTicket);
+                }
+                catch (ApiException ex)
+                {
+                    entity = null;
+                    Debug.Print("Exception failed to make API call to RapiComplianceReportGet: " + ex.Message);
+                }
                 reports.Add(new ComplianceReportModel()
                 {
                     OspId = osp,

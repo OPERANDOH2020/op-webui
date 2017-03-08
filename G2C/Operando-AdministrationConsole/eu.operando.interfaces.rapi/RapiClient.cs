@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eu.operando.interfaces.rapi.Api;
+using eu.operando.interfaces.rapi.Client;
 using eu.operando.interfaces.rapi.Model;
 
 namespace eu.operando.interfaces.rapi
@@ -22,8 +23,8 @@ namespace eu.operando.interfaces.rapi
             //TODO use proper implementation
             IList<string> result = new List<string>()
             {
-                "OSP-A",
-                "OSP-B",
+                "built-in",
+                "Ami",
                 "OSP-C",
                 "OSP-D",
                 "OSP-E"
@@ -34,9 +35,11 @@ namespace eu.operando.interfaces.rapi
 
         public Task<ComplianceReport> GetComplianceReportForOspAsync(string osp, string serviceTicket)
         {
+
             var result = _api.OspsOspIdComplianceReportGetAsync(serviceTicket, osp);
 
             return result;
+            
         }
 
         private readonly IReportsApi _api;

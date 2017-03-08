@@ -27,16 +27,16 @@ namespace eu.operando.interfaces.rapi.Model
         /// Initializes a new instance of the <see cref="AccessReason" /> class.
         /// </summary>
         /// <param name="Reasonid">An identifier within this privacy policy e.g osp_reason1. This is not globally unique and is defined by the OSP. However, OSP must ensure that  identifiers are unique within the policy list. .</param>
-        /// <param name="dataUser">Who is using the data. .</param>
-        /// <param name="dataSubjectType">What is the type or group of the user this private data concerns e.g. patient, helper etc. .</param>
-        /// <param name="dataType">What is the type of data this refers to e.g. e-mail address, medical record etc. .</param>
+        /// <param name="Datauser">Who is using the data. .</param>
+        /// <param name="Datasubjecttype">What is the type or group of the user this private data concerns e.g. patient, helper etc. .</param>
+        /// <param name="Datatype">What is the type of data this refers to e.g. e-mail address, medical record etc. .</param>
         /// <param name="Reason">Usage of this information if for what purpose e.g. marketing, healthcare delivery. .</param>
-        public AccessReason(string Reasonid = default(string), string dataUser = default(string), string dataSubjectType = default(string), string dataType = default(string), string Reason = default(string))
+        public AccessReason(string Reasonid = default(string), string Datauser = default(string), string Datasubjecttype = default(string), string Datatype = default(string), string Reason = default(string))
         {
             this.Reasonid = Reasonid;
-            this.DataUser = dataUser;
-            this.DataSubjectType = dataSubjectType;
-            this.DataType = dataType;
+            this.Datauser = Datauser;
+            this.Datasubjecttype = Datasubjecttype;
+            this.Datatype = Datatype;
             this.Reason = Reason;
         }
         
@@ -51,19 +51,19 @@ namespace eu.operando.interfaces.rapi.Model
         /// </summary>
         /// <value>Who is using the data. </value>
         [DataMember(Name="datauser", EmitDefaultValue=false)]
-        public string DataUser { get; set; }
+        public string Datauser { get; set; }
         /// <summary>
         /// What is the type or group of the user this private data concerns e.g. patient, helper etc. 
         /// </summary>
         /// <value>What is the type or group of the user this private data concerns e.g. patient, helper etc. </value>
         [DataMember(Name="datasubjecttype", EmitDefaultValue=false)]
-        public string DataSubjectType { get; set; }
+        public string Datasubjecttype { get; set; }
         /// <summary>
         /// What is the type of data this refers to e.g. e-mail address, medical record etc. 
         /// </summary>
         /// <value>What is the type of data this refers to e.g. e-mail address, medical record etc. </value>
         [DataMember(Name="datatype", EmitDefaultValue=false)]
-        public string DataType { get; set; }
+        public string Datatype { get; set; }
         /// <summary>
         /// Usage of this information if for what purpose e.g. marketing, healthcare delivery. 
         /// </summary>
@@ -79,9 +79,9 @@ namespace eu.operando.interfaces.rapi.Model
             var sb = new StringBuilder();
             sb.Append("class AccessReason {\n");
             sb.Append("  Reasonid: ").Append(Reasonid).Append("\n");
-            sb.Append("  Datauser: ").Append(DataUser).Append("\n");
-            sb.Append("  Datasubjecttype: ").Append(DataSubjectType).Append("\n");
-            sb.Append("  Datatype: ").Append(DataType).Append("\n");
+            sb.Append("  Datauser: ").Append(Datauser).Append("\n");
+            sb.Append("  Datasubjecttype: ").Append(Datasubjecttype).Append("\n");
+            sb.Append("  Datatype: ").Append(Datatype).Append("\n");
             sb.Append("  Reason: ").Append(Reason).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -125,19 +125,19 @@ namespace eu.operando.interfaces.rapi.Model
                     this.Reasonid.Equals(other.Reasonid)
                 ) && 
                 (
-                    this.DataUser == other.DataUser ||
-                    this.DataUser != null &&
-                    this.DataUser.Equals(other.DataUser)
+                    this.Datauser == other.Datauser ||
+                    this.Datauser != null &&
+                    this.Datauser.Equals(other.Datauser)
                 ) && 
                 (
-                    this.DataSubjectType == other.DataSubjectType ||
-                    this.DataSubjectType != null &&
-                    this.DataSubjectType.Equals(other.DataSubjectType)
+                    this.Datasubjecttype == other.Datasubjecttype ||
+                    this.Datasubjecttype != null &&
+                    this.Datasubjecttype.Equals(other.Datasubjecttype)
                 ) && 
                 (
-                    this.DataType == other.DataType ||
-                    this.DataType != null &&
-                    this.DataType.Equals(other.DataType)
+                    this.Datatype == other.Datatype ||
+                    this.Datatype != null &&
+                    this.Datatype.Equals(other.Datatype)
                 ) && 
                 (
                     this.Reason == other.Reason ||
@@ -159,12 +159,12 @@ namespace eu.operando.interfaces.rapi.Model
                 // Suitable nullity checks etc, of course :)
                 if (this.Reasonid != null)
                     hash = hash * 59 + this.Reasonid.GetHashCode();
-                if (this.DataUser != null)
-                    hash = hash * 59 + this.DataUser.GetHashCode();
-                if (this.DataSubjectType != null)
-                    hash = hash * 59 + this.DataSubjectType.GetHashCode();
-                if (this.DataType != null)
-                    hash = hash * 59 + this.DataType.GetHashCode();
+                if (this.Datauser != null)
+                    hash = hash * 59 + this.Datauser.GetHashCode();
+                if (this.Datasubjecttype != null)
+                    hash = hash * 59 + this.Datasubjecttype.GetHashCode();
+                if (this.Datatype != null)
+                    hash = hash * 59 + this.Datatype.GetHashCode();
                 if (this.Reason != null)
                     hash = hash * 59 + this.Reason.GetHashCode();
                 return hash;

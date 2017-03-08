@@ -26,17 +26,17 @@ namespace eu.operando.interfaces.rapi.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ComplianceReport" /> class.
         /// </summary>
-        /// <param name="privacyPolicy">Privacypolicy.</param>
-        public ComplianceReport(OSPReasonPolicy privacyPolicy = default(OSPReasonPolicy))
+        /// <param name="Privacypolicy">Privacypolicy.</param>
+        public ComplianceReport(OSPReasonPolicy Privacypolicy = default(OSPReasonPolicy))
         {
-            this.PrivacyPolicy = privacyPolicy;
+            this.Privacypolicy = Privacypolicy;
         }
         
         /// <summary>
         /// Gets or Sets Privacypolicy
         /// </summary>
         [DataMember(Name="privacypolicy", EmitDefaultValue=false)]
-        public OSPReasonPolicy PrivacyPolicy { get; set; }
+        public OSPReasonPolicy Privacypolicy { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -45,7 +45,7 @@ namespace eu.operando.interfaces.rapi.Model
         {
             var sb = new StringBuilder();
             sb.Append("class ComplianceReport {\n");
-            sb.Append("  Privacypolicy: ").Append(PrivacyPolicy).Append("\n");
+            sb.Append("  Privacypolicy: ").Append(Privacypolicy).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -83,9 +83,9 @@ namespace eu.operando.interfaces.rapi.Model
 
             return 
                 (
-                    this.PrivacyPolicy == other.PrivacyPolicy ||
-                    this.PrivacyPolicy != null &&
-                    this.PrivacyPolicy.Equals(other.PrivacyPolicy)
+                    this.Privacypolicy == other.Privacypolicy ||
+                    this.Privacypolicy != null &&
+                    this.Privacypolicy.Equals(other.Privacypolicy)
                 );
         }
 
@@ -100,8 +100,8 @@ namespace eu.operando.interfaces.rapi.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.PrivacyPolicy != null)
-                    hash = hash * 59 + this.PrivacyPolicy.GetHashCode();
+                if (this.Privacypolicy != null)
+                    hash = hash * 59 + this.Privacypolicy.GetHashCode();
                 return hash;
             }
         }

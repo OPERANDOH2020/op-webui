@@ -286,7 +286,7 @@ namespace eu.operando.interfaces.rapi.Api
             // set "format" to json by default
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             localVarPathParams.Add("format", "json");
-            if (serviceTicket != null) localVarHeaderParams.Add("service ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
+            if (serviceTicket != null) localVarHeaderParams.Add("service-ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
             if (regulationBody != null && regulationBody.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(regulationBody); // http body (model) parameter
@@ -370,7 +370,7 @@ namespace eu.operando.interfaces.rapi.Api
             // set "format" to json by default
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             localVarPathParams.Add("format", "json");
-            if (serviceTicket != null) localVarHeaderParams.Add("service ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
+            if (serviceTicket != null) localVarHeaderParams.Add("service-ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
             if (regulationBody != null && regulationBody.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(regulationBody); // http body (model) parameter
@@ -459,7 +459,7 @@ namespace eu.operando.interfaces.rapi.Api
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             localVarPathParams.Add("format", "json");
             if (regId != null) localVarPathParams.Add("reg-id", Configuration.ApiClient.ParameterToString(regId)); // path parameter
-            if (serviceTicket != null) localVarHeaderParams.Add("service ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
+            if (serviceTicket != null) localVarHeaderParams.Add("service-ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
             if (regulationBody != null && regulationBody.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(regulationBody); // http body (model) parameter
@@ -549,7 +549,7 @@ namespace eu.operando.interfaces.rapi.Api
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             localVarPathParams.Add("format", "json");
             if (regId != null) localVarPathParams.Add("reg-id", Configuration.ApiClient.ParameterToString(regId)); // path parameter
-            if (serviceTicket != null) localVarHeaderParams.Add("service ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
+            if (serviceTicket != null) localVarHeaderParams.Add("service-ticket", Configuration.ApiClient.ParameterToString(serviceTicket)); // header parameter
             if (regulationBody != null && regulationBody.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(regulationBody); // http body (model) parameter
