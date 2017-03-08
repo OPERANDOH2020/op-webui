@@ -8028,6 +8028,22 @@
                             </tr>
                             <tr>
                                 <td>
+                                    _format
+                                <td>
+                                    <p>Sets the format of the returned report.</p>
+                                </td>
+                                <td>query</td>
+                                <td>
+                                    <span class="json-property-type">string</span>    <span class="json-property-format">(string)</span>
+                                    <span class="json-property-range" title="Value limits">Accepted value: PDF, HTML</span>
+
+                                </td>
+                                <td>
+                                    <span class="json-property-required"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     paramName
                                 <td>
                                     <p>Report parameters that are designated in the design mode can be passed as URL parameters by entering the paramName=value syntax</p>
@@ -8066,6 +8082,70 @@
                             </div>
                         </dd>
                     </dl>
+
+                    <dl>
+                        <dt class="sw-response-200">
+                            404 Not Found
+
+                        </dt>
+                        <dd class="sw-response-200">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Report not found</p>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 sw-response-model">
+                                </div>
+
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl>
+                        <dt class="sw-response-200">
+                            401 Unauthorized
+
+                        </dt>
+                        <dd class="sw-response-200">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Missing service-ticket in HTTP Header</p>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 sw-response-model">
+                                </div>
+
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl>
+                        <dt class="sw-response-200">
+                            400 Bad Request
+
+                        </dt>
+                        <dd class="sw-response-200">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Wrong or missing _reportID and _format query parameters</p>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 sw-response-model">
+                                </div>
+
+                            </div>
+                        </dd>
+                    </dl>
+
                 </section>
             </div>
         </div>
