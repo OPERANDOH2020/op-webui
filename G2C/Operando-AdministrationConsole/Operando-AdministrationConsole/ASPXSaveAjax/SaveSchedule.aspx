@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Debug="true"%>
 
 <%@ Import Namespace="MySql.Data" %>
 <%@ Import Namespace="MySql.Data.MySqlClient" %>
@@ -81,7 +81,7 @@
         {
             DayOfYear = Request.Form["DayOfYear"].Replace("'", "''");
         }
-        
+
         if (String.IsNullOrEmpty(DayOfYear))
         {
             DayOfYear = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
@@ -126,9 +126,18 @@
         {
             cmd.CommandText = "UPDATE t_report_mng_schedules SET OSPs='" + OSPs + "',Report='" + Report + "',StartDate='" + StartDate + "',RepeatEveryNumb='" + RepeatEveryNumb + "',RepeatEveryType='" + RepeatEveryType + "',DayOfWeek='" + DayOfWeek + "',StoragePeriodNumb='" + StoragePeriodNumb + "',StoragePeriodType='" + StoragePeriodType + "',DescriptionSchedules='" + DescriptionSchedules + "',NextScheduled='" + NextScheduled +"', GiornoMese='" + DayOfMonth + "', GiornoAnno='" + DayOfYear + "' WHERE ID=" + ID;
         }
-
-        cmd.ExecuteNonQuery();
-        connection.Close();
+        try
+        {
+            cmd.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex +" COMMAND: "+cmd.CommandText);
+        }
+        finally
+        {
+            connection.Close();
+        }
     }
 
 </script>
