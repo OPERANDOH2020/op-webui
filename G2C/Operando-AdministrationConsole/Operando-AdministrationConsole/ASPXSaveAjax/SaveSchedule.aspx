@@ -29,14 +29,18 @@
         {
             try
             {
-                StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
+                int step = 0;
+                StartDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd HH:mm:ss");
+                //StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
 
                 if (String.IsNullOrEmpty(Time))
                 {
+                    step = 1;
                     StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
                 }
                 else
                 {
+                    step = 2;
                     TimeSpan orario = new TimeSpan(Convert.ToDateTime(Time).Hour, Convert.ToDateTime(Time).Minute, Convert.ToDateTime(Time).Second);
 
                     StartDate = Convert.ToDateTime(StartDate).Date.Add(orario).ToString("yyyy-MM-dd H:mm:ss");
@@ -44,7 +48,7 @@
             }
             catch (Exception ex)
             {
-                throw new Exception(ex + " StartDate:"+StartDate);
+                throw new Exception(ex + " StartDate: "+StartDate+" step: "+step);
             }
         }
         string RepeatEveryNumb = Request.Form["RepeatEveryNumb"].Replace("'", "''");
