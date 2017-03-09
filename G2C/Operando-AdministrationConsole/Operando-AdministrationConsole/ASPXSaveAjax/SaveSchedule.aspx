@@ -27,9 +27,10 @@
         }
         else
         {
+            int step = 0;
             try
             {
-                int step = 0;
+                
                 StartDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd HH:mm:ss");
                 //StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
 
