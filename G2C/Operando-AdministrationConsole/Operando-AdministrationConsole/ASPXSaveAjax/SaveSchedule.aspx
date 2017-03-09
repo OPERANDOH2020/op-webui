@@ -82,7 +82,7 @@
             }
 
         }
-        string DescriptionSchedules = "";
+        string DescriptionSchedules = "No Description";
         string DayOfMonth = "";
         if (Request.Form["DayOfMonth"]!=null)
         {
