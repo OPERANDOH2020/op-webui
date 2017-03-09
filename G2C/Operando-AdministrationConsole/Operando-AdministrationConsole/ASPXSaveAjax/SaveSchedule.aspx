@@ -30,7 +30,7 @@
             int step = 0;
             try
             {
-                
+
                 StartDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd HH:mm:ss");
                 //StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -83,10 +83,14 @@
 
         }
         string DescriptionSchedules = "";
-        string DayOfMonth = "0";
+        string DayOfMonth = "";
         if (Request.Form["DayOfMonth"]!=null)
         {
             DayOfMonth = Request.Form["DayOfMonth"].Replace("'", "''");
+        }
+        if (String.IsNullOrEmpty(DayOfMonth))
+        {
+            DayOfMonth= "0";
         }
         string DayOfYear = "";
         if (Request.Form["DayOfYear"] != null)
