@@ -27,17 +27,24 @@
         }
         else
         {
-            StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
-
-            if (String.IsNullOrEmpty(Time))
+            try
             {
                 StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
-            }
-            else
-            {
-                TimeSpan orario = new TimeSpan(Convert.ToDateTime(Time).Hour, Convert.ToDateTime(Time).Minute, Convert.ToDateTime(Time).Second);
 
-                StartDate = Convert.ToDateTime(StartDate).Date.Add(orario).ToString("yyyy-MM-dd H:mm:ss");
+                if (String.IsNullOrEmpty(Time))
+                {
+                    StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
+                }
+                else
+                {
+                    TimeSpan orario = new TimeSpan(Convert.ToDateTime(Time).Hour, Convert.ToDateTime(Time).Minute, Convert.ToDateTime(Time).Second);
+
+                    StartDate = Convert.ToDateTime(StartDate).Date.Add(orario).ToString("yyyy-MM-dd H:mm:ss");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex + " StartDate:"+StartDate);
             }
         }
         string RepeatEveryNumb = Request.Form["RepeatEveryNumb"].Replace("'", "''");
@@ -126,18 +133,9 @@
         {
             cmd.CommandText = "UPDATE t_report_mng_schedules SET OSPs='" + OSPs + "',Report='" + Report + "',StartDate='" + StartDate + "',RepeatEveryNumb='" + RepeatEveryNumb + "',RepeatEveryType='" + RepeatEveryType + "',DayOfWeek='" + DayOfWeek + "',StoragePeriodNumb='" + StoragePeriodNumb + "',StoragePeriodType='" + StoragePeriodType + "',DescriptionSchedules='" + DescriptionSchedules + "',NextScheduled='" + NextScheduled +"', GiornoMese='" + DayOfMonth + "', GiornoAnno='" + DayOfYear + "' WHERE ID=" + ID;
         }
-        try
-        {
-            cmd.ExecuteNonQuery();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex +" COMMAND: "+cmd.CommandText);
-        }
-        finally
-        {
-            connection.Close();
-        }
+
+        cmd.ExecuteNonQuery();
+        connection.Close();
     }
 
 </script>
