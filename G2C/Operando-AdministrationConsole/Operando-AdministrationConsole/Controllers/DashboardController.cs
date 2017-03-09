@@ -217,12 +217,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             var logMessages = _ldbService.GetNotifications(username);
 
-            var model = logMessages.Select(_ => new NotificationsModel
-            {
-                Title = _.title,
-                Description = _.description,
-                TimeStamp = _.logDate
-            })
+            var model = logMessages.Select(_ => new NotificationsModel(_))
             .OrderByDescending(_ => _.TimeStamp)
             .ToList();
 
@@ -243,11 +238,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             var logMessages = _ldbService.GetNotifications(username);
 
-            var model = logMessages.Select(_ => new NotificationsWidgetModel
-            {
-                Description = _.description,
-                TimeStamp = _.logDate
-            })
+            var model = logMessages.Select(_ => new NotificationsWidgetModel(_))
             .OrderByDescending(_ => _.TimeStamp)
             .Take(count).ToList();
 
@@ -261,12 +252,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             var logMessages = _ldbService.GetDataAccessLogs(username);
 
-            var model = logMessages.Select(_ => new DataRequestsModel
-            {
-                Description = _.description,
-                Timestamp = _.logDate,
-                WasAllowed = _.logLevel == "INFO" 
-            })
+            var model = logMessages.Select(_ => new DataRequestsModel(_))
             .OrderByDescending(_ => _.Timestamp)
             .Take(count);
 
@@ -278,14 +264,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             var requests = await _bdaClient.GetUnfulfilledBdaExtractionRequestsAsync();
 
-            var model = requests.Select(_ => new DataExtractRequestModel
-            {
-                RequesterName = _.RequesterName,
-                RequesterEmail = _.ContactEmail,
-                RequestDetail = _.RequestSummary,
-                RequesterOsp = _.Osp,
-                RequestDate = _.RequestDate
-            });
+            var model = requests.Select(_ => new DataExtractRequestModel(_));
 
             return PartialView("Widgets/_DataExtractRequests", model);
         }
@@ -299,11 +278,8 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 var job = await _bdaClient.GetJobByIdAsync(_.JobId);
 
-                return new DataExtractsModel
+                return new DataExtractsModel(_)
                 {
-                    ExtractionDate = _.ExecutionDate,
-                    Version = _.VersionNumber,
-                    DownloadUrl = _.DownloadLink,
                     JobName = job?.JobName
                 };
             })

@@ -9,5 +9,12 @@ namespace Operando_AdministrationConsole.Models.DashboardModels
         public string Description { get; set; }
 
         public DateTime TimeStamp { get; set; }
+
+        public NotificationsModel(DataAccessLog log)
+        {
+            Title = log.title;
+            Description = log.description;
+            TimeStamp = log.logDate;
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace Operando_AdministrationConsole.Models
         public string description { get; set; }
         public string logType { get; set; }
         public string affectedUserId { get; set; }
+
+        public bool wasAllowed => logLevel == "INFO";
     }
 
     

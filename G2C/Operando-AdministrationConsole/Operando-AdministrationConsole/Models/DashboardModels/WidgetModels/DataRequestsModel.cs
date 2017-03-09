@@ -11,5 +11,12 @@ namespace Operando_AdministrationConsole.Models.DashboardModels.WidgetModels
         /// user's privacy policy does not allow the requester to access the data
         /// </summary>
         public bool WasAllowed { get; set; }
+
+        public DataRequestsModel(DataAccessLog log)
+        {
+            Description = log.description;
+            Timestamp = log.logDate;
+            WasAllowed = log.wasAllowed;
+        }
     }
 }
