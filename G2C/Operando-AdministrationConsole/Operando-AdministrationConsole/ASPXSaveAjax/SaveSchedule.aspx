@@ -142,8 +142,14 @@
         {
             cmd.CommandText = "UPDATE t_report_mng_schedules SET OSPs='" + OSPs + "',Report='" + Report + "',StartDate='" + StartDate + "',RepeatEveryNumb='" + RepeatEveryNumb + "',RepeatEveryType='" + RepeatEveryType + "',DayOfWeek='" + DayOfWeek + "',StoragePeriodNumb='" + StoragePeriodNumb + "',StoragePeriodType='" + StoragePeriodType + "',DescriptionSchedules='" + DescriptionSchedules + "',NextScheduled='" + NextScheduled +"', GiornoMese='" + DayOfMonth + "', GiornoAnno='" + DayOfYear + "' WHERE ID=" + ID;
         }
-
-        cmd.ExecuteNonQuery();
+        try
+        {
+            cmd.ExecuteNonQuery();    
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex+" CommandText:"+cmd.CommandText);
+        }
         connection.Close();
     }
 
