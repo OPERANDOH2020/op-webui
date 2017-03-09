@@ -276,7 +276,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = @"select A.Report, A.Description, A.Version, LR.Lastrun, NS.NextScheduled 
+                cmd.CommandText = @"select A.Report, LR.Lastrun, NS.NextScheduled 
                                     from t_report_mng_schedules A
                                     join (select report, MAX(Lastrun) as Lastrun from t_report_mng_schedules Group By Report) LR ON LR.report = A.report
                                     join (select report, MIN(NextScheduled) as NextScheduled from t_report_mng_schedules Group By Report) NS ON NS.report = A.report
@@ -323,22 +323,12 @@ namespace Operando_AdministrationConsole.Controllers
                         }
 
                         if (reader.IsDBNull(1) == false)
-                            schedule.Description = reader.GetString(1);
-                        else
-                            schedule.Description = null;
-
-                        if (reader.IsDBNull(2) == false)
-                            schedule.Version = reader.GetString(2);
-                        else
-                            schedule.Version = null;
-
-                        if (reader.IsDBNull(3) == false)
-                            schedule.LastRun = reader.GetDateTime(3);
+                            schedule.LastRun = reader.GetDateTime(1);
                         else
                             schedule.LastRun = DateTime.MinValue;
 
-                        if (reader.IsDBNull(4) == false)
-                            schedule.NextScheduled = reader.GetDateTime(4);
+                        if (reader.IsDBNull(2) == false)
+                            schedule.NextScheduled = reader.GetDateTime(2);
                         else
                             schedule.NextScheduled = DateTime.MinValue;
 
