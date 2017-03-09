@@ -83,7 +83,7 @@
 
         }
         string DescriptionSchedules = "";
-        string DayOfMonth = "";
+        string DayOfMonth = "0";
         if (Request.Form["DayOfMonth"]!=null)
         {
             DayOfMonth = Request.Form["DayOfMonth"].Replace("'", "''");
