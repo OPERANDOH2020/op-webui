@@ -276,7 +276,11 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select Report, Description, Version, LastRun, NextScheduled from t_report_mng_schedules Group By Report";
+                cmd.CommandText = @"select A.Report, A.Description, A.Version, LR.Lastrun, NS.NextScheduled 
+                                    from t_report_mng_schedules A
+                                    join (select report, MAX(Lastrun) as Lastrun from t_report_mng_schedules Group By Report) LR ON LR.report = A.report
+                                    join (select report, MIN(NextScheduled) as NextScheduled from t_report_mng_schedules Group By Report) NS ON NS.report = A.report
+                                    Group By A.Report";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -333,8 +337,8 @@ namespace Operando_AdministrationConsole.Controllers
                         else
                             schedule.LastRun = DateTime.MinValue;
 
-                        if (reader.IsDBNull(3) == false)
-                            schedule.NextScheduled = reader.GetDateTime(3);
+                        if (reader.IsDBNull(4) == false)
+                            schedule.NextScheduled = reader.GetDateTime(4);
                         else
                             schedule.NextScheduled = DateTime.MinValue;
 
