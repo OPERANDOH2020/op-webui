@@ -36,33 +36,59 @@ namespace Operando_AdministrationConsole.Controllers
 
         private Uri OSPRoot(string id)
         {
-            return new Uri($"http://localhost:8080/stub-pdb/api/OSP/{id}/privacy-policy");
+            //return new Uri($"http://localhost:8080/stub-pdb/api/OSP/{id}/privacy-policy");
+            return new Uri($"http://10.136.24.87:8080/pdb/OSP/587f80549e86b2c3b0a43eaa/privacy-policy");
         }
 
-        public async Task<ActionResult> PrivacyPolicy()
+        private eu.operando.core.pdb.cli.Client.Configuration getConfiguration(string serviceIdKey)
+        {
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+            string pdbOSPSId = ConfigurationManager.AppSettings[serviceIdKey];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket(pdbOSPSId));
+
+            return configuration;
+        }
+
+        public ActionResult PrivacyPolicy()
         {
             // TODO: Get the OSP ID in some way
-            string ospId = "ami";
+            string ospId = "587f7eb56e157a10eece95d3";
 
-            PrivacyPolicy policies = await
-                helper.get<PrivacyPolicy>(OSPRoot(ospId).ToString());
-            return View(policies);
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(getConfiguration("pdbOSPSId"));
+            OSPReasonPolicy ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospId);
+
+            return View(ospReasonPolicy);
         }
 
         [HttpPost]
-        public async Task<ActionResult> NewPrivacyPolicy(PrivacyPolicy policy)
+        public ActionResult NewPrivacyPolicy(OSPReasonPolicy policy)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(policy), Encoding.UTF8, "application/json");
-                var result = await client.PostAsync(OSPRoot(policy.OspPolicyId), OperandoJson);
-                Response.StatusCode = (int)result.StatusCode;
-                return Content(await result.Content.ReadAsStringAsync());
-            }
+            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            OSPReasonPolicyInput ospRPI = new OSPReasonPolicyInput();
+            ospRPI.Policies = policy.Policies;
+
+            instance.OSPOspIdPrivacyPolicyPut(policy.OspPolicyId, ospRPI);
+
+            return View(policy);
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdatePrivacyPolicy(PrivacyPolicy policy)
+        public ActionResult UpdatePrivacyPolicy(OSPReasonPolicy policy)
+        {
+            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            OSPReasonPolicyInput ospRPI = new OSPReasonPolicyInput();
+            ospRPI.Policies = policy.Policies;
+
+            instance.OSPOspIdPrivacyPolicyPut(policy.OspPolicyId, ospRPI);
+
+            return Content(policy.ToString());
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeletePrivacyPolicy(OSPReasonPolicy policy)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -264,7 +290,11 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select Report, Description, Version, LastRun, NextScheduled from t_report_mng_schedules Group By Report";
+                cmd.CommandText = @"select A.Report, LR.Lastrun, NS.NextScheduled 
+                                    from t_report_mng_schedules A
+                                    join (select report, MAX(Lastrun) as Lastrun from t_report_mng_schedules Group By Report) LR ON LR.report = A.report
+                                    join (select report, MIN(NextScheduled) as NextScheduled from t_report_mng_schedules Group By Report) NS ON NS.report = A.report
+                                    Group By A.Report";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -307,22 +337,12 @@ namespace Operando_AdministrationConsole.Controllers
                         }
 
                         if (reader.IsDBNull(1) == false)
-                            schedule.Description = reader.GetString(1);
-                        else
-                            schedule.Description = null;
-
-                        if (reader.IsDBNull(2) == false)
-                            schedule.Version = reader.GetString(2);
-                        else
-                            schedule.Version = null;
-
-                        if (reader.IsDBNull(3) == false)
-                            schedule.LastRun = reader.GetDateTime(3);
+                            schedule.LastRun = reader.GetDateTime(1);
                         else
                             schedule.LastRun = DateTime.MinValue;
 
-                        if (reader.IsDBNull(3) == false)
-                            schedule.NextScheduled = reader.GetDateTime(3);
+                        if (reader.IsDBNull(2) == false)
+                            schedule.NextScheduled = reader.GetDateTime(2);
                         else
                             schedule.NextScheduled = DateTime.MinValue;
 
@@ -503,10 +523,9 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         /* Method modified by IT Innovation Centre 2017 */
-        private string getUPPServiceTicket()
+        private string getUPPServiceTicket(string serviceName)
         {
             string st = "";
-            string pdbUPPSId = ConfigurationManager.AppSettings["pdbUPPSId"];
 
             // get UPP service ticket
             string aapiBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
@@ -515,7 +534,7 @@ namespace Operando_AdministrationConsole.Controllers
             try
             {
                 // UPP service ticket call
-                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), pdbUPPSId);
+                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), serviceName);
                 Debug.Print("Got UPP ST: " + st);
             }
             catch (eu.operando.interfaces.aapi.Client.ApiException ex)
@@ -530,13 +549,13 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult UppManagementTool()
         {
             string ospId = "587f7eb56e157a10eece95d3"; // local for http://10.136.24.87:8080/pdb
-            ospId = "58b4cf1c5908010001a31aec";
+            // ospId = "58b4cf1c5908010001a31aec";
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
-            //pdbBasePath = "http://10.136.24.87:8080/pdb";
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+            string pdbUPPSId = ConfigurationManager.AppSettings["pdbUPPSId"];
 
             var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket());
+            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket(pdbUPPSId));
 
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 
@@ -552,7 +571,7 @@ namespace Operando_AdministrationConsole.Controllers
                  * HOWEVER just for display purposes the ospId will contain the userId from UPP
                  */
                 List<OSPConsents> modOspConsents = new List<OSPConsents>();
-                Dictionary<string, List<bool>> uppStats = new Dictionary<string, List<bool>>();
+                Dictionary<string, UppTab2> uppStats = new Dictionary<string, UppTab2>();
                 foreach(UserPrivacyPolicy upp in response)
                 {
                     Debug.Print("upp found: " + upp.ToString());
@@ -570,11 +589,35 @@ namespace Operando_AdministrationConsole.Controllers
                                 string key = ap.Subject + ap.Action + ap.Resource;
                                 if (!uppStats.ContainsKey(key))
                                 {
-                                    uppStats.Add(key, new List<bool>(new bool[] { (bool)ap.Permission }));
+                                    UppTab2 tmpUpp = new UppTab2();
+                                    tmpUpp.key = key;
+                                    tmpUpp.action = ap.Action.ToString();
+                                    tmpUpp.role = ap.Subject.ToString();
+                                    tmpUpp.apType = ap.Resource.ToString();
+                                    tmpUpp.stats = new List<bool>(new bool[] { (bool)ap.Permission });
+                                    if(ap.Permission == true)
+                                    {
+                                        tmpUpp.yes = 1;
+                                        tmpUpp.no = 0;
+                                    }
+                                    else
+                                    {
+                                        tmpUpp.yes = 0;
+                                        tmpUpp.no = 1;
+                                    }
+                                    uppStats.Add(key, tmpUpp);
                                 }
                                 else
                                 {
-                                    uppStats[key].Add((bool)ap.Permission);
+                                    uppStats[key].stats.Add((bool)ap.Permission);                                    
+                                    if(ap.Permission == true)
+                                    {
+                                        uppStats[key].yes++;
+                                    }
+                                    else
+                                    {
+                                        uppStats[key].no++;
+                                    }
                                 }
                             }
                         }

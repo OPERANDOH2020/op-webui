@@ -237,7 +237,6 @@
     <Compile Include="Models\DataAccessLog.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
-    <Compile Include="Models\PrivacyPolicy.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataScheduleModel.cs" />
     <Compile Include="Models\Regulation.cs" />
@@ -245,6 +244,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ReportsOSP.cs" />
+    <Compile Include="Models\UppTab2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -5746,7 +5746,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\OspAdmin\RequestNewBdaExtraction.cshtml" />
     <Content Include="Views\PspAnalyst\ModelEditors\BigDataJobModelEditor.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -5860,8 +5862,8 @@
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>
       <Name>eu.operando.core.ose.cli</Name>
     </ProjectReference>
-    <ProjectReference Include="..\eu_operando_core_pdb_cli\src\IO.Swagger\eu.operando.core.pdb.cli.csproj">
-      <Project>{bcbeb1a3-81da-4cdd-87c6-becf5783d727}</Project>
+    <ProjectReference Include="..\eu_operando_core_pdb.cli\src\IO.Swagger\eu.operando.core.pdb.cli.csproj">
+      <Project>{48ac054b-9a99-4212-b345-6037b35574e8}</Project>
       <Name>eu.operando.core.pdb.cli</Name>
     </ProjectReference>
   </ItemGroup>

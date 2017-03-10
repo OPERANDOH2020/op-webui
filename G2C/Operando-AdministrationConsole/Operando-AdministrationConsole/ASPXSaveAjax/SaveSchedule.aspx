@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Debug="true"%>
 
 <%@ Import Namespace="MySql.Data" %>
 <%@ Import Namespace="MySql.Data.MySqlClient" %>
@@ -27,17 +27,29 @@
         }
         else
         {
-            StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
-
-            if (String.IsNullOrEmpty(Time))
+            int step = 0;
+            try
             {
-                StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
+
+                StartDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd HH:mm:ss");
+                //StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
+
+                if (String.IsNullOrEmpty(Time))
+                {
+                    step = 1;
+                    StartDate = Convert.ToDateTime(StartDate).ToString("yyyy-MM-dd HH:mm:ss");
+                }
+                else
+                {
+                    step = 2;
+                    TimeSpan orario = new TimeSpan(Convert.ToDateTime(Time).Hour, Convert.ToDateTime(Time).Minute, Convert.ToDateTime(Time).Second);
+
+                    StartDate = Convert.ToDateTime(StartDate).Date.Add(orario).ToString("yyyy-MM-dd H:mm:ss");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                TimeSpan orario = new TimeSpan(Convert.ToDateTime(Time).Hour, Convert.ToDateTime(Time).Minute, Convert.ToDateTime(Time).Second);
-
-                StartDate = Convert.ToDateTime(StartDate).Date.Add(orario).ToString("yyyy-MM-dd H:mm:ss");
+                throw new Exception(ex + " StartDate: "+StartDate+" step: "+step);
             }
         }
         string RepeatEveryNumb = Request.Form["RepeatEveryNumb"].Replace("'", "''");
@@ -70,18 +82,31 @@
             }
 
         }
-        string DescriptionSchedules = "";
+        string EmptyValue = "";
+        string IDReport = EmptyValue;
+        string Version = EmptyValue;
+        string Description = EmptyValue;
+        string DescriptionSchedules = EmptyValue;
+
         string DayOfMonth = "";
         if (Request.Form["DayOfMonth"]!=null)
         {
             DayOfMonth = Request.Form["DayOfMonth"].Replace("'", "''");
+        }
+        if (String.IsNullOrEmpty(DayOfMonth))
+        {
+            DayOfMonth= "0";
+        }
+        if (String.IsNullOrEmpty(IDReport))
+        {
+            IDReport= "0";
         }
         string DayOfYear = "";
         if (Request.Form["DayOfYear"] != null)
         {
             DayOfYear = Request.Form["DayOfYear"].Replace("'", "''");
         }
-        
+
         if (String.IsNullOrEmpty(DayOfYear))
         {
             DayOfYear = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
@@ -120,14 +145,20 @@
 
         if (ID=="0")
         {
-            cmd.CommandText = "INSERT INTO t_report_mng_schedules(OSPs, Report, StartDate, RepeatEveryNumb, RepeatEveryType, DayOfWeek, StoragePeriodNumb, StoragePeriodType, DescriptionSchedules,NextScheduled,Lastrun,GiornoMese, GiornoAnno) VALUES ('" + OSPs + "','" + Report + "', '" + StartDate + "','" + RepeatEveryNumb + "','" + RepeatEveryType + "','" + DayOfWeek + "','" + StoragePeriodNumb + "','" + StoragePeriodType + "','" + DescriptionSchedules + "','" + NextScheduled + "',null ,'" + DayOfMonth + "','" + DayOfYear + "')";
+            cmd.CommandText = "INSERT INTO t_report_mng_schedules(OSPs, Report, StartDate, RepeatEveryNumb, RepeatEveryType, DayOfWeek, StoragePeriodNumb, StoragePeriodType, DescriptionSchedules,NextScheduled,Lastrun,GiornoMese, GiornoAnno,Description,Version,IDReport) VALUES ('" + OSPs + "','" + Report + "', '" + StartDate + "','" + RepeatEveryNumb + "','" + RepeatEveryType + "','" + DayOfWeek + "','" + StoragePeriodNumb + "','" + StoragePeriodType + "','" + DescriptionSchedules + "','" + NextScheduled + "',null ,'" + DayOfMonth + "','" + DayOfYear + "','"+Description+"','"+Version+"','"+IDReport+"')";
         }
         else
         {
             cmd.CommandText = "UPDATE t_report_mng_schedules SET OSPs='" + OSPs + "',Report='" + Report + "',StartDate='" + StartDate + "',RepeatEveryNumb='" + RepeatEveryNumb + "',RepeatEveryType='" + RepeatEveryType + "',DayOfWeek='" + DayOfWeek + "',StoragePeriodNumb='" + StoragePeriodNumb + "',StoragePeriodType='" + StoragePeriodType + "',DescriptionSchedules='" + DescriptionSchedules + "',NextScheduled='" + NextScheduled +"', GiornoMese='" + DayOfMonth + "', GiornoAnno='" + DayOfYear + "' WHERE ID=" + ID;
         }
-
-        cmd.ExecuteNonQuery();
+        try
+        {
+            cmd.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex+" CommandText:"+cmd.CommandText);
+        }
         connection.Close();
     }
 
