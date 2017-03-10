@@ -97,6 +97,10 @@
         {
             DayOfMonth= "0";
         }
+        if (String.IsNullOrEmpty(IDReport))
+        {
+            IDReport= "0";
+        }
         string DayOfYear = "";
         if (Request.Form["DayOfYear"] != null)
         {
