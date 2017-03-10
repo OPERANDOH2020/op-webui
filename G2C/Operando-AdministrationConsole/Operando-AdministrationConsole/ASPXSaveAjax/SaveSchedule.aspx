@@ -82,8 +82,11 @@
             }
 
         }
-        string Description = "";
-        string DescriptionSchedules = Description;
+        string EmptyValue = "";
+        string Version = EmptyValue;
+        string Description = EmptyValue;
+        string DescriptionSchedules = EmptyValue;
+
         string DayOfMonth = "";
         if (Request.Form["DayOfMonth"]!=null)
         {
@@ -137,7 +140,7 @@
 
         if (ID=="0")
         {
-            cmd.CommandText = "INSERT INTO t_report_mng_schedules(OSPs, Report, StartDate, RepeatEveryNumb, RepeatEveryType, DayOfWeek, StoragePeriodNumb, StoragePeriodType, DescriptionSchedules,NextScheduled,Lastrun,GiornoMese, GiornoAnno,Description) VALUES ('" + OSPs + "','" + Report + "', '" + StartDate + "','" + RepeatEveryNumb + "','" + RepeatEveryType + "','" + DayOfWeek + "','" + StoragePeriodNumb + "','" + StoragePeriodType + "','" + DescriptionSchedules + "','" + NextScheduled + "',null ,'" + DayOfMonth + "','" + DayOfYear + "','"+Description+"')";
+            cmd.CommandText = "INSERT INTO t_report_mng_schedules(OSPs, Report, StartDate, RepeatEveryNumb, RepeatEveryType, DayOfWeek, StoragePeriodNumb, StoragePeriodType, DescriptionSchedules,NextScheduled,Lastrun,GiornoMese, GiornoAnno,Description,Version) VALUES ('" + OSPs + "','" + Report + "', '" + StartDate + "','" + RepeatEveryNumb + "','" + RepeatEveryType + "','" + DayOfWeek + "','" + StoragePeriodNumb + "','" + StoragePeriodType + "','" + DescriptionSchedules + "','" + NextScheduled + "',null ,'" + DayOfMonth + "','" + DayOfYear + "','"+Description+"','"+Version+"')";
         }
         else
         {
