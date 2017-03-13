@@ -266,9 +266,15 @@ public class RestReportsHandler : IHttpHandler
             }
             catch (WebException ex)
             {
-                HttpWebResponse errResponse = (HttpWebResponse)ex.Response;
+                /*HttpWebResponse errResponse = (HttpWebResponse)ex.Response;
                 context.Response.StatusCode = (int)errResponse.StatusCode;
                 context.Response.StatusDescription = errResponse.StatusDescription;
+                context.Response.Flush(); // Sends all currently buffered output to the client.
+                context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+                context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+                return;*/
+                context.Response.StatusCode = 401;
+                context.Response.StatusDescription = "service ticket (ST) is invalid";
                 context.Response.Flush(); // Sends all currently buffered output to the client.
                 context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
                 context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.

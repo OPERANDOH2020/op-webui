@@ -144,7 +144,7 @@ namespace Operando_AdministrationConsole.Controllers
             try
             {
                 // OSP call to get the list of service providers
-                var filter = "filter=\"%7B%27policyText%27:%27%27%7D\"";
+                var filter = "{\"policy_text\" : \"\"}";
                 var response = instance.OSPGet(filter);
                 ViewBag.ospppList = response;
                 return View(response);
@@ -185,7 +185,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             try
             {
-                var filterOSP = "filter=\"%7B%27policyText%27:%27%27%7D\"";
+                var filterOSP = "{\"policy_text\" : \"\"}";
                 var response = getInstance.OSPGet(filterOSP);
                 ViewBag.ospppList = response;
 

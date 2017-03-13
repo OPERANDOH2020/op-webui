@@ -344,7 +344,7 @@
             $.ajax({
                 async: false,
                 type: "post",
-                url: "../ASPXSaveAjax/sendmailnewreport.aspx",
+                url: "../ASPXSaveAjax/SendMailNewReport.aspx",
                 data: { name: valName, email: valEmail, description: valDescription },
                 datatype: "text",
                 success: function (data) {
@@ -727,8 +727,6 @@
                                     <thead>
                                         <tr>
                                             <th>Report</th>
-                                            <th>Description</th>
-                                            <th>Version</th>
                                             <th>Last run</th>
                                             <th>Next Scheduled</th>
                                         </tr>
@@ -741,8 +739,6 @@
                                                 <td>
                                                     <i onclick="$('#@item.Report.Replace(" ","_").Replace("'","-")-schedule').toggle()" class="fa fa-caret-right"></i>&nbsp;&nbsp;@item.Report
                                                 </td>
-                                                <td> @item.Description </td>
-                                                <td> @item.Version </td>
                                                 <td> @item.LastRun</td>
                                                 <td> @item.NextScheduled </td>
                                             </tr>

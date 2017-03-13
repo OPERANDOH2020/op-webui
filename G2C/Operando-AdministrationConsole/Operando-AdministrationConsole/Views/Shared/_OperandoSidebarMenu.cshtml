@@ -3,6 +3,46 @@
     string currentController = Html.ViewContext.RouteData.GetRequiredString("controller");
 
     string activeClass = "start active open";
+
+
+
+    bool allView = false;
+    bool normal_user = false;
+    bool osp_admin = false;
+    bool psp_analyst = false;
+    bool psp_admin = false;
+    bool regulator = false;
+
+    if (Session["Usertype"] == null)
+    {
+        //
+        allView = true;
+}
+    else
+    {
+        switch (Session["Usertype"].ToString())
+        {
+            case "normal_user":
+                normal_user = true;
+                break;
+            case "osp_admin":
+                osp_admin = true;
+                break;
+            case "psp_analyst":
+                psp_analyst = true;
+                break;
+            case "psp_admin":
+                psp_admin = true;
+                break;
+            case "regulator":
+                regulator = true;
+                break;
+            default:
+                allView = true;
+                break;
+        }
+    }
+
 }
 
 <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
@@ -17,7 +57,7 @@
     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
     <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-        <li class='nav-item @if (currentController == "Dashboard") { @activeClass }'>
+        @*<li class='nav-item @if (currentController == "Dashboard") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Home</span>
@@ -27,8 +67,11 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "Dashboard" && currentAction == "Index") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || normal_user || osp_admin || psp_analyst || psp_admin)
+            {
+                <li class='nav-item @if (currentController == "Dashboard" && currentAction == "Index")
+                { @activeClass }'>
                     <a href="@Url.Action("Index", "Dashboard")" class="nav-link ">
                         <i class="icon-bar-chart"></i>
                         <span class="title">Dashboard</span>
@@ -38,7 +81,11 @@
                         }
                     </a>
                 </li>
-                <li class="nav-item @if (currentController == "Dashboard" && currentAction == "Notifications") { @activeClass }">
+            }
+            @if (allView || normal_user || osp_admin || psp_analyst || psp_admin)
+            {
+                <li class="nav-item @if (currentController == "Dashboard" && currentAction == "Notifications")
+                { @activeClass }">
                     <a href="@Url.Action("Notifications", "Dashboard")" class="nav-link ">
                         <i class="icon-bell"></i>
                         <span class="title">Notifications</span>
@@ -48,6 +95,8 @@
                         }
                     </a>
                 </li>
+            }
+                <!-- 
                 <li class="nav-item @if (currentController == "Dashboard" && currentAction == "UserProfile") { @activeClass }">
                     <a href="@Url.Action("UserProfile", "Dashboard")" class="nav-link ">
                         <i class="icon-user"></i>
@@ -58,13 +107,16 @@
                         }
                     </a>
                 </li>
-            </ul>
-        </li>
+                -->
+            @*</ul>
+        </li>*@
 
+        <!-- 
         <li class="heading">
             <h3 class="uppercase">End User</h3>
         </li>
-        <li class='nav-item @if (currentController == "DataSubject") { @activeClass }'>
+        -->
+        @*<li class='nav-item @if (currentController == "DataSubject") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title">Data Subject</span>
@@ -74,8 +126,11 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "AccessPreferences") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || normal_user)
+            {
+                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "AccessPreferences")
+                { @activeClass }'>
                     <a href="@Url.Action("AccessPreferences", "DataSubject")" class="nav-link ">
                         <i class="icon-settings"></i>
                         <span class="title">Access Preferences</span>
@@ -85,17 +140,11 @@
                             }
                     </a>
                 </li>
-                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "DataAccessLogs") { @activeClass }'>
-                    <a href="@Url.Action("DataAccessLogs", "DataSubject")" class="nav-link ">
-                        <i class="icon-layers"></i>
-                        <span class="title">Data Access Log</span>
-                        @if (currentController == "DataSubject" && currentAction == "DataAccessLogs")
+            }
+            @if (allView || normal_user)
                         {
-                            @:<span class="selected"></span>
-                            }
-                    </a>
-                </li>
-                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire") { @activeClass }'>
+                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire")
+                { @activeClass }'>
                     <a href="@Url.Action("PrivacyQuestionnaire", "DataSubject")" class="nav-link ">
                         <i class="icon-question"></i>
                         <span class="title">Privacy Questionnaire</span>
@@ -105,14 +154,30 @@
                             }
                     </a>
                 </li>
-
-            </ul>
+            }
+            @if (allView || normal_user)
+                        {
+                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "DataAccessLogs")
+                            { @activeClass }'>
+                    <a href="@Url.Action("DataAccessLogs", "DataSubject")" class="nav-link ">
+                        <i class="icon-layers"></i>
+                        <span class="title">Data Access Log</span>
+                        @if (currentController == "DataSubject" && currentAction == "DataAccessLogs")
+                        {
+                            @:<span class="selected"></span>
+                                        }
+                    </a>
         </li>
+            }
+            @*</ul>
+        </li>*@
         
+        <!--
         <li class="heading">
             <h3 class="uppercase">OSP Admin</h3>
         </li>
-        <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "PrivacyPolicy" || currentAction == "UserQuestionnaireGenerator")) { @activeClass }'>
+        -->
+        @*<li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "PrivacyPolicy" || currentAction == "UserQuestionnaireGenerator")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-eye"></i>
                 <span class="title">Privacy management</span>
@@ -122,10 +187,13 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || osp_admin)
+            {
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy")
+                { @activeClass }'>
                     <a href="@Url.Action("PrivacyPolicy", "OspAdmin")" class="nav-link ">
-                        <i class="icon-note"></i>
+                        <i class="icon-eye"></i>
                         <span class="title">Privacy Policy</span>
                         @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy")
                         {
@@ -133,7 +201,11 @@
                         }
                     </a>
                 </li>
-                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UserQuestionnaireGenerator") { @activeClass }'>
+            }
+            @if (false)
+            {
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UserQuestionnaireGenerator")
+                { @activeClass }'>
                     <a href="@Url.Action("UserQuestionnaireGenerator", "OspAdmin")" class="nav-link ">
                         <i class="icon-folder"></i>
                         <span class="title">User Questionnaire Generator</span>
@@ -143,12 +215,13 @@
                         }
                     </a>
                 </li>
-            </ul>
-        </li>
+            }
+            @*</ul>
+        </li>*@
 		
 		  <!-- ............................................... -->
 
-        <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "UppManagementTool")) { @activeClass }'>
+        @*<li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "UppManagementTool")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-briefcase"></i>
                 <span class="title">UPP Management Tool</span>
@@ -158,25 +231,61 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UppManagementTool") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || osp_admin)
+            {
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UppManagementTool")
+                { @activeClass }'>
                     <a href="@Url.Action("UppManagementTool", "OspAdmin")" class="nav-link ">
-                        <i class="icon-bulb"></i>
-                        <span class="title">UPP Management</span>
+                        <i class="icon-users"></i>
+                        <span class="title">User Policy Preferences</span>
                         @if (currentController == "OspAdmin" && currentAction == "UppManagementTool")
                         {
                             @:<span class="selected"></span>
                         }
                     </a>
                 </li>
-                </ul></li>
+            }
+                @*</ul></li>*@
 
+        @* ---------------------------------------------------------------------------- *@
+        @* ----------------------------- USER MANAGEMENT ------------------------------ *@
+        @* ---------------------------------------------------------------------------- *@
 
+        @*<li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "UsersManagement")) { @activeClass }'>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-diamond"></i>
+                <span class="title">Users management</span>
+                <span class="arrow open"></span>
+                @if (currentController == "PspAdmin" && currentAction == "UsersManagement")
+                {
+                    @:<span class="selected"></span>
+                }
+            </a>
+            <ul class="sub-menu">*@
+        @if (allView || psp_admin)
+                {
+            <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "UsersManagement")
+                    { @activeClass }'>
+                <a href="@Url.Action("UsersManagement", "PspAdmin")" class="nav-link ">
+                    <i class="icon-users"></i>
+                    <span class="title">Users</span>
+                    @if (currentController == "PspAdmin" && currentAction == "UsersManagement")
+                    {
+                        @:<span class="selected"></span>
+                                }
+                </a>
+            </li>
+        }
+        @*</ul>
+        </li>*@
 
-                <!-- ............................................... -->
+    @* ---------------------------------------------------------------------------- *@
+    @* ----------------------------- Big Data Analytics ------------------------------ *@
+    @* ---------------------------------------------------------------------------- *@
 		
 		
-        <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics")) { @activeClass }'>
+        @*<li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-globe"></i>
                 <span class="title">Data Extracts</span>
@@ -186,10 +295,13 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "BigDataAnalytics") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || osp_admin)
+            {
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "BigDataAnalytics")
+                { @activeClass }'>
                     <a href="@Url.Action("BigDataAnalytics", "OspAdmin")" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
+                        <i class="icon-globe"></i>
                         <span class="title">Big Data Analytics</span>
                         @if (currentController == "OspAdmin" && currentAction == "BigDataAnalytics")
                         {
@@ -197,10 +309,10 @@
                         }
                     </a>
                 </li>
-                
-            </ul>
-        </li>
-        <li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "Reports")) { @activeClass }'>
+            }
+            @*</ul>
+        </li>*@
+        @*<li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "Reports")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-graph"></i>
                 <span class="title">Reports</span>
@@ -210,26 +322,30 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "Reports") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || osp_admin)
+            {
+                <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "Reports")
+                { @activeClass }'>
                     <a href="@Url.Action("Reports", "OspAdmin")" class="nav-link ">
-                        <i class="icon-layers"></i>
-                        <span class="title">Subscription and downloads</span>
+                        <i class="icon-graph"></i>
+                        <span class="title">Reports</span>
                         @if (currentController == "OspAdmin" && currentAction == "Reports")
                         {
                             @:<span class="selected"></span>
                         }
                     </a>
                 </li>
+            }
+            @*</ul>
+        </li>*@
 
-            </ul>
-        </li>
-
-
+        <!--
         <li class="heading">
             <h3 class="uppercase">PSP Analyst</h3>
         </li>
-        <li class='nav-item @if (currentController == "PSPAnalyst") { @activeClass }'>
+        -->
+        @*<li class='nav-item @if (currentController == "PSPAnalyst") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-feed"></i>
                 <span class="title">Analyst actions</span>
@@ -239,8 +355,25 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "Regulations") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || psp_analyst)
+                {
+                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy")
+                    { @activeClass }'>
+                    <a href="@Url.Action("PrivacyPolicy", "PSPAnalyst")" class="nav-link ">
+                        <i class="icon-puzzle"></i>
+                        <span class="title">OSP compliance</span>
+                        @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy")
+                        {
+                            @:<span class="selected"></span>
+                            }
+                    </a>
+                </li>
+            }
+            @if (allView || psp_analyst)
+            {
+                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "Regulations")
+                { @activeClass }'>
                     <a href="@Url.Action("Regulations", "PSPAnalyst")" class="nav-link ">
                         <i class="icon-settings"></i>
                         <span class="title">Regulations</span>
@@ -250,19 +383,13 @@
                         }
                     </a>
                 </li>
-                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy") { @activeClass }'>
-                    <a href="@Url.Action("PrivacyPolicy", "PSPAnalyst")" class="nav-link ">
-                        <i class="icon-puzzle"></i>
-                        <span class="title">OSP-A compliance</span>
-                        @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy")
+            }
+            @if (allView || psp_admin)
                         {
-                            @:<span class="selected"></span>
-                        }
-                    </a>
-                </li>
-                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig") { @activeClass }'>
+                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig")
+                { @activeClass }'>
                     <a href="@Url.Action("BigDataAnalyticsConfig", "PSPAnalyst")" class="nav-link ">
-                        <i class="icon-wrench"></i>
+                        <i class="icon-globe"></i>
                         <span class="title">Big Data Analytics</span>
                         @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig")
                         {
@@ -270,19 +397,21 @@
                         }
                     </a>
                 </li>
-            </ul>
-        </li>
+            }
+            @*</ul>
+        </li>*@
 
-
+        <!--
         <li class="heading">
             <h3 class="uppercase">PSP Admin</h3>
         </li>
+        -->
 
         @* ---------------------------------------------------------------------------- *@
         @* ----------------------------- REPORTS CONFIG ------------------------------- *@
         @* ---------------------------------------------------------------------------- *@
 
-        <li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ReportsConfig")) { @activeClass }'>
+        @*<li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ReportsConfig")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-graph"></i>
                 <span class="title">Reports</span>
@@ -293,55 +422,29 @@
                 }
             </a>
 
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ReportsConfig") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || psp_admin)
+            {
+                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ReportsConfig")
+                { @activeClass }'>
                     <a href="@Url.Action("ReportsConfig", "PspAdmin")" class="nav-link ">
-                        <i class="icon-wrench"></i>
-                        <span class="title">Configuration</span>
+                        <i class="icon-graph"></i>
+                        <span class="title">Reports</span>
                         @if (currentController == "PspAdmin" && currentAction == "ReportsConfig")
                         {
                             @:<span class="selected"></span>
                             }
                     </a>
                 </li>
-
-            </ul>
-        </li>
-
-        @* ---------------------------------------------------------------------------- *@
-        @* ----------------------------- USER MANAGEMENT ------------------------------ *@
-        @* ---------------------------------------------------------------------------- *@
-
-        <li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "UsersManagement")) { @activeClass }'>
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-diamond"></i>
-                <span class="title">Users management</span>
-                <span class="arrow open"></span>
-                @if (currentController == "PspAdmin" && currentAction == "UsersManagement")
-                {
-                    @:<span class="selected"></span>
                 }
-            </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "UsersManagement") { @activeClass }'>
-                    <a href="@Url.Action("UsersManagement", "PspAdmin")" class="nav-link ">
-                        <i class="icon-wrench"></i>
-                        <span class="title">Users</span>
-                        @if (currentController == "PspAdmin" && currentAction == "UsersManagement")
-                        {
-                            @:<span class="selected"></span>
-                            }
-                    </a>
-                </li>
-
-            </ul>
-        </li>
+            @*</ul>
+        </li>*@
 
         @* ---------------------------------------------------------------------------- *@
         @* ----------------------------- MODULES SETTINGS ----------------------------- *@
         @* ---------------------------------------------------------------------------- *@
 
-        <li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ModulesSettings")) { @activeClass }'>
+        @*<li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ModulesSettings")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-puzzle"></i>
                 <span class="title">Modules Settings</span>
@@ -351,22 +454,25 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ModulesSettings") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || psp_admin)
+            {
+                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ModulesSettings")
+                { @activeClass }'>
                     <a href="@Url.Action("ModulesSettings", "PspAdmin")" class="nav-link ">
-                        <i class="icon-wrench"></i>
-                        <span class="title">Settings</span>
+                        <i class="icon-puzzle"></i>
+                        <span class="title">Modules Settings</span>
                         @if (currentController == "PspAdmin" && currentAction == "ModulesSettings")
                         {
                             @:<span class="selected"></span>
                             }
                     </a>
                 </li>
+            }
+            @*</ul>
+        </li>*@
 
-            </ul>
-        </li>
-
-        <li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ServiceMonitoring")) { @activeClass }'>
+        @*<li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ServiceMonitoring")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-server"></i>
                 <span class="title">Service Monitoring</span>
@@ -376,10 +482,13 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ServiceMonitoring") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || psp_admin)
+            {
+                <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ServiceMonitoring")
+                { @activeClass }'>
                     <a href="@Url.Action("ServiceMonitoring", "PspAdmin")" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
+                        <i class="icon-eye"></i>
                         <span class="title">Service Monitoring</span>
                         @if (currentController == "PspAdmin" && currentAction == "ServiceMonitoring")
                         {
@@ -387,18 +496,21 @@
                             }
                     </a>
                 </li>
-
-            </ul>
-        </li>
+            }
+            @*</ul>
+        </li>*@
 
         @* ---------------------------------------------------------------------------- *@
         @* ----------------------------- REGULATOR ------------------------------------ *@
         @* ---------------------------------------------------------------------------- *@
 
+        <!--
         <li class="heading">
             <h3 class="uppercase">Regulator</h3>
         </li>
-        <li class='nav-item @if (currentController == "Regulator") { @activeClass }'>
+        -->
+
+        @*<li class='nav-item @if (currentController == "Regulator") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-folder"></i>
                 <span class="title">Compliance reports</span>
@@ -408,27 +520,36 @@
                     @:<span class="selected"></span>
                 }
             </a>
-            <ul class="sub-menu">
-                <li class='nav-item @if (currentController == "Regulator" && currentAction == "Reports") { @activeClass }'>
+            <ul class="sub-menu">*@
+            @if (allView || regulator)
+            {
+                <li class='nav-item @if (currentController == "Regulator" && currentAction == "Reports")
+                { @activeClass }'>
                     <a href="@Url.Action("ComplianceReports", "Regulator")" class="nav-link ">
                         <i class="icon-docs"></i>
-                        <span class="title">Reports</span>
+                        <span class="title">Compilance Reports</span>
                         @if (currentController == "Regulator" && currentAction == "Reports")
                         {
                             @:<span class="selected"></span>
                         }
                     </a>
                 </li>
-                <li class='nav-item @if (currentController == "Regulator" && currentAction == "RegulationCompliance") { @activeClass }'>
+            }
+            @if (allView || regulator)
+            {
+
+                <li class='nav-item @if (currentController == "Regulator" && currentAction == "RegulationCompliance")
+                { @activeClass }'>
                     <a href="@Url.Action("RegulationCompliance", "Regulator")" class="nav-link ">
-                        <i class="icon-docs"></i>
-                        <span class="title">Regulation Compliance</span>
+                        <i class="icon-eye"></i>
+                        <span class="title">Privacy Statements</span>
                         @if (currentController == "Regulator" && currentAction == "RegulationCompliance")
                         {
                             @:<span class="selected"></span>
                         }
                     </a>
                 </li>
+            }
                @* <li class='nav-item @if (currentController == "Regulator" && currentAction == "PolicyStatements") { @activeClass }'>
         <a href="@Url.Action("PolicyStatements", "Regulator")" class="nav-link ">
             <i class="icon-docs"></i>
@@ -439,8 +560,8 @@
             }
         </a>
     </li> *@
-            </ul>
-        </li>
+            @*</ul>
+        </li>*@
 
 
 
