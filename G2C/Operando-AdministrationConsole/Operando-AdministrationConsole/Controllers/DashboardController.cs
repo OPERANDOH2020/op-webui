@@ -9,6 +9,7 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Threading.Tasks;
 using eu.operando.core.bda;
+using Operando_AdministrationConsole.Models.DashboardModels;
 using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels;
 
 namespace Operando_AdministrationConsole.Controllers
@@ -36,11 +37,35 @@ namespace Operando_AdministrationConsole.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            String _mysqlDBError = "Can not connect to MySql Report DB, please change MySQLConnection inside web.config";
+            var userTypeStr = Session["Usertype"] as string;
+            UserType userType;
+            switch (userTypeStr)
+            {
+                case "osp_admin":
+                    userType = UserType.OspAdmin;
+                    break;
+                case "privacy_analyst":
+                    userType = UserType.PrivacyAnalyst;
+                    break;
+                case "normal_user":
+                default:
+                    userType = UserType.StandardUser;
+                    break;
+            }
+
+            var model = new DashboardModel()
+            {
+                UserType = userType
+            };
+
+            if (userType == UserType.OspAdmin)
+            {
+                String _mysqlDBError =
+                    "Can not connect to MySql Report DB, please change MySQLConnection inside web.config";
 
             // creo gli oggetti per popolare la pagina
-            reportManager.resultsObj = new Results();
-            reportManager.requestsObj = new Requests();
+                model.Results = new Results();
+                model.Requests = new Requests();
 
             MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
@@ -51,14 +76,14 @@ namespace Operando_AdministrationConsole.Controllers
 
 
             // creo la lista dei result
-            reportManager.resultsObj.ResultList = new List<Results>();
+                model.Results.ResultList = new List<Results>();
 
             try
             {
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_results ORDER BY ExecutionDate DESC Limit 0,3";
+                cmd.CommandText = "select * from T_report_mng_results ORDER BY ExecutionDate DESC Limit 0,3";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -106,7 +131,7 @@ namespace Operando_AdministrationConsole.Controllers
                         else
                             results.FileName = null;
 
-                        reportManager.resultsObj.ResultList.Add(results);
+                            model.Results.ResultList.Add(results);
                     }
                     reader.Close();
 
@@ -129,13 +154,13 @@ namespace Operando_AdministrationConsole.Controllers
                 results.Report = "Error";
                 results.ReportDescription = _mysqlDBError;
                 results.ReportVersion = "";
-                reportManager.resultsObj.ResultList.Add(results);
+                    model.Results.ResultList.Add(results);
             }
             connection.Close();
 
 
             // creo la lista dei result
-            reportManager.requestsObj.RequestList = new List<Requests>();
+                model.Requests.RequestList = new List<Requests>();
 
             try
             {
@@ -177,7 +202,7 @@ namespace Operando_AdministrationConsole.Controllers
                         else
                             request.Description = null;
 
-                        reportManager.requestsObj.RequestList.Add(request);
+                            model.Requests.RequestList.Add(request);
                     }
                     reader.Close(); 
                 }
@@ -198,13 +223,13 @@ namespace Operando_AdministrationConsole.Controllers
                 request.Email = "#";
                 request.InsertDate = DateTime.Now;
                 request.Name = "#";
-                reportManager.requestsObj.RequestList.Add(request);
+                    model.Requests.RequestList.Add(request);
             }
             connection.Close();
-
+            }
 
             //return View();
-            return View(reportManager);
+            return View(model);
         }
 
         public ActionResult Notifications()
