@@ -15,7 +15,7 @@ namespace eu.operando.interfaces.rapi
         public RapiClient()
         {
             var basePath = ConfigurationManager.AppSettings["rapiBasePath"];
-            _api = new ReportsApi(basePath);
+            _api = new ComplianceReportsApi(basePath);
         }
 
         public Task<IList<string>> GetOsps(string serviceTicket)
@@ -42,6 +42,6 @@ namespace eu.operando.interfaces.rapi
             
         }
 
-        private readonly IReportsApi _api;
+        private readonly IComplianceReportsApi _api;
     }
 }

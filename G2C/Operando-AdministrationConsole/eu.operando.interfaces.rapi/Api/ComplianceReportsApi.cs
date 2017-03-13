@@ -20,7 +20,7 @@ namespace eu.operando.interfaces.rapi.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IReportsApi : IApiAccessor
+    public interface IComplianceReportsApi : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
@@ -77,15 +77,15 @@ namespace eu.operando.interfaces.rapi.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class ReportsApi : IReportsApi
+    public partial class ComplianceReportsApi : IComplianceReportsApi
     {
         private ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportsApi"/> class.
+        /// Initializes a new instance of the <see cref="ComplianceReportsApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public ReportsApi(String basePath)
+        public ComplianceReportsApi(String basePath)
         {
             this.Configuration = new Configuration(new ApiClient(basePath));
 
@@ -99,12 +99,12 @@ namespace eu.operando.interfaces.rapi.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportsApi"/> class
+        /// Initializes a new instance of the <see cref="ComplianceReportsApi"/> class
         /// using Configuration object
         /// </summary>
         /// <param name="configuration">An instance of Configuration</param>
         /// <returns></returns>
-        public ReportsApi(Configuration configuration = null)
+        public ComplianceReportsApi(Configuration configuration = null)
         {
             if (configuration == null) // use the default one in Configuration
                 this.Configuration = Configuration.Default;
@@ -207,10 +207,10 @@ namespace eu.operando.interfaces.rapi.Api
         {
             // verify the required parameter 'serviceTicket' is set
             if (serviceTicket == null)
-                throw new ApiException(400, "Missing required parameter 'serviceTicket' when calling ReportsApi->OspsOspIdComplianceReportGet");
+                throw new ApiException(400, "Missing required parameter 'serviceTicket' when calling ComplianceReportsApi->OspsOspIdComplianceReportGet");
             // verify the required parameter 'ospId' is set
             if (ospId == null)
-                throw new ApiException(400, "Missing required parameter 'ospId' when calling ReportsApi->OspsOspIdComplianceReportGet");
+                throw new ApiException(400, "Missing required parameter 'ospId' when calling ComplianceReportsApi->OspsOspIdComplianceReportGet");
 
             var localVarPath = "/osps/{osp-id}/compliance-report";
             var localVarPathParams = new Dictionary<String, String>();
@@ -284,10 +284,10 @@ namespace eu.operando.interfaces.rapi.Api
         {
             // verify the required parameter 'serviceTicket' is set
             if (serviceTicket == null)
-                throw new ApiException(400, "Missing required parameter 'serviceTicket' when calling ReportsApi->OspsOspIdComplianceReportGet");
+                throw new ApiException(400, "Missing required parameter 'serviceTicket' when calling ComplianceReportsApi->OspsOspIdComplianceReportGet");
             // verify the required parameter 'ospId' is set
             if (ospId == null)
-                throw new ApiException(400, "Missing required parameter 'ospId' when calling ReportsApi->OspsOspIdComplianceReportGet");
+                throw new ApiException(400, "Missing required parameter 'ospId' when calling ComplianceReportsApi->OspsOspIdComplianceReportGet");
 
             var localVarPath = "/osps/{osp-id}/compliance-report";
             var localVarPathParams = new Dictionary<String, String>();
