@@ -1,6 +1,6 @@
-package bda;
+package bda.Model;
 
-public class BdaSchedule
+public class Schedule
 {
 	private String ospScheduled = "";
 	private String startDate = "";
@@ -10,7 +10,7 @@ public class BdaSchedule
 	private String repeatOn = "";
 	private String storagePeriod = "";
 	
-	public BdaSchedule(String ospScheduled, String startDate, String startTime, String repeatIntervalUnit, String repeatIntervalValue, String repeatOn, String storagePeriod)
+	public Schedule(String ospScheduled, String startDate, String startTime, String repeatIntervalUnit, String repeatIntervalValue, String repeatOn, String storagePeriod)
 	{
 		super();
 		this.ospScheduled = ospScheduled;

@@ -1,0 +1,20 @@
+﻿@model Operando_AdministrationConsole.Models.PspAnalystModels.BigDataJobModel
+    
+<div class="modal-dialog">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddJob", "PspAnalyst", FormMethod.Post))
+        {
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Job</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("ModelEditors/BigDataJobModelEditor", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="submit" class="btn yellow-gold">Submit</button>
+            </div>
+        }
+    </div>
+</div>

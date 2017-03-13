@@ -1,0 +1,51 @@
+﻿@model Operando_AdministrationConsole.Models.PspAnalystModels.BigDataJobModel
+
+@Html.HiddenFor(job => job.JobId)
+
+<div class="scroller" style="height: 500px" data-always-visible="1" data-rail-visible1="1">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Job</label>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(job => job.JobName, new {placeholder = "Enter job name", @class = "form-control", type = "text"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Description</label>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(job => job.Description, new {placeholder = "Enter job description", @class = "form-control", type = "text"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Version</label>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(job => job.CurrentVersionNumber, new {placeholder = "Enter job Version", @class = "form-control", type = "text"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Location</label>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(job => job.DefinitionLocation, new {placeholder = "Enter Location URL", @class = "form-control", type = "text"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Cost per execution</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(job => job.CostPerExecution, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(job => job.SelectedCurrency, new SelectList(Model.AvailableCurrencies), new {@class = "form-control"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">OSPs</label>
+                        <div class="col-md-9">
+                            @Html.ListBoxFor(job => job.SelectedOsps, new MultiSelectList(Model.AvailableOsps), new {@class = "form-control bs-select"})
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

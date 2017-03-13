@@ -8,8 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Text;
+using eu.operando.common;
+using eu.operando.common.Services;
+using eu.operando.core.bda;
+using eu.operando.core.bda.Model;
+using Operando_AdministrationConsole.Models.OspAdminModels;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
 using Newtonsoft.Json.Linq;
@@ -20,6 +26,14 @@ namespace Operando_AdministrationConsole.Controllers
     {
         private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
         ReportManagerOSP reportManagerOSP = new ReportManagerOSP();
+
+
+        private readonly IBdaClient _bdaClient;
+
+        public OspAdminController()
+        {
+            _bdaClient = new BdaClient();
+        }
 
         private Uri OSPRoot(string id)
         {
@@ -278,7 +292,11 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select Report, Description, Version, LastRun, NextScheduled from t_report_mng_schedules Group By Report";
+                cmd.CommandText = @"select A.Report, LR.Lastrun, NS.NextScheduled 
+                                    from t_report_mng_schedules A
+                                    join (select report, MAX(Lastrun) as Lastrun from t_report_mng_schedules Group By Report) LR ON LR.report = A.report
+                                    join (select report, MIN(NextScheduled) as NextScheduled from t_report_mng_schedules Group By Report) NS ON NS.report = A.report
+                                    Group By A.Report";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -321,22 +339,12 @@ namespace Operando_AdministrationConsole.Controllers
                         }
 
                         if (reader.IsDBNull(1) == false)
-                            schedule.Description = reader.GetString(1);
-                        else
-                            schedule.Description = null;
-
-                        if (reader.IsDBNull(2) == false)
-                            schedule.Version = reader.GetString(2);
-                        else
-                            schedule.Version = null;
-
-                        if (reader.IsDBNull(3) == false)
-                            schedule.LastRun = reader.GetDateTime(3);
+                            schedule.LastRun = reader.GetDateTime(1);
                         else
                             schedule.LastRun = DateTime.MinValue;
 
-                        if (reader.IsDBNull(3) == false)
-                            schedule.NextScheduled = reader.GetDateTime(3);
+                        if (reader.IsDBNull(2) == false)
+                            schedule.NextScheduled = reader.GetDateTime(2);
                         else
                             schedule.NextScheduled = DateTime.MinValue;
 
@@ -649,8 +657,100 @@ namespace Operando_AdministrationConsole.Controllers
 
         public async Task<ActionResult> BigDataAnalytics()
         {
-            List<BdaJob> executions = await helper.get<List<BdaJob>>("http://localhost:8080/stub-bda/bda/jobs?osp=Ami");
+            ICollection<Job> jobs = await _bdaClient.GetJobsAsync();
+
+            var executions = jobs.Select(_ => new BdaJob(_)).ToList();
+
             return View(executions);
         }
+
+        [HttpGet]
+        public ActionResult RequestNewBdaExtract()
+        {
+            return View("RequestNewBdaExtraction");
+    }
+
+        [HttpPost]
+        public async Task<ActionResult> RequestNewBdaExtract(RequestNewBdaExtractModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("RequestNewBdaExtraction", model);
+            }
+
+            try
+            {
+                var request = new ExtractionRequest
+                {
+                    RequesterName = model.RequesterName,
+                    ContactEmail = model.ContactEmail,
+                    RequestSummary = model.RequestSummary,
+                    Osp = OspForCurrentUser,
+                    RequestDate = DateTime.UtcNow
+                };
+
+                await _bdaClient.RequestNewBdaExtractionAsync(request);
+
+                return RedirectToAction("BigDataAnalytics");
+            }
+            catch (Exception ex)
+            {
+                // TODO -- exception should be logged here
+                return View("Error", new HandleErrorInfo(ex, "OspAdmin", "RequestNewBdaExtract"));
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddSchedule(BdaSchedule model)
+        {
+            var schedule = new Schedule
+            {
+                JobId = model.JobId,
+                StartTime = model.StartTime,
+                RepeatInterval = TimeSpan.FromDays(model.RepeatIntervalDays),
+                OspScheduled = OspForCurrentUser
+            };
+
+            await _bdaClient.AddScheduleAsync(schedule);
+
+            return RedirectToAction("BigDataAnalytics");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditSchedule(BdaSchedule model)
+        {
+            var schedule = await _bdaClient.GetScheduleByIdAsync(model.Id);
+
+            if (schedule == null || schedule.OspScheduled != OspForCurrentUser)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            schedule.StartTime = model.StartTime;
+            schedule.RepeatInterval = TimeSpan.FromDays(model.RepeatIntervalDays);
+
+            await _bdaClient.UpdateScheduleAsync(schedule);
+
+            return RedirectToAction("BigDataAnalytics");
+        }
+
+        public async Task<ActionResult> DeleteSchedule(string id)
+        {
+            var schedule = await _bdaClient.GetScheduleByIdAsync(id);
+
+            if (schedule == null || schedule.OspScheduled != OspForCurrentUser)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            await _bdaClient.DeleteScheduleAsync(schedule);
+
+            return RedirectToAction("BigDataAnalytics");
+        }
+
+        /// <summary>
+        /// TODO -- how to get the OSP the current user (an OSP admin) works for
+        /// </summary>
+        private string OspForCurrentUser { get; } = "OCC";
     }
 }
