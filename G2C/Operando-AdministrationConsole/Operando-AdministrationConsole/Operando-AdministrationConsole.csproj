@@ -5806,7 +5806,6 @@
     <Content Include="Views\PspAdmin\UsersManagement.cshtml" />
     <Content Include="Views\PspAdmin\ModulesSettings.cshtml" />
     <Content Include="Views\Regulator\ComplianceReports.cshtml" />
-    <Content Include="Views\Regulator\RegulationCompliance.cshtml" />
     <Content Include="Views\Regulator\PolicyStatements.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementEdit.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementAdd.cshtml" />
@@ -5823,7 +5822,6 @@
     <Content Include="Views\Dashboard\Widgets\_DataExtracts.cshtml" />
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
-    <Content Include="Views\Regulator\RegulationComplianceDetail.cshtml" />
     <Content Include="Views\PspAdmin\ServiceMonitoring.cshtml" />
   </ItemGroup>
   <ItemGroup>

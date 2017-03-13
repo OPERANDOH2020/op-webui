@@ -64,16 +64,6 @@ namespace Operando_AdministrationConsole.Controllers
             return View(model);
         }
 
-        public ActionResult RegulationCompliance()
-        {
-            return View();
-        }
-
-        public ActionResult RegulationComplianceDetail()
-        {
-            return View();
-        }
-
         public ActionResult PolicyStatements()
         {
             return View();
