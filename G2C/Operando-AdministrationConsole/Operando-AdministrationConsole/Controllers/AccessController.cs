@@ -16,6 +16,9 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult Login()
         {
             Debug.Print("LVM before:");
+            Session.Clear();
+            System.Web.Security.FormsAuthentication.SignOut();
+            // Redirect("login page");
             return View();
         }
 

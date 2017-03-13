@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Text;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
+using Newtonsoft.Json.Linq;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -72,6 +73,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             return Content(policy.ToString());
         }
+        
 
         [HttpDelete]
         public async Task<ActionResult> DeletePrivacyPolicy(OSPReasonPolicy policy)
@@ -508,8 +510,22 @@ namespace Operando_AdministrationConsole.Controllers
         {
             return View();
         }
-        
-        public ActionResult UserQuestionnaireGenerator()
+
+        [HttpGet]
+        public async Task<ActionResult> UserQuestionnaireGenerator()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie");
+                //StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(policy), Encoding.UTF8, "application/json");
+                var result = await client.GetAsync(qUri);
+                Response.StatusCode = (int)result.StatusCode;
+                var content = await result.Content.ReadAsStringAsync();
+                
+                return View();
+            }
+        }
+        public ActionResult UserQuestionnaireGenerator1()
         {
             return View();
         }
