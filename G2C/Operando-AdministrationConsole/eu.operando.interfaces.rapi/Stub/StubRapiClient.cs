@@ -27,55 +27,55 @@ namespace eu.operando.interfaces.rapi.Stub
         {
             var policy1 = new AccessReason()
             {
-                DataUser = "Receptionist",
-                DataSubjectType = "Patient",
-                DataType = "Contact",
+                Datauser = "Receptionist",
+                Datasubjecttype = "Patient",
+                Datatype = "Contact",
                 Reason = "to arrange appointments"
             };
 
             var policy2 = new AccessReason()
             {
-                DataUser = "Doctor",
-                DataSubjectType = "Patient",
-                DataType = "Biometric",
+                Datauser = "Doctor",
+                Datasubjecttype = "Patient",
+                Datatype = "Biometric",
                 Reason = "to assess health risks"
             };
 
             var policy3 = new AccessReason()
             {
-                DataUser = "Doctor",
-                DataSubjectType = "Patient",
-                DataType = "Medication",
+                Datauser = "Doctor",
+                Datasubjecttype = "Patient",
+                Datatype = "Medication",
                 Reason = "to check for drug interaction"
             };
 
             var policy4 = new AccessReason()
             {
-                DataUser = "Doctor",
-                DataSubjectType = "Doctor",
-                DataType = "Medical",
+                Datauser = "Doctor",
+                Datasubjecttype = "Doctor",
+                Datatype = "Medical",
                 Reason = "to ask a consultancy"
             };
 
             var policy5 = new AccessReason()
             {
-                DataUser = "Receptionist",
-                DataSubjectType = "Patient",
-                DataType = "Contact",
+                Datauser = "Receptionist",
+                Datasubjecttype = "Patient",
+                Datatype = "Contact",
                 Reason = "to change appointments"
             };
 
             var policy6 = new AccessReason()
             {
-                DataUser = "Receptionist 2",
-                DataSubjectType = "Patient 2",
-                DataType = "Contact 2",
+                Datauser = "Receptionist 2",
+                Datasubjecttype = "Patient 2",
+                Datatype = "Contact 2",
                 Reason = "to change appointments 2"
             };
 
             ComplianceReport result = new ComplianceReport()
             {
-              PrivacyPolicy  = new OSPReasonPolicy()
+              Privacypolicy = new OSPReasonPolicy()
               {
                   OspPolicyId = osp,
                   Policies = new List<AccessReason>()

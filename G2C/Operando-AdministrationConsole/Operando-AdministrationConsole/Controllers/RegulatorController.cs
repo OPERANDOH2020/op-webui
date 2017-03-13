@@ -23,7 +23,7 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Reports()
+        public async Task<ActionResult> ComplianceReports()
         {
             var serviceTicket = GetServiceTicket();
 
@@ -46,11 +46,11 @@ namespace Operando_AdministrationConsole.Controllers
                 reports.Add(new ComplianceReportModel()
                 {
                     OspId = osp,
-                    Sections = entity?.PrivacyPolicy.Policies.Select(p => new ComplianceReportModel.Section()
+                    Sections = entity?.Privacypolicy.Policies.Select(p => new ComplianceReportModel.Section()
                     {
-                        User = p.DataUser,
-                        Subject = p.DataSubjectType,
-                        DataType = p.DataType,
+                        User = p.Datauser,
+                        Subject = p.Datasubjecttype,
+                        DataType = p.Datatype,
                         Reason = p.Reason
                     }).ToList() ?? new List<ComplianceReportModel.Section>()
                 });

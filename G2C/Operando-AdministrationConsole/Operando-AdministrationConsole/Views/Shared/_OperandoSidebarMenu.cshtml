@@ -410,7 +410,7 @@
             </a>
             <ul class="sub-menu">
                 <li class='nav-item @if (currentController == "Regulator" && currentAction == "Reports") { @activeClass }'>
-                    <a href="@Url.Action("Reports", "Regulator")" class="nav-link ">
+                    <a href="@Url.Action("ComplianceReports", "Regulator")" class="nav-link ">
                         <i class="icon-docs"></i>
                         <span class="title">Reports</span>
                         @if (currentController == "Regulator" && currentAction == "Reports")
