@@ -18,6 +18,7 @@ using eu.operando.core.bda.Model;
 using Operando_AdministrationConsole.Models.OspAdminModels;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
+using eu.operando.interfaces.aapi;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -28,10 +29,12 @@ namespace Operando_AdministrationConsole.Controllers
 
 
         private readonly IBdaClient _bdaClient;
+        private readonly IAapiClient _aapiClient;
 
         public OspAdminController()
         {
             _bdaClient = new BdaClient();
+            _aapiClient = new AapiClient();
         }
 
         private Uri OSPRoot(string id)
@@ -47,7 +50,7 @@ namespace Operando_AdministrationConsole.Controllers
             string pdbOSPSId = ConfigurationManager.AppSettings[serviceIdKey];
 
             var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket(pdbOSPSId));
+            configuration.AddDefaultHeader(stHeaderName, GetUppServiceTicket(pdbOSPSId));
 
             return configuration;
         }
@@ -523,26 +526,11 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         /* Method modified by IT Innovation Centre 2017 */
-        private string getUPPServiceTicket(string serviceName)
+        private string GetUppServiceTicket(string serviceName)
         {
-            string st = "";
+            var ticketGrantingTicket = Session["TGT"] as string;
 
-            // get UPP service ticket
-            string aapiBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
-            var aapiInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(aapiBasePath);
-
-            try
-            {
-                // UPP service ticket call
-                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), serviceName);
-                Debug.Print("Got UPP ST: " + st);
-            }
-            catch (eu.operando.interfaces.aapi.Client.ApiException ex)
-            {
-                Debug.Print("Exception failed to make API call to AapiTicketsTgtPost: " + ex.Message);
-            }
-
-            return st;
+            return _aapiClient.GetServiceTicket(ticketGrantingTicket, serviceName);
         }
 
         /* Method modified by IT Innovation Centre 2017 */
@@ -555,7 +543,7 @@ namespace Operando_AdministrationConsole.Controllers
             string pdbUPPSId = ConfigurationManager.AppSettings["pdbUPPSId"];
 
             var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-            configuration.AddDefaultHeader(stHeaderName, getUPPServiceTicket(pdbUPPSId));
+            configuration.AddDefaultHeader(stHeaderName, GetUppServiceTicket(pdbUPPSId));
 
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 

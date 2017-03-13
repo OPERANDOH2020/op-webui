@@ -13,13 +13,21 @@ using System.Globalization;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
 using System.Configuration;
+using eu.operando.interfaces.aapi;
 
 namespace Operando_AdministrationConsole.Controllers
 {
 
     public class DataSubjectController : Controller
     {
+        private readonly IAapiClient _aapiClient;
+
         public string errMsg = String.Empty;
+
+        public DataSubjectController()
+        {
+            _aapiClient = new AapiClient();
+        }
 
         public ActionResult DataAccessLogs()
         {
@@ -107,27 +115,13 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         /* Method modified by IT Innovation Centre 2017 */
-        private string getServiceTicket()
+        private string GetServiceTicket()
         {
-            string st = "";
             string pdbOSPSId = ConfigurationManager.AppSettings["pdbOSPSId"];
 
-            // get OSP service ticket
-            string aapiBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
-            var aapiInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(aapiBasePath);
+            string ticketGrantingTicket = Session["TGT"] as string;
 
-            try
-            {
-                // OSP service ticket call
-                st = aapiInstance.AapiTicketsTgtPost(Session["TGT"].ToString(), pdbOSPSId);
-                Debug.Print("Got PDB ST: " + st);
-            }
-            catch (eu.operando.interfaces.aapi.Client.ApiException ex)
-            {
-                Debug.Print("Exception failed to make API call to AapiTicketsTgtPost: " + ex.Message);
-            }
-
-            return st;
+            return _aapiClient.GetServiceTicket(ticketGrantingTicket, pdbOSPSId);
         }
 
         /* Method modified by IT Innovation Centre 2016 */
@@ -137,7 +131,7 @@ namespace Operando_AdministrationConsole.Controllers
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
 
             var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-            configuration.AddDefaultHeader(stHeaderName, getServiceTicket());
+            configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
             
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 
@@ -175,7 +169,7 @@ namespace Operando_AdministrationConsole.Controllers
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
 
             var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-            configuration.AddDefaultHeader(stHeaderName, getServiceTicket());            
+            configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());            
             
             var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 

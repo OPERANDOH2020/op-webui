@@ -527,23 +527,8 @@
                 { @activeClass }'>
                     <a href="@Url.Action("ComplianceReports", "Regulator")" class="nav-link ">
                         <i class="icon-docs"></i>
-                        <span class="title">Compilance Reports</span>
+                        <span class="title">Compliance Reports</span>
                         @if (currentController == "Regulator" && currentAction == "Reports")
-                        {
-                            @:<span class="selected"></span>
-                        }
-                    </a>
-                </li>
-            }
-            @if (allView || regulator)
-            {
-
-                <li class='nav-item @if (currentController == "Regulator" && currentAction == "RegulationCompliance")
-                { @activeClass }'>
-                    <a href="@Url.Action("RegulationCompliance", "Regulator")" class="nav-link ">
-                        <i class="icon-eye"></i>
-                        <span class="title">Privacy Statements</span>
-                        @if (currentController == "Regulator" && currentAction == "RegulationCompliance")
                         {
                             @:<span class="selected"></span>
                         }
