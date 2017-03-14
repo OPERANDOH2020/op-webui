@@ -1,4 +1,6 @@
 ﻿using System;
+using eu.operando.core.ldb.Model;
+
 namespace Operando_AdministrationConsole.Models.DashboardModels.WidgetModels
 {
     public class NotificationsWidgetModel

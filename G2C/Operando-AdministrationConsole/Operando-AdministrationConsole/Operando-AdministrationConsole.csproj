@@ -220,7 +220,6 @@
     </Compile>
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\RegulatorController.cs" />
-    <Compile Include="Helper\LdbService.cs" />
     <Compile Include="Helper\StaticStrings.cs" />
     <Compile Include="Helper\OperandoWebServiceHelper.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -238,8 +237,8 @@
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractRequestModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\NotificationsWidgetModel.cs" />
-    <Compile Include="Models\DataAccessLog.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
+    <Compile Include="Models\DataSubjectModels\DataAccessLogModel.cs" />
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
     <Compile Include="Models\PrivacyPolicy.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
@@ -5847,6 +5846,10 @@
     <ProjectReference Include="..\eu.operando.core.bda\eu.operando.core.bda.csproj">
       <Project>{00664eb8-aaf9-4e34-a9f5-6fc5cca7dd70}</Project>
       <Name>eu.operando.core.bda</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eu.operando.core.ldb\eu.operando.core.ldb.csproj">
+      <Project>{3E09F267-B1C4-4BDB-AFFC-38C235BE8CAB}</Project>
+      <Name>eu.operando.core.ldb</Name>
     </ProjectReference>
     <ProjectReference Include="..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>

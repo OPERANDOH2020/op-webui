@@ -1,26 +1,23 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using eu.operando.core.ldb.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Operando_AdministrationConsole.Models;
 
-namespace Operando_AdministrationConsole.Helper
+namespace eu.operando.core.ldb
 {
-    /// <summary>
-    /// TODO: replace with a separate project eu.operando.core.ldb
-    /// This is a temporary implementation
-    /// </summary>
-    public class LdbService
+    public class LdbClient : ILdbClient
     {
-
-        public List<DataAccessLog> GetDataAccessLogs(string userId)
+        public IList<DataAccessLog> GetDataAccessLogs(string userId)
         {
             return RequestDataAccessLogs($"logType=data_access&affectedUserId={userId}");
         }
 
-        public List<DataAccessLog> GetNotifications(string userId)
+        public IList<DataAccessLog> GetNotifications(string userId)
         {
             return RequestDataAccessLogs($"logType=notification&affectedUserId={userId}");
         }

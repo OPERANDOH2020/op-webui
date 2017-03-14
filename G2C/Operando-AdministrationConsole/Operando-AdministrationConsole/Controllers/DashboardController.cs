@@ -9,6 +9,7 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Threading.Tasks;
 using eu.operando.core.bda;
+using eu.operando.core.ldb;
 using Operando_AdministrationConsole.Helper;
 using Operando_AdministrationConsole.Models.DashboardModels;
 using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels;
@@ -19,7 +20,7 @@ namespace Operando_AdministrationConsole.Controllers
     {
         ReportManager reportManager = new ReportManager();
         private readonly IBdaClient _bdaClient;
-        private readonly LdbService _ldbService;
+        private readonly ILdbClient _ldbService;
 
         /// <summary>
         /// TODO -- how to get the OSP the current user (an OSP admin) works for
@@ -29,7 +30,7 @@ namespace Operando_AdministrationConsole.Controllers
         public DashboardController()
         {
             _bdaClient = new BdaClient();
-            _ldbService = new LdbService();
+            _ldbService = new LdbClient();
         }
 
         public ActionResult EmptyPage()

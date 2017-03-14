@@ -13,26 +13,36 @@ using System.Globalization;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
 using System.Configuration;
+using eu.operando.core.ldb;
+using eu.operando.core.ldb.Model;
 using Operando_AdministrationConsole.Helper;
+using Operando_AdministrationConsole.Models.DataSubjectModels;
 
 namespace Operando_AdministrationConsole.Controllers
 {
 
     public class DataSubjectController : Controller
     {
+        private readonly ILdbClient _ldbClient;
+
         public string errMsg = String.Empty;
+
+        public DataSubjectController()
+        {
+            _ldbClient = new LdbClient();
+        }
 
         public ActionResult DataAccessLogs()
         {
-            List<DataAccessLog> logList = new List<DataAccessLog>();
+            List<DataAccessLogModel> logList = new List<DataAccessLogModel>();
 
             try
             {
                 var username = Session["Username"] as string;
 
-                var ldbService = new LdbService();
+                var entities = _ldbClient.GetDataAccessLogs(username);
 
-                logList = ldbService.GetDataAccessLogs(username);
+                logList = entities.Select(_ => new DataAccessLogModel(_)).ToList();
             }
             catch (Exception)
             {
