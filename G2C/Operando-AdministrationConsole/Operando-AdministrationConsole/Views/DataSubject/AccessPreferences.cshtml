@@ -28,59 +28,63 @@
             </div>
             <div class="portlet-body row">
                 <div class="col-md-10">
+                    <p>
+                        Your privacy preferences are shown here. You can see, and change, which organisations have access to your data and how it is used.
+                        <br/>
+                        These settings are enforced automatically for you by OPERANDO, an independent platform, to ensure that your data is only used in ways which you have agreed to.
+                    </p>
                     <p>You can use our privacy wizard to generate a recomended privacy policy quickly and easily.</p>
                 </div>
                 <div class="col-md-2 text-right">
                     <p> <button type="button" class="btn yellow-gold">Start</button></p>
                 </div>
             </div>
-            </div>
+        </div>
 
-            <div class="tab-content">
+        <div class="tab-content">
 
-                @foreach (var osp in ViewBag.ospppList)
+            @foreach (var osp in ViewBag.ospppList)
             {
                 <!-- BEGIN TAB @osp.PolicyUrl CONTENT -->
-                    <div class="portlet light tab-pane fade" id="tab_@osp.PolicyUrl.GetHashCode()">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <span class="caption-subject font-dark bold uppercase">@osp.PolicyUrl privacy settings</span>
-                            </div>
-                        </div>
-                        <div class="portlet-body form">
-                            <p>Your privacy settings are:</p>
-                            <form class="form-horizontal" role="form" method="post" name="@osp.PolicyUrl form">
-                                <div class="form-body">
-
-                                    @foreach (var policy in osp.Policies)
-                                    {
-                                        <div class="form-group">
-                                            <label class="col-md-7 control-label">@policy.Subject should be able to access the following data:</label>
-                                            <div class="col-md-5">
-                                                <div class="mt-checkbox-list">
-                                                    <label class="mt-checkbox">
-                                                        <input type="checkbox"
-                                                        name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode()"
-                                                        value="@policy.Permission"
-                                                        @if (policy.Permission == true)
-                                                        { @: checked="checked"
-                                                             }> @policy.Resource
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    }
-                                </div>
-                                <div class="form-actions right">
-                                    <button type="submit" class="btn yellow-gold" name="@osp.PolicyUrl">Update UPP</button>
-                                    <button type="button" class="btn default">Back to default values</button>
-                                </div>
-                            </form>
+                <div class="portlet light tab-pane fade" id="tab_@osp.PolicyUrl.GetHashCode()">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="caption-subject font-dark bold uppercase">@osp.PolicyUrl privacy settings</span>
                         </div>
                     </div>
-                }
-            </div>
+                    <div class="portlet-body form">
+                        <p>Your privacy settings are:</p>
+                        <form class="form-horizontal" role="form" method="post" name="@osp.PolicyUrl form">
+                            <div class="form-body">
+
+                                @foreach (var policy in osp.Policies)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-md-7 control-label">@policy.Subject should be able to access the following data:</label>
+                                        <div class="col-md-5">
+                                            <div class="mt-checkbox-list">
+                                                <label class="mt-checkbox">
+                                                    <input type="checkbox"
+                                                           name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode()"
+                                                           value="@policy.Permission"
+                                                           @if (policy.Permission == true)
+                                                           { @: checked="checked"
+                                                           }> @policy.Resource
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-actions right">
+                                <button type="submit" class="btn yellow-gold" name="@osp.PolicyUrl">Update UPP</button>
+                                <button type="button" class="btn default">Back to default values</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
