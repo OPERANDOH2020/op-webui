@@ -41,6 +41,7 @@
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>
@@ -84,6 +85,10 @@
                     "className": "dt-right",
                     //"targets": [2]
                 },
+                 {
+                     "orderable": false,
+                     "targets": [2]
+                 },
                 {
                     "type": "string",
                     "targets": [0]
@@ -141,6 +146,7 @@
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
             "responsive": true,
+            "bFilter": false,
 
             /* Results in:
                 <div>
@@ -179,6 +185,10 @@
                 {
                     "searchable": true,
                     "targets": [1]
+                },
+                {
+                    "orderable": false,
+                    "targets": [2]
                 },
                 {
                     "className": "dt-right",

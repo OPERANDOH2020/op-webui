@@ -62,106 +62,94 @@
                                                     <div class="tab-content">
                                                         <div class="tab-pane active">
 
-                                                            <div class="portlet-title light">
-                                                                <div class="caption">
-                                                                    <span class="caption-subject font-dark bold uppercase">Users</span>
+                                                            <div class="portlet light">
+                                                                <div class="portlet-title">
+                                                                    <div class="caption">
+                                                                        <span class="caption-subject font-dark bold uppercase">Users</span>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="portlet-body">
 
 
-                                                                <!-- .......................................................................... -->
-                                                                <div class="row" style="display: none;">
-    <div class="form-group col-md-6 col-md-offset-6" style="padding-right: 0;">
-        <form class="form-horizontal">
-            <label class="col-md-6 control-label">Filter by</label>
-            <div class="col-md-6" style="padding-right: 14px;">
-                <div class="btn-group bootstrap-select show-tick form-control bs-select">
-
-                    <select class="form-control bs-select" id="UppManagementTool-type-select1" style="max-height: 327.55px; overflow: hidden; min-height: 37px;" multiple tabindex="-98">
-                        <option value="0" selected>ID</option>
-                        <option value="1" selected>Username</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-    </div> 
-                                    </div>
-
-                                                                <!-- .....................................................   -->
-
-                                                                <div class="row">
-                                                                    <!--  ----------------------------------------------------   -->
-                                                                    <!--  ----------------   USERS TABLE   -------------------   -->
-                                                                    <!--  ----------------------------------------------------   -->
-                                                                    <div class="col-xs-12 col-md-12">
-                                                                        <div class="">
-                                                                            <table class="table table-striped table-bordered table-hover order-column" id="UppManagementTool1_psp">
-                                                                                <thead>
-                                                                                    <tr><th class="col-md-1"></th>
-                                                                                        <th class="sorting col-md-2"> ID </th>
-                                                                                        <th class="sorting col-md-9"> User name </th>
-
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <tr id="ID" class="odd gradeX">
-                                                                                        <td class="">
-                                                                                            <i onclick="$('#tabList01').toggle()" class="fa fa-plus visible"></i>
-                                                                                        </td>
-                                                                                        <td>40</td>
-                                                                                        <td>pgrace</td>
-
-                                                                                    </tr>
-
-                                                                                    <tr id="ID" class="even gradeX">
-                                                                                        <td class="">
-                                                                                            <i onclick="$('#tabList02').toggle()" class="fa fa-plus"></i>
-                                                                                        </td>
-                                                                                        <td>101</td>
-                                                                                        <td>atrenti</td>
 
 
-                                                                                    </tr>
 
-                                                                                    <tr id="ID" class="odd gradeX">
-                                                                                        <td class="">
-                                                                                            <i onclick="$('#tabUppManagementTool2').toggle()" class="fa fa-plus"></i>
-                                                                                        </td>
-                                                                                        <td>234</td>
-                                                                                        <td>lclivati</td>
+                                                                <div class="portlet-body">
 
-                                                                                    </tr>
 
-                                                                                    <tr id="ID" class="even gradeX">
-                                                                                        <td class="">
-                                                                                            <i onclick="$('#tabUppManagementTool2').toggle()" class="fa fa-plus"></i>
-                                                                                        </td>
-                                                                                        <td>678</td>
-                                                                                        <td>vsauro</td>
+                                                                    <!-- .......................................................................... -->
 
-                                                                                    </tr>
 
-                                                                                    <tr id="ID" class="odd gradeX">
-                                                                                        <td class="">
-                                                                                            <i onclick="$('#tabUppManagementTool2').toggle()" class="fa fa-plus"></i>
-                                                                                        </td>
-                                                                                        <td>999</td>
-                                                                                        <td>mgallagher</td>
+                                                                    <div class="row">
+                                                                        <!--  ----------------------------------------------------   -->
+                                                                        <!--  ----------------   USERS TABLE   -------------------   -->
+                                                                        <!--  ----------------------------------------------------   -->
+                                                                        <div class="col-xs-12 col-md-12">
+                                                                            <div class="portlet">
+                                                                                <table style="width:100%; background-color:white;" class="table table-striped table-bordered table-hover order-column" id="UppManagementTool1_psp">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="col-md-1"></th>
+                                                                                            <th class="sorting col-md-2"> ID </th>
+                                                                                            <th class="sorting col-md-9"> User name </th>
 
-                                                                                    </tr>
-                                                                           
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
 
-                                                                            </table>
+                                                                                        @foreach (var consent in ViewBag.modOspConsents)
+                                                                                        {
+                                                                                            <tr id="tabID@(consent.OspId)" class="odd gradeX">
+                                                                                                <td><i onclick="$('#tab1List@(consent.OspId)').toggle()" class="fa fa-plus visible"></i></td>
+                                                                                                <td>@consent.OspId</td>
+                                                                                                <td>@consent.OspId</td>
+                                                                                            </tr>
+                                                                                            <tr style="display:none;" class="active accordion-body collapse visible" id="tab1List@(consent.OspId)">
+                                                                                                <td width="100%" colspan="3">
+                                                                                                    <div class="portlet light portlet-no-bottom-margin">
+                                                                                                        <div class="portlet portlet-title">
+                                                                                                            <div class="caption">
+                                                                                                                <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                        <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="tabUppResult@(consent.OspId)">
+                                                                                                            <thead>
+                                                                                                                <tr>
+                                                                                                                    <th class="sorting"> Role </th>
+                                                                                                                    <th class="sorting" style="width:125px;"> Action </th>
+                                                                                                                    <th class="sorting" style="width:125px;"> Type </th>
+                                                                                                                    <th class="sorting" style="width:85px;"> Preference </th>
+                                                                                                                </tr>
+                                                                                                            </thead>
+                                                                                                            <tbody>
+                                                                                                                @foreach (var ap in consent.AccessPolicies)
+                                                                                                                {
+                                                                                                                    <tr id="ID" class="odd gradeX">
+                                                                                                                        <td>@ap.Subject</td>
+                                                                                                                        <td>@ap.Action</td>
+                                                                                                                        <td>@ap.Resource</td>
+                                                                                                                        <td>@ap.Permission</td>
+                                                                                                                    </tr>
+                                                                                                                }
+                                                                                                        </table>
+                                                                                                    </div>
 
+                                                                                                </td>
+                                                                                                <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                                <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            </tr>
+                                                                                        }
+
+                                                                                        <!-- ........................................... -->
+
+
+
+
+                                                                                </table>
+
+                                                                            </div>
                                                                         </div>
-
-
-
-                                                                        <!-- .................................................................... -->
-
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -177,132 +165,358 @@
                                                 <!-- ------------------------------------- BEGIN TAB 2 ------------------------------------------ -->
                                                 <!-- -------------------------------------------------------------------------------------------- -->
 
-
                                                 <div class="tab-pane fade in" id="tabUppManagementTool2" style="display:none;">
-
                                                     <div class="tab-content">
-                                                        <div class="tab-pane active  light">
-                                                            <div class="portlet-title light">
-                                                                <div class="caption">
-                                                                    <span class="caption-subject font-dark bold uppercase">Policy Privacy Actions</span>
-                                                                </div>
-                                                            </div>
+                                                        <div class="tab-pane active">
 
-                                                            <div class="portlet-body">
-                                                                <div class="row">
-
-                                                                <div class="col-xs-12 col-md-12">
-                                                                    <div class="">
-                                                                        <table style="width:100%;"class="table table-striped table-bordered table-hover order-column" id="UppManagementTool2_psp">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th class="sorting"> Role </th>
-                                                                                    <th class="sorting" style="width:125px;"> Action </th>
-                                                                                    <th class="sorting" style="width:125px;"> Type </th>
-                                                                                    <th class="sorting" style="width:85px;"> % YES </th>
-                                                                                    <th style="width:85px;"> % NO</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <tr id="ID" class="odd gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
-
-                                                                                </tr>
-
-                                                                                <tr id="ID" class="even gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
-
-                                                                                </tr>
-
-                                                                                <tr id="ID" class="odd gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
-
-                                                                                </tr>
-
-                                                                                <tr id="ID" class="even gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
-
-                                                                                </tr>
-
-                                                                                <tr id="ID" class="odd gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
-
-                                                                                </tr>
-
-                                                                                <tr id="ID" class="odd gradeX">
-                                                                                    <td>Doctor</td>
-                                                                                    <td>read</td>
-                                                                                    <td>weight</td>
-                                                                                    <td>70</td>
-                                                                                    <td>30</td>
-
-                                                                                </tr>
-
-                                                                        </table>
+                                                            <div class="portlet light">
+                                                                <div class="portlet-title ">
+                                                                    <div class="caption">
+                                                                        <span class="caption-subject font-dark bold uppercase">Privacy Policy Actions</span>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="portlet-body">
+                                                                    <div class="row">
+
+                                                                        <div class="col-xs-12 col-md-12">
+                                                                            <div class="">
+                                                                                <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="UppManagementTool2_psp">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="sorting "> Role </th>
+                                                                                            <th class="sorting" style="width:125px;"> Action </th>
+                                                                                            <th class="sorting" style="width:125px;"> Type </th>
+                                                                                            <th class="sorting" style="width:85px;"> % YES </th>
+                                                                                            <th style="width:85px;"> % NO</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        @foreach (var uppStat in ViewBag.uppStats.Values)
+                                                                                        {
+                                                                                            <tr id="ID" class="odd gradeX">
+                                                                                                <td>@uppStat.role</td>
+                                                                                                <td>@uppStat.action</td>
+                                                                                                <td>@uppStat.apType</td>
+                                                                                                <td>@uppStat.yes</td>
+                                                                                                <td>@uppStat.no</td>
+                                                                                            </tr>
+                                                                                        }
+
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
 
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
 
 
-                                                        <!-- -------------------------------------------------------------------------------------------- -->
-                                                        <!-- ---------------------------- END TAB 2 ----------------------------------------------------- -->
-                                                        <!-- -------------------------------------------------------------------------------------------- -->
-                                                        <!-- -------------------------------------------------------------------------------------------- -->
-                                                        <!-- ---------------------------- BEGIN TAB 3 --------------------------------------------------- -->
-                                                        <!--  ------------------------------------------------------------------------------------------- -->
-                                                        <!--  ------------------------------------------------------------------------------------------- -->
 
+                                               
+
+
+
+                                                <!-- -------------------------------------------------------------------------------------------- -->
+                                                <!-- ---------------------------- END TAB 2 ----------------------------------------------------- -->
+                                                <!-- -------------------------------------------------------------------------------------------- -->
+                                                <!-- -------------------------------------------------------------------------------------------- -->
+                                                <!-- ---------------------------- BEGIN TAB 3 --------------------------------------------------- -->
+                                                <!--  ------------------------------------------------------------------------------------------- -->
+                                                <!--  ------------------------------------------------------------------------------------------- -->
 
                                                 <div class="tab-pane fade in" id="tabUppManagementTool3" style="display:none;">
-                                                    <div class="tab-content">
-                                                        <div class="tab-pane light active">
-                                                            <div class="portlet-title ">
-                                                                <div class="caption">
-                                                                    <span class="caption-subject font-dark bold uppercase">Privacy Actions Plus</span>
-                                                                </div>
-                                                            </div>
 
-                                                            <div class="portlet-body ">
-                                                                <div class="row">
-                                                                    
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active">
+
+                                                            <div class="portlet light">
+                                                                <div class="portlet-title">
+                                                                    <div class="caption">
+                                                                        <span class="caption-subject font-dark bold uppercase">Privacy Policy Actions</span>
                                                                     </div>
                                                                 </div>
 
+                                                                <div class="portlet-body">
+
+
+                                                                    <!-- .......................................................................... -->
+
+
+                                                                    <div class="row">
+                                                                        <!--  ----------------------------------------------------   -->
+                                                                        <!--  ----------------   USERS TABLE   -------------------   -->
+                                                                        <!--  ----------------------------------------------------   -->
+                                                                        <div class="col-xs-12 col-md-12">
+                                                                            <div class="portlet">
+                                                                                <table style="width:100%; background-color:white;" class="table table-striped table-bordered table-hover order-column" id="UppManagementTool3_psp">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="col-md-1"></th>
+                                                                                            <th class="sorting col-md-2">Role</th>
+                                                                                            <th class="sorting col-md-2">Action</th>
+                                                                                            <th class="sorting col-md-2">Type</th>
+                                                                                            <th class="sorting col-md-1"> % YES</th>
+                                                                                            <th class="sorting col-md-1"> % NO </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr id="tabID11" class="odd gradeX">
+                                                                                            <td><i onclick="$('#tabList11').toggle()" class="fa fa-plus visible"></i></td>
+                                                                                            <td>Receptionist</td>
+                                                                                            <td>read</td>
+                                                                                            <td>weight</td>
+                                                                                            <td>70</td>
+                                                                                            <td>30</td>
+
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr style="display:none;" class="active accordion-body collapse visible" id="tabList11">
+
+                                                                                            <td width="100%" colspan="6">
+                                                                                                <div class="portlet light portlet-no-bottom-margin">
+                                                                                                    <div class="portlet-title">
+                                                                                                        <div class="caption">
+                                                                                                            <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+
+                                                                                                <!-- ........................................................ -->
+                                                                                                <!-- ................. CHART ................................ -->
+                                                                                                <!-- ........................................................ -->
+
+                                                                                                <div class=""portlet light portlet-no-bottom-margin">
+                                                                                                   <div style="background-color:white !important;" id="chartdiv1"></div>	
+                                                                                                    </div>
+
+                                                                                                    <!-- ........................................................ -->
+
+
+
+</td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr id="tabID12" class="odd gradeX">
+                                                                                            <td><i onclick="$('#tabList12').toggle()" class="fa fa-plus visible"></i></td>
+                                                                                            <td>Receptionist</td>
+                                                                                            <td>read</td>
+                                                                                            <td>weight</td>
+                                                                                            <td>70</td>
+                                                                                            <td>30</td>
+
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr style="display:none;" class="active accordion-body collapse visible" id="tabList12">
+
+                                                                                            <td width="100%" colspan="6">
+                                                                                                <div class="portlet light portlet-no-bottom-margin">
+                                                                                                    <div class="portlet-title">
+                                                                                                        <div class="caption">
+                                                                                                            <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+
+                                                                                                <!-- ........................................................ -->
+                                                                                                <!-- ................. CHART ................................ -->
+                                                                                                <!-- ........................................................ -->
+
+                                                                                                <div class="" portlet light portlet-no-bottom-margin">
+                                                                                                    <div style="background-color:white !important;" id="chartdiv2"></div>
+                                                                                                </div>
+
+                                                                                                <!-- ........................................................ -->
+
+
+
+                                                                                            </td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr id="tabID13" class="odd gradeX">
+                                                                                            <td><i onclick="$('#tabList13').toggle()" class="fa fa-plus visible"></i></td>
+                                                                                            <td>Receptionist</td>
+                                                                                            <td>read</td>
+                                                                                            <td>weight</td>
+                                                                                            <td>70</td>
+                                                                                            <td>30</td>
+
+                                                                                        </tr>
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr style="display:none;" class="active accordion-body collapse visible" id="tabList13">
+
+                                                                                            <td width="100%" colspan="6">
+                                                                                                <div class="portlet light portlet-no-bottom-margin">
+                                                                                                    <div class="portlet-title">
+                                                                                                        <div class="caption">
+                                                                                                            <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+
+                                                                                                <!-- ........................................................ -->
+                                                                                                <!-- ................. CHART ................................ -->
+                                                                                                <!-- ........................................................ -->
+
+                                                                                                <div class="" portlet light portlet-no-bottom-margin">
+                                                                                                    <div style="background-color:white !important;" id="chartdiv3"></div>
+                                                                                                </div>
+
+                                                                                                <!-- ........................................................ -->
+
+
+
+                                                                                            </td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr id="tabID14" class="odd gradeX">
+                                                                                            <td><i onclick="$('#tabList14').toggle()" class="fa fa-plus visible"></i></td>
+                                                                                            <td>Receptionist</td>
+                                                                                            <td>read</td>
+                                                                                            <td>weight</td>
+                                                                                            <td>70</td>
+                                                                                            <td>30</td>
+
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr style="display:none;" class="active accordion-body collapse visible" id="tabList14">
+
+                                                                                            <td width="100%" colspan="6">
+                                                                                                <div class="portlet light portlet-no-bottom-margin">
+                                                                                                    <div class="portlet-title">
+                                                                                                        <div class="caption">
+                                                                                                            <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+
+                                                                                                <!-- ........................................................ -->
+                                                                                                <!-- ................. CHART ................................ -->
+                                                                                                <!-- ........................................................ -->
+
+                                                                                                <div class="" portlet light portlet-no-bottom-margin">
+                                                                                                    <div style="background-color:white !important;" id="chartdiv4"></div>
+                                                                                                </div>
+
+                                                                                                <!-- ........................................................ -->
+
+
+
+                                                                                            </td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr id="tabID15" class="odd gradeX">
+                                                                                            <td><i onclick="$('#tabList15').toggle()" class="fa fa-plus visible"></i></td>
+                                                                                            <td>Receptionist</td>
+                                                                                            <td>read</td>
+                                                                                            <td>weight</td>
+                                                                                            <td>70</td>
+                                                                                            <td>30</td>
+
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+                                                                                        <tr style="display:none;" class="active accordion-body collapse visible" id="tabList15">
+
+                                                                                            <td width="100%" colspan="6">
+                                                                                                <div class="portlet light portlet-no-bottom-margin">
+                                                                                                    <div class="portlet-title">
+                                                                                                        <div class="caption">
+                                                                                                            <span class="caption-subject font-dark bold uppercase">User Preferences</span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+
+                                                                                                <!-- ........................................................ -->
+                                                                                                <!-- ................. CHART ................................ -->
+                                                                                                <!-- ........................................................ -->
+
+                                                                                                <div class="" portlet light portlet-no-bottom-margin">
+                                                                                                    <div style="background-color:white !important;" id="chartdiv5"></div>
+                                                                                                </div>
+
+                                                                                                <!-- ........................................................ -->
+
+
+
+                                                                                            </td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                            <td style="background-color:white;border:0;padding:0;margin:0;"></td>
+                                                                                        </tr>
+
+                                                                                        <!-- ........................................... -->
+
+
+
+
+                                                                                </table>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <!--  ------------------------------------------------------------------------------------------- -->
-                                                        <!-- ---------------------------- END TAB 3 ----------------------------------------------------- -->
-                                                        <!--  ------------------------------------------------------------------------------------------- -->
-
                                                     </div>
+                                                </div>
+
+                                                
+                                                <!--  ------------------------------------------------------------------------------------------- -->
+                                                <!-- ---------------------------- END TAB 3 ----------------------------------------------------- -->
+                                                <!--  ------------------------------------------------------------------------------------------- -->
+
+                                            </div>
                                                 </div>
                                     </div>
                         </div>
@@ -314,189 +528,10 @@
 </div>
 
 
-<!--  ------------------------------------------------------------------------------------------- -->
-<!-- ---------------------------- TAB LIST ----------------------------------------------------- -->
-<!--  ------------------------------------------------------------------------------------------- -->
-
-<div class="tab-pane fade in" id="tabList01" style="display:none;">
-
-    <div class="tab-content">
-        <div class="tab-pane active  light">
-            <div class="portlet-title light">
-                <div class="caption">
-                    <span class="caption-subject font-dark bold uppercase">USER PREFERENCES</span>
-                </div>
-            </div>
-
-            <div class="portlet-body">
-                <div class="row">
-
-                    <div class="col-xs-12 col-md-12">
-                        <div class="">
-                            <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="UppManagementTool2_psp">
-                                <thead>
-                                    <tr>
-                                        <th class="sorting"> Role </th>
-                                        <th class="sorting" style="width:125px;"> Action </th>
-                                        <th class="sorting" style="width:125px;"> Type </th>
-                                        <th class="sorting" style="width:85px;"> % YES </th>
-                                        <th style="width:85px;"> % NO</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="ID" class="odd gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>weight</td>
-                                        <td>70</td>
-                                        <td>30</td>
-
-                                    </tr>
-
-                                    <tr id="ID" class="even gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>weight</td>
-                                        <td>70</td>
-                                        <td>30</td>
-
-                                    </tr>
-
-                                    <tr id="ID" class="odd gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>weight</td>
-                                        <td>70</td>
-                                        <td>30</td>
-
-                                    </tr>
-
-                                    <tr id="ID" class="even gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>weight</td>
-                                        <td>70</td>
-                                        <td>30</td>
-
-                                    </tr>
-
-                                    <tr id="ID" class="odd gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>weight</td>
-                                        <td>70</td>
-                                        <td>30</td>
-
-                                    </tr>
-
-                                    <tr id="ID" class="odd gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>weight</td>
-                                        <td>70</td>
-                                        <td>30</td>
-
-                                    </tr>
-
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ................................................. -->
-
-<div class="tab-pane fade in" id="tabList02" style="display:none;">
-
-    <div class="tab-content">
-        <div class="tab-pane active  light">
-            <div class="portlet-title light">
-                <div class="caption">
-                    <span class="caption-subject font-dark bold uppercase">USER PREFERENCES</span>
-                </div>
-            </div>
-
-            <div class="portlet-body">
-                <div class="row">
-
-                    <div class="col-xs-12 col-md-12">
-                        <div class="">
-                            <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" id="UppManagementTool2_psp">
-                                <thead>
-                                    <tr>
-                                        <th class="sorting"> Role </th>
-                                        <th class="sorting" style="width:125px;"> Action </th>
-                                        <th class="sorting" style="width:125px;"> Type </th>
-                                        <th class="sorting" style="width:85px;"> Preference </th>                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="ID" class="odd gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>weight</td>
-                                        <td>10</td>
-                                        
-
-                                    </tr>
-
-                                    <tr id="ID" class="even gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>name</td>
-                                        <td>7</td>                                        
-
-                                    </tr>
-
-                                    <tr id="ID" class="odd gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>age</td>
-                                        <td>3</td>
-
-                                    </tr>
-
-                                    <tr id="ID" class="even gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>sex</td>
-                                        <td>1</td>
-
-                                    </tr>
-
-                                    <tr id="ID" class="odd gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>name</td>
-                                        <td>10</td>                                        
-
-                                    </tr>
-
-                                    <tr id="ID" class="odd gradeX">
-                                        <td>Doctor</td>
-                                        <td>read</td>
-                                        <td>age</td>
-                                        <td>10</td>
-
-                                    </tr>
-
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!--  ------------------------------------------------------------------------------------------- -->
-<!-- ---------------------------- END TAB LIST -------------------------------------------------- -->
+<!-- ------------------------------------ END  -------------------------------------------------- -->
 <!--  ------------------------------------------------------------------------------------------- -->
 
 
@@ -534,7 +569,20 @@
             color: #444;
             opacity: 1;
         }
-    </style>
+
+        .portlet-no-bottom-margin { margin-bottom: 0 !important; }
+
+
+        #chartdiv1 { width: 100%; height:500px; font-size:12px; }					
+        #chartdiv2 { width: 100%; height:500px; font-size:12px; }					
+        #chartdiv3 { width: 100%; height:500px; font-size:12px; }					
+        #chartdiv4 { width: 100%; height:500px; font-size:12px; }					
+        #chartdiv5 { width: 100%; height:500px; font-size:121px; }					
+</style>
+
+
+        
+    
 
 
 }
@@ -552,7 +600,13 @@
     <script src="~/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/jquery.input-ip-address-control-1.0.min.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-}
+
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    }
 
 @section PageScripts {
     <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
@@ -560,9 +614,14 @@
     <script src="~/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/components-bootstrap-touchspin.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/form-input-mask.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/components-bootstrap-touchspin.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.numeric.min.js" type="text/javascript"></script>
+
+    <script src="~/assets/pages/scripts/google-loader.js" type="text/javascript"></script>
+
 
     @* the next js creates filter, search and pagination on the tables *@
     <script src="~/assets/pages/scripts/operando-uppmanagementtool-table-managed.js" type="text/javascript"></script>
-    <script src="~/assets/pages/scripts/operando-uppmanagementtool-bootstrap-select.js" type="text/javascript"></script> 
+    <script src="~/assets/pages/scripts/operando-uppmanagementtool-chart.js" type="text/javascript"></script>
+    @*<script src="~/assets/pages/scripts/operando-uppmanagementtool-bootstrap-select.js" type="text/javascript"></script>*@ 
 }

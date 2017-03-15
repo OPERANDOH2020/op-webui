@@ -15,44 +15,47 @@
                 <li>
                     <a href="#tab_@osp.PolicyUrl.GetHashCode()" data-toggle="tab" aria-expanded="false"> @osp.PolicyUrl </a>
                 </li>
-             }
+            }
         </ul>
     </div>
 
     <div class="col-md-9 col-sm-9 col-xs-9 tabs-custom-operando">
-        <div class="col-md-9 col-sm-9 col-xs-9 tabs-custom-operando">
-            <div class="portlet light">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <span class="caption-subject font-dark bold uppercase">Privacy wizard</span>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <div class="col-md-10">
-                        <p>You can use our privacy wizard to generate a recomended privacy policy quickly and easily.</p>
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <p>
-                            <button type="button" class="btn yellow-gold">Start</button>
-                        </p>
-                    </div>
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-dark bold uppercase">Privacy wizard</span>
                 </div>
             </div>
-            
-            <div class="tab-content">
-                @foreach (var osp in ViewBag.ospppList)
+            <div class="portlet-body row">
+                <div class="col-md-10">
+                    <p>
+                        Your privacy preferences are shown here. You can see, and change, which organisations have access to your data and how it is used.
+                        <br/>
+                        These settings are enforced automatically for you by OPERANDO, an independent platform, to ensure that your data is only used in ways which you have agreed to.
+                    </p>
+                    <p>You can use our privacy wizard to generate a recomended privacy policy quickly and easily.</p>
+                </div>
+                <div class="col-md-2 text-right">
+                    <p> <button type="button" class="btn yellow-gold">Start</button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content">
+
+            @foreach (var osp in ViewBag.ospppList)
             {
                 <!-- BEGIN TAB @osp.PolicyUrl CONTENT -->
-                    <div class="portlet light tab-pane fade" id="tab_@osp.PolicyUrl.GetHashCode()">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <span class="caption-subject font-dark bold uppercase">@osp.PolicyUrl privacy settings</span>
-                            </div>
+                <div class="portlet light tab-pane fade" id="tab_@osp.PolicyUrl.GetHashCode()">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="caption-subject font-dark bold uppercase">@osp.PolicyUrl privacy settings</span>
                         </div>
-                        <div class="portlet-body form">
-                            <p>Your privacy settings are:</p>
-                            <form class="form-horizontal" role="form" method="post" name="@osp.PolicyUrl form">
-                                <div class="form-body">
+                    </div>
+                    <div class="portlet-body form">
+                        <p>Your privacy settings are:</p>
+                        <form class="form-horizontal" role="form" method="post" name="@osp.PolicyUrl form">
+                            <div class="form-body">
 
                                 @foreach (var policy in osp.Policies)
                                 {
@@ -64,24 +67,24 @@
                                                     <input type="checkbox"
                                                            name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode()"
                                                            value="@policy.Permission"
-                                                           @if (policy.Permission == true) { @: checked="checked"
-                                                                                                                          }> @policy.Resource
-                                                                                                                        <span></span>
-                                                                                                                    </label>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
+                                                           @if (policy.Permission == true)
+                                                           { @: checked="checked"
+                                                           }> @policy.Resource
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
-                                </div>
-                                <div class="form-actions right">
-                                    <button type="submit" class="btn yellow-gold" name="@osp.PolicyUrl">Update UPP</button>
-                                    <button type="button" class="btn default">Back to default values</button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="form-actions right">
+                                <button type="submit" class="btn yellow-gold" name="@osp.PolicyUrl">Update UPP</button>
+                                <button type="button" class="btn default">Back to default values</button>
+                            </div>
+                        </form>
                     </div>
+                </div>
             }
-            </div>
         </div>
     </div>
 </div>
@@ -90,7 +93,7 @@
 
 
 @section PagePluginStyles {
-<link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
 }
 
 @section PageStyles {

@@ -54,6 +54,7 @@ namespace Operando_AdministrationConsole.Controllers
             return View(logList);
         }
 
+        /* Method modified by IT Innovation Centre 2017 */
         private string getServiceTicket()
         {
             string st = "";
@@ -91,7 +92,7 @@ namespace Operando_AdministrationConsole.Controllers
             try
             {
                 // OSP call to get the list of service providers
-                var filter = "filter=\"%7B%27policyText%27:%27%27%7D\"";
+                var filter = "{\"policy_text\" : \"\"}";
                 var response = instance.OSPGet(filter);
                 ViewBag.ospppList = response;
                 return View(response);
@@ -132,7 +133,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             try
             {
-                var filterOSP = "filter=\"%7B%27policyText%27:%27%27%7D\"";
+                var filterOSP = "{\"policy_text\" : \"\"}";
                 var response = getInstance.OSPGet(filterOSP);
                 ViewBag.ospppList = response;
 
@@ -204,7 +205,7 @@ namespace Operando_AdministrationConsole.Controllers
                         found = true;
                         Debug.Print("Found matching UPP consent for UPDATE:" + consent.ToString());
                         OSPConsents updateConsent = new OSPConsents();
-                        updateConsent.OspId = selectedOSP.PolicyUrl;
+                        updateConsent.OspId = selectedOSP.OspPolicyId;
                         updateConsent.AccessPolicies = selectedOSP.Policies;
                         newSOP.Add(updateConsent);
                     }
@@ -220,7 +221,7 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     Debug.Print("Add new consent to OSP policy: " + selectedOSP.PolicyUrl);
                     OSPConsents newConsents = new OSPConsents();
-                    newConsents.OspId = selectedOSP.PolicyUrl;
+                    newConsents.OspId = selectedOSP.OspPolicyId;
                     newConsents.AccessPolicies = selectedOSP.Policies;
                     newSOP.Add(newConsents);
                 }
@@ -238,6 +239,11 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         public ActionResult PrivacyWizard()
+        {
+            return View();
+        }
+
+        public ActionResult PrivacyQuestionnaire()
         {
             return View();
         }

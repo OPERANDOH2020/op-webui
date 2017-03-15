@@ -183,7 +183,7 @@
             policyModel.removePolicy(id);
         })
         .fail(function () {
-            showAlert("The regulation could not be deleted. Please try again.");
+            showAlert("The private policy could not be deleted. Please try again.");
         });
     }
 

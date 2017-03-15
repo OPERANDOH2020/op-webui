@@ -7995,7 +7995,7 @@
             <div class="panel-body">
                 <section class="sw-operation-description">
                     <p>HTTP Request for Report</p>
-
+                    Example: http://integration.operando.esilab.org:8122/Report/Report?_format=pdf&_reportid=4
                 </section>
 
                 <section class="sw-request-params">
@@ -8018,8 +8018,24 @@
                                 </td>
                                 <td>query</td>
                                 <td>
-                                    <span class="json-property-type">string</span>    <span class="json-property-format">(string)</span>
+                                    <span class="json-property-type">int</span>    <span class="json-property-format">(int)</span>
                                     <span class="json-property-range" title="Value limits"></span>
+
+                                </td>
+                                <td>
+                                    <span class="json-property-required"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    _format
+                                <td>
+                                    <p>Sets the format of the returned report.</p>
+                                </td>
+                                <td>query</td>
+                                <td>
+                                    <span class="json-property-type">string</span>    <span class="json-property-format">(string)</span>
+                                    <span class="json-property-range" title="Value limits">Accepted value: PDF, HTML</span>
 
                                 </td>
                                 <td>
@@ -8066,6 +8082,70 @@
                             </div>
                         </dd>
                     </dl>
+
+                    <dl>
+                        <dt class="sw-response-200">
+                            404 Not Found
+
+                        </dt>
+                        <dd class="sw-response-200">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Report not found</p>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 sw-response-model">
+                                </div>
+
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl>
+                        <dt class="sw-response-200">
+                            401 Unauthorized
+
+                        </dt>
+                        <dd class="sw-response-200">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Missing, invalid or expired service-ticket in HTTP Header </p>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 sw-response-model">
+                                </div>
+
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl>
+                        <dt class="sw-response-200">
+                            400 Bad Request
+
+                        </dt>
+                        <dd class="sw-response-200">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Wrong or missing _reportID and _format query parameters</p>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 sw-response-model">
+                                </div>
+
+                            </div>
+                        </dd>
+                    </dl>
+
                 </section>
             </div>
         </div>
