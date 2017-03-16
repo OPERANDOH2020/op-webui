@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Operando_AdministrationConsole.Models;
-using System.Web.Script.Serialization;
 using System.Net;
 using Newtonsoft.Json;
-using System.Web.Helpers;
 using Newtonsoft.Json.Linq;
-using System.Globalization;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
 using System.Configuration;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -20,6 +17,7 @@ namespace Operando_AdministrationConsole.Controllers
     public class DataSubjectController : Controller
     {
         public string errMsg = String.Empty;
+        private QRootObject qGet;
 
         public ActionResult DataAccessLogs()
         {
@@ -295,11 +293,52 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-        public ActionResult PrivacyQuestionnaire()
+
+        public async Task<ActionResult> PrivacyQuestionnaire()
         {
+            using (HttpClient client = new HttpClient())
+            {
+                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie/0/0/");
+                var result = await client.GetAsync(qUri);
+                Response.StatusCode = (int)result.StatusCode;
+                var content = await result.Content.ReadAsStringAsync();
+                qGet = JsonConvert.DeserializeObject<QRootObject>(content);
+                // overload statement.rating with IDs in order to parse later the form manually
+                int counter = -1;
+                foreach(var cat in qGet.response.questionnaire.category)
+                {
+                    foreach(var statement in cat.statements)
+                    {
+                        statement.rating = counter--;
+                    }
+                }
+                ViewBag.questionnaire = qGet.response.questionnaire;
+            }
             return View();
         }
 
+        [HttpPost]
+        public ActionResult PrivacyQuestionnaire(FormCollection formCol)
+        {
+            string selectedButton = Request.Form["radio1"].ToString();
+
+            foreach (var cat in qGet.response.questionnaire.category)
+            {
+                foreach (var statement in cat.statements)
+                {
+                    Debug.Print("RESPONSE: " + Request.Form["radio"+statement.rating.ToString()].ToString());
+                    // check rating here
+                }
+            }
+            
+            /* foreach(string item in Request.Form)
+            {
+                Debug.Print("VAR" + item + Request.Form[item].ToString());
+            } */
+
+            
+            return View();
+        }
 
     }
 }

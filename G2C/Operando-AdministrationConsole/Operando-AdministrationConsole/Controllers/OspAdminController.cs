@@ -4,21 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using System.Configuration;
-using System.Linq.Expressions;
 using System.Net.Http;
 using System.Text;
-using eu.operando.common;
 using eu.operando.common.Services;
 using eu.operando.core.bda;
 using eu.operando.core.bda.Model;
 using Operando_AdministrationConsole.Models.OspAdminModels;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -524,12 +521,12 @@ namespace Operando_AdministrationConsole.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie");
+                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie/0/0/");
                 //StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(policy), Encoding.UTF8, "application/json");
                 var result = await client.GetAsync(qUri);
                 Response.StatusCode = (int)result.StatusCode;
                 var content = await result.Content.ReadAsStringAsync();
-                
+                //QGetQuestionnaire qGet = JsonConvert.DeserializeObject<QGetQuestionnaire>(content);
                 return View();
             }
         }
