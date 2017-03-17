@@ -34,49 +34,17 @@
         <div class="col-md-12 col-sm-12 col-xs-12 tabs-custom-operando">
             <div class="tab-content">
                 <div class="portlet light">
-                    <div class="tabbable tabbable-tabdrop">
-                        <ul class="nav nav-pills">
-                            <li class="active"><a href="#menuModules01" data-toggle="tab" aria-expanded="true" onclick="hideTab('menuModules', '01'); $('#menuModules01').addClass('active');">Tactical Overview</a></li>
-                            <li><a href="#menuModules02" data-toggle="tab" aria-expanded="false" onclick="hideTab('menuModules', '02'); $('#menuModules02').addClass('active');">Hosts</a></li>
-                            <li><a href="#menuModules03" data-toggle="tab" aria-expanded="false" onclick="hideTab('menuModules', '03'); $('#menuModules03').addClass('active');">Services</a></li>
-                            <li><a href="#menuModules04" data-toggle="tab" aria-expanded="false" onclick="hideTab('menuModules', '04'); $('#menuModules04').addClass('active');">Problems</a></li>
-                        </ul>
-                    </div>
-
-                    <!--  -------------------------- NAVIGATION MENU TOP ------------------------------------------ -->
-                    <!--  ------------------------------------------------------------------------------------------ -->
-                    <!--  -------------------------- BEGIN TAB 01 CONTENT ------------------------------------------ -->
-                    <!--  ------------------------------------------------------------------------------------------ -->
                     <div class="tab-pane active" id="menuModules01">
-                        <iframe src="http://www.operando.eu" ></iframe>
+                        <iframe src="http://nagiosadmin:nagios@integration.operando.esilab.org:8106/nagios/" ></iframe>
                     </div>
-                    <!--  ------------------------------------------------------------------------------------------ -->
-                    <!--  -------------------------- BEGIN TAB 02 CONTENT ------------------------------------------ -->
-                    <!--  ------------------------------------------------------------------------------------------ -->
-                    <div class="tab-pane fade" id="menuModules02">
-
-                        <iframe src="http://www.operando.eu/servizi/moduli/moduli_fase01b.aspx"></iframe>
-                    </div>
-
-                    <!--  ------------------------------------------------------------------------------------------ -->
-                    <!--  -------------------------- BEGIN TAB 03 CONTENT ------------------------------------------ -->
-                    <!--  ------------------------------------------------------------------------------------------ -->
-                    <div class="tab-pane fade" id="menuModules03">
-
-                        <iframe src="http://www.operando.eu/servizi/Menu/dinamica.aspx?idSezione=17370&idArea=17911&idCat=17911&ID=17911&TipoElemento=area"></iframe>
-                    </div>
-
-                    <!--  ------------------------------------------------------------------------------------------ -->
-                    <!--  -------------------------- BEGIN TAB 04 CONTENT ------------------------------------------ -->
-                    <!--  ------------------------------------------------------------------------------------------ -->
-                    <div class="tab-pane fade" id="menuModules04">
-
-                        <iframe src="http://www.operando.eu/servizi/Menu/dinamica.aspx?idSezione=17370&idArea=17985&idCat=17993&ID=17993&TipoElemento=categoria"></iframe>
-                    </div>
+                    
                 </div>
             </div>
-
-            <!-- END PAGE BASE CONTENT -->
+            
+        </div>
+    </div>
+</div>
+        <!-- END PAGE BASE CONTENT -->
 
 
             @section PagePluginStyles {
