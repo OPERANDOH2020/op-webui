@@ -66,7 +66,7 @@
                         @foreach (var category in ViewBag.questionnaire.category)
                         {
                             <div class="tab-pane @(cCount == 1 ? "active" : "")" id="tab@(cCount)">
-                                <h3 class="block">Step @cCount</h3>
+                                <h3 class="block">Step @(cCount): @category.title</h3>
                                 @foreach (var statement in category.statements)
                                 {
                                     <div class="row">

@@ -17,7 +17,7 @@ namespace Operando_AdministrationConsole.Controllers
     public class DataSubjectController : Controller
     {
         public string errMsg = String.Empty;
-        private QRootObject qGet;
+        //private QRootObject qGet;
 
         public ActionResult DataAccessLogs()
         {
@@ -302,41 +302,52 @@ namespace Operando_AdministrationConsole.Controllers
                 var result = await client.GetAsync(qUri);
                 Response.StatusCode = (int)result.StatusCode;
                 var content = await result.Content.ReadAsStringAsync();
-                qGet = JsonConvert.DeserializeObject<QRootObject>(content);
+                QRootObject qGet = JsonConvert.DeserializeObject<QRootObject>(content);
                 // overload statement.rating with IDs in order to parse later the form manually
-                int counter = -1;
+                int counter = 101;
                 foreach(var cat in qGet.response.questionnaire.category)
                 {
                     foreach(var statement in cat.statements)
                     {
-                        statement.rating = counter--;
+                        statement.rating = counter++;
                     }
                 }
+                Session["questionnaire"] = qGet;
                 ViewBag.questionnaire = qGet.response.questionnaire;
             }
             return View();
         }
 
         [HttpPost]
-        public ActionResult PrivacyQuestionnaire(FormCollection formCol)
+        public async Task<ActionResult> PrivacyQuestionnaire(FormCollection formCol)
         {
-            string selectedButton = Request.Form["radio1"].ToString();
+            //string selectedButton = Request.Form["radio1"].ToString();
+            var qGet = Session["questionnaire"] as QRootObject;
+            Session["questionnaire"] = null;
 
             foreach (var cat in qGet.response.questionnaire.category)
             {
                 foreach (var statement in cat.statements)
                 {
-                    Debug.Print("RESPONSE: " + Request.Form["radio"+statement.rating.ToString()].ToString());
-                    // check rating here
+                    //foreach(string item in Request.Form)
+                    //Debug.Print("VAR" + item + Request.Form[item].ToString());
+                    statement.rating = int.Parse(Request.Form["radio" + statement.rating].ToString());
                 }
             }
             
-            /* foreach(string item in Request.Form)
+            using (HttpClient client = new HttpClient())
             {
-                Debug.Print("VAR" + item + Request.Form[item].ToString());
-            } */
-
-            
+                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie/0/0/");
+                try {
+                    var httpResponseMessage = await client.PostAsJsonAsync(qUri, qGet);
+                    if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+                    {
+                        // update UPP
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                } 
+                catch (OperationCanceledException) { }
+            }
             return View();
         }
 
