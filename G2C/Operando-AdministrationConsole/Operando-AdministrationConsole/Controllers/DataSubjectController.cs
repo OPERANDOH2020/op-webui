@@ -342,7 +342,7 @@ namespace Operando_AdministrationConsole.Controllers
                     var httpResponseMessage = await client.PostAsJsonAsync(qUri, qGet);
                     if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
                     {
-                        // update UPP
+                        //todo: update UPP
                         return RedirectToAction("Index", "Dashboard");
                     }
                 } 
