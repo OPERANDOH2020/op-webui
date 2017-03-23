@@ -35,7 +35,7 @@ namespace eu.operando.core.ldb
             }
 
 
-            JArray results = JsonConvert.DeserializeObject<dynamic>(jsonString);
+            JArray results = !string.IsNullOrEmpty(jsonString) ? JsonConvert.DeserializeObject<dynamic>(jsonString) : new JArray();
 
             // if I have results from the Json deserialization
             if (results.Count > 0)
@@ -72,10 +72,6 @@ namespace eu.operando.core.ldb
 
                     logList.Add(logItem);
                 }
-            }
-            else
-            {
-                throw new Exception("No json results found");
             }
 
 
