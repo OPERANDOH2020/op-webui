@@ -1,4 +1,5 @@
 ﻿using System;
+using eu.operando.core.bda.Model;
 
 namespace Operando_AdministrationConsole.Models.DashboardModels.WidgetModels
 {
@@ -9,5 +10,14 @@ namespace Operando_AdministrationConsole.Models.DashboardModels.WidgetModels
         public string RequesterOsp { get; set; }
         public string RequestDetail { get; set; }
         public DateTime RequestDate { get; set; }
+
+        public DataExtractRequestModel(ExtractionRequest request)
+        {
+            RequesterName = request.RequesterName;
+            RequesterEmail = request.ContactEmail;
+            RequestDetail = request.RequestSummary;
+            RequesterOsp = request.Osp;
+            RequestDate = request.RequestDate;
+        }
     }
 }

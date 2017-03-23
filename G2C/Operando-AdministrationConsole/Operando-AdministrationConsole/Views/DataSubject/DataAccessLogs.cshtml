@@ -1,4 +1,5 @@
-﻿
+﻿@using Operando_AdministrationConsole.Models.DataSubjectModels
+@model IList<DataAccessLogModel>
 @{
     ViewBag.MenuSection = "Data Subject";
     ViewBag.Title = "Data Access Logs";
@@ -53,25 +54,25 @@
                     {
                         foreach (var item in Model)
                         {
-                            <tr class="@item.logLevel">
+                            <tr class="@item.LogLevel">
                                 <td>
-                                    @if (item.logLevel == "INFO")
+                                    @if (item.LogLevel == "INFO")
                                     {
                                         <div class="label label-sm label-success">
                                             <i class="fa fa-info-circle"></i>
                                         </div> <span class="hidden">ALLOWED</span>
                                     }
-                                    else if (item.logLevel == "WARN")
+                                    else if (item.LogLevel == "WARN")
                                     {
                                         <div class="label label-sm label-danger">
                                             <i class="fa fa-warning"></i>
                                         </div><span class="hidden">DENIED</span>
                                     }
                                 </td>
-                                <td>@item.logDate</td>
-                                <td>@item.requesterType - @item.requesterId</td>
-                                <td>@item.title</td>
-                                <td>@item.description</td>
+                                <td>@item.LogDate</td>
+                                <td>@item.RequesterType - @item.RequesterId</td>
+                                <td>@item.Title</td>
+                                <td>@item.Description</td>
                                 <td>
                                     <a class="btn btn-circle btn-sm yellow-gold" href="@Url.Action("AccessPreferences", "DataSubject")"> Edit OSP Settings </a>
                                 </td>

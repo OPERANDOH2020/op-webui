@@ -232,11 +232,14 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BdaModels.cs" />
+    <Compile Include="Models\DashboardModels\NotificationsModel.cs" />
+    <Compile Include="Models\DashboardModels\WidgetModels\DataRequestsModel.cs" />
     <Compile Include="Models\DashboardModels\DashboardModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractRequestModel.cs" />
-    <Compile Include="Models\DataAccessLog.cs" />
+    <Compile Include="Models\DashboardModels\WidgetModels\NotificationsWidgetModel.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
+    <Compile Include="Models\DataSubjectModels\DataAccessLogModel.cs" />
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataScheduleModel.cs" />
@@ -5823,6 +5826,8 @@
     <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditorModal.cshtml" />
     <Content Include="Views\Dashboard\Widgets\_DataExtractRequests.cshtml" />
     <Content Include="Views\Dashboard\Widgets\_DataExtracts.cshtml" />
+    <Content Include="Views\Dashboard\Widgets\_DataRequests.cshtml" />
+    <Content Include="Views\Dashboard\Widgets\_Notifications.cshtml" />
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
     <Content Include="Views\PspAdmin\ServiceMonitoring.cshtml" />
@@ -5866,6 +5871,10 @@
     <ProjectReference Include="..\eu.operando.core.bda\eu.operando.core.bda.csproj">
       <Project>{00664eb8-aaf9-4e34-a9f5-6fc5cca7dd70}</Project>
       <Name>eu.operando.core.bda</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eu.operando.core.ldb\eu.operando.core.ldb.csproj">
+      <Project>{3E09F267-B1C4-4BDB-AFFC-38C235BE8CAB}</Project>
+      <Name>eu.operando.core.ldb</Name>
     </ProjectReference>
     <ProjectReference Include="..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>

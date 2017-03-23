@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Operando_AdministrationConsole.Models.DashboardModels.WidgetModels.DataRequestsModel>
+
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-dark hide"></i>
+            <span class="caption-subject font-dark bold uppercase">Most recent Data Requests</span>
+        </div>
+        <div class="tools">
+            <a href="@Url.Action("DataAccessLogs", "DataSubject")">View all <i class="icon-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <ul class="feeds">
+            @foreach (var log in Model)
+            {
+                <li class="font-grey-gallery">
+                    <div class="col1">
+                        <div class="cont">
+                            <div class="cont-col1">
+                                @if (log.WasAllowed.HasValue)
+                                {
+                                    if (log.WasAllowed.Value)
+                                    {
+                                        <div class="label label-sm label-success">
+                                            <i class="fa fa-info-circle"></i>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="label label-sm label-danger">
+                                            <i class="fa fa-warning"></i>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="cont-col2">
+                                <div class="desc">@log.Description </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="date">@log.Timestamp.ToString("G")</div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

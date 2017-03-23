@@ -9,6 +9,8 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Threading.Tasks;
 using eu.operando.core.bda;
+using eu.operando.core.ldb;
+using Operando_AdministrationConsole.Helper;
 using Operando_AdministrationConsole.Models.DashboardModels;
 using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels;
 
@@ -18,6 +20,7 @@ namespace Operando_AdministrationConsole.Controllers
     {
         ReportManager reportManager = new ReportManager();
         private readonly IBdaClient _bdaClient;
+        private readonly ILdbClient _ldbService;
 
         /// <summary>
         /// TODO -- how to get the OSP the current user (an OSP admin) works for
@@ -27,6 +30,7 @@ namespace Operando_AdministrationConsole.Controllers
         public DashboardController()
         {
             _bdaClient = new BdaClient();
+            _ldbService = new LdbClient();
         }
 
         public ActionResult EmptyPage()
@@ -234,7 +238,15 @@ namespace Operando_AdministrationConsole.Controllers
 
         public ActionResult Notifications()
         {
-            return View();
+            var username = Session["Username"] as string;
+
+            var logMessages = _ldbService.GetNotifications(username);
+
+            var model = logMessages.Select(_ => new NotificationsModel(_))
+            .OrderByDescending(_ => _.TimeStamp)
+            .ToList();
+
+            return View(model);
         }
 
         public ActionResult UserProfile()
@@ -243,19 +255,41 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         #region Widgets
+
+        [HttpGet]
+        public PartialViewResult NotificationsWidget(int count = 5)
+        {
+            var username = Session["Username"] as string;
+
+            var logMessages = _ldbService.GetNotifications(username);
+
+            var model = logMessages.Select(_ => new NotificationsWidgetModel(_))
+            .OrderByDescending(_ => _.TimeStamp)
+            .Take(count).ToList();
+
+            return PartialView("Widgets/_Notifications", model);
+        }
+
+        [HttpGet]
+        public PartialViewResult DataRequestsWidget(int count = 5)
+        {
+            var username = Session["Username"] as string;
+
+            var logMessages = _ldbService.GetDataAccessLogs(username);
+
+            var model = logMessages.Select(_ => new DataRequestsModel(_))
+            .OrderByDescending(_ => _.Timestamp)
+            .Take(count);
+
+            return PartialView("Widgets/_DataRequests", model);
+        }
+
         [HttpGet]
         public async Task<PartialViewResult> DataExtractRequestsWidget()
         {
             var requests = await _bdaClient.GetUnfulfilledBdaExtractionRequestsAsync();
 
-            var model = requests.Select(_ => new DataExtractRequestModel
-            {
-                RequesterName = _.RequesterName,
-                RequesterEmail = _.ContactEmail,
-                RequestDetail = _.RequestSummary,
-                RequesterOsp = _.Osp,
-                RequestDate = _.RequestDate
-            });
+            var model = requests.Select(_ => new DataExtractRequestModel(_));
 
             return PartialView("Widgets/_DataExtractRequests", model);
         }
@@ -269,11 +303,8 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 var job = await _bdaClient.GetJobByIdAsync(_.JobId);
 
-                return new DataExtractsModel
+                return new DataExtractsModel(_)
                 {
-                    ExtractionDate = _.ExecutionDate,
-                    Version = _.VersionNumber,
-                    DownloadUrl = _.DownloadLink,
                     JobName = job?.JobName
                 };
             })
@@ -286,80 +317,6 @@ namespace Operando_AdministrationConsole.Controllers
 
         #endregion Widgets
 
-
-
-
-        //// GET: Dashboard/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //// GET: Dashboard/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: Dashboard/Create
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: Dashboard/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Dashboard/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: Dashboard/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Dashboard/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 
 

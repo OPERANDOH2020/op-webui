@@ -4,13 +4,15 @@ using System.Web.Mvc;
 using Operando_AdministrationConsole.Models;
 using System.Net;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
 using System.Configuration;
+using System.Linq;
 using eu.operando.interfaces.aapi;
 using System.Threading.Tasks;
 using System.Net.Http;
+using eu.operando.core.ldb;
+using Operando_AdministrationConsole.Models.DataSubjectModels;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -18,6 +20,7 @@ namespace Operando_AdministrationConsole.Controllers
     public class DataSubjectController : Controller
     {
         private readonly IAapiClient _aapiClient;
+        private readonly ILdbClient _ldbClient;
 
         public string errMsg = String.Empty;
         //private QRootObject qGet;
@@ -25,89 +28,27 @@ namespace Operando_AdministrationConsole.Controllers
         public DataSubjectController()
         {
             _aapiClient = new AapiClient();
+            _ldbClient = new LdbClient();
         }
 
         public ActionResult DataAccessLogs()
         {
-            List<DataAccessLog> logList = new List<DataAccessLog>();
+            List<DataAccessLogModel> logList = new List<DataAccessLogModel>();
 
-            // TODO: SUBSTITUTE WITH REAL LOGGED USER ID -- WAITING FOR FEEDBACK FROM PAUL
-            //string loggedUserId = "1"; 
-
-            // TODO: STILL PROBLEMS WITH FILTERING -- WAITING FOR FEEDBACK FROM COSTAS
-            //var jsonURL = String.Format("http://server02tecnalia.westeurope.cloudapp.azure.com:8091/operando/core/ldbsearch/log/search/?dateFrom&dateTo&logLevel&requesterType={0}&requesterId={1}&logPriority&title&keyWords", "USER", loggedUserId );
-            var jsonURL = "http://integration.operando.esilab.org:8091/operando/core/ldbsearch/log/search";
-
-            WebClient client = new WebClient();
-            string jsonString = client.DownloadString(jsonURL);
-
-
-            // da cancellare
-            /*string jsonString;
             try
             {
-                jsonString = client.DownloadString(jsonURL);
+                var username = Session["Username"] as string;
+
+                var entities = _ldbClient.GetDataAccessLogs(username);
+
+                logList = entities.Select(_ => new DataAccessLogModel(_)).ToList();
             }
-            catch(Exception e)
-            {
-                DataAccessLog logItem = new DataAccessLog();
-                string data = "22/11/2016";
-
-                logItem.logDate = Convert.ToDateTime(data);
-                logItem.requesterType = "requesterType";
-                logItem.requesterId = "requesterId";
-                logItem.logPriority = "logPriority";
-                logItem.logLevel = "INFO";
-                logItem.title = "title";
-                logItem.description = "description";
-
-                logList.Add(logItem);
-
-                return View(logList);
-            }*/
-            // fine cancellare
-
-
-            JArray results = JsonConvert.DeserializeObject<dynamic>(jsonString);
-
-            // if I have results from the Json deserialization
-            if(results.Count > 0)
-            {
-                foreach (JObject content in results.Children<JObject>())
-                {
-                    DataAccessLog logItem = new DataAccessLog();
-
-                    foreach (JProperty prop in content.Properties())
-                    {
-                        if (prop.Name == "logDate")
-                        {
-                            string data = prop.Value.ToString().Replace(",",".");
-                            logItem.logDate = Convert.ToDateTime(data);
-                        }
-                            
-                        if (prop.Name == "requesterType")
-                            logItem.requesterType = prop.Value.ToString();
-                        if (prop.Name == "requesterId")
-                            logItem.requesterId = prop.Value.ToString();
-                        if (prop.Name == "logPriority")
-                            logItem.logPriority = prop.Value.ToString();
-                        if (prop.Name == "logLevel")
-                            logItem.logLevel = prop.Value.ToString();
-                        if (prop.Name == "title")
-                            logItem.title = prop.Value.ToString();
-                        if (prop.Name == "description")
-                            logItem.description = prop.Value.ToString();
-                    }
-
-                    logList.Add(logItem);
-                }
-            }
-            else
+            catch (Exception)
             {
                 errMsg = "Impossible to retrieve logs";
                 ViewBag.Error = errMsg;
             }
-            
+
 
             return View(logList);
         }
