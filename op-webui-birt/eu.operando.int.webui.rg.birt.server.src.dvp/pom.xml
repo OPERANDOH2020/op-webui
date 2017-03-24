@@ -2,12 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>eu.operando.webui</groupId>
-	<artifactId>eu.operando.webui.birt.server</artifactId>
-	<version>1.0.0</version>
+	<artifactId>eu.operando.int.webui.rg.birt.server.src.dvp</artifactId>
 	<packaging>war</packaging>
-	<name>eu.operando.webui.birt.server</name>
-
+	<parent>
+		<groupId>eu.operando.int</groupId>
+		<artifactId>eu.operando.int.src.dvp</artifactId>
+		<version>ALPHA</version>
+	</parent>
+	
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
