@@ -10,7 +10,7 @@
     <div class="portlet-body">
         <div class="scroller" style="height: 338px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
             <div class="general-item-list">
-                @foreach (var request in Model)
+                @foreach (var request in Model.OrderByDescending(r => r.RequestDate))
                 {
                     <div class="item">
                         <div class="item-head">

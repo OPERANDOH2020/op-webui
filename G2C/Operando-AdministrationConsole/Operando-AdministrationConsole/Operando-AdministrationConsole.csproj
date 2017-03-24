@@ -232,11 +232,14 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BdaModels.cs" />
+    <Compile Include="Models\DashboardModels\NotificationsModel.cs" />
+    <Compile Include="Models\DashboardModels\WidgetModels\DataRequestsModel.cs" />
     <Compile Include="Models\DashboardModels\DashboardModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractRequestModel.cs" />
-    <Compile Include="Models\DataAccessLog.cs" />
+    <Compile Include="Models\DashboardModels\WidgetModels\NotificationsWidgetModel.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
+    <Compile Include="Models\DataSubjectModels\DataAccessLogModel.cs" />
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataScheduleModel.cs" />
@@ -244,6 +247,8 @@
     <Compile Include="Models\QuestionnaireModels.cs" />
     <Compile Include="Models\QViewModels.cs" />
     <Compile Include="Models\Regulation.cs" />
+    <Compile Include="Models\RegulatorModels\ComplianceReportModel.cs" />
+    <Compile Include="Models\RegulatorModels\ReportsModel.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -5134,6 +5139,7 @@
     <Content Include="assets\pages\scripts\charts-morris.min.js" />
     <Content Include="assets\pages\scripts\coming-soon.js" />
     <Content Include="assets\pages\scripts\coming-soon.min.js" />
+    <Content Include="assets\pages\scripts\operando-compliancereports.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-maxlength.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-maxlength.min.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-multiselect.js" />
@@ -5805,8 +5811,7 @@
     <Content Include="Views\Access\Registration.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagement.cshtml" />
     <Content Include="Views\PspAdmin\ModulesSettings.cshtml" />
-    <Content Include="Views\Regulator\Reports.cshtml" />
-    <Content Include="Views\Regulator\RegulationCompliance.cshtml" />
+    <Content Include="Views\Regulator\ComplianceReports.cshtml" />
     <Content Include="Views\Regulator\PolicyStatements.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementEdit.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementAdd.cshtml" />
@@ -5821,9 +5826,10 @@
     <Content Include="Views\PspAnalyst\ModelEditors\ScheduleEditorModal.cshtml" />
     <Content Include="Views\Dashboard\Widgets\_DataExtractRequests.cshtml" />
     <Content Include="Views\Dashboard\Widgets\_DataExtracts.cshtml" />
+    <Content Include="Views\Dashboard\Widgets\_DataRequests.cshtml" />
+    <Content Include="Views\Dashboard\Widgets\_Notifications.cshtml" />
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
-    <Content Include="Views\Regulator\RegulationComplianceDetail.cshtml" />
     <Content Include="Views\PspAdmin\ServiceMonitoring.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -5854,6 +5860,10 @@
       <Project>{594234d1-bb49-41ac-a663-2a1c38807015}</Project>
       <Name>eu.operando.interfaces.aapi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\eu.operando.interfaces.rapi\eu.operando.interfaces.rapi.csproj">
+      <Project>{9D503EFC-4772-4A76-B32E-5F075CD8F27C}</Project>
+      <Name>eu.operando.interfaces.rapi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eu.operando.common\eu.operando.common.csproj">
       <Project>{2CC03D98-B10E-45AA-B859-FE1BE8B6CD99}</Project>
       <Name>eu.operando.common</Name>
@@ -5861,6 +5871,10 @@
     <ProjectReference Include="..\eu.operando.core.bda\eu.operando.core.bda.csproj">
       <Project>{00664eb8-aaf9-4e34-a9f5-6fc5cca7dd70}</Project>
       <Name>eu.operando.core.bda</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eu.operando.core.ldb\eu.operando.core.ldb.csproj">
+      <Project>{3E09F267-B1C4-4BDB-AFFC-38C235BE8CAB}</Project>
+      <Name>eu.operando.core.ldb</Name>
     </ProjectReference>
     <ProjectReference Include="..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>

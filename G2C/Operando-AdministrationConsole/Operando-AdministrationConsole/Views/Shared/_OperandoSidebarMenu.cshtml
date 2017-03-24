@@ -17,7 +17,7 @@
     {
         //
         allView = true;
-    }
+}
     else
     {
         switch (Session["Usertype"].ToString())
@@ -142,7 +142,7 @@
                 </li>
             }
             @if (allView || normal_user)
-            {
+                        {
                 <li class='nav-item @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire")
                 { @activeClass }'>
                     <a href="@Url.Action("PrivacyQuestionnaire", "DataSubject")" class="nav-link ">
@@ -167,7 +167,7 @@
                             @:<span class="selected"></span>
                                         }
                     </a>
-                </li>
+        </li>
             }
             @*</ul>
         </li>*@
@@ -283,8 +283,8 @@
     @* ---------------------------------------------------------------------------- *@
     @* ----------------------------- Big Data Analytics ------------------------------ *@
     @* ---------------------------------------------------------------------------- *@
-
-
+		
+		
         @*<li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-globe"></i>
@@ -385,7 +385,7 @@
                 </li>
             }
             @if (allView || psp_admin)
-            {
+                        {
                 <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig")
                 { @activeClass }'>
                     <a href="@Url.Action("BigDataAnalyticsConfig", "PSPAnalyst")" class="nav-link ">
@@ -436,7 +436,7 @@
                             }
                     </a>
                 </li>
-            }
+                }
             @*</ul>
         </li>*@
 
@@ -503,7 +503,7 @@
         @* ---------------------------------------------------------------------------- *@
         @* ----------------------------- REGULATOR ------------------------------------ *@
         @* ---------------------------------------------------------------------------- *@
-        
+
         <!--
         <li class="heading">
             <h3 class="uppercase">Regulator</h3>
@@ -525,25 +525,10 @@
             {
                 <li class='nav-item @if (currentController == "Regulator" && currentAction == "Reports")
                 { @activeClass }'>
-                    <a href="@Url.Action("Reports", "Regulator")" class="nav-link ">
+                    <a href="@Url.Action("ComplianceReports", "Regulator")" class="nav-link ">
                         <i class="icon-docs"></i>
-                        <span class="title">Compilance Reports</span>
+                        <span class="title">Compliance Reports</span>
                         @if (currentController == "Regulator" && currentAction == "Reports")
-                        {
-                            @:<span class="selected"></span>
-                        }
-                    </a>
-                </li>
-            }
-            @if (allView || regulator)
-            {
-
-                <li class='nav-item @if (currentController == "Regulator" && currentAction == "RegulationCompliance")
-                { @activeClass }'>
-                    <a href="@Url.Action("RegulationCompliance", "Regulator")" class="nav-link ">
-                        <i class="icon-eye"></i>
-                        <span class="title">Privacy Statements</span>
-                        @if (currentController == "Regulator" && currentAction == "RegulationCompliance")
                         {
                             @:<span class="selected"></span>
                         }
