@@ -1,36 +1,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>eu.operando.webui</groupId>
-  <artifactId>eu.operando.webui.birt.server</artifactId>
-  <version>1.0.0</version>
-  <packaging>war</packaging>
-  <name>eu.operando.webui.birt.server</name>
+	<groupId>eu.operando.webui</groupId>
+	<artifactId>eu.operando.webui.birt.server</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+	<name>eu.operando.webui.birt.server</name>
 
-  <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <plugins>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<!--  
-					<url>http://localhost:8080/manager/text</url>
-					<server>TomcatServer</server>
-					<path>/operando/core/bda</path> 					
-					-->
-				</configuration>
-			</plugin>
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<plugins>
+			<!-- We check the value of some properties values -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>				
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo>Displaying values of properties</echo>
+								<echo>[sources.path]=${sources.path}</echo>
+								<echo>[project.build.sourceDirectory]=${project.build.sourceDirectory}</echo>
+								<echo>[server.endpoint.path]=${server.endpoint.path}</echo>
+								<echo>[server.warName]=${server.warName}</echo>
+								<echo>[docker.image.name]=${docker.image.name}</echo>
+								<echo>[docker.image.version]=${docker.image.version}</echo>
+								<echo>[docker.port1.mapping]=${docker.port1.mapping}</echo>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- as the sources are not at a standard place it is necessary to provide 
+				the webxml location -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 				<configuration>
-				<!-- added to support right name of log db search -->
-				    <warName>${user.warName}</warName>				
-				 <!-- end of addition -->				
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webXml>${sources.path}/src/main/webapp/WEB-INF/web.xml</webXml>
+					<warName>${server.warName}</warName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -38,76 +54,33 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
-				  <source>1.7</source>
-				  <target>1.7</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
-  			</plugin>
-			<plugin>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
-<!-- 
+
+			<!-- Plugin to copy the war into generated folder accessible to the docker 
+				file -->
 			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${jetty-version}</version>
-				<configuration>
-					<webApp>
-						<contextPath>/</contextPath>
-					</webApp>
-					<webAppSourceDirectory>target/${project.artifactId}-${project.version}</webAppSourceDirectory>
-					<stopPort>8079</stopPort>
-					<stopKey>stopit</stopKey>
-					<httpConnector>
-						<port>8080</port>
-						<idleTimeout>60000</idleTimeout>
-					</httpConnector>
-				</configuration>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
 				<executions>
 					<execution>
-						<id>start-jetty</id>
-						<phase>pre-integration-test</phase>
+						<id>copy-resource-one</id>
+						<phase>package</phase>
 						<goals>
-							<goal>start</goal>
+							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<scanIntervalSeconds>0</scanIntervalSeconds>
-							<daemon>true</daemon>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-jetty</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
--->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.9.1</version>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/gen/java</source>
-							</sources>
+							<outputDirectory>src/main/docker/generated</outputDirectory>
+							<resources>
+								<resource>
+									<directory>target</directory>
+									<includes>
+										<include>*.war</include>
+									</includes>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
@@ -115,21 +88,19 @@
 			<plugin>
 				<groupId>org.jolokia</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.13.9</version> <!--  last version in https://mvnrepository.com/artifact/org.jolokia/docker-maven-plugin -->
+				<version>0.13.9</version> <!-- last version in https://mvnrepository.com/artifact/org.jolokia/docker-maven-plugin -->
 				<configuration>
 					<images>
 						<image>
-							<alias>${project.artifactId}</alias>
-							<name>${docker.repository.name}:${project.version}</name>
+							<alias>${docker.name}</alias>
+							<name>${docker.image.name}:${docker.image.version}</name>
 							<build>
-								<from>tomcat:7-jre8</from> <!-- in our case we start from tomcat image -->
 								<assembly>
-								    <basedir>/</basedir>
-									<descriptor>docker-assembly.xml</descriptor>
+									<!-- this time we will do it from a docker file element is needed 
+										to switch the usage of the extrenal file -->
+									<dockerFileDir>.</dockerFileDir>
+									<!-- end -->
 								</assembly>
-								<ports>
-									<port>8080</port>
-								</ports>
 							</build>
 							<run>
 								<namingStrategy>alias</namingStrategy>
@@ -143,151 +114,131 @@
 			</plugin>
 			<!-- end of addition -->
 		</plugins>
-	    <resources>
-	      	<resource>
-		        <directory>src/main/resources/config</directory>
-		        <filtering>true</filtering>
-	      	</resource>
-	    </resources>
+		<resources>
+			<resource>
+				<directory>src/main/resources/config</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-		<!-- added to support docker image creation -->
-		<docker.registry.name>localhost:5000/</docker.registry.name><!-- leave empty for docker hub; use e.g. "localhost:5000/" for a local docker registry -->
-        <docker.repository.name>${docker.registry.name}tecnalia/${project.artifactId}</docker.repository.name>
-        <docker.birt.port>8120</docker.birt.port>
- 	    <user.warName>operando#webui#birt</user.warName>
- 	    <mysql.host>localhost</mysql.host>
-        <mysql.port>3306</mysql.port>
- 		<mysql.dbname>operando_logdb</mysql.dbname>
-        <!-- end of addition -->
+		<servlet-api-version>2.5</servlet-api-version>
+		<server.endpoint.path>${operando.webui.rg.birt.endpoint.path}</server.endpoint.path>
+		<server.warName>${server.warName.generated}</server.warName>
+		<docker.name>eu.operando.webui.rg.birt.server</docker.name>
+		<docker.image.name>${docker.registry.name}${docker.submitter}/${docker.name}</docker.image.name>
+		<docker.image.version>${project.version}</docker.image.version>
+		<docker.port1.external>${operando.webui.rg.birt.port}</docker.port1.external>
+		<docker.port1.mapping>${docker.port1.external}:8080</docker.port1.mapping>
+		<mysql.db.host>${operando.mysql.host}</mysql.db.host>
+		<mysql.db.port>${operando.mysql.port}</mysql.db.port>
+		<mysql.db.name>operando_logdb</mysql.db.name>
+		<mysql.db.user>${operando.mysql.root.user}</mysql.db.user>
+		<mysql.db.password>${operando.mysql.root.password}</mysql.db.password>
+		<!-- for config file custimization -->
+		<mysql.port>${operando.mysql.port}</mysql.port>
+		<mysql.host>${operando.mysql.host}</mysql.host>
+		<mysql.dbname>${mysql.db.name}</mysql.dbname>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-<!-- 
-    <dependency>
-	    <groupId>org.eclipse.birt.runtime</groupId>
-	    <artifactId>org.eclipse.birt.runtime</artifactId>
-	    <version>4.2.2</version>
-	</dependency>
- -->
- 	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-		<version>5.0.8</version>
-	</dependency>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- <dependency> <groupId>org.eclipse.birt.runtime</groupId> <artifactId>org.eclipse.birt.runtime</artifactId> 
+			<version>4.2.2</version> </dependency> -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.0.8</version>
+		</dependency>
 
-<!-- 
-	<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>servlet-api</artifactId>
-	    <version>2.5</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.eclipse.birt.runtime</groupId>
-	    <artifactId>viewservlets</artifactId>
-	    <version>4.2.0</version>
-	</dependency>
--->
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> 
+			<version>2.5</version> </dependency> <dependency> <groupId>org.eclipse.birt.runtime</groupId> 
+			<artifactId>viewservlets</artifactId> <version>4.2.0</version> </dependency> -->
 
-<!-- GBE Testing Birt Server dependencies up to 4.6.0 -->
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>javax.xml</artifactId>
-      <version>1.3.4.v201005080400</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>javax.xml.stream</artifactId>
-      <version>1.0.1.v201004272200</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>net.sourceforge.lpg.lpgjavaruntime</artifactId>
-      <version>1.1.0.v201004271650</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>org.w3c.css.sac</artifactId>
-      <version>1.3.1.v200903091627</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>org.w3c.dom.events</artifactId>
-      <version>3.0.0.draft20060413_v201105210656</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>org.w3c.dom.smil</artifactId>
-      <version>1.0.1.v200903091627</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>org.apache.lucene.core</artifactId>
-      <version>3.5.0.v20120725-1805</version>
-    </dependency>   
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>org.eclipse.orbit.mongodb</artifactId>
-      <version>2.10.1.v20130422-1135</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.birt.runtime</groupId>
-      <artifactId>org.mozilla.javascript</artifactId>
-      <version>1.7.5.v201504281450</version>
-    </dependency>
-	<dependency>
-	    <groupId>commons-cli</groupId>
-	    <artifactId>commons-cli</artifactId>
-	    <version>1.0</version>
-	</dependency>    
-	<dependency>
-	    <groupId>commons-discovery</groupId>
-	    <artifactId>commons-discovery</artifactId>
-	    <version>0.2</version>
-	</dependency> 
-	<dependency>
-	    <groupId>org.apache.axis</groupId>
-	    <artifactId>axis</artifactId>
-	    <version>1.4</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.axis</groupId>
-	    <artifactId>axis-jaxrpc</artifactId>
-	    <version>1.4</version>
-	</dependency>   
-	<dependency>
-	    <groupId>org.apache.axis</groupId>
-	    <artifactId>axis-saaj</artifactId>
-	    <version>1.4</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.axis</groupId>
-	    <artifactId>axis-ant</artifactId>
-	    <version>1.4</version>
-	</dependency>
-	               	
+		<!-- GBE Testing Birt Server dependencies up to 4.6.0 -->
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>javax.xml</artifactId>
+			<version>1.3.4.v201005080400</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>javax.xml.stream</artifactId>
+			<version>1.0.1.v201004272200</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>net.sourceforge.lpg.lpgjavaruntime</artifactId>
+			<version>1.1.0.v201004271650</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>org.w3c.css.sac</artifactId>
+			<version>1.3.1.v200903091627</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>org.w3c.dom.events</artifactId>
+			<version>3.0.0.draft20060413_v201105210656</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>org.w3c.dom.smil</artifactId>
+			<version>1.0.1.v200903091627</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>org.apache.lucene.core</artifactId>
+			<version>3.5.0.v20120725-1805</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>org.eclipse.orbit.mongodb</artifactId>
+			<version>2.10.1.v20130422-1135</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.birt.runtime</groupId>
+			<artifactId>org.mozilla.javascript</artifactId>
+			<version>1.7.5.v201504281450</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis-jaxrpc</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis-saaj</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis-ant</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 	</dependencies>
-	
-	<profiles>
-		<profile>
-		  <id>jenkins-dev</id>
-		  <activation>
-            <property>
-                <name>ci</name>
-            </property>
-          </activation>
-		  <properties>
-	        <mysql.host>mysql.integration.operando.dmz.lab.esilab.org</mysql.host>
-		  </properties>
-		</profile>
-	</profiles>
+
 </project>

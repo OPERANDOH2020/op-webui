@@ -32,14 +32,14 @@ node {
 	   	   sh "mv ${sourcesServer}/${sourcesServerPath} ${sources}/${sourcesPath}/sources"	   
 	   }
 	   stage ('Source Maven Install'){
-		   sh "'${mvnHome}/bin/mvn' package install:install -DskipTests -f ${sources}/${sourcesPath}/sources/pom.xml"
+		   sh "'${mvnHome}/bin/mvn' package install:install -Dmaven.test.skip=true -f ${sources}/${sourcesPath}/sources/pom.xml"
 	   }
 	   stage ('Variables echo'){
 		   sh "'${mvnHome}/bin/mvn' antrun:run@echobase -f ${sources}/${sourcesPath}/pom.xml"
 		   sh "'${mvnHome}/bin/mvn' antrun:run@echo -f ${sources}/${sourcesPath}/pom.xml"
 	   }
 	   stage ('Maven Package jar'){
-		   sh "'${mvnHome}/bin/mvn' package -DskipTests -f ${sources}/${sourcesPath}/pom.xml"
+		   sh "'${mvnHome}/bin/mvn' package -Dmaven.test.skip=true -f ${sources}/${sourcesPath}/pom.xml"
 	   }	   
 	   stage ('Maven Docker stop'){
 		   sh "'${mvnHome}/bin/mvn' docker:stop -f ${sources}/${sourcesPath}/pom.xml"
