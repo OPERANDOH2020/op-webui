@@ -65,7 +65,37 @@ namespace eu.operando.core.pdb.cli.Model
             /// Enum Archive for "Archive"
             /// </summary>
             [EnumMember(Value = "Archive")]
-            Archive
+            Archive,
+
+            /// <summary>
+            /// Enum Select for "Select"
+            /// </summary>
+            [EnumMember(Value = "Select")]
+            Select,
+
+            /// <summary>
+            /// Enum Update for "Update"
+            /// </summary>
+            [EnumMember(Value = "Update")]
+            Update,
+
+            /// <summary>
+            /// Enum Insert for "Insert"
+            /// </summary>
+            [EnumMember(Value = "Insert")]
+            Insert,
+
+            /// <summary>
+            /// Enum Delete for "Delete"
+            /// </summary>
+            [EnumMember(Value = "Delete")]
+            Delete,
+
+            /// <summary>
+            /// Enum Create for "Create"
+            /// </summary>
+            [EnumMember(Value = "Create")]
+            Create
         }
 
         /// <summary>

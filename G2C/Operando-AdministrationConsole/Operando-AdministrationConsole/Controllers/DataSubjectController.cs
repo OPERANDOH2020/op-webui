@@ -10,6 +10,7 @@ using eu.operando.core.pdb.cli.Model;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Collections;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -63,7 +64,7 @@ namespace Operando_AdministrationConsole.Controllers
             JArray results = JsonConvert.DeserializeObject<dynamic>(jsonString);
 
             // if I have results from the Json deserialization
-            if(results.Count > 0)
+            if (results.Count > 0)
             {
                 foreach (JObject content in results.Children<JObject>())
                 {
@@ -73,10 +74,10 @@ namespace Operando_AdministrationConsole.Controllers
                     {
                         if (prop.Name == "logDate")
                         {
-                            string data = prop.Value.ToString().Replace(",",".");
+                            string data = prop.Value.ToString().Replace(",", ".");
                             logItem.logDate = Convert.ToDateTime(data);
                         }
-                            
+
                         if (prop.Name == "requesterType")
                             logItem.requesterType = prop.Value.ToString();
                         if (prop.Name == "requesterId")
@@ -99,7 +100,7 @@ namespace Operando_AdministrationConsole.Controllers
                 errMsg = "Impossible to retrieve logs";
                 ViewBag.Error = errMsg;
             }
-            
+
 
             return View(logList);
         }
@@ -136,7 +137,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
             configuration.AddDefaultHeader(stHeaderName, getServiceTicket());
-            
+
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 
             try
@@ -168,13 +169,13 @@ namespace Operando_AdministrationConsole.Controllers
             }
 
             policiesKey.RemoveAt(resp.Count - 1);
-            
+
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
 
             var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-            configuration.AddDefaultHeader(stHeaderName, getServiceTicket());            
-            
+            configuration.AddDefaultHeader(stHeaderName, getServiceTicket());
+
             var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
 
             var putInstance = new eu.operando.core.pdb.cli.Api.PUTApi(configuration);
@@ -293,27 +294,38 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-
+        [HttpGet]
         public async Task<ActionResult> PrivacyQuestionnaire()
         {
+            if (Session["QuestionnaireId"] == null)
+            {
+                Session["QuestionnaireId"] = 0;
+            }
+            string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
+
             using (HttpClient client = new HttpClient())
             {
-                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie/0/0/");
-                var result = await client.GetAsync(qUri);
+                var result = await client.GetAsync(new Uri(qUriBase + Session["Username"] +
+                    "/0/" + Session["QuestionnaireId"].ToString()));
                 Response.StatusCode = (int)result.StatusCode;
                 var content = await result.Content.ReadAsStringAsync();
                 QRootObject qGet = JsonConvert.DeserializeObject<QRootObject>(content);
-                // overload statement.rating with IDs in order to parse later the form manually
-                int counter = 101;
-                foreach(var cat in qGet.response.questionnaire.category)
+                if (qGet.response.error.Equals(""))
                 {
-                    foreach(var statement in cat.statements)
+                    int counter = 101;
+                    foreach (var cat in qGet.response.questionnaire.category)
                     {
-                        statement.rating = counter++;
+                        foreach (var statement in cat.statements)
+                        {
+                            statement.rating = counter++;
+                        }
                     }
+                    Session["questionnaire"] = qGet;
+                    ViewBag.questionnaire = qGet.response.questionnaire;
                 }
-                Session["questionnaire"] = qGet;
-                ViewBag.questionnaire = qGet.response.questionnaire;
+
+
+
             }
             return View();
         }
@@ -321,31 +333,93 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpPost]
         public async Task<ActionResult> PrivacyQuestionnaire(FormCollection formCol)
         {
-            //string selectedButton = Request.Form["radio1"].ToString();
-            var qGet = Session["questionnaire"] as QRootObject;
+            string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
+            QRootObject qGet = Session["questionnaire"] as QRootObject;
             Session["questionnaire"] = null;
 
+            // update questionnaire ratings
             foreach (var cat in qGet.response.questionnaire.category)
             {
                 foreach (var statement in cat.statements)
                 {
-                    //foreach(string item in Request.Form)
-                    //Debug.Print("VAR" + item + Request.Form[item].ToString());
                     statement.rating = int.Parse(Request.Form["radio" + statement.rating].ToString());
                 }
             }
-            
+
+            // post questionnaire to server
             using (HttpClient client = new HttpClient())
             {
-                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie/0/0/");
-                try {
-                    var httpResponseMessage = await client.PostAsJsonAsync(qUri, qGet);
-                    if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+                try
+                {
+                    var httpResponseMessage = await client.PostAsJsonAsync(new Uri(qUriBase + Session["Username"] +
+                        "/0/" + Session["QuestionnaireId"].ToString()), qGet);
+                    if (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
                     {
-                        //todo: update UPP
-                        return RedirectToAction("Index", "Dashboard");
+                        int qId = int.Parse(Session["QuestionnaireId"].ToString());
+                        Session["QuestionnaireId"] = qId + 1;
+                        if (qId == 0)
+                        {
+                            return RedirectToAction("PrivacyQuestionnaire", "DataSubject");
+                        }
+                        else
+                        {
+                            // updateUPP, fetch preferences first
+                            var result = await client.GetAsync(new Uri(qUriBase + Session["Username"] + "/0/"));
+                            Response.StatusCode = (int)result.StatusCode;
+                            var content = await result.Content.ReadAsStringAsync();
+                            QPRootObject qRGet = JsonConvert.DeserializeObject<QPRootObject>(content);
+                            if (qRGet.response.error.Equals(""))
+                            {
+                                List<UserPreference> userPrefList = new List<UserPreference>();
+
+                                foreach(QPPreference pref in qRGet.response.preferences)
+                                {
+                                    UserPreference uPref = new UserPreference();
+                                    uPref.Category = pref.Category;
+                                    uPref.Preference = pref.Result.ToString();
+                                    userPrefList.Add(uPref);
+                                }
+
+                                string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+                                string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+                                var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+                                configuration.AddDefaultHeader(stHeaderName, getServiceTicket());
+
+                                var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+                                var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
+
+                                var username = Session["Username"].ToString();
+                                UserPrivacyPolicy userUPP;
+                                try
+                                {
+                                    userUPP = getInstance.UserPrivacyPolicyUserIdGet(username);
+                                    if(userUPP.UserPreferences == null)
+                                    {
+                                        userUPP.UserPreferences = userPrefList;
+                                    }
+                                    else
+                                    {
+                                        userUPP.UserPreferences.AddRange(userPrefList);
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.Print("Exception when calling pdb-server get upp: " + e.Message);
+                                    // create an empty UPP
+                                    userUPP = new UserPrivacyPolicy();
+                                    userUPP.UserId = username;
+                                    userUPP.SubscribedOspPolicies = new List<OSPConsents>();
+                                    userUPP.SubscribedOspSettings = new List<OSPSettings>();
+                                    userUPP.UserPreferences = userPrefList;
+                                }
+                                postInstance.UserPrivacyPolicyPost(userUPP);
+                            }
+
+                            return RedirectToAction("Index", "Dashboard");
+                        }
                     }
-                } 
+                }
                 catch (OperationCanceledException) { }
             }
             return View();

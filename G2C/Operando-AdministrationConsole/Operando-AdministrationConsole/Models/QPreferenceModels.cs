@@ -6,21 +6,21 @@ using System.Web;
 namespace Operando_AdministrationConsole.Models
 {
 
-    public class Preference
+    public class QPPreference
     {
         public string Category { get; set; }
         public double Result { get; set; }
     }
 
-    public class Response
+    public class QPResponse
     {
         public string error { get; set; }
         public string session { get; set; }
-        public List<Preference> preferences { get; set; }
+        public List<QPPreference> preferences { get; set; }
     }
 
-    public class RootObject
+    public class QPRootObject
     {
-        public Response response { get; set; }
+        public QPResponse response { get; set; }
     }
 }

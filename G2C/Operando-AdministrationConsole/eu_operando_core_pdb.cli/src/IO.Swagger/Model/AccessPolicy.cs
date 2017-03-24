@@ -42,7 +42,24 @@ namespace eu.operando.core.pdb.cli.Model
             /// </summary>
             [EnumMember(Value = "Collect")]
             Collect,
-            
+            /// <summary>
+            /// Enum Create for "Create"
+            /// </summary>
+            [EnumMember(Value = "Create")]
+            Create,
+
+            /// <summary>
+            /// Enum Delete for "Delete"
+            /// </summary>
+            [EnumMember(Value = "Delete")]
+            Delete,
+
+            /// <summary>
+            /// Enum Update for "Update"
+            /// </summary>
+            [EnumMember(Value = "Update")]
+            Update,
+
             /// <summary>
             /// Enum Access for "Access"
             /// </summary>
