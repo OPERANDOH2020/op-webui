@@ -1,0 +1,66 @@
+#!groovy
+node {	
+    currentBuild.result = "SUCCESS"
+
+	try {
+	   def mvnHome 
+	   def sourcesPath
+	   def sourcesServerPath
+	   def sourcesRepo
+	   def sourcesServerRepo
+	   def credentialsId
+	   
+	   stage('Preparation') { // for display purposes
+		  // Get the Maven tool.
+		  // ** NOTE: This 'M3' Maven tool must be configured
+		  // **       in the global configuration.
+		  mvnHome = tool 'Maven 3.3.9 colocated'
+		  sourcesPath = 'op-int/eu.operando.int.core.ldb.server.src.dvp'
+		  sourcesServerPath = 'op-core-logdb/eu.operando.core.ldb.server'
+		  sourcesRepo = 'https://github.com/OPERANDOH2020/op-core.git'
+		  sourcesServerRepo = sourcesRepo
+		  credentialsId = gitCredentials
+		  sources = WORKSPACE
+		  sourcesServer = WORKSPACE+'/sourcesServer'
+		  sh "rm -rf ${sources}/${sourcesPath}/sources"
+	   }
+	   stage ('Source Collection'){
+		   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: sources], [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: sourcesPath]]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: credentialsId, url: sourcesRepo]]])
+		   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: sourcesServer], [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: sourcesServerPath]]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: credentialsId, url: sourcesServerRepo]]])
+	   }
+	   stage ('Source Move'){
+	   	   sh "mv ${sourcesServer}/${sourcesServerPath} ${sources}/${sourcesPath}/sources"	   
+	   }
+	   stage ('Source Maven Install'){
+		   sh "'${mvnHome}/bin/mvn' package install:install -DskipTests -f ${sources}/${sourcesPath}/sources/pom.xml"
+	   }
+	   stage ('Variables echo'){
+		   sh "'${mvnHome}/bin/mvn' antrun:run@echobase -f ${sources}/${sourcesPath}/pom.xml"
+		   sh "'${mvnHome}/bin/mvn' antrun:run@echo -f ${sources}/${sourcesPath}/pom.xml"
+	   }
+	   stage ('Maven Package jar'){
+		   sh "'${mvnHome}/bin/mvn' package -DskipTests -f ${sources}/${sourcesPath}/pom.xml"
+	   }	   
+	   stage ('Maven Docker stop'){
+		   sh "'${mvnHome}/bin/mvn' docker:stop -f ${sources}/${sourcesPath}/pom.xml"
+	   }
+	   stage ('Maven Build docker image'){
+		   sh "'${mvnHome}/bin/mvn' docker:build -f ${sources}/${sourcesPath}/pom.xml"
+	   }	   	   	   
+	   stage ('Maven Build docker push'){
+		   sh "'${mvnHome}/bin/mvn' docker:push -f ${sources}/${sourcesPath}/pom.xml"
+	   }	   
+    } catch (err) {
+
+        currentBuild.result = "FAILURE"
+
+			  emailext (
+			      subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+			      body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+			        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+			      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+			    )
+
+        throw err
+		}
+}
