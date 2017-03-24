@@ -15,8 +15,8 @@ node {
 		  // ** NOTE: This 'M3' Maven tool must be configured
 		  // **       in the global configuration.
 		  mvnHome = tool 'Maven 3.3.9 colocated'
-		  sourcesPath = 'op-int/eu.operando.int.webui.rg.birt.server.src.dvp'
-		  sourcesRepo = 'https://github.com/OPERANDOH2020/op-core.git'
+		  sourcesPath = 'op-webui-birt/eu.operando.int.webui.rg.birt.server.src.dvp'
+		  sourcesRepo = 'https://github.com/OPERANDOH2020/op-webui.git'
 		  credentialsId = gitCredentials
 		  sources = WORKSPACE
 	   }
