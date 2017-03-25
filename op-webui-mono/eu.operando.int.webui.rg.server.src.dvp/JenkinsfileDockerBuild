@@ -15,9 +15,9 @@ node {
 		  // ** NOTE: This 'M3' Maven tool must be configured
 		  // **       in the global configuration.
 		  mvnHome = tool 'Maven 3.3.9 colocated'
-		  sourcesPath = 'op-int/eu.operando.int.webui.rg.server.src.dvp'
-		  sourcesServerPath = 'op-core-logdb/eu.operando.webui.rg.server'
-		  sourcesRepo = 'https://github.com/OPERANDOH2020/op-core.git'
+		  sourcesPath = 'eu.operando.int.demo.yellowpages.server.src.dvp'
+		  sourcesServerPath = 'src/occ.YellowPages'
+		  sourcesRepo = 'https://github.com/OPERANDOH2020/op-yellowpages.git'
 		  sourcesServerRepo = sourcesRepo
 		  credentialsId = gitCredentials
 		  sources = WORKSPACE
@@ -30,9 +30,6 @@ node {
 	   }
 	   stage ('Source Move'){
 	   	   sh "mv ${sourcesServer}/${sourcesServerPath} ${sources}/${sourcesPath}/sources"	   
-	   }
-	   stage ('Source Maven Install'){
-		   sh "'${mvnHome}/bin/mvn' package install:install -Dmaven.test.skip=true -f ${sources}/${sourcesPath}/sources/pom.xml"
 	   }
 	   stage ('Variables echo'){
 		   sh "'${mvnHome}/bin/mvn' antrun:run@echobase -f ${sources}/${sourcesPath}/pom.xml"
