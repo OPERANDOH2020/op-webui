@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eu.operando.int.webui.rg.server.src.dvp</artifactId>
+	<artifactId>eu.operando.int.webui.console.server.src.dvp</artifactId>
 	<packaging>war</packaging>
 	<parent>
 		<groupId>eu.operando.int</groupId>
@@ -184,12 +184,12 @@
 	</build>
 
 	<properties>
-		<server.endpoint.path>${operando.webui.rg.endpoint.path}</server.endpoint.path>
+		<server.endpoint.path>${operando.webui.console.endpoint.path}</server.endpoint.path>
 		<server.warName>${server.warName.generated}</server.warName>
-		<docker.name>eu.operando.webui.rg.server</docker.name>
+		<docker.name>eu.operando.webui.console.server</docker.name>
 		<docker.image.name>${docker.registry.name}${docker.submitter}/${docker.name}</docker.image.name>
 		<docker.image.version>${project.version}</docker.image.version>
-		<docker.port1.external>${operando.webui.rg.port}</docker.port1.external>
+		<docker.port1.external>${operando.webui.console.port}</docker.port1.external>
 		<docker.port1.mapping>${docker.port1.external}:8084</docker.port1.mapping>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
