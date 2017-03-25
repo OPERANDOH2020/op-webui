@@ -13,8 +13,8 @@ node {
 		  // ** NOTE: This 'M3' Maven tool must be configured
 		  // **       in the global configuration.
 		  mvnHome = tool 'Maven 3.3.9 colocated'
-		  sourcesPath = 'eu.operando.int.demo.yellowpages.server.src.dvp'
-		  sourcesRepo = 'https://github.com/OPERANDOH2020/op-yellowpages.git'
+		  sourcesPath = 'op-webui-mono/eu.operando.int.webui.rg.server.src.dvp'
+		  sourcesRepo = 'https://github.com/OPERANDOH2020/op-webui.git'
 		  sources = WORKSPACE
 		  credentialsId = gitCredentials
 	   }
