@@ -106,7 +106,7 @@
 							<run>
 								<namingStrategy>alias</namingStrategy>
 								<ports>
-									<port>${docker.birt.port}:8080</port>
+									<port>${docker.port1.mapping}</port>
 								</ports>
 							</run>
 						</image>
