@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Operando_AdministrationConsole.Models;
@@ -228,17 +228,24 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-
+        [HttpGet]
         public async Task<ActionResult> PrivacyQuestionnaire()
         {
+            if (Session["QuestionnaireId"] == null)
+            {
+                Session["QuestionnaireId"] = 0;
+            }
+            string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
+
             using (HttpClient client = new HttpClient())
             {
-                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie/0/0/");
-                var result = await client.GetAsync(qUri);
+                var result = await client.GetAsync(new Uri(qUriBase + Session["Username"] +
+                    "/0/" + Session["QuestionnaireId"].ToString()));
                 Response.StatusCode = (int)result.StatusCode;
                 var content = await result.Content.ReadAsStringAsync();
                 QRootObject qGet = JsonConvert.DeserializeObject<QRootObject>(content);
-                // overload statement.rating with IDs in order to parse later the form manually
+                if (qGet.response.error.Equals(""))
+                {
                 int counter = 101;
                 foreach(var cat in qGet.response.questionnaire.category)
                 {
@@ -250,35 +257,98 @@ namespace Operando_AdministrationConsole.Controllers
                 Session["questionnaire"] = qGet;
                 ViewBag.questionnaire = qGet.response.questionnaire;
             }
+            }
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> PrivacyQuestionnaire(FormCollection formCol)
         {
-            //string selectedButton = Request.Form["radio1"].ToString();
-            var qGet = Session["questionnaire"] as QRootObject;
+            string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
+            QRootObject qGet = Session["questionnaire"] as QRootObject;
             Session["questionnaire"] = null;
 
+            // update questionnaire ratings
             foreach (var cat in qGet.response.questionnaire.category)
             {
                 foreach (var statement in cat.statements)
                 {
-                    //foreach(string item in Request.Form)
-                    //Debug.Print("VAR" + item + Request.Form[item].ToString());
                     statement.rating = int.Parse(Request.Form["radio" + statement.rating].ToString());
                 }
             }
             
+            // post questionnaire to server
             using (HttpClient client = new HttpClient())
             {
-                Uri qUri = new Uri("http://192.9.206.106:8080/operandocpcu/cpcu/robbie/0/0/");
-                try {
-                    var httpResponseMessage = await client.PostAsJsonAsync(qUri, qGet);
-                    if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+               try
                     {
-                        //todo: update UPP
+                    var httpResponseMessage = await client.PostAsJsonAsync(new Uri(qUriBase + Session["Username"] +
+                        "/0/" + Session["QuestionnaireId"].ToString()), qGet);
+                    if (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
+                    {
+                        int qId = int.Parse(Session["QuestionnaireId"].ToString());
+                        Session["QuestionnaireId"] = qId + 1;
+                        if (qId == 0)
+                        {
+                            return RedirectToAction("PrivacyQuestionnaire", "DataSubject");
+                        }
+                        else
+                        {
+                            // updateUPP, fetch preferences first
+                            var result = await client.GetAsync(new Uri(qUriBase + Session["Username"] + "/0/"));
+                            Response.StatusCode = (int)result.StatusCode;
+                            var content = await result.Content.ReadAsStringAsync();
+                            QPRootObject qRGet = JsonConvert.DeserializeObject<QPRootObject>(content);
+                            if (qRGet.response.error.Equals(""))
+                            {
+                                List<UserPreference> userPrefList = new List<UserPreference>();
+
+                                foreach(QPPreference pref in qRGet.response.preferences)
+                                {
+                                    UserPreference uPref = new UserPreference();
+                                    uPref.Category = pref.Category;
+                                    uPref.Preference = pref.Result.ToString();
+                                    userPrefList.Add(uPref);
+                                }
+
+                                string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+                                string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+                                var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+                                configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
+
+                                var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+                                var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
+
+                                var username = Session["Username"].ToString();
+                                UserPrivacyPolicy userUPP;
+                                try
+                                {
+                                    userUPP = getInstance.UserPrivacyPolicyUserIdGet(username);
+                                    if(userUPP.UserPreferences == null)
+                                    {
+                                        userUPP.UserPreferences = userPrefList;
+                                    }
+                                    else
+                                    {
+                                        userUPP.UserPreferences.AddRange(userPrefList);
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.Print("Exception when calling pdb-server get upp: " + e.Message);
+                                    // create an empty UPP
+                                    userUPP = new UserPrivacyPolicy();
+                                    userUPP.UserId = username;
+                                    userUPP.SubscribedOspPolicies = new List<OSPConsents>();
+                                    userUPP.SubscribedOspSettings = new List<OSPSettings>();
+                                    userUPP.UserPreferences = userPrefList;
+                                }
+                                postInstance.UserPrivacyPolicyPost(userUPP);
+                            }
+
                         return RedirectToAction("Index", "Dashboard");
+                        }
                     }
                 } 
                 catch (OperationCanceledException) { }

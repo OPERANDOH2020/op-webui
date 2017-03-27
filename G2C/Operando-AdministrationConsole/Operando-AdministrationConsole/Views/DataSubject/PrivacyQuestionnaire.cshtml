@@ -6,37 +6,17 @@
 }
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="m-heading-1 border-grey-silver m-bordered">
-    <p>
-        Pellentesque sed sem feugiat, efficitur enim vitae, vestibulum enim. Donec efficitur bibendum ipsum vitae accumsan. Pellentesque tristique venenatis justo, eget molestie dolor faucibus sodales. In vitae egestas ipsum. Mauris id mi vitae purus dapibus auctor accumsan non felis. Cras a turpis non sapien rhoncus finibus at eu mi. Quisque maximus neque ante, nec placerat lorem efficitur et. Vivamus dui justo, blandit sit amet dictum vitae, tempor eget justo. Nunc iaculis mauris a porttitor rhoncus.
-
-        Curabitur non laoreet justo, vel hendrerit elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum dui, pellentesque ut ipsum et, tincidunt rhoncus metus. Proin id ante cursus, hendrerit turpis at, convallis dolor. Phasellus vel nisl est. background).
-    </p>
+    <p>This questinnaire consists of two parts, an initial set of questions, and a privacy set of questions.</p>
+    <p>For all Questions the higher score (5 is maximum value, very true about yoursel) means that
+    you are more likely to care about privacy.</p>
 </div>
 <div class="portlet light bordered" id="form_wizard_1">
-    @*<div class="portlet-title">
-            <div class="caption">
-                <i class=" icon-layers font-red"></i>
-                <span class="caption-subject font-red bold uppercase">
-                    Form Wizard -
-                    <span class="step-title"> Step 1 of 4 </span>
-                </span>
-            </div>
-            <div class="actions">
-                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                    <i class="icon-cloud-upload"></i>
-                </a>
-                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                    <i class="icon-wrench"></i>
-                </a>
-                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                    <i class="icon-trash"></i>
-                </a>
-            </div>
-        </div>*@
     <div class="portlet-body form">
         <form class="form-horizontal" action="#" id="submit_form" method="POST" novalidate="novalidate">
             <div class="form-wizard">
                 <div class="form-body">
+                    <p>Questionnaire part: @(ViewBag.questionnaire.title)</p>
+                    <p>@(ViewBag.questionnaire.metadata)</p>
                     <ul class="nav nav-pills nav-justified steps">
                         @{ int count = 1;}
                         @for (count = 1; count < ViewBag.questionnaire.category.Count+2; count++)
@@ -66,7 +46,7 @@
                         @foreach (var category in ViewBag.questionnaire.category)
                         {
                             <div class="tab-pane @(cCount == 1 ? "active" : "")" id="tab@(cCount)">
-                                <h3 class="block">Step @(cCount): @category.title</h3>
+                                <h3 class="block">Category @(cCount): @category.title</h3>
                                 @foreach (var statement in category.statements)
                                 {
                                     <div class="row">
@@ -99,7 +79,7 @@
                             cCount++;
                         }
                         <div class="tab-pane" id="tab@(cCount)">
-                            <h3 class="block">Confirm Preferences</h3>
+                            <h3 class="block">Confirm @(ViewBag.questionnaire.title) Preferences</h3>
                             @*<h4 class="form-section">Account</h4>*@
                             @{ cCount = 1; count = 1;}
                             @foreach (var category in ViewBag.questionnaire.category)
