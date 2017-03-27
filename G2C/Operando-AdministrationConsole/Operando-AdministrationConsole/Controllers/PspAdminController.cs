@@ -554,10 +554,10 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         // ----------------------------------
-        // ------ MODULES SETTINGS ----------
+        // ------ MODULE SETTINGS ----------
         // ----------------------------------
 
-        public ActionResult ModulesSettings()
+        public ActionResult ModuleSettings()
         {
             return View();
         }

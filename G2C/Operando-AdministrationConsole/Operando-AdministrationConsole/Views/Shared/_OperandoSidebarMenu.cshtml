@@ -441,7 +441,7 @@
         </li>*@
 
         @* ---------------------------------------------------------------------------- *@
-        @* ----------------------------- MODULES SETTINGS ----------------------------- *@
+        @* ----------------------------- MODULE SETTINGS ----------------------------- *@
         @* ---------------------------------------------------------------------------- *@
 
         @*<li class='nav-item @if (currentController == "PspAdmin" && (currentAction == "ModulesSettings")) { @activeClass }'>
@@ -459,10 +459,10 @@
             {
                 <li class='nav-item @if (currentController == "PspAdmin" && currentAction == "ModulesSettings")
                 { @activeClass }'>
-                    <a href="@Url.Action("ModulesSettings", "PspAdmin")" class="nav-link ">
+                    <a href="@Url.Action("ModuleSettings", "PspAdmin")" class="nav-link ">
                         <i class="icon-puzzle"></i>
-                        <span class="title">Modules Settings</span>
-                        @if (currentController == "PspAdmin" && currentAction == "ModulesSettings")
+                        <span class="title">Module Settings</span>
+                        @if (currentController == "PspAdmin" && currentAction == "ModuleSettings")
                         {
                             @:<span class="selected"></span>
                             }
