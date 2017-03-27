@@ -255,10 +255,10 @@ public class RestReportsHandler : IHttpHandler
 
             #region Validate ticket
             string ticketId = context.Request.Headers["service-ticket"].ToString();
-            string aapiUrl = appSettings["aapiBasePath"];
+            string userAapiBasePath = appSettings["userAapiBasePath"];
             string serviceId = appSettings["serviceId"];
 
-            HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create(aapiUrl + "/aapi/tickets/" + ticketId + "/validate?serviceId=" + serviceId);
+            HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create(userAapiBasePath + "/tickets/" + ticketId + "/validate?serviceId=" + serviceId);
             //HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create("http://integration.operando.esilab.org:8135/operando/interfaces/aapi/aapi/tickets/ST-153-IdpicdDveXntfoZiR0Jz-casdotoperandodoteu/validate?serviceId=GET/osp/reports/.*");
             try
             {
