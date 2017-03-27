@@ -25,7 +25,7 @@ jar xvf $WAR_DIR/$WAR_FILE
 
 
 echo Replace 
-grep -rl -e "jdbc:.*:3306\/.*\?" **/*.rptdesign | xargs sed -i -e "s/jdbc:.*:3306\/.*\?/jdbc:mysql:\/\/$MYSQL_DB_HOST:3306\/$MYSQL_DB_NAME\?/g"
+grep -rl -e "jdbc:.*:3306\/.*\?" **/*.rptdesign | xargs sed -i -e "s/jdbc:.*:3306\/.*\?/jdbc:mysql:\/\/$MYSQL_DB_HOST:3306\/$MYSQL_DB_NAME\?<\/property>/g"
 grep -rl -e "<.*"odaUser">.*<\/property>" **/*.rptdesign | xargs sed -i -e "s/<.*"odaUser">.*<\/property>/<.*"odaUser">$MYSQL_DB_USER<\/property>/g" 
 grep -rl -e "<.*"odaPassword".*>.*<\/encrypted-property>" **/*.rptdesign | xargs sed -i -e "s/<.*"odaPassword".*>.*<\/encrypted-property>/<.*"odaPassword".*>$$MYSQL_DB_PASSWORD_ENCRYPTED<\/encrypted-property>/g" 
 
