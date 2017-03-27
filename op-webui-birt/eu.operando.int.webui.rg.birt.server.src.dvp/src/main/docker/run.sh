@@ -11,7 +11,7 @@ echo MYSQL_DB_PASSWORD_ENCRYPTED: $MYSQL_DB_PASSWORD_ENCRYPTED
 
 WAR_FILENAME=operando#webui#birt
 WAR_FILE=$WAR_FILENAME.war
-WAR_DIR=/usr/local/tomcat/webapp
+WAR_DIR=/usr/local/tomcat/webapps
 TMP_DIR=/tmp
 echo War Filename: $WAR_FILENAME
 echo War File: $WAR_FILE
@@ -25,9 +25,9 @@ jar xvf $WAR_DIR/$WAR_FILE
 
 
 echo Replace 
-grep -rl -e "jdbc:.*:3306\/.*\?" **/*.rptdesign | xargs sed -i -e 's/jdbc:.*:3306\/.*\?/jdbc:mysql:\/\/$MYSQL_DB_HOST:3306\/$MYSQL_DB_NAME\?/g' 
-grep -rl -e "<.*"odaUser">.*<\/property>" **/*.rptdesign | xargs sed -i -e 's/<.*"odaUser">.*<\/property>/<.*"odaUser">$MYSQL_DB_USER<\/property>/g' 
-grep -rl -e "<.*"odaPassword".*>.*<\/encrypted-property>" **/*.rptdesign | xargs sed -i -e 's/<.*"odaPassword".*>.*<\/encrypted-property>/<.*"odaPassword".*>$$MYSQL_DB_PASSWORD_ENCRYPTED<\/encrypted-property>/g' 
+grep -rl -e "jdbc:.*:3306\/.*\?" **/*.rptdesign | xargs sed -i -e "s/jdbc:.*:3306\/.*\?/jdbc:mysql:\/\/$MYSQL_DB_HOST:3306\/$MYSQL_DB_NAME\?/g"
+grep -rl -e "<.*"odaUser">.*<\/property>" **/*.rptdesign | xargs sed -i -e "s/<.*"odaUser">.*<\/property>/<.*"odaUser">$MYSQL_DB_USER<\/property>/g" 
+grep -rl -e "<.*"odaPassword".*>.*<\/encrypted-property>" **/*.rptdesign | xargs sed -i -e "s/<.*"odaPassword".*>.*<\/encrypted-property>/<.*"odaPassword".*>$$MYSQL_DB_PASSWORD_ENCRYPTED<\/encrypted-property>/g" 
 
 echo Recompress file
 jar cvf $WAR_FILE .
