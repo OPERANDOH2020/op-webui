@@ -191,7 +191,7 @@
 		<docker.port1.mapping>${docker.port1.external}:8080</docker.port1.mapping>
 		<mysql.db.host>${operando.mysql.host}</mysql.db.host>
 		<mysql.db.port>${operando.mysql.port}</mysql.db.port>
-		<mysql.db.name>operando_logdb</mysql.db.name>
+		<mysql.db.name>operando_data</mysql.db.name>
 		<mysql.db.user>${operando.mysql.root.user}</mysql.db.user>
 		<mysql.db.password>${operando.mysql.root.password}</mysql.db.password>
 		<!-- for config file custimization -->
