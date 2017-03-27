@@ -241,11 +241,13 @@ public class RestReportsHandler : IHttpHandler
 
         if (_bypassAuth == false)
         {
+            string stHeaderName = appSettings["stHeaderName"];
+
             #region Check if ticket exists
-            if (context.Request.Headers["service-ticket"] == null)
+            if (context.Request.Headers[stHeaderName] == null)
             {
                 context.Response.StatusCode = 401;
-                context.Response.StatusDescription = "Missing service-ticket";
+                context.Response.StatusDescription = "Missing "+ stHeaderName;
                 context.Response.Flush(); // Sends all currently buffered output to the client.
                 context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
                 context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
@@ -254,11 +256,11 @@ public class RestReportsHandler : IHttpHandler
             #endregion
 
             #region Validate ticket
-            string ticketId = context.Request.Headers["service-ticket"].ToString();
-            string aapiUrl = appSettings["aapiBasePath"];
+            string ticketId = context.Request.Headers[stHeaderName].ToString();
+            string userAapiBasePath = appSettings["userAapiBasePath"];
             string serviceId = appSettings["serviceId"];
 
-            HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create(aapiUrl + "/aapi/tickets/" + ticketId + "/validate?serviceId=" + serviceId);
+            HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create(userAapiBasePath + "/tickets/" + ticketId + "/validate?serviceId=" + serviceId);
             //HttpWebRequest ticketValidationRequest = (HttpWebRequest)WebRequest.Create("http://integration.operando.esilab.org:8135/operando/interfaces/aapi/aapi/tickets/ST-153-IdpicdDveXntfoZiR0Jz-casdotoperandodoteu/validate?serviceId=GET/osp/reports/.*");
             try
             {
