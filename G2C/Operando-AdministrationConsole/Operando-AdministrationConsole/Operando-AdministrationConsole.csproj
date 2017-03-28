@@ -244,6 +244,8 @@
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataScheduleModel.cs" />
     <Compile Include="Models\QPreferenceModels.cs" />
+    <Compile Include="Models\QuestionnaireL3Models.cs" />
+    <Compile Include="Models\QuestionnaireL2Models.cs" />
     <Compile Include="Models\QuestionnaireModels.cs" />
     <Compile Include="Models\QViewModels.cs" />
     <Compile Include="Models\Regulation.cs" />

@@ -243,21 +243,23 @@ namespace Operando_AdministrationConsole.Controllers
                     "/0/" + Session["QuestionnaireId"].ToString()));
                 Response.StatusCode = (int)result.StatusCode;
                 var content = await result.Content.ReadAsStringAsync();
-                QRootObject qGet = JsonConvert.DeserializeObject<QRootObject>(content);
-                if (qGet.response.error.Equals(""))
-                {
-                int counter = 101;
-                foreach(var cat in qGet.response.questionnaire.category)
-                {
-                    foreach(var statement in cat.statements)
+                
+                    L3QRootObject qGet = JsonConvert.DeserializeObject<L3QRootObject>(content);
+                    if (qGet.response.error.Equals(""))
                     {
-                        statement.rating = counter++;
+                        int counter = 101;
+                        foreach (var cat in qGet.response.questionnaire.category)
+                        {
+                            foreach (var statement in cat.statements)
+                            {
+                                statement.rating = counter++;
+                            }
+                        }
+                        Session["questionnaire"] = qGet;
+                        ViewBag.questionnaire = qGet.response.questionnaire;
                     }
                 }
-                Session["questionnaire"] = qGet;
-                ViewBag.questionnaire = qGet.response.questionnaire;
-            }
-            }
+            
             return View();
         }
 
@@ -265,18 +267,20 @@ namespace Operando_AdministrationConsole.Controllers
         public async Task<ActionResult> PrivacyQuestionnaire(FormCollection formCol)
         {
             string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
-            QRootObject qGet = Session["questionnaire"] as QRootObject;
+            int qId = int.Parse(Session["QuestionnaireId"].ToString());
+                L3QRootObject qGet = Session["questionnaire"] as L3QRootObject;
+                // update questionnaire ratings
+                foreach (var cat in qGet.response.questionnaire.category)
+                {
+                    foreach (var statement in cat.statements)
+                    {
+                        statement.rating = int.Parse(Request.Form["radio" + statement.rating].ToString());
+                    }
+                }
+
+
             Session["questionnaire"] = null;
 
-            // update questionnaire ratings
-            foreach (var cat in qGet.response.questionnaire.category)
-            {
-                foreach (var statement in cat.statements)
-                {
-                    statement.rating = int.Parse(Request.Form["radio" + statement.rating].ToString());
-                }
-            }
-            
             // post questionnaire to server
             using (HttpClient client = new HttpClient())
             {
@@ -286,9 +290,10 @@ namespace Operando_AdministrationConsole.Controllers
                         "/0/" + Session["QuestionnaireId"].ToString()), qGet);
                     if (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
                     {
-                        int qId = int.Parse(Session["QuestionnaireId"].ToString());
+                        
                         Session["QuestionnaireId"] = qId + 1;
-                        if (qId == 0)
+                        // if (qId == 0)
+                        if (qId < 3)
                         {
                             return RedirectToAction("PrivacyQuestionnaire", "DataSubject");
                         }
