@@ -1,0 +1,46 @@
+﻿@using Operando_AdministrationConsole.Models.PspAdminModels
+@model ModuleSettingsViewModel.ContainerConfigurationDetailsModel
+<div class="portlet">
+    
+    <div class="portlet-title">
+        <div class="caption" style="min-height: 52px; margin-top: 9px">
+            <span class="caption-subject font-dark bold uppercase">@Model.ContainerName</span>
+        </div>
+    </div>
+    <!-- ------------------------------ NAV PILLS ------------------------------------- -->
+
+    <div class="tabbable tabbable-tabdrop">
+        <ul class="nav nav-pills">
+            @{
+                int i = 0;
+                foreach (string moduleName in Model.ConfigurationDetailsIndexedByModuleAcronym.Keys)
+                {
+                    i++;
+                    <li class=@(i == 1 ? "active" : "")>
+                        <a onclick="showTabHideOthers('@Model.ContainerId', @i);" href="#@Model.ContainerId@i" data-toggle="tab" aria-expanded="false">
+                            @moduleName
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+    <!-- ........................................................................................... -->
+
+    @{
+        int j = 0;
+        foreach (string moduleName in Model.ConfigurationDetailsIndexedByModuleAcronym.Keys)
+        {
+            j++;
+            <div class="tab-content">
+                <div class="tab-pane fade in@(j == 1 ? " active" : "")" id="@Model.ContainerId@j">
+                    @Html.Partial("_moduleConfigurationDetails", Model.ConfigurationDetailsIndexedByModuleAcronym[moduleName])
+                </div>
+            </div>
+        }
+    }
+
+    <!-- ........................................................................................... -->
+
+</div>

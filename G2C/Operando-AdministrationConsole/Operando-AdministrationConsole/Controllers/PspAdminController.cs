@@ -7,12 +7,17 @@ using System.Web;
 using System.Web.Mvc;
 using Operando_AdministrationConsole.Models;
 using System.Diagnostics;
+using Operando_AdministrationConsole.DomainEntities;
+using Operando_AdministrationConsole.Models.PspAdminModels;
+using Operando_AdministrationConsole.ServiceConcrete;
+using Operando_AdministrationConsole.ServiceInterfaces;
 
 namespace Operando_AdministrationConsole.Controllers
 {
     public class PspAdminController : Controller
     {
         ReportManager reportManager = new ReportManager();
+        IModuleDetailsService moduleDetailsService = new ModuleDetailsService();
 
         // GET: PspAdmin
         public ActionResult ReportsConfig()
@@ -559,7 +564,46 @@ namespace Operando_AdministrationConsole.Controllers
 
         public ActionResult ModuleSettings()
         {
-            return View();
+            IDictionary<Module, string> moduleConfigurationDetailsDictionary = moduleDetailsService.GetModuleConfigurationDetailsDictionary();
+            ICollection<Module> modules = moduleConfigurationDetailsDictionary.Keys;
+            ModuleSettingsViewModel model = CreateModuleSettingsViewModel(moduleConfigurationDetailsDictionary, modules);
+
+            return View(model);
+        }
+
+        private ModuleSettingsViewModel CreateModuleSettingsViewModel(IDictionary<Module, string> moduleConfigurationDetailsDictionary, ICollection<Module> modules)
+        {
+            var model = new ModuleSettingsViewModel
+            {
+                ContainerConfigurationDetailsModelsIndexedByContainerName = 
+                    new Dictionary<string, ModuleSettingsViewModel.ContainerConfigurationDetailsModel>()
+            };
+
+            foreach (string containerName in moduleDetailsService.GetContainerList())
+            {
+                model.ContainerConfigurationDetailsModelsIndexedByContainerName[containerName] = new ModuleSettingsViewModel
+                    .ContainerConfigurationDetailsModel
+                    {
+                        ContainerName = containerName,
+                        ContainerId = containerName.Replace(" ", ""),
+                        ConfigurationDetailsIndexedByModuleAcronym =
+                            new Dictionary<string, ModuleSettingsViewModel.ModuleConfigurationDetailsModel>()
+                    };
+            }
+
+            foreach (Module module in modules)
+            {
+                string configurationDetails = moduleConfigurationDetailsDictionary[module];
+                model.ContainerConfigurationDetailsModelsIndexedByContainerName[module.Container].ConfigurationDetailsIndexedByModuleAcronym
+                    .Add(
+                        module.Acronym,
+                        new ModuleSettingsViewModel.ModuleConfigurationDetailsModel
+                        {
+                            ModuleName = module.Name,
+                            ConfigurationDescription = configurationDetails
+                        });
+            }
+            return model;
         }
 
         // ----------------------------------

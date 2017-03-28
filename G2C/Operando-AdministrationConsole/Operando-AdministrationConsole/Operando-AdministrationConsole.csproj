@@ -220,6 +220,7 @@
     </Compile>
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\RegulatorController.cs" />
+    <Compile Include="DomainEntities\Module.cs" />
     <Compile Include="Helper\StaticStrings.cs" />
     <Compile Include="Helper\OperandoWebServiceHelper.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="Models\DataSubjectModels\DataAccessLogModel.cs" />
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
+    <Compile Include="Models\PspAdminModels\ModuleSettingsViewModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataScheduleModel.cs" />
     <Compile Include="Models\QPreferenceModels.cs" />
@@ -255,6 +257,8 @@
     <Compile Include="Models\ReportsOSP.cs" />
     <Compile Include="Models\UppTab2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceConcrete\ModuleDetailsService.cs" />
+    <Compile Include="ServiceInterfaces\IModuleDetailsService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -5226,6 +5230,7 @@
     <Content Include="assets\pages\scripts\inbox.js" />
     <Content Include="assets\pages\scripts\inbox.min.js" />
     <Content Include="assets\pages\scripts\operando-form-wizard.js" />
+    <Content Include="assets\pages\scripts\operando-tab-selector.js" />
     <Content Include="assets\pages\scripts\operando-uppmanagementtool-chart.js" />
     <Content Include="assets\pages\scripts\jquery-gantt.js" />
     <Content Include="assets\pages\scripts\jquery-gantt.min.js" />
@@ -5831,6 +5836,8 @@
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
     <Content Include="Views\PspAdmin\ServiceMonitoring.cshtml" />
+    <Content Include="Views\PspAdmin\_moduleConfigurationDetails.cshtml" />
+    <Content Include="Views\PspAdmin\_containerConfigurationDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
