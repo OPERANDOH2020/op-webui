@@ -20,7 +20,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             AapiClient aapiClient = new AapiClient();
             
-            //Response.Headers.Add(ConfigurationManager.AppSettings["stHeaderName"], aapiClient.GetServiceTicket(Session["TGT"].ToString(), ConfigurationManager.AppSettings["reportSId"]));
+            //Response.Headers.Add(ConfigurationManager.AppSettings["stHeaderName"], aapiClient.GetServiceTicket(Session["TGT"].ToString(), ConfigurationManager.AppSettings["reportId"]));
             Response.Redirect(HttpUtility.UrlDecode(location));
             return View();
             //.....
