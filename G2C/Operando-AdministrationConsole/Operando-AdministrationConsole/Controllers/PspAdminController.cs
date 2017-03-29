@@ -274,7 +274,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                         if (reader.IsDBNull(6) == false)
                         {
-                            results.FileName = reader.GetString(6);
+                            results.FileName = reader.GetString(6); 
                             //results.FileName = "../reportSavePath/" + results.FileName;
                         }
                         else
