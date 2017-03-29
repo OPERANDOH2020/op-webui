@@ -740,7 +740,8 @@
                                                             <td>
                                                                 @Html.Raw(string.Join(" - ", item.OSPs))
                                                             </td>
-                                                            <th> <a target="_blank" href="@item.Location?@item.Parameters" class="btn btn-circle btn-sm yellow-gold"> View </a> </th>
+                                                            <th>@Html.ActionLink("View", "ControllerAction", "PspAdmin", new { @location = @item.Location+ "%3F" + @item.Parameters }, new { @class = "btn btn-circle btn-sm yellow-gold" })</th>
+                                                            <!-- <th> <a target="_blank" href=javascript:void(0);" onclick="OpenUrl(@item.Location?@item.Parameters);" class="btn btn-circle btn-sm yellow-gold"> View </a> </th> -->
                                                             <th> <a class="btn btn-circle btn-sm yellow-gold" data-toggle="tab" href="#tab_1_3" onclick="javascript: $('#tab_reports').removeAttr('class'); $('#tab_schedule').attr('class', 'active');"> Schedules </a> </th>
                                                             <th> <a class="btn btn-circle btn-sm yellow-gold" data-toggle="modal" href="#modalEditJob_@item.ID"> Edit </a> </th>
                                                         </tr>

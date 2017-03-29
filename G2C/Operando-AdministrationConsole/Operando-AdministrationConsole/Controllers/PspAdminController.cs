@@ -7,12 +7,24 @@ using System.Web;
 using System.Web.Mvc;
 using Operando_AdministrationConsole.Models;
 using System.Diagnostics;
+using System.Web.UI.WebControls;
+using eu.operando.interfaces.aapi;
 
 namespace Operando_AdministrationConsole.Controllers
 {
     public class PspAdminController : Controller
     {
         ReportManager reportManager = new ReportManager();
+
+        public ActionResult ControllerAction(string location)
+        {
+            AapiClient aapiClient = new AapiClient();
+            
+            //Response.Headers.Add(ConfigurationManager.AppSettings["stHeaderName"], aapiClient.GetServiceTicket(Session["TGT"].ToString(), ConfigurationManager.AppSettings["reportSId"]));
+            Response.Redirect(HttpUtility.UrlDecode(location));
+            return View();
+            //.....
+        }
 
         // GET: PspAdmin
         public ActionResult ReportsConfig()
