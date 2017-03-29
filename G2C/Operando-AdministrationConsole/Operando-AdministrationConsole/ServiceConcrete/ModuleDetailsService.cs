@@ -71,7 +71,7 @@ namespace Operando_AdministrationConsole.ServiceConcrete
         {
             var configurationDetailsDictionary = new Dictionary<string, string>
             {
-                {"AAPI", "AAPI Configuration"},
+                {"AAPI", GetAapiConfigurationInformation()},
                 {"OAPI", GetOapiConfigurationInformation()},
                 {"RAPI", GetRapiConfigurationInformation()},
                 {"PC", GetPcConfigurationInformation()},
@@ -90,6 +90,20 @@ namespace Operando_AdministrationConsole.ServiceConcrete
 
 
             return configurationDetailsDictionary;
+        }
+
+        private static string GetAapiConfigurationInformation()
+        {
+            return "AAPI:"
+                + "\nGeneral AAPI configuration: https://github.com/OPERANDOH2020/op-interfaces/blob/master/op-interfaces-aapi/eu.operando.interfaces.aapi.server/src/main/resources/aapi-config.properties"
+                + "\nAAPI log4j configuration: https://github.com/OPERANDOH2020/op-interfaces/blob/master/op-interfaces-aapi/eu.operando.interfaces.aapi.server/src/main/resources/log4j.properties"
+                + "\n"
+                + "\nCAS:"
+                + "\nGeneral CAS configuration: https://github.com/OPERANDOH2020/op-core/blob/master/op-core-cas/eu.operando.core.cas.server/src/main/docker/etc/cas/cas.properties"
+                + "\nCAS Log4j configuration: https://github.com/OPERANDOH2020/op-core/blob/master/op-core-cas/eu.operando.core.cas.server/src/main/docker/etc/cas/log4j2.xml"
+                + "\n"
+                + "\nAlso configurable is the deployerConfigContext.xml that contains the service registry and is located here:"
+                + "\nhttps://github.com/OPERANDOH2020/op-core/blob/master/op-core-cas/eu.operando.core.cas.server/src/main/docker/cas-overlay/src/main/webapp/WEB-INF/deployerConfigContext.xml";
         }
 
         private static string GetOapiConfigurationInformation()
