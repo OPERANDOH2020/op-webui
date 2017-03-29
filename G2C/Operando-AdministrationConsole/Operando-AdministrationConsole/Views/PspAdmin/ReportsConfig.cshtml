@@ -810,8 +810,9 @@
                                                                 @Html.Raw(tmp.Replace("-"," - "))
                                                             }
                                                         </td>
-                                                        <td>
-                                                            <a target="_blank" href="@item.FileName" class="btn btn-circle btn-sm yellow-gold"> View </a>
+                                                        <td> 
+                                                            <!-- <a target="_blank" href="@item.FileName" class="btn btn-circle btn-sm yellow-gold"> View </a> -->
+                                                            @Html.ActionLink("Download", "ControllerDownloadAction", "OspAdmin", new { @fileName = @item.FileName }, new { @class = "btn btn-circle btn-sm yellow-gold" })
                                                         </td>
                                                     </tr>
                                                 }
