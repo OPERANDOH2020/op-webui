@@ -26,6 +26,17 @@ namespace Operando_AdministrationConsole.Controllers
             //.....
         }
 
+        public ActionResult ControllerDownloadAction(string fileName)
+        {
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment;filename=" + fileName);
+            Response.Clear();
+            Response.WriteFile(Server.MapPath("../" + ConfigurationManager.AppSettings["reportSavePath"] + "/" + fileName));
+            Response.Flush();
+            Response.End();
+            return View();
+        }
+
         // GET: PspAdmin
         public ActionResult ReportsConfig()
         {
@@ -264,7 +275,7 @@ namespace Operando_AdministrationConsole.Controllers
                         if (reader.IsDBNull(6) == false)
                         {
                             results.FileName = reader.GetString(6);
-                            results.FileName = "../reportSavePath/" + results.FileName;
+                            //results.FileName = "../reportSavePath/" + results.FileName;
                         }
                         else
                             results.FileName = null;
