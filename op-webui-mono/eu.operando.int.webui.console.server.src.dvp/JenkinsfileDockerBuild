@@ -248,7 +248,10 @@ node {
 	              sh "mv ${sourcesGitPath}/* ${sourcesPath}"
 	            }
             	stage ('Assess Sources Install Need'){          	
-                 	pomFile=sh(returnStdout: true, script: "ls ${sourcesPath}/pom.xml").trim()
+					try {
+					    pomFile=sh(returnStdout: true, script: "ls ${sourcesPath}/pom.xml 2>/dev/null").trim()
+					} catch (err){
+					}
 	            	hasPomFile=(""!=pomFile)
  					if (currentVerbose) println ("hasPomFile = " + hasPomFile)
                 }	            
