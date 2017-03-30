@@ -10,7 +10,7 @@ node {
 	def sourcesRelativePath="reportsREST_WP"
 	def sourcesRepo=devopsSourcesRepo
 	def dependingTasks=[
-	"eu.operando.int.core.bda.server.jnk.tsk.run",
+	"",
 	""
 	]
 	//Params defaults
