@@ -80,13 +80,13 @@ node {
 			//def forcePush -> defaults to "false"
 			//WARNING JENKINS SEND BOOLEANS AS STRING
 			try{
-			    currentVerbose=(verbose=="true")
+			    currentVerbose=((verbose=="true")||(verbose==true))
 			} catch (err){
 			    println ("verbosity not provided defaults to false")
 			}
 			if (currentVerbose) println ("verbose = " + currentVerbose)
 			try{
-			    currentClearOnFail=(clearOnFail=="true")
+			    currentClearOnFail=((clearOnFail=="true")||(clearOnFail==true))
 			} catch (err){
 			    println ("clearOnFail not provided defaults to false")
 			}
@@ -102,31 +102,31 @@ node {
 				if (currentVerbose) println ("scmCredentials = " + scmCredentials)
 			}
 			try{
-			    currentContinueTasks=(continueTasks=="true")
+			    currentContinueTasks=((continueTasks=="true")||(continueTasks==true))
 			} catch (err){
 			    println ("continueTasks not provided defaults to true")
 			}
 			if (currentVerbose) println ("continueTasks = " + currentContinueTasks)							
 			try{
-			    currentForceBuild=(forceBuild=="true")
+			    currentForceBuild=((forceBuild=="true")||(forceBuild==true))
 			} catch (err){
 			    println ("forceBuild not provided defaults to false")
 			}
 			if (currentVerbose) println ("currentForceBuild = " + currentForceBuild)							
 			try{
-			    currentStopContainer=(stopContainer=="true")
+			    currentStopContainer=((stopContainer=="true")||(stopContainer==true))
 			} catch (err){
 			    println ("stopContainer not provided defaults to true")
 			}
 			if (currentVerbose) println ("currentStopContainer = " + currentStopContainer)				
 			try{
-			    currentForceClear=(forceClear=="true")
+			    currentForceClear=((forceClear=="true")||(forceClear==true))
 			} catch (err){
 			    println ("forceClear not provided defaults to false")
 			}
 			if (currentVerbose) println ("currentForceClear = " + currentForceClear)								
 			try{
-			    currentForcePush=(forcePush=="true")
+			    currentForcePush=((forcePush=="true")||(forcePush==true))
 			} catch (err){
 			    println ("forcePush not provided defaults to false")
 			}
