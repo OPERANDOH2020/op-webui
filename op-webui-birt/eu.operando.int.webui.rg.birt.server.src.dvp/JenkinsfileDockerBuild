@@ -36,6 +36,9 @@ node {
 		def workspace
 		def jenkinsWorkspace
 		
+		Boolean hasEmptyWorkspace=false
+		String workspaceContent=""
+
 		Boolean hasNewDevopsSources=false
 		Boolean hasNewSources=false
 		Boolean requiresBuild=false
@@ -166,7 +169,13 @@ node {
     		    if (currentVerbose) println ("Sources checkout to " + sourcesPath)
 		    }
 		}		
-		if((currentForceBuild)||(devopsSourcesLastCommit=="")){
+		try {
+            workspaceContent=sh(returnStdout: true, script: "ls ${workspace} 2>/dev/null").trim()
+        } catch (err){
+        }
+        hasEmptyWorkspace=(""==workspaceContent)
+        if (currentVerbose) println ("hasEmptyWorkspace = " + hasEmptyWorkspace)
+		if(currentForceBuild||hasEmptyWorkspace){
 			hasNewDevopsSources=true
 			if (hasSources) hasNewSources=true
 	        requiresBuild=true
