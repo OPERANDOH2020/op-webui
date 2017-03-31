@@ -163,18 +163,20 @@ node {
 	    		if (currentVerbose) println ("sourcesLastCommitFile = " + sourcesLastCommitFile)
 			}
 		}		
+		try {
+            workspaceContent=sh(returnStdout: true, script: "ls ${workspace} 2>/dev/null").trim()
+        } catch (err){
+        }
+        
+        if (currentVerbose) println ("workspaceContent = " + workspaceContent))
+		hasEmptyWorkspace=(""==workspaceContent)
+        if (currentVerbose) println ("hasEmptyWorkspace = " + hasEmptyWorkspace))
 		if(hasSources){
 		    stage ('Gather Sources'){
 		        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: sourcesGitRepoPath], [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: sourcesRelativePath]]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: scmCredentials, url: sourcesRepo]]])
     		    if (currentVerbose) println ("Sources checkout to " + sourcesPath)
 		    }
 		}		
-		try {
-            workspaceContent=sh(returnStdout: true, script: "ls ${workspace} 2>/dev/null").trim()
-        } catch (err){
-        }
-        hasEmptyWorkspace=(""==workspaceContent)
-        if (currentVerbose) println ("hasEmptyWorkspace = " + hasEmptyWorkspace)
 		if(currentForceBuild||hasEmptyWorkspace){
 			hasNewDevopsSources=true
 			if (hasSources) hasNewSources=true
