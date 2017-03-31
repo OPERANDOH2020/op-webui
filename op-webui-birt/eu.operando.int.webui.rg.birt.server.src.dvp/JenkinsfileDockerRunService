@@ -94,28 +94,39 @@ node {
 		    devopsSourcesLastCommitFile=devopsSourcesPath+"/src.dvp.last.commit"
 			if (currentVerbose) println ("devopsSourcesLastCommitFile = " + devopsSourcesLastCommitFile)
 		}
-		stage ('Assess New Sources'){
-		    sh "touch ${devopsSourcesLastCommitFile}" 
-		    devopsSourcesLastCommit = sh(returnStdout: true, script: "cat ${devopsSourcesLastCommitFile}").trim()
-		    if (currentVerbose) println ("devopsSourcesLastCommit = " + devopsSourcesLastCommit)
-	        try{
-	            devopsSourcesCurrentCommit = sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} rev-parse HEAD").trim()
-			} catch (err){
+		try {
+            workspaceContent=sh(returnStdout: true, script: "ls ${workspace} 2>/dev/null").trim()
+        } catch (err){
+        }       
+        if (currentVerbose) println ("workspaceContent = " + workspaceContent)
+		hasEmptyWorkspace=(""==workspaceContent)
+        if (currentVerbose) println ("hasEmptyWorkspace = " + hasEmptyWorkspace)
+		if (hasEmptyWorkspace) {
+			hasNewDevopsSources=true
+		} else {
+			stage ('Assess New Sources'){
+			    sh "touch ${devopsSourcesLastCommitFile}" 
+			    devopsSourcesLastCommit = sh(returnStdout: true, script: "cat ${devopsSourcesLastCommitFile}").trim()
+			    if (currentVerbose) println ("devopsSourcesLastCommit = " + devopsSourcesLastCommit)
+		        try{
+		            devopsSourcesCurrentCommit = sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} rev-parse HEAD").trim()
+				} catch (err){
+				}
+			    if (currentVerbose) println ("devopsSourcesCurrentCommit = " + devopsSourcesCurrentCommit)
+				if (devopsSourcesCurrentCommit!=''){
+					sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastCommitFile}"
+				}
+			    if (devopsSourcesCurrentCommit!=devopsSourcesLastCommit) {
+			    	try{
+			    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} HEAD^:${devopsSourcesRelativePath}").trim()
+			    	} catch(err) {
+			    	}
+			    	if (currentVerbose) println ("devopsSourcesDiffPreviousCommit = " + devopsSourcesDiffPreviousCommit)
+			    	if (devopsSourcesDiffPreviousCommit!=""){
+		  				hasNewDevopsSources=true
+			    	}
+			    }
 			}
-		    if (currentVerbose) println ("devopsSourcesCurrentCommit = " + devopsSourcesCurrentCommit)
-			if (devopsSourcesCurrentCommit!=''){
-				sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastCommitFile}"
-			}
-		    if (devopsSourcesCurrentCommit!=devopsSourcesLastCommit) {
-		    	try{
-		    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} HEAD^:${devopsSourcesRelativePath}").trim()
-		    	} catch(err) {
-		    	}
-		    	if (currentVerbose) println ("devopsSourcesDiffPreviousCommit = " + devopsSourcesDiffPreviousCommit)
-		    	if (devopsSourcesDiffPreviousCommit!=""){
-	  				hasNewDevopsSources=true
-		    	}
-		    }
 		}
        	if (currentVerbose) println ("hasNewDevopsSources = " + hasNewDevopsSources)
 		
