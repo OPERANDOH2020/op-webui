@@ -166,7 +166,7 @@ node {
     		    if (currentVerbose) println ("Sources checkout to " + sourcesPath)
 		    }
 		}		
-		if(currentForceBuild){
+		if((currentForceBuild)||(devopsSourcesLastCommit=="")){
 			hasNewDevopsSources=true
 			if (hasSources) hasNewSources=true
 	        requiresBuild=true
