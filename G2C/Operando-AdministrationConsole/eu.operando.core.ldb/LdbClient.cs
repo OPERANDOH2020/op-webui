@@ -35,7 +35,7 @@ namespace eu.operando.core.ldb
             }
 
 
-            JArray results = !string.IsNullOrEmpty(jsonString) ? JsonConvert.DeserializeObject<dynamic>(jsonString) : new JArray();
+            JArray results = JsonConvert.DeserializeObject<dynamic>(jsonString);
 
             // if I have results from the Json deserialization
             if (results.Count > 0)
