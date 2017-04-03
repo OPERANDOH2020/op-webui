@@ -711,7 +711,8 @@
                                                 <td>@item.ReportDescription</td>
                                                 <td>@item.ReportVersion</td>
                                                 <td>
-                                                    <a class="btn btn-circle btn-sm yellow-gold" target="_blank" href="../reportSavePath/@item.FileName">Download&nbsp;&nbsp;<i class="fa fa-download"></i></a>
+                                                <!-- <a class="btn btn-circle btn-sm yellow-gold" target="_blank" href="../reportSavePath/@item.FileName">Download&nbsp;&nbsp;<i class="fa fa-download"></i></a> -->
+                                                @Html.ActionLink("Download", "ControllerDownloadAction", "OspAdmin", new { @fileName = @item.FileName }, new { @class = "btn btn-circle btn-sm yellow-gold" })
                                                 </td>
                                             </tr>
                                         }

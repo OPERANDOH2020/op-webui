@@ -41,6 +41,17 @@ namespace Operando_AdministrationConsole.Controllers
             return new Uri($"http://10.136.24.87:8080/pdb/OSP/587f80549e86b2c3b0a43eaa/privacy-policy");
         }
 
+        public ActionResult ControllerDownloadAction(string fileName)
+        {
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment;filename="+ fileName);
+            Response.Clear();
+            Response.WriteFile(Server.MapPath("../" + ConfigurationManager.AppSettings["reportSavePath"] + "/" + fileName));
+            Response.Flush();
+            Response.End();
+            return View();
+        }
+
         private eu.operando.core.pdb.cli.Client.Configuration getConfiguration(string serviceIdKey)
         {
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];

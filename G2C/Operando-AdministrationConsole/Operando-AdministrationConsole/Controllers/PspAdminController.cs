@@ -7,12 +7,35 @@ using System.Web;
 using System.Web.Mvc;
 using Operando_AdministrationConsole.Models;
 using System.Diagnostics;
+using System.Web.UI.WebControls;
+using eu.operando.interfaces.aapi;
 
 namespace Operando_AdministrationConsole.Controllers
 {
     public class PspAdminController : Controller
     {
         ReportManager reportManager = new ReportManager();
+
+        public ActionResult ControllerAction(string location)
+        {
+            AapiClient aapiClient = new AapiClient();
+            
+            //Response.Headers.Add(ConfigurationManager.AppSettings["stHeaderName"], aapiClient.GetServiceTicket(Session["TGT"].ToString(), ConfigurationManager.AppSettings["reportId"]));
+            Response.Redirect(HttpUtility.UrlDecode(location));
+            return View();
+            //.....
+        }
+
+        public ActionResult ControllerDownloadAction(string fileName)
+        {
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment;filename=" + fileName);
+            Response.Clear();
+            Response.WriteFile(Server.MapPath("../" + ConfigurationManager.AppSettings["reportSavePath"] + "/" + fileName));
+            Response.Flush();
+            Response.End();
+            return View();
+        }
 
         // GET: PspAdmin
         public ActionResult ReportsConfig()
@@ -251,8 +274,8 @@ namespace Operando_AdministrationConsole.Controllers
 
                         if (reader.IsDBNull(6) == false)
                         {
-                            results.FileName = reader.GetString(6);
-                            results.FileName = "../reportSavePath/" + results.FileName;
+                            results.FileName = reader.GetString(6); 
+                            //results.FileName = "../reportSavePath/" + results.FileName;
                         }
                         else
                             results.FileName = null;

@@ -1,55 +1,365 @@
 #!groovy
+//http://groovy-lang.org/semantics.html
+
 node {	
+	//Required constants
     currentBuild.result = "SUCCESS"
+	//Provided vars
+	def devopsSourcesRelativePath = 'op-webui-birt/eu.operando.int.webui.rg.birt.server.src.dvp'
+	def devopsSourcesRepo = 'https://github.com/OPERANDOH2020/op-webui.git'
+	def sourcesRelativePath=null
+	def sourcesRepo=null
+	def dependingTasks=[
+	"",
+	""
+	]
+	//Params defaults
+	Boolean currentVerbose=false
+	Boolean hasCredentials=false
+	Boolean currentContinueTasks=true
+	Boolean currentForceBuild=false
+	Boolean currentStopContainer=true
+	Boolean currentForceClear=false
+	Boolean currentClearOnFail=false
+	Boolean currentForcePush=false
+				
+	try	{	
+		Boolean hasSources = (sourcesRelativePath!=null)&&(sourcesRepo!=null)
+		
+		//Computed vars
+		def devopsSourcesPath
+		def devopsSourcesGitRepoPath
+		def devopsSourcesGitPath
+		def sourcesPath
+		def sourcesGitRepoPath
+		def sourcesGitPath
+		def workspace
+		def jenkinsWorkspace
+		
+		Boolean hasEmptyWorkspace=false
+		String workspaceContent=""
 
-	try {
-	   def mvnHome 
-	   def sourcesPath
-	   def sourcesServerPath
-	   def sourcesRepo
-	   def sourcesServerRepo
-	   def credentialsId
-	   
-	   stage('Preparation') { // for display purposes
-		  // Get the Maven tool.
-		  // ** NOTE: This 'M3' Maven tool must be configured
-		  // **       in the global configuration.
-		  mvnHome = tool 'Maven 3.3.9 colocated'
-		  sourcesPath = 'op-webui-birt/eu.operando.int.webui.rg.birt.server.src.dvp'
-		  sourcesRepo = 'https://github.com/OPERANDOH2020/op-webui.git'
-		  credentialsId = gitCredentials
-		  sources = WORKSPACE
-	   }
-	   stage ('Source Collection'){
-		   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: sources], [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: sourcesPath]]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: credentialsId, url: sourcesRepo]]])
-	   }
-	   stage ('Variables echo'){
-		   sh "'${mvnHome}/bin/mvn' antrun:run@echobase -f ${sources}/${sourcesPath}/pom.xml"
-		   sh "'${mvnHome}/bin/mvn' antrun:run@echo -f ${sources}/${sourcesPath}/pom.xml"
-	   }
-	   stage ('Maven Package jar'){
-		   sh "'${mvnHome}/bin/mvn' package -Dmaven.test.skip=true -f ${sources}/${sourcesPath}/pom.xml"
-	   }	   
-	   stage ('Maven Docker stop'){
-		   sh "'${mvnHome}/bin/mvn' docker:stop -f ${sources}/${sourcesPath}/pom.xml"
-	   }
-	   stage ('Maven Build docker image'){
-		   sh "'${mvnHome}/bin/mvn' docker:build -f ${sources}/${sourcesPath}/pom.xml"
-	   }	   	   	   
-	   stage ('Maven Build docker push'){
-		   sh "'${mvnHome}/bin/mvn' docker:push -f ${sources}/${sourcesPath}/pom.xml"
-	   }	   
-    } catch (err) {
+		Boolean hasNewDevopsSources=false
+		Boolean hasNewSources=false
+		Boolean requiresBuild=false
+		Boolean requiresPackage=false
 
-        currentBuild.result = "FAILURE"
+		Boolean hasDevopsPomPackaging=false
+		String devopsPomPackaging=""
+		Boolean hasPomPackaging=false
+		String pomPackaging=""
+		Boolean hasPomFile=false
+		String pomFile=""
+				
+		String devopsSourcesLastCommitFile
+		String sourcesLastCommitFile
 
-			  emailext (
-			      subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-			      body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-			        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-			      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-			    )
+		String devopsSourcesLastCommit
+		String devopsSourcesCurrentCommit
+		String sourcesLastCommit
+		String sourcesCurrentCommit
+		
+		String devopsSourcesDiffPreviousCommit
+		String sourcesLastDiffPreviousCommit
+		
+		String devopsImageLastSha256File
+		String devopsImageBuildResult
+		String devopsImageLastSha256=""
+		String devopsImageCurrentSha256=""
 
-        throw err
+		String mvnHome;
+		
+		stage ('Params Processing'){
+			//def verbose -> defaults to "false"
+			//def scmCredentials -> defaults to undefined
+			//def continueTasks -> defaults to "true"
+			//def ForceBuild -> defaults to "false"
+			//def stopContainer -> defaults to "true"
+			//def forceClear -> defaults to "false"
+			//def clearOnFail -> defaults to "false"
+			//def forcePush -> defaults to "false"
+			//WARNING JENKINS SEND BOOLEANS AS STRING
+			try{
+			    currentVerbose=((verbose=="true")||(verbose==true))
+			} catch (err){
+			    println ("verbosity not provided defaults to false")
+			}
+			if (currentVerbose) println ("verbose = " + currentVerbose)
+			try{
+			    currentClearOnFail=((clearOnFail=="true")||(clearOnFail==true))
+			} catch (err){
+			    println ("clearOnFail not provided defaults to false")
+			}
+			if (currentVerbose) println ("currentClearOnFail = " + currentClearOnFail)											
+			if (hasSources) {
+				try{
+				    if (scmCredentials==null){ error "scm credentials empty"}
+				    hasCredentials=true;
+				} catch (err){
+				    println ("No scm credentials param")
+				}			
+				if (!hasCredentials){ error "No scm credentials to retrieve the source code" }				
+				if (currentVerbose) println ("scmCredentials = " + scmCredentials)
+			}
+			try{
+			    currentContinueTasks=((continueTasks=="true")||(continueTasks==true))
+			} catch (err){
+			    println ("continueTasks not provided defaults to true")
+			}
+			if (currentVerbose) println ("continueTasks = " + currentContinueTasks)							
+			try{
+			    currentForceBuild=((forceBuild=="true")||(forceBuild==true))
+			} catch (err){
+			    println ("forceBuild not provided defaults to false")
+			}
+			if (currentVerbose) println ("currentForceBuild = " + currentForceBuild)							
+			try{
+			    currentStopContainer=((stopContainer=="true")||(stopContainer==true))
+			} catch (err){
+			    println ("stopContainer not provided defaults to true")
+			}
+			if (currentVerbose) println ("currentStopContainer = " + currentStopContainer)				
+			try{
+			    currentForceClear=((forceClear=="true")||(forceClear==true))
+			} catch (err){
+			    println ("forceClear not provided defaults to false")
+			}
+			if (currentVerbose) println ("currentForceClear = " + currentForceClear)								
+			try{
+			    currentForcePush=((forcePush=="true")||(forcePush==true))
+			} catch (err){
+			    println ("forcePush not provided defaults to false")
+			}
+			if (currentVerbose) println ("currentForcePush = " + currentForcePush)				
 		}
+		if (currentForceClear){
+			stage ('Forced Clear'){
+            	sh "rm -rf ${WORKSPACE}/src"	   			
+			}
+		}
+		stage ('Calculate Variables'){
+		    workspace=WORKSPACE
+			if (currentVerbose) println ("workspace = " + workspace)						    
+		    jenkinsWorkspace=WORKSPACE+"/../workspace\\@script"
+			if (currentVerbose) println ("jenkinsWorkspace = " + jenkinsWorkspace)				
+		    devopsSourcesPath=workspace
+			if (currentVerbose) println ("devopsSourcesPath = " + devopsSourcesPath)			
+		    devopsSourcesGitRepoPath=jenkinsWorkspace
+			if (currentVerbose) println ("devopsSourcesGitRepoPath = " + devopsSourcesGitRepoPath)
+		    devopsSourcesGitPath=devopsSourcesGitRepoPath + "/" + devopsSourcesRelativePath
+			if (currentVerbose) println ("devopsSourcesGitPath = " + devopsSourcesGitPath)
+		    devopsSourcesLastCommitFile=devopsSourcesPath+"/src.dvp.last.commit"
+			if (currentVerbose) println ("devopsSourcesLastCommitFile = " + devopsSourcesLastCommitFile)
+		    devopsImageLastSha256File=devopsSourcesPath+"/dkr.img.last.sha256"
+			if (currentVerbose) println ("devopsImageLastSha256File = " + devopsImageLastSha256File)
+			if (hasSources){
+    		    sourcesPath=workspace+"/sources"
+	    		if (currentVerbose) println ("sourcesPath = " + sourcesPath)				
+			    sourcesGitRepoPath=workspace+"/sourcesRepo"
+				if (currentVerbose) println ("sourcesGitRepoPath = " + sourcesGitRepoPath)	
+			    sourcesGitPath=sourcesGitRepoPath + "/" + sourcesRelativePath
+				if (currentVerbose) println ("sourcesGitPath = " + sourcesGitPath)
+        		sourcesLastCommitFile=devopsSourcesPath+"/src.last.commit"
+	    		if (currentVerbose) println ("sourcesLastCommitFile = " + sourcesLastCommitFile)
+			}
+		}		
+		try {
+            workspaceContent=sh(returnStdout: true, script: "ls ${workspace} 2>/dev/null").trim()
+        } catch (err){
+        }
+        
+        if (currentVerbose) println ("workspaceContent = " + workspaceContent)
+		hasEmptyWorkspace=(""==workspaceContent)
+        if (currentVerbose) println ("hasEmptyWorkspace = " + hasEmptyWorkspace)
+		if(hasSources){
+		    stage ('Gather Sources'){
+		        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: sourcesGitRepoPath], [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: sourcesRelativePath]]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: scmCredentials, url: sourcesRepo]]])
+    		    if (currentVerbose) println ("Sources checkout to " + sourcesPath)
+		    }
+		}		
+		if(currentForceBuild||hasEmptyWorkspace){
+			hasNewDevopsSources=true
+			if (hasSources) hasNewSources=true
+	        requiresBuild=true
+		}
+		else{
+    		stage ('Assess Built Need'){
+    		    sh "touch ${devopsSourcesLastCommitFile}" 
+    		    devopsSourcesLastCommit = sh(returnStdout: true, script: "cat ${devopsSourcesLastCommitFile}").trim()
+    		    if (currentVerbose) println ("devopsSourcesLastCommit = " + devopsSourcesLastCommit)
+		        try{
+		            devopsSourcesCurrentCommit = sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} rev-parse HEAD").trim()
+    			} catch (err){
+    			}
+			    if (currentVerbose) println ("devopsSourcesCurrentCommit = " + devopsSourcesCurrentCommit)
+    			if (devopsSourcesCurrentCommit!=''){
+    				sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastCommitFile}"
+    			}
+    		    if (devopsSourcesCurrentCommit!=devopsSourcesLastCommit) {
+    		    	try{
+    		    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} HEAD^:${devopsSourcesRelativePath}").trim()
+    		    	} catch(err) {
+    		    	}
+ 			    	if (currentVerbose) println ("devopsSourcesDiffPreviousCommit = " + devopsSourcesDiffPreviousCommit)
+ 			    	if (devopsSourcesDiffPreviousCommit!=""){
+ 		  				hasNewDevopsSources=true
+    		        	requiresBuild=true
+ 			    	}
+			    }
+		        if (hasSources)
+		        {
+        		    sh "touch ${sourcesLastCommitFile}" 
+        		    sourcesLastCommit = sh(returnStdout: true, script: "cat ${sourcesLastCommitFile}").trim()
+        		    if (currentVerbose) println ("sourcesLastCommit = " + sourcesLastCommit)
+    		        try{
+    		            sourcesCurrentCommit = sh(returnStdout: true, script: "git -C ${sourcesGitRepoPath} rev-parse HEAD").trim()
+        			} catch (err){
+        			}
+       			    if (currentVerbose) println ("sourcesCurrentCommit = " + sourcesCurrentCommit)
+        			if (devopsSourcesCurrentCommit!=''){
+        				sh "echo \"${sourcesCurrentCommit}\" > ${sourcesLastCommitFile}"
+        			}
+        		    if (sourcesCurrentCommit!=sourcesLastCommit) {
+	    		    	try{
+	    		    		sourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${sourcesGitRepoPath} diff HEAD:${sourcesRelativePath} HEAD^:${sourcesRelativePath}").trim()
+	    		    	} catch(err) {
+	    		    	}
+	 			    	if (currentVerbose) println ("sourcesDiffPreviousCommit = " + sourcesDiffPreviousCommit)
+	 			    	if (sourcesDiffPreviousCommit!=""){
+	 		  				hasNewDevopsSources=true
+	    		        	requiresBuild=true
+	 			    	}
+        		    }
+		        }
+    		}
+		}
+       	if (currentVerbose) println ("hasNewDevopsSources = " + hasNewDevopsSources)
+       	if (currentVerbose) println ("hasNewSources = " + hasNewSources)
+       	if (currentVerbose) println ("requiresBuild = " + requiresBuild)
+		
+        if(requiresBuild){
+            stage ('Prepare Build Variables'){
+                // Get the Maven tool.
+                // ** NOTE: This 'M3' Maven tool must be configured
+                // **       in the global configuration.
+                mvnHome = tool 'Maven 3.3.9 colocated'
+            }
+             if(hasNewDevopsSources){
+	            stage ('Devops Source Move'){
+	                  sh "rm -rf ${devopsSourcesPath}/src"	   
+	                  sh "mv ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
+	                  sh "rm -rf ${devopsSourcesPath}/pom.xml"	   
+	                  sh "mv ${devopsSourcesGitPath}/pom.xml ${devopsSourcesPath}/pom.xml"
+	            }
+            }
+            if(hasNewSources){
+	            stage ('Source Move'){
+                  sh "rm -rf ${sourcesPath}"	   
+                  sh "mkdir ${sourcesPath}"	   
+	              sh "mv ${sourcesGitPath}/* ${sourcesPath}"
+	            }
+            	stage ('Assess Sources Install Need'){          	
+					try {
+					    pomFile=sh(returnStdout: true, script: "ls ${sourcesPath}/pom.xml 2>/dev/null").trim()
+					} catch (err){
+					}
+	            	hasPomFile=(""!=pomFile)
+ 					if (currentVerbose) println ("hasPomFile = " + hasPomFile)
+                }	            
+                if (hasPomFile){
+	                stage ('Source Maven Install'){
+	                 	try {
+	                 		pomPackaging=sh(returnStdout: true, script: "grep '<packaging>.*pom.*</packaging>' ${sourcesPath}/pom.xm").trim()
+	                 	} catch (err){
+	                 	}
+	 					if (currentVerbose) println ("pomPackaging = " + pomPackaging)				
+	                 	hasPomPackaging=(""!=pomPackaging)
+	 					if (currentVerbose) println ("hasPomPackaging = " + hasPomPackaging)
+	 					if 	(hasPomPackaging){
+	                    	sh "'${mvnHome}/bin/mvn' install:install --non-recursive -Dmaven.test.skip=true -f ${sourcesPath}/pom.xml"
+	 					} else {
+		                    sh "'${mvnHome}/bin/mvn' clean package install:install --non-recursive -Dmaven.test.skip=true -f ${sourcesPath}/pom.xml"				
+	 					}
+	                }
+                }
+            }
+            if(currentVerbose){
+                stage ('Variables Echo'){
+                	sh "'${mvnHome}/bin/mvn' antrun:run@echobase -f ${devopsSourcesPath}/pom.xml"
+                    sh "'${mvnHome}/bin/mvn' antrun:run@echo -f ${devopsSourcesPath}/pom.xml"
+                }
+            }
+            stage ('Assess Package/Install Need'){          	
+             	try {
+                	devopsPomPackaging=sh(returnStdout: true, script: "grep '<packaging>.*pom.*</packaging>' ${devopsSourcesPath}/pom.xml").trim()
+             	} catch (err){
+             	}
+	 			if (currentVerbose) println ("devopsPomPackaging = " + devopsPomPackaging)				
+                hasDevopsPomPackaging=(""!=devopsPomPackaging)
+ 				if (currentVerbose) println ("hasDevopsPomPackaging = " + hasDevopsPomPackaging)				
+            }           
+            if (hasDevopsPomPackaging){
+                stage ('Maven Devops Install'){
+                    sh "'${mvnHome}/bin/mvn' clean package install:install --non-recursive -Dmaven.test.skip=true -f ${devopsSourcesPath}/pom.xml"
+                }
+            } else {
+                stage ('Maven Devops Package'){
+                    sh "'${mvnHome}/bin/mvn' clean package --non-recursive -Dmaven.test.skip=true -f ${devopsSourcesPath}/pom.xml"
+                }            
+            }
+            if (currentStopContainer){
+	            stage ('Docker Stop'){
+	                sh "'${mvnHome}/bin/mvn' docker:stop --non-recursive -Dmaven.test.skip=true -f ${devopsSourcesPath}/pom.xml"
+	            }
+            }
+            stage ('Docker Build Image'){
+                devopsImageBuildResult = sh(returnStdout: true, script: "'${mvnHome}/bin/mvn' docker:build --non-recursive -Dmaven.test.skip=true -f ${devopsSourcesPath}/pom.xml").trim()                
+            }
+        	if (!currentForcePush){
+			    if (currentVerbose) println ("devopsImageBuildResult = " + devopsImageBuildResult)
+			    sh "touch ${devopsImageLastSha256File}" 
+			    devopsImageLastSha256 = sh(returnStdout: true, script: "cat ${devopsImageLastSha256File}").trim()
+			    if (currentVerbose) println ("devopsImageLastSha256 = " + devopsImageLastSha256)
+		        try{
+		            devopsImageCurrentSha256 = (devopsImageBuildResult =~ /Built image sha256:(.*)\n/)[0][1]
+				} catch (err){
+				}			
+			    if (currentVerbose) println ("devopsImageCurrentSha256 = " + devopsImageCurrentSha256)
+				if (devopsImageCurrentSha256!=''){
+					sh "echo \"${devopsImageCurrentSha256}\" > ${devopsImageLastSha256File}"			
+				}
+			}
+			if (currentForcePush||(devopsImageLastSha256!=devopsImageCurrentSha256)){            	   	   	   
+	            stage ('Docker Push'){
+					sh "'${mvnHome}/bin/mvn' docker:push --non-recursive -Dmaven.test.skip=true -f ${devopsSourcesPath}/pom.xml"
+	            }
+            }				
+			if (currentContinueTasks) {
+				stage('Launch Depending Tasks') {
+					int i=0;
+					for (i=0;i<dependingTasks.size();i++){
+						if (dependingTasks[i]!=""){
+			    			//build job: 'eu.operando.int.jnk.tsk.build.images', wait: false
+			    			if (currentVerbose) println ("starting job " + dependingTasks[i])
+			    			build job: dependingTasks[i], wait: false, parameters: [booleanParam(name: 'stopContainer', value: false)]
+						}
+					}
+			    }
+			}            
+        }
+	} catch (err) {
+	    currentBuild.result = "FAILURE"
+		emailext (
+			subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+			body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+			<p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+			recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+		)
+		if (currentClearOnFail){
+			stage ('Clear on Fail'){
+            	sh "rm -rf ${WORKSPACE}/src"	   			
+			}
+		}		
+	    throw err
+	}
 }
