@@ -51,7 +51,7 @@
                                 @foreach (var statement in category.statements)
                                 {
                                     <div class="row">
-                                        <div class="col-lg-7 col-md-7 col-xs-12 icheck-inline bold">Question @count @statement.statementString</div>
+                                        <div class="col-lg-7 col-md-7 col-xs-12 icheck-inline bold">Question @(count): @(statement.statementString)?</div>
                                         <div class="col-lg-5 col-md-5 col-xs-12">
                                             <div class="d-block">
                                                 <div class="icheck-inline">
@@ -88,7 +88,7 @@
                                 foreach (var statement in category.statements)
                                 {
                                     <div class="row">
-                                        <div class="col-xs-8 icheck-inline bold">Question @count @statement.statementString</div>
+                                        <div class="col-xs-8 icheck-inline bold">Question @(count): @(statement.statementString)?</div>
                                         <div class="col-xs-4 text-right">
                                             <div class="d-block">
                                                 <div class="icheck-inline">

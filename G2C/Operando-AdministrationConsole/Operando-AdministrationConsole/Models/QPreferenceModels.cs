@@ -8,8 +8,11 @@ namespace Operando_AdministrationConsole.Models
 
     public class QPPreference
     {
-        public string Category { get; set; }
-        public double Result { get; set; }
+
+        public string category { get; set; }
+        public string role { get; set; }
+        public string action { get; set; }
+        public string preference { get; set; }
     }
 
     public class QPResponse

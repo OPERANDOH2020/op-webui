@@ -299,6 +299,7 @@ namespace Operando_AdministrationConsole.Controllers
                         }
                         else
                         {
+                            Session.Remove("QuestionnaireId");
                             // updateUPP, fetch preferences first
                             var result = await client.GetAsync(new Uri(qUriBase + Session["Username"] + "/0/"));
                             Response.StatusCode = (int)result.StatusCode;
@@ -311,8 +312,16 @@ namespace Operando_AdministrationConsole.Controllers
                                 foreach(QPPreference pref in qRGet.response.preferences)
                                 {
                                     UserPreference uPref = new UserPreference();
-                                    uPref.Category = pref.Category;
-                                    uPref.Preference = pref.Result.ToString();
+                                    uPref.Category = pref.category;
+                                    uPref.Preference = pref.preference;
+                                    if (pref.role != null)
+                                    {
+                                        uPref.Role = pref.role;
+                                    }
+                                    if (pref.action != null)
+                                    {
+                                        uPref.Action = pref.action;
+                                    }
                                     userPrefList.Add(uPref);
                                 }
 
@@ -323,21 +332,18 @@ namespace Operando_AdministrationConsole.Controllers
                                 configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
 
                                 var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
-                                var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
+                                
 
                                 var username = Session["Username"].ToString();
                                 UserPrivacyPolicy userUPP;
                                 try
                                 {
-                                    userUPP = getInstance.UserPrivacyPolicyUserIdGet(username);
-                                    if(userUPP.UserPreferences == null)
-                                    {
-                                        userUPP.UserPreferences = userPrefList;
-                                    }
-                                    else
-                                    {
-                                        userUPP.UserPreferences.AddRange(userPrefList);
-                                    }
+                                    userUPP = getInstance.UserPrivacyPolicyUserIdGet(username);                                    
+                                    userUPP.UserPreferences = userPrefList;
+
+                                    // update upp
+                                    var putInstance = new eu.operando.core.pdb.cli.Api.PUTApi(configuration);
+                                    putInstance.UserPrivacyPolicyUserIdPut(username, userUPP);
                                 }
                                 catch (Exception e)
                                 {
@@ -348,8 +354,12 @@ namespace Operando_AdministrationConsole.Controllers
                                     userUPP.SubscribedOspPolicies = new List<OSPConsents>();
                                     userUPP.SubscribedOspSettings = new List<OSPSettings>();
                                     userUPP.UserPreferences = userPrefList;
+
+                                    // upp
+                                    var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
+                                    postInstance.UserPrivacyPolicyPost(userUPP);
                                 }
-                                postInstance.UserPrivacyPolicyPost(userUPP);
+                                
                             }
 
                         return RedirectToAction("Index", "Dashboard");
