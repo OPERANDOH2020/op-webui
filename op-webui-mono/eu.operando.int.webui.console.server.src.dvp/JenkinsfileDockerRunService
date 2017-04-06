@@ -31,8 +31,12 @@ node {
 		String workspaceContent=""
 
 		Boolean hasNewDevopsSources=false
-		
+
 		String devopsSourcesLastCommitFile
+
+		String devopsSourcesDiffPreviousCommit
+		String devopsSourcesCurrentCommit
+        String devopsSourcesLastCommit
 
 		String mvnHome;
 		
