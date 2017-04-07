@@ -14,6 +14,7 @@ using System.Net.Http;
 using eu.operando.core.ldb;
 using Operando_AdministrationConsole.Models.DataSubjectModels;
 using System.Text;
+using eu.operando.core.cpcu.cli.Model;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -186,7 +187,7 @@ namespace Operando_AdministrationConsole.Controllers
                 foreach (OSPConsents consent in userUPP.SubscribedOspPolicies)
                 {
                     Debug.Print("checking consent: " + consent.OspId + " vs " + ospPolicyUrl + " vs " + selectedOSP.PolicyUrl);
-                    if (consent.OspId == ospPolicyUrl)
+                    if (consent.OspId == selectedOSP.OspPolicyId)
                     {
                         found = true;
                         Debug.Print("Found matching UPP consent for UPDATE:" + consent.ToString());
@@ -238,37 +239,30 @@ namespace Operando_AdministrationConsole.Controllers
                 Session["QuestionnaireId"] = 0;
             }
             string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
+            var qConfiguration = new eu.operando.core.cpcu.cli.Client.Configuration(new eu.operando.core.cpcu.cli.Client.ApiClient(qUriBase));
 
-            using (HttpClient client = new HttpClient())
+            var getQInstance = new eu.operando.core.cpcu.cli.Api.GETCPCUApi(qConfiguration);
+
+            try
             {
-                //var response = client.GetAsync(new Uri(qUriBase + Session["Username"] +
-                //    "/0/" + Session["QuestionnaireId"].ToString())).Result;
-                var response = client.GetAsync(new Uri(qUriBase + Session["Username"] +
-                    "/0/" + Session["QuestionnaireId"].ToString())).GetAwaiter().GetResult();
-                if (response.IsSuccessStatusCode)
+                var response = getQInstance.GetCPCUGET(Session["Username"].ToString(), 0, (int)Session["QuestionnaireId"]);
+                if (response.Response.Error.Equals(""))
                 {
-                    var responseContent = response.Content;
-                    //string content = responseContent.ReadAsStringAsync().Result;
-                    string content = responseContent.ReadAsStringAsync().GetAwaiter().GetResult();
-                    //string content = Task.Run(() => responseContent.ReadAsStringAsync()).Result;
-
-                    L3QRootObject qGet = JsonConvert.DeserializeObject<L3QRootObject>(content);
-                    if (qGet.response.error.Equals(""))
+                    int counter = 101;
+                    foreach (var cat in response.Response.Questionnaire.Category)
                     {
-                        int counter = 101;
-                        foreach (var cat in qGet.response.questionnaire.category)
+                        foreach (var statement in cat.Statements)
                         {
-                            foreach (var statement in cat.statements)
-                            {
-                                statement.rating = counter++;
-                            }
+                            statement.Rating = counter++;
                         }
-                        Session["questionnaire"] = qGet;
-                        ViewBag.questionnaire = qGet.response.questionnaire;
                     }
+                    Session["questionnaire"] = response;
+                    ViewBag.questionnaire = response.Response.Questionnaire;
                 }
-            }
+            } catch (Exception e)
+            {
 
+            }
             return View();
         }
 
@@ -278,114 +272,102 @@ namespace Operando_AdministrationConsole.Controllers
         {
             string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
             int qId = int.Parse(Session["QuestionnaireId"].ToString());
-            L3QRootObject qGet = Session["questionnaire"] as L3QRootObject;
+            QNRootObject qGet = Session["questionnaire"] as QNRootObject;
             // update questionnaire ratings
-            foreach (var cat in qGet.response.questionnaire.category)
+            foreach (var cat in qGet.Response.Questionnaire.Category)
             {
-                foreach (var statement in cat.statements)
+                foreach (var statement in cat.Statements)
                 {
-                    statement.rating = int.Parse(Request.Form["radio" + statement.rating].ToString());
+                    statement.Rating = int.Parse(Request.Form["radio" + statement.Rating].ToString());
                 }
             }
-
 
             Session["questionnaire"] = null;
 
-            // post questionnaire to server
-            using (HttpClient client = new HttpClient())
+            var qConfiguration = new eu.operando.core.cpcu.cli.Client.Configuration(new eu.operando.core.cpcu.cli.Client.ApiClient(qUriBase));
+            var postQInstance = new eu.operando.core.cpcu.cli.Api.POSTCPCUApi(qConfiguration);
+            var getPrefsInstance = new eu.operando.core.cpcu.cli.Api.GETPreferencesApi(qConfiguration);
+
+            try
             {
-                try
+                var response = postQInstance.PostCPCUPOST(Session["Username"].ToString(), 0, (int)Session["QuestionnaireId"], qGet);
+                if (response.Response.Error.Equals("Successfully submitted"))
                 {
-                    var postDataJson = JsonConvert.SerializeObject(qGet);
-                    var postDataString = new StringContent(postDataJson, new UTF8Encoding(), "application/json");
-                    var responseMessage = client.PostAsync(new Uri(qUriBase + Session["Username"] +
-                        "/0/" + Session["QuestionnaireId"].ToString()), postDataString).Result;
-
-                    if (responseMessage.IsSuccessStatusCode)
+                    Session["QuestionnaireId"] = qId + 1;
+                    // if (qId == 0)
+                    if (qId < 3)
                     {
-
-                        Session["QuestionnaireId"] = qId + 1;
-                        // if (qId == 0)
-                        if (qId < 3)
-                        {
-                            return RedirectToAction("PrivacyQuestionnaire", "DataSubject");
-                        }
-                        else
-                        {
-                            Session.Remove("QuestionnaireId");
-                            // updateUPP, fetch preferences first
-                            var response = client.GetAsync(new Uri(qUriBase + Session["Username"] + "/0/")).Result;
-                            if (response.IsSuccessStatusCode)
+                        return RedirectToAction("PrivacyQuestionnaire", "DataSubject");
+                    }
+                    else
+                    {
+                        Session.Remove("QuestionnaireId");
+                        // updateUPP, fetch preferences first
+                        PrefRootObject resPref = getPrefsInstance.GetPreferencesGET(Session["Username"].ToString(), 0);
+                        
+                            if (resPref.Response.Error.Equals(""))
                             {
-                                var responseContent = response.Content;
-                                string content = responseContent.ReadAsStringAsync().Result;
+                                List<UserPreference> userPrefList = new List<UserPreference>();
 
-
-                                QPRootObject qRGet = JsonConvert.DeserializeObject<QPRootObject>(content);
-                                if (qRGet.response.error.Equals(""))
+                                foreach (Preference pref in resPref.Response.Preferences)
                                 {
-                                    List<UserPreference> userPrefList = new List<UserPreference>();
-
-                                    foreach (QPPreference pref in qRGet.response.preferences)
+                                    UserPreference uPref = new UserPreference();
+                                    uPref.Category = pref.Category;
+                                    uPref.Preference = pref._Preference;
+                                    if (pref.Role != null)
                                     {
-                                        UserPreference uPref = new UserPreference();
-                                        uPref.Category = pref.category;
-                                        uPref.Preference = pref.preference;
-                                        if (pref.role != null)
-                                        {
-                                            uPref.Role = pref.role;
-                                        }
-                                        if (pref.action != null)
-                                        {
-                                            uPref.Action = pref.action;
-                                        }
-                                        userPrefList.Add(uPref);
+                                        uPref.Role = pref.Role;
                                     }
-
-                                    string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
-                                    string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
-
-                                    var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
-                                    configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
-
-                                    var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
-
-
-                                    var username = Session["Username"].ToString();
-                                    UserPrivacyPolicy userUPP;
-                                    try
+                                    if (pref.Action != null)
                                     {
-                                        userUPP = getInstance.UserPrivacyPolicyUserIdGet(username);
-                                        userUPP.UserPreferences = userPrefList;
-
-                                        // update upp
-                                        var putInstance = new eu.operando.core.pdb.cli.Api.PUTApi(configuration);
-                                        putInstance.UserPrivacyPolicyUserIdPut(username, userUPP);
+                                        uPref.Action = pref.Action;
                                     }
-                                    catch (Exception e)
-                                    {
-                                        Debug.Print("Exception when calling pdb-server get upp: " + e.Message);
-                                        // create an empty UPP
-                                        userUPP = new UserPrivacyPolicy();
-                                        userUPP.UserId = username;
-                                        userUPP.SubscribedOspPolicies = new List<OSPConsents>();
-                                        userUPP.SubscribedOspSettings = new List<OSPSettings>();
-                                        userUPP.UserPreferences = userPrefList;
-
-                                        // upp
-                                        var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
-                                        postInstance.UserPrivacyPolicyPost(userUPP);
-                                    }
-
+                                    userPrefList.Add(uPref);
                                 }
 
-                                return RedirectToAction("Index", "Dashboard");
+                                string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+                                string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+                                var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+                                configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
+
+                                var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+
+
+                                var username = Session["Username"].ToString();
+                                UserPrivacyPolicy userUPP;
+                                try
+                                {
+                                    userUPP = getInstance.UserPrivacyPolicyUserIdGet(username);
+                                    userUPP.UserPreferences = userPrefList;
+
+                                    // update upp
+                                    var putInstance = new eu.operando.core.pdb.cli.Api.PUTApi(configuration);
+                                    putInstance.UserPrivacyPolicyUserIdPut(username, userUPP);
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.Print("Exception when calling pdb-server get upp: " + e.Message);
+                                    // create an empty UPP
+                                    userUPP = new UserPrivacyPolicy();
+                                    userUPP.UserId = username;
+                                    userUPP.SubscribedOspPolicies = new List<OSPConsents>();
+                                    userUPP.SubscribedOspSettings = new List<OSPSettings>();
+                                    userUPP.UserPreferences = userPrefList;
+
+                                    // upp
+                                    var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
+                                    postInstance.UserPrivacyPolicyPost(userUPP);
+                                }
+
                             }
+
+                            return RedirectToAction("Index", "Dashboard");
                         }
                     }
-                }
-                catch (OperationCanceledException) { }
             }
+            catch (OperationCanceledException) { }
+    
             return View();
         }
 
