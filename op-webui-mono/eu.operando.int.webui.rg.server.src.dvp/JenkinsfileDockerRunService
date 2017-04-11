@@ -33,10 +33,12 @@ node {
 		Boolean hasNewDevopsSources=false
 
 		String devopsSourcesLastCommitFile
+        String devopsSourcesLastChangedCommitFile
 
 		String devopsSourcesDiffPreviousCommit
 		String devopsSourcesCurrentCommit
         String devopsSourcesLastCommit
+        String devopsSourcesLastChangedCommit
 
 		String mvnHome;
 		
@@ -97,6 +99,8 @@ node {
 			if (currentVerbose) println ("devopsSourcesGitPath = " + devopsSourcesGitPath)
 		    devopsSourcesLastCommitFile=devopsSourcesPath+"/src.dvp.last.commit"
 			if (currentVerbose) println ("devopsSourcesLastCommitFile = " + devopsSourcesLastCommitFile)
+            devopsSourcesLastChangedCommitFile=devopsSourcesPath+"/src.dvp.last.changed.commit"
+			if (currentVerbose) println ("devopsSourcesLastChangedCommitFile = " + devopsSourcesLastChangedCommitFile)
 		}
 		try {
             workspaceContent=sh(returnStdout: true, script: "ls ${workspace} 2>/dev/null").trim()
@@ -121,13 +125,16 @@ node {
 					sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastCommitFile}"
 				}
 			    if (devopsSourcesCurrentCommit!=devopsSourcesLastCommit) {
+                    sh "touch ${devopsSourcesLastChangedCommitFile}" 
+                    devopsSourcesLastChangedCommit = sh(returnStdout: true, script: "cat ${devopsSourcesLastChangedCommitFile}").trim()
+                    if (devopsSourcesLastChangedCommit=="")  devopsSourcesLastChangedCommit="HEAD^"
 			    	try{
-			    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} HEAD^:${devopsSourcesRelativePath}").trim()
+			    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} ${devopsSourcesLastChangedCommit}:${devopsSourcesRelativePath}").trim()
 			    	} catch(err) {
 			    	}
 			    	if (currentVerbose) println ("devopsSourcesDiffPreviousCommit = " + devopsSourcesDiffPreviousCommit)
 			    	if (devopsSourcesDiffPreviousCommit!=""){
-		  				hasNewDevopsSources=true
+                        sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"		  				hasNewDevopsSources=true
 			    	}
 			    }
 			}
