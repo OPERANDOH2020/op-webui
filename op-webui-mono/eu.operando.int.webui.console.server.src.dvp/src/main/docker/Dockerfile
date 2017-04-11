@@ -15,7 +15,7 @@ RUN /usr/src/app/source/adapt_net_to_mono.sh
 RUN nuget restore -NonInteractive 
 #RUN nuget restore -NonInteractive -PackagesDirectory packages GBE:This is no longer valid as the sln file has been added again 
 RUN nuget update -self
-RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
+#RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
 
 RUN apt-get update
 
