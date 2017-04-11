@@ -70,7 +70,14 @@ namespace Operando_AdministrationConsole.Controllers
             string ospId = "587f7eb56e157a10eece95d3";
 
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(getConfiguration("pdbOSPSId"));
-            OSPReasonPolicy ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospId);
+            OSPReasonPolicy ospReasonPolicy = null;
+            try
+            {
+                ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospId);
+            } catch (eu.operando.core.pdb.cli.Client.ApiException e)
+            {
+                ospReasonPolicy = new OSPReasonPolicy();
+            }
 
             return View(ospReasonPolicy);
         }
