@@ -52,11 +52,15 @@ node {
 		String pomFile=""
 				
 		String devopsSourcesLastCommitFile
+        String devopsSourcesLastChangedCommitFile
 		String sourcesLastCommitFile
+        String sourcesLastChangedCommitFile
 
 		String devopsSourcesLastCommit
+        String devopsSourcesLastChangedCommit
 		String devopsSourcesCurrentCommit
 		String sourcesLastCommit
+        String sourcesLastChangedCommit
 		String sourcesCurrentCommit
 		
 		String devopsSourcesDiffPreviousCommit
@@ -150,6 +154,8 @@ node {
 			if (currentVerbose) println ("devopsSourcesGitPath = " + devopsSourcesGitPath)
 		    devopsSourcesLastCommitFile=devopsSourcesPath+"/src.dvp.last.commit"
 			if (currentVerbose) println ("devopsSourcesLastCommitFile = " + devopsSourcesLastCommitFile)
+            devopsSourcesLastChangedCommitFile=devopsSourcesPath+"/src.dvp.last.changed.commit"
+			if (currentVerbose) println ("devopsSourcesLastChangedCommitFile = " + devopsSourcesLastChangedCommitFile)
 		    devopsImageLastSha256File=devopsSourcesPath+"/dkr.img.last.sha256"
 			if (currentVerbose) println ("devopsImageLastSha256File = " + devopsImageLastSha256File)
 			if (hasSources){
@@ -161,6 +167,8 @@ node {
 				if (currentVerbose) println ("sourcesGitPath = " + sourcesGitPath)
         		sourcesLastCommitFile=devopsSourcesPath+"/src.last.commit"
 	    		if (currentVerbose) println ("sourcesLastCommitFile = " + sourcesLastCommitFile)
+                sourcesLastChangedCommitFile=devopsSourcesPath+"/src.last.changed.commit"
+	    		if (currentVerbose) println ("sourcesLastChangedCommitFile = " + sourcesLastChangedCommitFile)
 			}
 		}		
 		try {
@@ -196,12 +204,16 @@ node {
     				sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastCommitFile}"
     			}
     		    if (devopsSourcesCurrentCommit!=devopsSourcesLastCommit) {
+                    sh "touch ${devopsSourcesLastChangedCommitFile}" 
+                    devopsSourcesLastChangedCommit = sh(returnStdout: true, script: "cat ${devopsSourcesLastChangedCommitFile}").trim()
+                    if (devopsSourcesLastChangedCommit=="")  devopsSourcesLastChangedCommit="HEAD^"
     		    	try{
-    		    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} HEAD^:${devopsSourcesRelativePath}").trim()
+    		    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} ${devopsSourcesLastChangedCommit}:${devopsSourcesRelativePath}").trim()
     		    	} catch(err) {
     		    	}
  			    	if (currentVerbose) println ("devopsSourcesDiffPreviousCommit = " + devopsSourcesDiffPreviousCommit)
  			    	if (devopsSourcesDiffPreviousCommit!=""){
+                        sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"
  		  				hasNewDevopsSources=true
     		        	requiresBuild=true
  			    	}
@@ -220,13 +232,17 @@ node {
         				sh "echo \"${sourcesCurrentCommit}\" > ${sourcesLastCommitFile}"
         			}
         		    if (sourcesCurrentCommit!=sourcesLastCommit) {
+                        sh "touch ${sourcesLastChangedCommitFile}" 
+                        sourcesLastChangedCommit = sh(returnStdout: true, script: "cat ${sourcesLastChangedCommitFile}").trim()
+                        if (sourcesLastChangedCommit=="")  sourcesLastChangedCommit="HEAD^"
 	    		    	try{
-	    		    		sourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${sourcesGitRepoPath} diff HEAD:${sourcesRelativePath} HEAD^:${sourcesRelativePath}").trim()
+	    		    		sourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${sourcesGitRepoPath} diff HEAD:${sourcesRelativePath} ${sourcesLastChangedCommit}:${sourcesRelativePath}").trim()
 	    		    	} catch(err) {
 	    		    	}
 	 			    	if (currentVerbose) println ("sourcesDiffPreviousCommit = " + sourcesDiffPreviousCommit)
 	 			    	if (sourcesDiffPreviousCommit!=""){
-	 		  				hasNewDevopsSources=true
+                            sh "echo \"${sourcesCurrentCommit}\" > ${sourcesLastChangedCommitFile}"
+ 		  				hasNewDevopsSources=true
 	    		        	requiresBuild=true
 	 			    	}
         		    }
