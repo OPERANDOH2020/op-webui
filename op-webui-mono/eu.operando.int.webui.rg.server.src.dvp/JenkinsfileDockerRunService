@@ -134,7 +134,8 @@ node {
 			    	}
 			    	if (currentVerbose) println ("devopsSourcesDiffPreviousCommit = " + devopsSourcesDiffPreviousCommit)
 			    	if (devopsSourcesDiffPreviousCommit!=""){
-                        sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"		  				hasNewDevopsSources=true
+                        sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"
+		  				hasNewDevopsSources=true
 			    	}
 			    }
 			}
