@@ -14,5 +14,5 @@ ADD generated/. /usr/local/tomcat/webapps
 ADD run.sh .
 RUN chmod 750 run.sh
 ENV PATH /usr/local/tomcat:$PATH
-
+ 
 CMD ["run.sh"]
