@@ -126,6 +126,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 // extract OSP list urls
                 OSPPrivacyPolicy selectedOSP = null;
+                string selectedOSPID = "";
                 string ospPolicyUrl = resp.AllKeys[resp.Count - 1];
 
                 foreach (OSPPrivacyPolicy osp in response)
@@ -136,6 +137,9 @@ namespace Operando_AdministrationConsole.Controllers
                     {
                         Debug.Print("Selected OSP:" + osp.PolicyUrl);
                         selectedOSP = osp;
+
+                        selectedOSPID = selectedOSP.PolicyUrl;
+                        //selectedOSPID = selectedOSP.OspPolicyId;
 
                         foreach (eu.operando.core.pdb.cli.Model.AccessPolicy ap in selectedOSP.Policies)
                         {
@@ -187,12 +191,12 @@ namespace Operando_AdministrationConsole.Controllers
                 foreach (OSPConsents consent in userUPP.SubscribedOspPolicies)
                 {
                     Debug.Print("checking consent: " + consent.OspId + " vs " + ospPolicyUrl + " vs " + selectedOSP.PolicyUrl);
-                    if (consent.OspId == selectedOSP.OspPolicyId)
+                    if (consent.OspId == selectedOSPID)
                     {
                         found = true;
                         Debug.Print("Found matching UPP consent for UPDATE:" + consent.ToString());
                         OSPConsents updateConsent = new OSPConsents();
-                        updateConsent.OspId = selectedOSP.OspPolicyId;
+                        updateConsent.OspId = selectedOSPID;
                         updateConsent.AccessPolicies = selectedOSP.Policies;
                         newSOP.Add(updateConsent);
                     }
@@ -208,7 +212,7 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     Debug.Print("Add new consent to OSP policy: " + selectedOSP.PolicyUrl);
                     OSPConsents newConsents = new OSPConsents();
-                    newConsents.OspId = selectedOSP.OspPolicyId;
+                    newConsents.OspId = selectedOSPID;
                     newConsents.AccessPolicies = selectedOSP.Policies;
                     newSOP.Add(newConsents);
                 }
