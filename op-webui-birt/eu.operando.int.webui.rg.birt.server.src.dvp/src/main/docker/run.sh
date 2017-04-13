@@ -5,7 +5,6 @@ echo MYSQL_DB_HOST: $MYSQL_DB_HOST
 echo MYSQL_DB_NAME: $MYSQL_DB_NAME
 echo MYSQL_DB_USER: $MYSQL_DB_USER
 echo MYSQL_DB_PASSWORD: $MYSQL_DB_PASSWORD
-echo RG_BIRT_ENDPOINT: $RG_BIRT_ENDPOINT
 
 MYSQL_DB_PASSWORD_ENCRYPTED=`echo -n "$MYSQL_DB_PASSWORD" | base64`
 echo MYSQL_DB_PASSWORD_ENCRYPTED: $MYSQL_DB_PASSWORD_ENCRYPTED
@@ -26,10 +25,9 @@ jar xvf $WAR_DIR/$WAR_FILE
 
 
 echo Replace 
-grep -rl -e "jdbc:.*:3306\/[^\?]*" **/*.rptdesign | xargs sed -i -e "s/jdbc:.*:3306\/[^\?]*/jdbc:mysql:\/\/$MYSQL_DB_HOST:3306\/$MYSQL_DB_NAME/g"
-grep -rl -e "<.*\"odaUser\">.*<\/property>" **/*.rptdesign | xargs sed -i -e "s/\(<.*\"odaUser\">\)\(.*\)\(<\/property>\)/\1$MYSQL_DB_USER\3/g" 
-grep -rl -e "<.*\"odaPassword\".*>.*<\/encrypted-property>" **/*.rptdesign | xargs sed -i -e "s/\(<.*\"odaPassword\".*>\)\(.*\)\(<\/encrypted-property>\)/\1$MYSQL_DB_PASSWORD_ENCRYPTED\3/g" 
-grep -rl -e "http:\/\/www.birt.sassuolo.info\/birt-viewer_3_7\/" **/*.rptdesign | xargs sed -i -e "s/http:\/\/www.birt.sassuolo.info\/birt-viewer_3_7\//$RG_BIRT_ENDPOINT/g" 
+grep -rl -e "jdbc:.*:3306\/[^\?]*" --include="*.rptdesign" | xargs sed -i -e "s/jdbc:.*:3306\/[^\?]*/jdbc:mysql:\/\/$MYSQL_DB_HOST:3306\/$MYSQL_DB_NAME/g"
+grep -rl -e "<.*\"odaUser\">.*<\/property>" --include="*.rptdesign" | xargs sed -i -e "s/\(<.*\"odaUser\">\)\(.*\)\(<\/property>\)/\1$MYSQL_DB_USER\3/g" 
+grep -rl -e "<.*\"odaPassword\".*>.*<\/encrypted-property>" --include="*.rptdesign" | xargs sed -i -e "s/\(<.*\"odaPassword\".*>\)\(.*\)\(<\/encrypted-property>\)/\1$MYSQL_DB_PASSWORD_ENCRYPTED\3/g" 
 
 echo Recompress file
 jar cvf $WAR_FILE .

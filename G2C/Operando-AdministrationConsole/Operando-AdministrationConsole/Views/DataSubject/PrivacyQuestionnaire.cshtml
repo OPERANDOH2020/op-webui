@@ -6,7 +6,8 @@
 }
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="m-heading-1 border-grey-silver m-bordered">
-    <p>This questinnaire consists of two parts, an initial set of questions, and a privacy set of questions.</p>
+    <p>The questinnaire consists of four parts, an initial set of questions, a privacy set of questions,
+    a set of service related questions and finally a set of action questions.</p>
     <p>For all Questions the higher score (5 is maximum value, very true about yoursel) means that
     you are more likely to care about privacy.</p>
 </div>
@@ -15,11 +16,11 @@
         <form class="form-horizontal" action="#" id="submit_form" method="POST" novalidate="novalidate">
             <div class="form-wizard">
                 <div class="form-body">
-                    <p>Questionnaire part: @(ViewBag.questionnaire.title)</p>
-                    <p>@(ViewBag.questionnaire.metadata)</p>
+                    <p>Questionnaire part: @(ViewBag.questionnaire.Title)</p>
+                    <p>@(ViewBag.questionnaire.Metadata)</p>
                     <ul class="nav nav-pills nav-justified steps">
                         @{ int count = 1;}
-                        @for (count = 1; count < ViewBag.questionnaire.category.Count+2; count++)
+                        @for (count = 1; count < ViewBag.questionnaire.Category.Count+2; count++)
                         {
                             <li @if(count == 1) {<text>class="active"</text>}>
                                 <a href="#tab@(count)" data-toggle="tab" class="step" aria-expanded="true">
@@ -43,31 +44,31 @@
                             <button class="close" data-dismiss="alert"></button> Your form validation is successful!
                         </div>
                         @{ int cCount = 1; count = 1;}
-                        @foreach (var category in ViewBag.questionnaire.category)
+                        @foreach (var category in ViewBag.questionnaire.Category)
                         {
                             <div class="tab-pane @(cCount == 1 ? "active" : "")" id="tab@(cCount)">
-                                <h3 class="block">Category @(cCount): @category.title</h3>
-                                @foreach (var statement in category.statements)
+                                <h3 class="block">Category @(cCount): @category.Title</h3>
+                                @foreach (var statement in category.Statements)
                                 {
                                     <div class="row">
-                                        <div class="col-lg-7 col-md-7 col-xs-12 icheck-inline bold">Question @count @statement.statementString</div>
+                                        <div class="col-lg-7 col-md-7 col-xs-12 icheck-inline bold">Question @(count): @(statement.StatementString)?</div>
                                         <div class="col-lg-5 col-md-5 col-xs-12">
                                             <div class="d-block">
                                                 <div class="icheck-inline">
                                                     <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.rating)" class="icheck" value="1"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 1</div>
+                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="1"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 1</div>
                                                     </label>
                                                     <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.rating)" class="icheck" value="2"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 2 </div>
+                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="2"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 2 </div>
                                                     </label>
                                                     <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.rating)" class="icheck" value="3"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 3</div>
+                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="3"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 3</div>
                                                     </label>
                                                     <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.rating)" class="icheck" value="4"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 4</div>
+                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="4"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 4</div>
                                                     </label>
                                                     <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.rating)" class="icheck" value="5"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> <span class="valore10">5</span></div>
+                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="5"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> <span class="valore10">5</span></div>
                                                     </label>
                                                 </div>
                                             </div>
@@ -79,19 +80,19 @@
                             cCount++;
                         }
                         <div class="tab-pane" id="tab@(cCount)">
-                            <h3 class="block">Confirm @(ViewBag.questionnaire.title) Preferences</h3>
+                            <h3 class="block">Confirm @(ViewBag.questionnaire.Title) Preferences</h3>
                             @*<h4 class="form-section">Account</h4>*@
                             @{ cCount = 1; count = 1;}
-                            @foreach (var category in ViewBag.questionnaire.category)
+                            @foreach (var category in ViewBag.questionnaire.Category)
                             {
-                                foreach (var statement in category.statements)
+                                foreach (var statement in category.Statements)
                                 {
                                     <div class="row">
-                                        <div class="col-xs-8 icheck-inline bold">Question @count @statement.statementString</div>
+                                        <div class="col-xs-8 icheck-inline bold">Question @(count): @(statement.StatementString)?</div>
                                         <div class="col-xs-4 text-right">
                                             <div class="d-block">
                                                 <div class="icheck-inline">
-                                                    <div id="radio@(statement.rating)"></div>
+                                                    <div id="radio@(statement.Rating)"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,16 +129,16 @@
 
     $("#Button_ContinuePrivacyQuestionnaire").click(function () {
         @{ cCount = 1; count = 1;}
-        @foreach (var category in ViewBag.questionnaire.category)
+        @foreach (var category in ViewBag.questionnaire.Category)
         {
             <text>
             if ($('#tab@(cCount)').css("display") == 'block') {
             </text>
-              foreach (var statement in category.statements)
+              foreach (var statement in category.Statements)
               {
                       <text>
-                      var radio@(statement.rating)html = $('input[name=radio@(statement.rating)]:checked', '#submit_form').val();
-                      $('#radio@(statement.rating)').text(radio@(statement.rating)html);
+                      var radio@(statement.Rating)html = $('input[name=radio@(statement.Rating)]:checked', '#submit_form').val();
+                      $('#radio@(statement.Rating)').text(radio@(statement.Rating)html);
                       </text>
                   count++;
               }

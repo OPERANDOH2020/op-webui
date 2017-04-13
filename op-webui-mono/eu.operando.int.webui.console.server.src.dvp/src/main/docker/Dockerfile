@@ -16,7 +16,7 @@ RUN nuget restore -NonInteractive
 #RUN nuget restore -NonInteractive -PackagesDirectory packages GBE:This is no longer valid as the sln file has been added again 
 RUN nuget update -self
 RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
-
+ 
 RUN apt-get update
 
 RUN apt-get install -y mono-xsp4 asp.net-examples
