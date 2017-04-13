@@ -36,7 +36,12 @@
                     <p>You can use our privacy wizard to generate a recomended privacy policy quickly and easily.</p>
                 </div>
                 <div class="col-md-2 text-right">
-                    <p> <button type="button" class="btn yellow-gold">Start</button></p>
+                        @*<p> <button type="button" class="btn yellow-gold">Start</button></p>*@
+                    <form class="form-horizontal" role="form" method="post" name="questionnaire">
+                        <div class="form-actions right">
+                            <button type="submit" class="btn yellow-gold" name="qstage">Start</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -79,7 +84,7 @@
                             </div>
                             <div class="form-actions right">
                                 <button type="submit" class="btn yellow-gold" name="@osp.PolicyUrl">Update UPP</button>
-                                <button type="button" class="btn default">Back to default values</button>
+                                <button type="button" class="btn default">Back to default values</button>                                
                             </div>
                         </form>
                     </div>

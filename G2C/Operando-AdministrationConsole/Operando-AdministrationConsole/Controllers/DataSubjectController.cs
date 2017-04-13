@@ -88,6 +88,7 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 Debug.Print("Exception when calling PrivacyLegislationApi.RegulationsPost: " + e.Message);
             }
+            //ViewBag.ReturnUrl = Request.UrlReferrer;
             return View();
         }
 
@@ -95,11 +96,17 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpPost]
         public ActionResult AccessPreferences(FormCollection resp)
         {
+            
             //Debug.Print("http post here: " + Convert.ToString(resp) + Response);
             List<string> policiesKey = new List<string>();
 
             foreach (var key in resp.AllKeys)
             {
+                if(key.ToString().Equals("qstage"))
+                {
+                    Session["QuestionnaireStage"] = 3;
+                    return RedirectToAction("PrivacyQuestionnaire");
+                }
                 //Debug.Print("resp: " + key);
                 policiesKey.Add(key);
             }
@@ -226,6 +233,7 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 Debug.Print("Exception when calling pdb-server: " + e.Message);
             }
+            // return Redirect(returnUrl);
             return View();
         }
 
@@ -234,14 +242,60 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-        [HttpGet]
-        //public async Task<ActionResult> PrivacyQuestionnaire()
-        public ActionResult PrivacyQuestionnaire()
+        private void checkQuestionnaireID()
         {
             if (Session["QuestionnaireId"] == null)
             {
-                Session["QuestionnaireId"] = 0;
+                // check status
+                string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
+                var qConfiguration = new eu.operando.core.cpcu.cli.Client.Configuration(new eu.operando.core.cpcu.cli.Client.ApiClient(qUriBase));
+
+                var getQInstance = new eu.operando.core.cpcu.cli.Api.GETCPCUApi(qConfiguration);
+
+                try
+                {
+                    var response = getQInstance.GetCPCUGET(Session["Username"].ToString(), 0, 2);
+                    if (response.Response.Error.Equals(""))
+                    {
+                        Session["QuestionnaireId"] = 2;
+                        Session["QuestionnaireStage"] = 3;
+                    }
+                    else
+                    {
+                        Session["QuestionnaireId"] = 0;
+                        if (Session["QuestionnaireStage"] == null)
+                        {
+                            // initial case, i.e. user clicked on privacy QN first time
+                            Session["QuestionnaireStage"] = 1;
+                        }
+               
+                    }
+                }
+                catch (Exception e)
+                {
+                    // failed to connect to CPCU server
+                }
             }
+            Debug.Print("QuestionnaireId is: " + Session["QuestionnaireId"]);
+        }
+
+        [HttpGet]
+        //public async Task<ActionResult> PrivacyQuestionnaire()
+        public ActionResult PrivacyQuestionnaire()
+        {             
+            checkQuestionnaireID();
+           
+            if((int)Session["QuestionnaireId"] > 3)
+            {
+                // no need to run questionnaire
+                return RedirectToAction("Index", "Dashboard");
+            }
+            /*
+            if(Session["QuestionnaireId"] == null)
+            {
+                Session["QuestionnaireId"] = 0;
+                Session["QuestionnaireStage"] = 1;
+            }*/
             string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
             var qConfiguration = new eu.operando.core.cpcu.cli.Client.Configuration(new eu.operando.core.cpcu.cli.Client.ApiClient(qUriBase));
 
@@ -299,7 +353,7 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     Session["QuestionnaireId"] = qId + 1;
                     // if (qId == 0)
-                    if (qId < 3)
+                    if (qId < (int)Session["QuestionnaireStage"])
                     {
                         return RedirectToAction("PrivacyQuestionnaire", "DataSubject");
                     }

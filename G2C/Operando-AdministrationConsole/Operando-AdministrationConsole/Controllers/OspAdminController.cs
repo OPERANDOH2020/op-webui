@@ -68,15 +68,21 @@ namespace Operando_AdministrationConsole.Controllers
         {
             // TODO: Get the OSP ID in some way
             string ospId = "587f7eb56e157a10eece95d3";
+            ospId = "YellowPages";
 
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(getConfiguration("pdbOSPSId"));
             OSPReasonPolicy ospReasonPolicy = null;
             try
             {
+                //var filter = "{\"policy_url\" : \"" + ospId + "\"}";
+                //List<OSPPrivacyPolicy> ospList = instance.OSPGet(filter);
+                //ospId = ospList[0].OspPolicyId;
                 ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospId);
             } catch (eu.operando.core.pdb.cli.Client.ApiException e)
             {
                 ospReasonPolicy = new OSPReasonPolicy();
+                ospReasonPolicy.OspPolicyId = ospId;
+                ospReasonPolicy.Policies = new List<AccessReason>();
             }
 
             return View(ospReasonPolicy);
@@ -562,13 +568,13 @@ namespace Operando_AdministrationConsole.Controllers
             var ticketGrantingTicket = Session["TGT"] as string;
 
             return _aapiClient.GetServiceTicket(ticketGrantingTicket, serviceName);
-            }
+        }
 
         /* Method modified by IT Innovation Centre 2017 */
         public ActionResult UppManagementTool()
         {
             string ospId = "587f7eb56e157a10eece95d3"; // local for http://10.136.24.87:8080/pdb
-            // ospId = "58b4cf1c5908010001a31aec";
+            ospId = "YellowPages";
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
             string pdbUPPSId = ConfigurationManager.AppSettings["pdbUPPSId"];
