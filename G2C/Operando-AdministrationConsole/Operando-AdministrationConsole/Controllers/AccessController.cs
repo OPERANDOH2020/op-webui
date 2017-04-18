@@ -56,7 +56,7 @@ namespace Operando_AdministrationConsole.Controllers
                     Session["TGT"] = ticket;
 
                     // get user profile, DISSABLED as server does not fully supports this operation yet
-                    var usr = userInstance.UserUsernameGet(user.Username);
+                    var usr = userInstance.UserUsernameGet(user.Username);                    
                     Debug.Print("USER PROFILE:" + usr.ToJson());
                     // UPDATE PROFILE PAGE ...
                     Newtonsoft.Json.Linq.JObject jProfile = Newtonsoft.Json.Linq.JObject.Parse(usr.ToJson());

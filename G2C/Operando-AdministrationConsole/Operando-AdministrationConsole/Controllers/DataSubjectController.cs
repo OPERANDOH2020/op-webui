@@ -15,6 +15,7 @@ using eu.operando.core.ldb;
 using Operando_AdministrationConsole.Models.DataSubjectModels;
 using System.Text;
 using eu.operando.core.cpcu.cli.Model;
+using eu.operando.interfaces.aapi.Model;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -65,6 +66,15 @@ namespace Operando_AdministrationConsole.Controllers
             return _aapiClient.GetServiceTicket(ticketGrantingTicket, pdbOSPSId);
         }
 
+        private List<string> GetOspList()
+        {
+            string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            OspList ospList = userInstance.OspListGet();
+            Debug.Print("OSP LIST: " + ospList.ToString());
+            return ospList.osps;
+        }
+
         /* Method modified by IT Innovation Centre 2016 */
         public ActionResult AccessPreferences()
         {
@@ -75,14 +85,27 @@ namespace Operando_AdministrationConsole.Controllers
             configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
 
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
-
+            List<string> ospAapiList= GetOspList();
+            List<OSPPrivacyPolicy> checkedOSPList = new List<OSPPrivacyPolicy>();
             try
             {
                 // OSP call to get the list of service providers
                 var filter = "{\"policy_text\" : \"\"}";
                 var response = instance.OSPGet(filter);
-                ViewBag.ospppList = response;
-                return View(response);
+                
+                foreach(string ospItem in ospAapiList)
+                {
+                    foreach(OSPPrivacyPolicy ospInstance in response)
+                    {
+                        if((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
+                        {
+                            checkedOSPList.Add(ospInstance);
+                            break;
+                        }
+                    }
+                }
+                ViewBag.ospppList = checkedOSPList;
+                return View(checkedOSPList);
             }
             catch (Exception e)
             {
@@ -124,19 +147,34 @@ namespace Operando_AdministrationConsole.Controllers
             var putInstance = new eu.operando.core.pdb.cli.Api.PUTApi(configuration);
 
             var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
-
+            List<string> ospAapiList = GetOspList();
+            List<OSPPrivacyPolicy> checkedOSPList = new List<OSPPrivacyPolicy>();
             try
             {
                 var filterOSP = "{\"policy_text\" : \"\"}";
                 var response = getInstance.OSPGet(filterOSP);
-                ViewBag.ospppList = response;
+                //ViewBag.ospppList = response;
 
                 // extract OSP list urls
                 OSPPrivacyPolicy selectedOSP = null;
                 string selectedOSPID = "";
                 string ospPolicyUrl = resp.AllKeys[resp.Count - 1];
 
-                foreach (OSPPrivacyPolicy osp in response)
+                foreach (string ospItem in ospAapiList)
+                {
+                    foreach (OSPPrivacyPolicy ospInstance in response)
+                    {
+                        if ((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
+                        {
+                            checkedOSPList.Add(ospInstance);
+                            break;
+                        }
+                    }
+                }
+
+                ViewBag.ospppList = checkedOSPList;
+
+                foreach (OSPPrivacyPolicy osp in checkedOSPList)
                 {
                     Debug.Print("response: " + osp.PolicyUrl + " vs " + ospPolicyUrl);
 
