@@ -73,24 +73,23 @@
                                 {
                                     <div class="form-group">
                                         <label class="col-md-7 control-label">@groupPolicy.groupKey should be able to access the following data:</label>
-                                       
+
                                         <div class="col-md-5">
-@foreach (var policy in groupPolicy.gap)
-{
-                                            <div class="mt-checkbox-list">
-                                                <label class="mt-checkbox">
-                                                    <input type="checkbox"
-                                                           name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
-                                                           value="@policy.Permission"
-                                                           @if (policy.Permission == true)
-                                                           { @: checked="checked"
-                                                           }> @policy.Resource
-                                                    <span></span>
-                                                </label>
-                                            </div>
-}
+                                            @foreach (var policy in groupPolicy.gap)
+                                            {
+                                                <div class="mt-checkbox-list">
+                                                    <label class="mt-checkbox">
+                                                        <input type="checkbox"
+                                                               name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
+                                                               value="@policy.Permission"
+                                                               @if (policy.Permission == true) { @: checked="checked"
+                                                                                                                          }> @policy.Resource
+                                                                                                                        <span></span>
+                                                                                                                    </label>
+                                                                                                                </div>
+                                            }
                                         </div>
-                                        
+
                                     </div>
                                 }
                             </div>
