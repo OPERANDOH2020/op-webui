@@ -17,6 +17,7 @@ using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
 using Newtonsoft.Json;
 using eu.operando.interfaces.aapi;
+using eu.operando.interfaces.aapi.Model;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -63,29 +64,68 @@ namespace Operando_AdministrationConsole.Controllers
 
             return configuration;
         }
-
-        public ActionResult PrivacyPolicy()
+        public List<OSPPrivacyPolicy> GetOspList()
         {
-            // TODO: Get the OSP ID in some way
-            string ospId = "587f7eb56e157a10eece95d3";
-            ospId = "YellowPages";
-
+            string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            OspList ospList = userInstance.OspListGet();
+            Debug.Print("OSP LIST: " + ospList.ToString());
+            
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(getConfiguration("pdbOSPSId"));
-            OSPReasonPolicy ospReasonPolicy = null;
+
+            List<OSPPrivacyPolicy> checkedOSPList = new List<OSPPrivacyPolicy>();
             try
             {
-                //var filter = "{\"policy_url\" : \"" + ospId + "\"}";
-                //List<OSPPrivacyPolicy> ospList = instance.OSPGet(filter);
-                //ospId = ospList[0].OspPolicyId;
-                ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospId);
-            } catch (eu.operando.core.pdb.cli.Client.ApiException e)
-            {
-                ospReasonPolicy = new OSPReasonPolicy();
-                ospReasonPolicy.OspPolicyId = ospId;
-                ospReasonPolicy.Policies = new List<AccessReason>();
-            }
+                // OSP call to get the list of service providers
+                var filter = "{\"policy_text\" : \"\"}";
+                var response = instance.OSPGet(filter);
 
-            return View(ospReasonPolicy);
+                foreach (string ospItem in ospList.osps)
+                {
+                    foreach (OSPPrivacyPolicy ospInstance in response)
+                    {
+                        if ((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
+                        {
+                            checkedOSPList.Add(ospInstance);
+                            break;
+                        }
+                    }
+                }
+                if (checkedOSPList.Count == 0)
+                {
+                    checkedOSPList = response;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling OSP list: " + e.Message);
+            }
+            return checkedOSPList;
+        }
+        public ActionResult PrivacyPolicy()
+        {
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(getConfiguration("pdbOSPSId"));
+
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            List<OSPReasonPolicy> reasonPolicyList = new List<OSPReasonPolicy>();
+            foreach (OSPPrivacyPolicy osp in ospList)
+            {
+                OSPReasonPolicy ospReasonPolicy = null;
+                try
+                {                    
+                    ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(osp.PolicyUrl);
+                }
+                catch (eu.operando.core.pdb.cli.Client.ApiException e)
+                {
+                    ospReasonPolicy = new OSPReasonPolicy();
+                    ospReasonPolicy.OspPolicyId = osp.PolicyUrl; // ospId;
+                    ospReasonPolicy.Policies = new List<AccessReason>();
+                }
+
+                reasonPolicyList.Add(ospReasonPolicy);
+            }
+            return View(reasonPolicyList);
+            //return View();
         }
 
         [HttpPost]

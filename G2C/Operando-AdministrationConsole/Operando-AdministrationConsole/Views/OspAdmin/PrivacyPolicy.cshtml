@@ -7,7 +7,7 @@
 
 @using Operando_AdministrationConsole.Models;
 @*model PrivacyPolicy*@
-@model OSPReasonPolicy
+@model IList<OSPReasonPolicy>
 
 @*Create a series of table cells allowing editing of a bound regulation*@
 @helper PolicyEditRow(string binding)
@@ -62,13 +62,16 @@
 </div>
 
 <div class="row">
+    @{ int count = 1;}
+    @foreach (var osp in Model)
+    {
     <div class="col-xs-12">
         <!-- BEGIN PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title tabbable-line">
                 <div class="caption">
                     <i class="icon-globe font-dark hide"></i>
-                    <span class="caption-subject font-dark bold uppercase">OSP-A Privacy Policy</span>
+                    <span class="caption-subject font-dark bold uppercase">@(osp.OspPolicyId) Privacy Policy</span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -126,6 +129,8 @@
         </div>
         <!-- END PORTLET-->
     </div>
+    count++;
+    }
 </div>
 <!-- END PAGE BASE CONTENT -->
 
@@ -153,15 +158,22 @@
     <script src="~/assets/pages/scripts/operando-privacy-policy.js" type="text/javascript"></script>
 }
 
-<script type="text/javascript">
-    $(function () {
-        var model = JSON.parse('@Html.Raw(Json.Encode(Model))');
-        var urlAdd = "@Url.Action("NewPrivacyPolicy", "OspAdmin")/";
-        var urlUpdate = "@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/";
-        var urlDelete = "@Url.Action("DeletePrivacyPolicy", "OspAdmin")/";
+
+    @{ count = 1;}
+    @foreach (var osp in Model)
+    {
+        <script type="text/javascript">
+    function f@(count) () {
+            var model = JSON.parse('@Html.Raw(Json.Encode(osp))');
+
+            var urlAdd = "@Url.Action("NewPrivacyPolicy", "OspAdmin")/";
+            var urlUpdate = "@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/";
+            var urlDelete = "@Url.Action("DeletePrivacyPolicy", "OspAdmin")/";
+
+            OperandoPrivacyPolicy.init("@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/", "@osp.OspPolicyId", model);
+    }
+        </script>
+        count++;
+    }
         
-        OperandoPrivacyPolicy.init("@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/", "@Model.OspPolicyId", model);
-        //OperandoPrivacyPolicy.init(urlAdd, urlUpdate, urlDelete, "@Model.OspPolicyId", model);
-    });
-</script>
 

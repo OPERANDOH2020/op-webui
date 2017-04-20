@@ -11,7 +11,8 @@
     function PrivacyPolicyModel(initialState) {
         var self = this;
 
-        self.OspPolicyId = ospPolicyId;
+        //self.OspPolicyId = ospPolicyId;
+        self.OspPolicyId = initialState.OspPolicyId;
 
         var hashString = function (str) {
             // Return an integer hash for a string

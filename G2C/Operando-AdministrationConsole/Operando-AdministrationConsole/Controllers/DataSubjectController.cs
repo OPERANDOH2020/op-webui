@@ -66,18 +66,13 @@ namespace Operando_AdministrationConsole.Controllers
             return _aapiClient.GetServiceTicket(ticketGrantingTicket, pdbOSPSId);
         }
 
-        private List<string> GetOspList()
+        public List<OSPPrivacyPolicy> GetOspList()
         {
             string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
             var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
             OspList ospList = userInstance.OspListGet();
             Debug.Print("OSP LIST: " + ospList.ToString());
-            return ospList.osps;
-        }
 
-        /* Method modified by IT Innovation Centre 2016 */
-        public ActionResult AccessPreferences()
-        {
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
 
@@ -85,34 +80,127 @@ namespace Operando_AdministrationConsole.Controllers
             configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
 
             var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
-            List<string> ospAapiList= GetOspList();
+
             List<OSPPrivacyPolicy> checkedOSPList = new List<OSPPrivacyPolicy>();
             try
             {
                 // OSP call to get the list of service providers
                 var filter = "{\"policy_text\" : \"\"}";
                 var response = instance.OSPGet(filter);
-                
-                foreach(string ospItem in ospAapiList)
+
+                foreach (string ospItem in ospList.osps)
                 {
-                    foreach(OSPPrivacyPolicy ospInstance in response)
+                    foreach (OSPPrivacyPolicy ospInstance in response)
                     {
-                        if((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
+                        if ((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
                         {
                             checkedOSPList.Add(ospInstance);
                             break;
                         }
                     }
                 }
-                ViewBag.ospppList = checkedOSPList;
-                return View(checkedOSPList);
+                if (checkedOSPList.Count == 0)
+                {
+                    checkedOSPList = response;
+                }
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling PrivacyLegislationApi.RegulationsPost: " + e.Message);
+                Debug.Print("Exception when calling OSP list: " + e.Message);
             }
-            //ViewBag.ReturnUrl = Request.UrlReferrer;
-            return View();
+            return checkedOSPList;
+        }
+
+        /* Method modified by IT Innovation Centre 2016 */
+        public ActionResult AccessPreferences()
+        {
+            List<OSPPrivacyPolicy> availableOSPs = GetOspList();
+
+            // get UPP for user
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
+
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+
+            List<OSPConsents> userSP = new List<OSPConsents>();
+
+            try
+            {
+                string username = Session["Username"].ToString();
+                UserPrivacyPolicy upp = instance.UserPrivacyPolicyUserIdGet(username);
+                foreach (OSPPrivacyPolicy osp in availableOSPs)
+                {
+                    Boolean flag = false;
+                    foreach (OSPConsents consent in upp.SubscribedOspPolicies)
+                    {
+                        if (consent.OspId == osp.PolicyUrl)
+                        {
+                            userSP.Add(consent);
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        OSPConsents ospConsent = new OSPConsents();
+                        ospConsent.OspId = osp.PolicyUrl;
+                        ospConsent.AccessPolicies = osp.Policies;
+                        userSP.Add(ospConsent);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception with UPP calling: " + e.Message);
+                foreach (OSPPrivacyPolicy osp in availableOSPs)
+                {
+                    OSPConsents ospConsent = new OSPConsents();
+                    ospConsent.OspId = osp.PolicyUrl;
+                    ospConsent.AccessPolicies = osp.Policies;
+                    userSP.Add(ospConsent);
+                }
+            }
+
+            //ViewBag.ospppList = userSP;
+            return View(GroupAP(userSP));
+        }
+
+        private List<ModOSPConsents> GroupAP(List<OSPConsents> consents)
+        {
+            List<ModOSPConsents> modConsentsList = new List<ModOSPConsents>();
+            foreach(OSPConsents cons in consents)
+            {
+                ModOSPConsents mod = new ModOSPConsents();
+                mod.OspId = cons.OspId;
+                mod.map = new List<GroupAccessPolicies>();
+                Dictionary<string, List<AccessPolicy>> dict = new Dictionary<string, List<AccessPolicy>>();
+                foreach(AccessPolicy ap in cons.AccessPolicies)
+                {
+                    if (dict.ContainsKey(ap.Subject))
+                    {
+                        dict[ap.Subject].Add(ap);
+                    }
+                    else
+                    {
+                        List<AccessPolicy> apl = new List<AccessPolicy>();
+                        apl.Add(ap);
+                        dict.Add(ap.Subject, apl);
+                    }
+                }
+                foreach(KeyValuePair<string, List<AccessPolicy>> pair in dict)
+                {
+                    GroupAccessPolicies groupAP = new GroupAccessPolicies();
+                    groupAP.groupKey = pair.Key;
+                    groupAP.gap = pair.Value;
+                    mod.map.Add(groupAP);
+                }
+                modConsentsList.Add(mod);
+            }           
+
+            return modConsentsList;
         }
 
         /* Method modified by IT Innovation Centre 2016 */
@@ -122,6 +210,8 @@ namespace Operando_AdministrationConsole.Controllers
             
             //Debug.Print("http post here: " + Convert.ToString(resp) + Response);
             List<string> policiesKey = new List<string>();
+            string resetOsp = null;
+            string ospPolicyUrl = null;
 
             foreach (var key in resp.AllKeys)
             {
@@ -130,11 +220,20 @@ namespace Operando_AdministrationConsole.Controllers
                     Session["QuestionnaireStage"] = 3;
                     return RedirectToAction("PrivacyQuestionnaire");
                 }
+                if(key.ToString().StartsWith("reset_"))
+                {
+                    resetOsp = key.ToString().Remove(0,6);
+                    break;
+                }
                 //Debug.Print("resp: " + key);
                 policiesKey.Add(key);
             }
 
-            policiesKey.RemoveAt(resp.Count - 1);
+            if (resetOsp == null)
+            {
+                policiesKey.RemoveAt(resp.Count - 1);
+                ospPolicyUrl = resp.AllKeys[resp.Count - 1];
+            }
 
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
@@ -147,32 +246,13 @@ namespace Operando_AdministrationConsole.Controllers
             var putInstance = new eu.operando.core.pdb.cli.Api.PUTApi(configuration);
 
             var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
-            List<string> ospAapiList = GetOspList();
-            List<OSPPrivacyPolicy> checkedOSPList = new List<OSPPrivacyPolicy>();
-            try
-            {
-                var filterOSP = "{\"policy_text\" : \"\"}";
-                var response = getInstance.OSPGet(filterOSP);
-                //ViewBag.ospppList = response;
 
-                // extract OSP list urls
+            List<OSPPrivacyPolicy> checkedOSPList = GetOspList();
+            List<OSPConsents> newSOP = new List<OSPConsents>();
+            try
+            {  
                 OSPPrivacyPolicy selectedOSP = null;
                 string selectedOSPID = "";
-                string ospPolicyUrl = resp.AllKeys[resp.Count - 1];
-
-                foreach (string ospItem in ospAapiList)
-                {
-                    foreach (OSPPrivacyPolicy ospInstance in response)
-                    {
-                        if ((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
-                        {
-                            checkedOSPList.Add(ospInstance);
-                            break;
-                        }
-                    }
-                }
-
-                ViewBag.ospppList = checkedOSPList;
 
                 foreach (OSPPrivacyPolicy osp in checkedOSPList)
                 {
@@ -189,6 +269,7 @@ namespace Operando_AdministrationConsole.Controllers
                         foreach (eu.operando.core.pdb.cli.Model.AccessPolicy ap in selectedOSP.Policies)
                         {
                             string ospKey = string.Concat(string.Concat(ap.Subject.GetHashCode().ToString(), " "), ap.Resource.GetHashCode().ToString());
+                            ospKey = ospKey + " " + ap.Action.GetHashCode().ToString();
                             bool foundL = false;
 
                             foreach (string item in policiesKey)
@@ -232,7 +313,7 @@ namespace Operando_AdministrationConsole.Controllers
                 //Debug.Print("UPP old:" + userUPP.ToJson());
 
                 bool found = false;
-                List<OSPConsents> newSOP = new List<OSPConsents>();
+                
                 foreach (OSPConsents consent in userUPP.SubscribedOspPolicies)
                 {
                     Debug.Print("checking consent: " + consent.OspId + " vs " + ospPolicyUrl + " vs " + selectedOSP.PolicyUrl);
@@ -271,8 +352,33 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 Debug.Print("Exception when calling pdb-server: " + e.Message);
             }
+
+            List<OSPConsents> userSP = new List<OSPConsents>();
+            foreach (OSPPrivacyPolicy osp in checkedOSPList)
+            {
+                Boolean flag = false;
+                foreach (OSPConsents consent in newSOP)
+                {
+                    if (consent.OspId == osp.PolicyUrl)
+                    {
+                        if (resetOsp != consent.OspId)
+                        {
+                            userSP.Add(consent);
+                            flag = true;
+                        }
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    OSPConsents ospConsent = new OSPConsents();
+                    ospConsent.OspId = osp.PolicyUrl;
+                    ospConsent.AccessPolicies = osp.Policies;
+                    userSP.Add(ospConsent);
+                }
+            }           
             // return Redirect(returnUrl);
-            return View();
+            return View(GroupAP(userSP));
         }
 
         public ActionResult PrivacyWizard()
