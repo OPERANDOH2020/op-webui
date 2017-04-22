@@ -16,10 +16,10 @@
     <div class="tabbable-custom-operando col-md-3 col-sm-3 col-xs-3">
         <ul class="nav nav-tabs tabs-left">
             @*foreach (var osp in ViewBag.ospppList)*@
-            @foreach(var osp in Model)
+            @foreach (var osp in Model)
             {
-                <li>
-                    <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded="false"> @osp.OspId </a>
+                <li @if (osp.selected) {<text> class="active" </text>}>
+                    <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected) {<text>"true"</text>} else {<text>"false"</text>}> @osp.OspId </a>
                 </li>
             }
         </ul>
@@ -58,7 +58,7 @@
             @foreach(var osp in Model)
             {
                 <!-- BEGIN TAB @osp.OspId CONTENT -->
-                <div class="portlet light tab-pane fade" id="tab_@osp.OspId.GetHashCode()">
+                <div class="portlet light tab-pane @if(osp.selected){<text>active</text>}else{<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
                     <div class="portlet-title">
                         <div class="caption">
                             <span class="caption-subject font-dark bold uppercase">@osp.OspId privacy settings</span>

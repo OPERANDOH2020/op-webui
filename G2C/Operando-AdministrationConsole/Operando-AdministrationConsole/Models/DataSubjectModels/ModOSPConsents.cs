@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using eu.operando.core.pdb.cli.Model;
+using System.ComponentModel;
 
 namespace Operando_AdministrationConsole.Models.DataSubjectModels
 {
@@ -10,6 +11,8 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
     {
         public string OspId { get; set; }
         public List<GroupAccessPolicies> map { get; set; }
+        [DefaultValue(false)]
+        public bool selected  {get; set;}
 
     }
 

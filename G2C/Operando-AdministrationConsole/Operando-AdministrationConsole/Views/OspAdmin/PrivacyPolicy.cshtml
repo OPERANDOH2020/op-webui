@@ -159,19 +159,19 @@
 }
 
 
-    @{ count = 1;}
+    { count = 1;}
     @foreach (var osp in Model)
     {
         <script type="text/javascript">
-    function f@(count) () {
-            var model = JSON.parse('@Html.Raw(Json.Encode(osp))');
+            $(function () {
+                var model = JSON.parse('@Html.Raw(Json.Encode(osp))');
 
-            var urlAdd = "@Url.Action("NewPrivacyPolicy", "OspAdmin")/";
-            var urlUpdate = "@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/";
-            var urlDelete = "@Url.Action("DeletePrivacyPolicy", "OspAdmin")/";
+                var urlAdd = "@Url.Action("NewPrivacyPolicy", "OspAdmin")/";
+                var urlUpdate = "@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/";
+                var urlDelete = "@Url.Action("DeletePrivacyPolicy", "OspAdmin")/";
 
-            OperandoPrivacyPolicy.init("@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/", "@osp.OspPolicyId", model);
-    }
+                OperandoPrivacyPolicy.init("@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/", "@osp.OspPolicyId", model);
+            });
         </script>
         count++;
     }

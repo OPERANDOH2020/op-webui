@@ -66,6 +66,7 @@ namespace Operando_AdministrationConsole.Controllers
             return _aapiClient.GetServiceTicket(ticketGrantingTicket, pdbOSPSId);
         }
 
+        /* Fetch OSP list and filter it with AAPI authorised OSPs */
         public List<OSPPrivacyPolicy> GetOspList()
         {
             string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
@@ -165,16 +166,22 @@ namespace Operando_AdministrationConsole.Controllers
             }
 
             //ViewBag.ospppList = userSP;
-            return View(GroupAP(userSP));
+            List<ModOSPConsents> opsModList = GroupAP(userSP, userSP.ElementAt(0).OspId);
+            return View(opsModList);
         }
 
-        private List<ModOSPConsents> GroupAP(List<OSPConsents> consents)
+        /* Convert list of OSPConsents to a modified view model that helps visualisation*/
+        private List<ModOSPConsents> GroupAP(List<OSPConsents> consents, string selctedOspId)
         {
             List<ModOSPConsents> modConsentsList = new List<ModOSPConsents>();
             foreach(OSPConsents cons in consents)
             {
                 ModOSPConsents mod = new ModOSPConsents();
                 mod.OspId = cons.OspId;
+                if(selctedOspId == cons.OspId)
+                {
+                    mod.selected = true;
+                }
                 mod.map = new List<GroupAccessPolicies>();
                 Dictionary<string, List<AccessPolicy>> dict = new Dictionary<string, List<AccessPolicy>>();
                 foreach(AccessPolicy ap in cons.AccessPolicies)
@@ -249,10 +256,10 @@ namespace Operando_AdministrationConsole.Controllers
 
             List<OSPPrivacyPolicy> checkedOSPList = GetOspList();
             List<OSPConsents> newSOP = new List<OSPConsents>();
+            string selectedOSPID = "";
             try
             {  
-                OSPPrivacyPolicy selectedOSP = null;
-                string selectedOSPID = "";
+                OSPPrivacyPolicy selectedOSP = null;                
 
                 foreach (OSPPrivacyPolicy osp in checkedOSPList)
                 {
@@ -376,9 +383,19 @@ namespace Operando_AdministrationConsole.Controllers
                     ospConsent.AccessPolicies = osp.Policies;
                     userSP.Add(ospConsent);
                 }
-            }           
+            }
+
             // return Redirect(returnUrl);
-            return View(GroupAP(userSP));
+            string selected = "";
+            if (resetOsp == null)
+            {
+                selected = selectedOSPID;
+            }
+            else
+            {
+                selected = resetOsp;
+            }
+            return View(GroupAP(userSP, selected));
         }
 
         public ActionResult PrivacyWizard()
