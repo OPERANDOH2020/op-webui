@@ -127,6 +127,7 @@ node {
 			    if (devopsSourcesCurrentCommit!=devopsSourcesLastCommit) {
                     sh "touch ${devopsSourcesLastChangedCommitFile}" 
                     devopsSourcesLastChangedCommit = sh(returnStdout: true, script: "cat ${devopsSourcesLastChangedCommitFile}").trim()
+                    if (currentVerbose) println ("devopsSourcesLastChangedCommit = " + devopsSourcesLastChangedCommit)
                     if (devopsSourcesLastChangedCommit=="")  devopsSourcesLastChangedCommit="HEAD^"
 			    	try{
 			    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} ${devopsSourcesLastChangedCommit}:${devopsSourcesRelativePath}").trim()
