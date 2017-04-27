@@ -690,10 +690,10 @@ namespace Operando_AdministrationConsole.Controllers
                 }
 
                 Debug.Print("UPP response:" + response.ToString());
-                //ViewBag.uppList = response;
-                //return View(response);
+
                 ViewBag.modOspConsents = modOspConsents;
                 ViewBag.uppStats = uppStats;
+
                 return View();
             }
             catch (Exception e)

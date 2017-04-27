@@ -274,11 +274,43 @@
                                 <div class="portlet-footer">
                                     <label class="col-md-3 control-label"></label>
                                     <div class="col-md-6">
-                                        <button type="button" id="button_add" onclick="" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add new user</button>
+                                        <button type="button" id="button_add" onclick="addNewUser()" class="btn yellow-gold mt-sweetalert" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success">Add New User</button>
                                         <button onclick="$('#tabUserManagement02').removeClass('active'); $('#tabUserManagement01').addClass('active');" type="button" class="btn default">Cancel</button>
                                     </div>
                                 </div>
-
+                                <script>
+                                    function addNewUser() {
+                                        var username = document.getElementById("Username_add").value;                                        
+                                        var email = document.getElementById("E-mail_add").value;
+                                        var usertype = document.getElementById("UserType_add").value;
+                                        //alert("Adding new user: " + username + "\n email: " + email + "\n user type: " + usertype);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "http://integration.operando.esilab.org:8135/operando/interfaces/aapi/aapi/user/register",
+                                            contentType: "application/json",
+                                            async: false,
+                                            /*
+                                            data: {
+                                                "optionalAttrs": [
+                                                    { "attrName": "user_type", "attrValue": "upp" },
+                                                    { "attrName": "email", "attrValue": "pm@soton.ac.uk" }
+                                                  ],
+                                                "password": "operando",
+                                                "privacySettings": [],
+                                                "requiredAttrs": [],
+                                                "username": "panos34"
+                                            },*/
+                                            data: {"username": "pm1"},
+                                            dataType: "text",
+                                            success: function (data) {
+                                                alert("got response: " + "'" + data + "'");
+                                            },
+                                            error: function (xhr, textStatus) {
+                                                alert("ERROR: " + xhr.textStatus);
+                                            }
+                                        });
+                                    }
+                                </script>
 
                             </div>
                                                     

@@ -16,11 +16,21 @@
     <div class="tabbable-custom-operando col-md-3 col-sm-3 col-xs-3">
         <ul class="nav nav-tabs tabs-left">
             @*foreach (var osp in ViewBag.ospppList)*@
-            @foreach (var osp in Model)
+            @if (!Model.Any())
             {
-                <li @if (osp.selected) {<text> class="active" </text>}>
-                    <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected) {<text>"true"</text>} else {<text>"false"</text>}> @osp.OspId </a>
+                <li>No authorised OSPs found.</li>
+            }
+            else
+            {
+                foreach (var osp in Model)
+                {
+                    <li @if (osp.selected) { <text> class="active" </text> }>
+                        <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected)
+                    {<text>" true"</text>}
+                    else
+                    {<text>"false"</text>}>@osp.OspId</a>
                 </li>
+                }
             }
         </ul>
     </div>

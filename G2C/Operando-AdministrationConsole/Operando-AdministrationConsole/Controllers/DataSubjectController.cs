@@ -100,10 +100,12 @@ namespace Operando_AdministrationConsole.Controllers
                         }
                     }
                 }
+                /*
                 if (checkedOSPList.Count == 0)
                 {
                     checkedOSPList = response;
                 }
+                */
             }
             catch (Exception e)
             {
@@ -116,6 +118,10 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult AccessPreferences()
         {
             List<OSPPrivacyPolicy> availableOSPs = GetOspList();
+            if (!availableOSPs.Any())
+            {
+                return View(new List<ModOSPConsents>());
+            }
 
             // get UPP for user
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
