@@ -187,7 +187,19 @@ node {
 		}		
 		if(currentForceBuild||hasEmptyWorkspace){
 			hasNewDevopsSources=true
-			if (hasSources) hasNewSources=true
+			try{
+				devopsSourcesCurrentCommit = sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} rev-parse HEAD").trim()
+			} catch (err){
+			}
+			sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"
+			if (hasSources) {
+				hasNewSources=true
+				try{
+					sourcesCurrentCommit = sh(returnStdout: true, script: "git -C ${sourcesGitRepoPath} rev-parse HEAD").trim()
+				} catch (err){
+				}
+				sh "echo \"${sourcesCurrentCommit}\" > ${sourcesLastChangedCommitFile}"
+			}
 	        requiresBuild=true
 		}
 		else{
@@ -206,7 +218,16 @@ node {
     		    if (devopsSourcesCurrentCommit!=devopsSourcesLastCommit) {
                     sh "touch ${devopsSourcesLastChangedCommitFile}" 
                     devopsSourcesLastChangedCommit = sh(returnStdout: true, script: "cat ${devopsSourcesLastChangedCommitFile}").trim()
-                    if (devopsSourcesLastChangedCommit=="")  devopsSourcesLastChangedCommit="HEAD^"
+                    if (currentVerbose) println ("devopsSourcesLastChangedCommit = " + devopsSourcesLastChangedCommit)
+                    if (devopsSourcesLastChangedCommit=="")  {
+	    	    		devopsSourcesDiffPreviousCommit="force"
+	    	    	}
+	    	    	else {
+	    	    		try{
+	    	    			devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} ${devopsSourcesLastChangedCommit}:${devopsSourcesRelativePath}").trim()
+	    	    		} catch(err) {
+	    	    		}
+	    	    	}
     		    	try{
     		    		devopsSourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} diff HEAD:${devopsSourcesRelativePath} ${devopsSourcesLastChangedCommit}:${devopsSourcesRelativePath}").trim()
     		    	} catch(err) {
@@ -234,10 +255,15 @@ node {
         		    if (sourcesCurrentCommit!=sourcesLastCommit) {
                         sh "touch ${sourcesLastChangedCommitFile}" 
                         sourcesLastChangedCommit = sh(returnStdout: true, script: "cat ${sourcesLastChangedCommitFile}").trim()
-                        if (sourcesLastChangedCommit=="")  sourcesLastChangedCommit="HEAD^"
-	    		    	try{
-	    		    		sourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${sourcesGitRepoPath} diff HEAD:${sourcesRelativePath} ${sourcesLastChangedCommit}:${sourcesRelativePath}").trim()
-	    		    	} catch(err) {
+                        if (currentVerbose) println ("sourcesLastChangedCommit = " + sourcesLastChangedCommit)
+                        if (sourcesLastChangedCommit=="")  {
+	    		    		sourcesDiffPreviousCommit="force"
+	    		    	}
+	    		    	else {
+	    		    		try{
+	    		    			sourcesDiffPreviousCommit=sh(returnStdout: true, script: "git -C ${sourcesGitRepoPath} diff HEAD:${sourcesRelativePath} ${sourcesLastChangedCommit}:${sourcesRelativePath}").trim()
+	    		    		} catch(err) {
+	    		    		}
 	    		    	}
 	 			    	if (currentVerbose) println ("sourcesDiffPreviousCommit = " + sourcesDiffPreviousCommit)
 	 			    	if (sourcesDiffPreviousCommit!=""){
