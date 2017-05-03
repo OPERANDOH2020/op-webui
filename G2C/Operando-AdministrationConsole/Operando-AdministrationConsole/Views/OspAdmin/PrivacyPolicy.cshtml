@@ -170,7 +170,7 @@
                 var urlUpdate = "@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/";
                 var urlDelete = "@Url.Action("DeletePrivacyPolicy", "OspAdmin")/";
 
-                OperandoPrivacyPolicy.init("@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/", "@osp.OspPolicyId", model);
+                osp_@(osp.OspPolicyId) = OperandoPrivacyPolicy.init("@Url.Action("UpdatePrivacyPolicy", "OspAdmin")/", "@osp.OspPolicyId", model);
             });
         </script>
         count++;

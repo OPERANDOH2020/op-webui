@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Web.UI.WebControls;
 using eu.operando.interfaces.aapi;
 using eu.operando.interfaces.aapi.Model;
+using eu.operando.core.pdb.cli.Model;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -562,7 +563,26 @@ namespace Operando_AdministrationConsole.Controllers
         
         public ActionResult UsersManagement()
         {
-            return View();
+            List<ViewUser> users = new List<ViewUser>();
+            ViewUser user1 = new ViewUser();
+            user1.userName = "pm1";
+            user1.email = "pm1@operando.org";
+            user1.userType = "normal_user";
+            users.Add(user1);
+
+            ViewUser user2 = new ViewUser();
+            user2.userName = "pm2";
+            user2.email = "pm2@operando.org";
+            user2.userType = "osp_admin";
+            users.Add(user2);
+
+            ViewUser user3 = new ViewUser();
+            user3.userName = "pm3";
+            user3.email = "pm3@operando.org";
+            user3.userType = "psp_admin";
+            users.Add(user3);
+
+            return View(users);
         }
 
 
@@ -573,32 +593,20 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         [HttpPut]
-        public ActionResult UsersManagementAdd()
+        public ActionResult UsersManagementAdd(ViewUser userIn)
         {
-            return View();
-        }
-
-        /* Method modified by IT Innovation Centre 2016 */
-        [HttpPost]
-        public ActionResult UsersManagementAdd(Models.RegisterViewModel rvm)
-        {
-            Debug.Print("ADD USER: " + rvm.ToString());
-            if (ModelState.IsValid)
-            {
-                Debug.Print("ADD USER is valid.");
-                ModelState.Clear();
-                string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
                 var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
                 try
                 {
-                    User user = new User(rvm.Username, rvm.Password);
+                    User user = new User(userIn.userName, "operando");
                     List<eu.operando.interfaces.aapi.Model.Attribute> optAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", rvm.Usertype));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", rvm.Fullname));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("email", rvm.Email));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("address", rvm.Address));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("city", rvm.City));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("country", rvm.Country));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", userIn.userType));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", "full name"));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("email", userIn.email));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("address", "EU"));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("city", "EU"));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("country", "EU"));
                     user.OptionalAttrs = optAttributes;
 
                     List<eu.operando.interfaces.aapi.Model.PrivacySetting> privacySettings = new List<eu.operando.interfaces.aapi.Model.PrivacySetting>();
@@ -619,8 +627,8 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     Debug.Print("Exception when calling: " + e.Message);
                 }
-                ViewBag.Message = rvm.Username + " successfully added";
-            }
+                ViewBag.Message = userIn.userName + " successfully added";
+            
             return View();
         }
 
