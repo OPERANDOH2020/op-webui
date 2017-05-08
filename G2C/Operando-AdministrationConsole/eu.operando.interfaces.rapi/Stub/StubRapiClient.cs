@@ -8,20 +8,7 @@ using eu.operando.interfaces.rapi.Model;
 namespace eu.operando.interfaces.rapi.Stub
 {
     public class StubRapiClient : IRapiClient
-    {
-        public Task<IList<string>> GetOsps(string serviceTicket)
-        {
-            IList<string> result = new List<string>()
-            {
-                "OSP-A",
-                "OSP-B",
-                "OSP-C",
-                "OSP-D",
-                "OSP-E"
-            };
-
-            return Task.FromResult(result);
-        }
+    { 
 
         public Task<ComplianceReport> GetComplianceReportForOspAsync(string osp, string serviceTicket)
         {

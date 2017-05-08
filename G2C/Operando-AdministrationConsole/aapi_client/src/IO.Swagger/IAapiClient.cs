@@ -8,6 +8,8 @@ namespace eu.operando.interfaces.aapi
 {
     public interface IAapiClient
     {
+        Task<IList<string>> GetOsps(string serviceTicket);
+
         string GetServiceTicket(string ticketGrantingTicket, string serviceId);
     }
 }

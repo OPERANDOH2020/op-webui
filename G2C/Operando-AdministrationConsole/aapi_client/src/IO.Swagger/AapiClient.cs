@@ -17,6 +17,12 @@ namespace eu.operando.interfaces.aapi
             _aapiInstance = new DefaultApi(aapiBasePath);
         }
 
+        public async Task<IList<string>> GetOsps(string serviceTicket)
+        {
+            var result = await _aapiInstance.OspListGetAsync();
+            return result.osps;
+        }
+
         public string GetServiceTicket(string ticketGrantingTicket, string serviceId)
         {
             string st = "";

@@ -7,9 +7,6 @@ namespace eu.operando.interfaces.rapi
 {
     public interface IRapiClient
     {
-        Task<IList<string>> GetOsps(string serviceTicket);
-
-
         /// <summary>
         /// Get the compliance report for an osp.
         /// </summary>
