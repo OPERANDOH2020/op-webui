@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Web.UI.WebControls;
 using eu.operando.interfaces.aapi;
 using eu.operando.interfaces.aapi.Model;
+using eu.operando.core.pdb.cli.Model;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -562,68 +563,118 @@ namespace Operando_AdministrationConsole.Controllers
         
         public ActionResult UsersManagement()
         {
-            return View();
-        }
+            List<ViewUser> users = new List<ViewUser>();
+            ViewUser user1 = new ViewUser();
+            user1.userName = "pm1";
+            user1.email = "pm1@operando.org";
+            user1.userType = "normal_user";
+            users.Add(user1);
 
+            ViewUser user2 = new ViewUser();
+            user2.userName = "pm2";
+            user2.email = "pm2@operando.org";
+            user2.userType = "osp_admin";
+            users.Add(user2);
 
-        public ActionResult UsersManagementEdit()
-        {
-            Debug.Print("ADD USER: ");
-            return View();
+            ViewUser user3 = new ViewUser();
+            user3.userName = "pm3";
+            user3.email = "pm3@operando.org";
+            user3.userType = "psp_admin";
+            users.Add(user3);
+
+            return View(users);
         }
 
         [HttpPut]
-        public ActionResult UsersManagementAdd()
+        public ActionResult UsersManagementEdit(ViewUser userIn)
         {
-            return View();
-        }
+            Debug.Print("EDIT USER: ");
 
-        /* Method modified by IT Innovation Centre 2016 */
-        [HttpPost]
-        public ActionResult UsersManagementAdd(Models.RegisterViewModel rvm)
-        {
-            Debug.Print("ADD USER: " + rvm.ToString());
-            if (ModelState.IsValid)
+            string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            try
             {
-                Debug.Print("ADD USER is valid.");
-                ModelState.Clear();
-                string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
-                var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
-                try
-                {
-                    User user = new User(rvm.Username, rvm.Password);
-                    List<eu.operando.interfaces.aapi.Model.Attribute> optAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", rvm.Usertype));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", rvm.Fullname));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("email", rvm.Email));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("address", rvm.Address));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("city", rvm.City));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("country", rvm.Country));
-                    user.OptionalAttrs = optAttributes;
+                User user = convertUser(userIn);
 
-                    List<eu.operando.interfaces.aapi.Model.PrivacySetting> privacySettings = new List<eu.operando.interfaces.aapi.Model.PrivacySetting>();
-                    privacySettings.Add(new eu.operando.interfaces.aapi.Model.PrivacySetting("string", "string"));
-                    user.PrivacySettings = privacySettings;
-
-                    List<eu.operando.interfaces.aapi.Model.Attribute> requiredAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
-                    requiredAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("string", "string"));
-                    user.RequiredAttrs = requiredAttributes;
-
-                    Debug.Print("USER added: " + user.ToJson());
-
-                    // register user
-                    var usr = userInstance.AapiUserRegisterPost(user);
-                    Debug.Print("USER add sesponse: " + usr.ToJson());
-                }
-                catch (Exception e)
-                {
-                    Debug.Print("Exception when calling: " + e.Message);
-                }
-                ViewBag.Message = rvm.Username + " successfully added";
+                // register user
+                var usr = userInstance.UserUsernamePut(user.Username, user);
+                Debug.Print("USER edit sesponse: " + usr.ToJson());
             }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling: " + e.Message);
+            }
+            ViewBag.Message = userIn.userName + " successfully edit profile";
+
             return View();
         }
 
+        private User convertUser(ViewUser userIn)
+        {
+            User user = new User(userIn.userName, "operando");
+            List<eu.operando.interfaces.aapi.Model.Attribute> optAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", userIn.userType));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", userIn.fullName));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("email", userIn.email));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("address", userIn.address));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("city", userIn.city));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("country", userIn.country));
+            user.OptionalAttrs = optAttributes;
+
+            List<eu.operando.interfaces.aapi.Model.PrivacySetting> privacySettings = new List<eu.operando.interfaces.aapi.Model.PrivacySetting>();
+            privacySettings.Add(new eu.operando.interfaces.aapi.Model.PrivacySetting("string", "string"));
+            user.PrivacySettings = privacySettings;
+
+            List<eu.operando.interfaces.aapi.Model.Attribute> requiredAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
+            requiredAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("string", "string"));
+            user.RequiredAttrs = requiredAttributes;
+
+            Debug.Print("USER added: " + user.ToJson());
+
+            return user;
+        }
+
+        [HttpPut]
+        public ActionResult UsersManagementAdd(ViewUser userIn)
+        {
+            string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            try
+            {
+                User user = convertUser(userIn);
+
+                // register user
+                var usr = userInstance.AapiUserRegisterPost(user);
+                Debug.Print("USER add sesponse: " + usr.ToJson());
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling: " + e.Message);
+            }
+            ViewBag.Message = userIn.userName + " successfully added";
+
+            return View();
+        }
+
+        [HttpDelete]
+        public ActionResult UsersManagementDelete(ViewUser userIn)
+        {
+            string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            try
+            {
+                // delete user
+                var usr = userInstance.UserUsernameDelete(userIn.userName);
+                Debug.Print("USER delete response: " + usr.ToJson());
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling: " + e.Message);
+            }
+            ViewBag.Message = userIn.userName + " successfully deleted";
+
+            return View();
+        }
         // ----------------------------------
         // ------ MODULES SETTINGS ----------
         // ----------------------------------
