@@ -29,7 +29,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             var serviceTicket = GetServiceTicket();
 
-            var osps = await _rapiClient.GetOsps(serviceTicket);
+            var osps = await _aapiClient.GetOsps(serviceTicket);
 
             var reports = new List<ComplianceReportModel>();
 

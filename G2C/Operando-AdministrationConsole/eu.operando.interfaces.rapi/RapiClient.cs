@@ -18,21 +18,6 @@ namespace eu.operando.interfaces.rapi
             _api = new ComplianceReportsApi(basePath);
         }
 
-        public Task<IList<string>> GetOsps(string serviceTicket)
-        {
-            //TODO use proper implementation
-            IList<string> result = new List<string>()
-            {
-                "built-in",
-                "Ami",
-                "OSP-C",
-                "OSP-D",
-                "OSP-E"
-            };
-
-            return Task.FromResult(result);
-        }
-
         public Task<ComplianceReport> GetComplianceReportForOspAsync(string osp, string serviceTicket)
         {
 
