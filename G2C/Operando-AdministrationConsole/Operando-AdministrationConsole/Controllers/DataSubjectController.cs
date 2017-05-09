@@ -83,9 +83,6 @@ namespace Operando_AdministrationConsole.Controllers
             List<OSPPrivacyPolicy> checkedOSPList = new List<OSPPrivacyPolicy>();
             try
             {
-                OspList ospList = userInstance.OspListGet();
-                Debug.Print("OSP LIST: " + ospList.ToString());
-                
                 // OSP call to get the list of service providers
                 var filter = "{\"policy_text\" : \"\"}";
                 var response = instance.OSPGet(filter);
