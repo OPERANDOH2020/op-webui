@@ -70,9 +70,7 @@ namespace Operando_AdministrationConsole.Controllers
         public List<OSPPrivacyPolicy> GetOspList()
         {
             string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
-            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
-            OspList ospList = userInstance.OspListGet();
-            Debug.Print("OSP LIST: " + ospList.ToString());
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);            
 
             string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
             string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
@@ -85,6 +83,9 @@ namespace Operando_AdministrationConsole.Controllers
             List<OSPPrivacyPolicy> checkedOSPList = new List<OSPPrivacyPolicy>();
             try
             {
+                OspList ospList = userInstance.OspListGet();
+                Debug.Print("OSP LIST: " + ospList.ToString());
+                
                 // OSP call to get the list of service providers
                 var filter = "{\"policy_text\" : \"\"}";
                 var response = instance.OSPGet(filter);

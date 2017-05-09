@@ -585,53 +585,96 @@ namespace Operando_AdministrationConsole.Controllers
             return View(users);
         }
 
-
-        public ActionResult UsersManagementEdit()
+        [HttpPut]
+        public ActionResult UsersManagementEdit(ViewUser userIn)
         {
-            Debug.Print("ADD USER: ");
+            Debug.Print("EDIT USER: ");
+
+            string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            try
+            {
+                User user = convertUser(userIn);
+
+                // register user
+                var usr = userInstance.UserUsernamePut(user.Username, user);
+                Debug.Print("USER edit sesponse: " + usr.ToJson());
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling: " + e.Message);
+            }
+            ViewBag.Message = userIn.userName + " successfully edit profile";
+
             return View();
+        }
+
+        private User convertUser(ViewUser userIn)
+        {
+            User user = new User(userIn.userName, "operando");
+            List<eu.operando.interfaces.aapi.Model.Attribute> optAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", userIn.userType));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", userIn.fullName));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("email", userIn.email));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("address", userIn.address));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("city", userIn.city));
+            optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("country", userIn.country));
+            user.OptionalAttrs = optAttributes;
+
+            List<eu.operando.interfaces.aapi.Model.PrivacySetting> privacySettings = new List<eu.operando.interfaces.aapi.Model.PrivacySetting>();
+            privacySettings.Add(new eu.operando.interfaces.aapi.Model.PrivacySetting("string", "string"));
+            user.PrivacySettings = privacySettings;
+
+            List<eu.operando.interfaces.aapi.Model.Attribute> requiredAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
+            requiredAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("string", "string"));
+            user.RequiredAttrs = requiredAttributes;
+
+            Debug.Print("USER added: " + user.ToJson());
+
+            return user;
         }
 
         [HttpPut]
         public ActionResult UsersManagementAdd(ViewUser userIn)
         {
             string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
-                var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
-                try
-                {
-                    User user = new User(userIn.userName, "operando");
-                    List<eu.operando.interfaces.aapi.Model.Attribute> optAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", userIn.userType));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", "full name"));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("email", userIn.email));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("address", "EU"));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("city", "EU"));
-                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("country", "EU"));
-                    user.OptionalAttrs = optAttributes;
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            try
+            {
+                User user = convertUser(userIn);
 
-                    List<eu.operando.interfaces.aapi.Model.PrivacySetting> privacySettings = new List<eu.operando.interfaces.aapi.Model.PrivacySetting>();
-                    privacySettings.Add(new eu.operando.interfaces.aapi.Model.PrivacySetting("string", "string"));
-                    user.PrivacySettings = privacySettings;
+                // register user
+                var usr = userInstance.AapiUserRegisterPost(user);
+                Debug.Print("USER add sesponse: " + usr.ToJson());
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling: " + e.Message);
+            }
+            ViewBag.Message = userIn.userName + " successfully added";
 
-                    List<eu.operando.interfaces.aapi.Model.Attribute> requiredAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
-                    requiredAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("string", "string"));
-                    user.RequiredAttrs = requiredAttributes;
-
-                    Debug.Print("USER added: " + user.ToJson());
-
-                    // register user
-                    var usr = userInstance.AapiUserRegisterPost(user);
-                    Debug.Print("USER add sesponse: " + usr.ToJson());
-                }
-                catch (Exception e)
-                {
-                    Debug.Print("Exception when calling: " + e.Message);
-                }
-                ViewBag.Message = userIn.userName + " successfully added";
-            
             return View();
         }
 
+        [HttpDelete]
+        public ActionResult UsersManagementDelete(ViewUser userIn)
+        {
+            string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+            try
+            {
+                // delete user
+                var usr = userInstance.UserUsernameDelete(userIn.userName);
+                Debug.Print("USER delete response: " + usr.ToJson());
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling: " + e.Message);
+            }
+            ViewBag.Message = userIn.userName + " successfully deleted";
+
+            return View();
+        }
         // ----------------------------------
         // ------ MODULES SETTINGS ----------
         // ----------------------------------
