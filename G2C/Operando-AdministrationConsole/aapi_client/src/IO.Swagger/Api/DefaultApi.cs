@@ -1376,7 +1376,7 @@ namespace eu.operando.interfaces.aapi.Api
         /// <returns>ApiResponse of User</returns>
         public ApiResponse<OspList> OspListGetWithHttpInfo()
         { 
-            var localVarPath = "/aapi/user/getOspList";
+            var localVarPath = "/user/getOspList";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, String>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1440,7 +1440,7 @@ namespace eu.operando.interfaces.aapi.Api
         /// <returns>Task of ApiResponse (User)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<OspList>> OspListGetAsyncWithHttpInfo()
         {
-            var localVarPath = "/aapi/user/getOspList";
+            var localVarPath = "/user/getOspList";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, String>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
