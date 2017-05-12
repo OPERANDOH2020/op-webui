@@ -29,7 +29,10 @@ namespace Operando_AdministrationConsole.Controllers
         {
             var serviceTicket = GetServiceTicket();
 
-            var osps = await _aapiClient.GetOsps(serviceTicket);
+            string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+
+            var osps = userInstance.OspListGet().osps;
 
             var reports = new List<ComplianceReportModel>();
 
