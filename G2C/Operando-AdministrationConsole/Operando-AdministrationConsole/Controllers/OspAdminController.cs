@@ -711,7 +711,20 @@ namespace Operando_AdministrationConsole.Controllers
 
             var executions = jobs.Select(_ => new BdaJob(_)).ToList();
 
+            foreach (var bdaJob in executions)
+            {
+                foreach (var bdaExecution in bdaJob.Executions)
+                {
+                    bdaExecution.DownloadLink = Url.Action("CareNeedsReport20170117");
+                }
+            }
+
             return View(executions);
+        }
+
+        public ActionResult CareNeedsReport20170117()
+        {
+            return File("~/Content/CareNeedsReport20170117.pdf", "application/pdf");
         }
 
         [HttpGet]
