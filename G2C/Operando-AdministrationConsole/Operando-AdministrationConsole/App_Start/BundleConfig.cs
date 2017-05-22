@@ -49,7 +49,7 @@ namespace Operando_AdministrationConsole
                         "~/assets/global/plugins/ie8.fix.min.js"));
 
             bundles.Add(new ScriptBundle("~/operando/plugins/core").Include(
-                        "~/assets/global/plugins/jquery.min.js",
+                        "~/assets/global/plugins/jquery-3.2.1.min.js",
                         "~/assets/global/plugins/bootstrap/js/bootstrap.min.js",
                         "~/assets/global/plugins/js.cookie.min.js",
                         "~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js",
