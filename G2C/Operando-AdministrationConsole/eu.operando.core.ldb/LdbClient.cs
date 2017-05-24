@@ -26,7 +26,7 @@ namespace eu.operando.core.ldb
         {
             List<DataAccessLog> logList = new List<DataAccessLog>();
 
-            var baseURL = "http://integration.operando.esilab.org:8091/operando/core/ldbsearch/log/search";
+            var baseURL = "http://192.168.99.177:8091/operando/core/ldbsearch/log/search";
 
             string jsonString;
             using (WebClient client = new WebClient())
