@@ -5803,7 +5803,6 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Shared\_OperandoSidebarMenu.cshtml" />
     <Content Include="Views\Shared\_OperandoBreadcrumbs.cshtml" />
-    <Content Include="Views\Shared\_OperandoNotifications.cshtml" />
     <Content Include="Views\Shared\_OperandoUserMenu.cshtml" />
     <Content Include="Views\Shared\_OperandoFooterDefault.cshtml" />
     <Content Include="Views\Dashboard\EmptyPage.cshtml" />
