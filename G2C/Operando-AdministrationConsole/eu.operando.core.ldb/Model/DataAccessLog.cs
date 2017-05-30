@@ -8,6 +8,9 @@ namespace eu.operando.core.ldb.Model
 {
     public class DataAccessLog
     {
+        public const string AccessDeniedTitle = "Access denied";
+        public const string AccessGrantedTitle = "Access granted";
+
         public DateTime logDate;
         public string requesterType;
         public string requesterId;

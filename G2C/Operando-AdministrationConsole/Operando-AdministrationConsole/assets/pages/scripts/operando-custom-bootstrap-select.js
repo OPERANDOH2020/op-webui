@@ -26,60 +26,44 @@ if (App.isAngularJsApp() === false) {
     jQuery(document).ready(function () {
         ComponentsBootstrapSelect.init();
 
-        // opt[] is the array containing the list of selected options
-        var opt = [];
-        $('#user-log-type-select :selected').each(function (i, selected) {
-            opt[i] = $(selected).text();
-        });
+        filterLogs();
 
-        var allowed = false;
-        var denied = false;
-        
-        $.each(opt, function (i, value) {
-            if (opt[i] == "Allowed")
-                allowed = true;
-            if (opt[i] == "Denied")
-                denied == true;
-        });
-
-        if (allowed) {
-            $('tr.INFO').addClass('visible').removeClass('hidden');
-        }
-        else $('tr.INFO').removeClass('visible').addClass('hidden');
-
-        if (denied) {
-            $('tr.WARN').addClass('visible').removeClass('hidden');
-        }
-        else $('tr.WARN').removeClass('visible').addClass('hidden');
-
-        // on changing selected options recharge opt[]
         $("#user-log-type-select").change(function () {
-            var opt = [];
-            $('#user-log-type-select :selected').each(function (i, selected) {
-                opt[i] = $(selected).text();
-            });
-
-            allowed = false;
-            denied = false;
-
-            $.each(opt, function (i, value) {
-                if (opt[i] == "Allowed")
-                    allowed = true;
-                if (opt[i] == "Denied")
-                    denied == true;
-            });
-
-            if (allowed) {
-                $('tr.INFO').addClass('visible').removeClass('hidden');
-            }
-            else $('tr.INFO').removeClass('visible').addClass('hidden');
-
-            if (denied) {
-                $('tr.WARN').addClass('visible').removeClass('hidden');
-            }
-            else $('tr.WARN').removeClass('visible').addClass('hidden');
-
+            filterLogs();
         });
 
     });
+
+function filterLogs() {
+    // opt[] is the array containing the list of selected options
+    var opt = [];
+    $('#user-log-type-select :selected').each(function (i, selected) {
+        opt[i] = $(selected).text();
+    });
+
+    var showAllowedLogs = false;
+    var showDeniedLogs = false;
+
+    $.each(opt, function (i, value) {
+        if (opt[i] === "Allowed") {
+            showAllowedLogs = true;
+        }
+        if (opt[i] === "Denied") {
+            showDeniedLogs = true;
+        }
+    });
+
+    if (showAllowedLogs) {
+        $('tr.granted').addClass('visible').removeClass('hidden');
+    } else {
+        $('tr.granted').removeClass('visible').addClass('hidden');
+    }
+
+    if (showDeniedLogs) {
+        $('tr.denied').addClass('visible').removeClass('hidden');
+    } else {
+        $('tr.denied').removeClass('visible').addClass('hidden');
+    }
+}
+
 }

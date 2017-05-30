@@ -54,15 +54,15 @@
                     {
                         foreach (var item in Model)
                         {
-                            <tr class="@item.LogLevel">
+                            <tr class="@(item.AccessGranted ? "granted" : "denied")">
                                 <td>
-                                    @if (item.LogLevel == "INFO")
+                                    @if (item.AccessGranted)
                                     {
                                         <div class="label label-sm label-success">
                                             <i class="fa fa-info-circle"></i>
                                         </div> <span class="hidden">ALLOWED</span>
                                     }
-                                    else if (item.LogLevel == "WARN")
+                                    else
                                     {
                                         <div class="label label-sm label-danger">
                                             <i class="fa fa-warning"></i>
