@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -117,13 +117,346 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DashboardLinkToProject" xml:space="preserve">
-    <value>Se vuoi sapere di più su come funziona OPERANDO, visita il sito del progetto:</value>
-  </data>
-  <data name="DashboardMotivation" xml:space="preserve">
-    <value>Spesso ti viene chiesto di fornire i tuoi dati personali a diverse organizzazioni, così che tu possa utilizzare i loro servizi. Ogni volta che ti iscrivi ad un servizio, accetti i termini di utilizzo e le modalità di gestione della privacy che esso impone. A volte quindi può essere complicato gestire la condivisione dei tuoi dati con altri: come fare a tenere traccia di chi accede ai tuoi dati, o modificare i loro permessi di accesso? La dashboard di OPERANDO ti permette di operare eventuali modifiche alla modalità di accesso ai tuoi dati personali da parte dei servizi a cui sei iscritto, o di gestire nuove richieste di utilizzo dei tuoi dati.</value>
-  </data>
-  <data name="DashboardOverview" xml:space="preserve">
-    <value>Questa homepage è una dashboard, ovvero un luogo centralizzato in cui puoi gestire aspetti correlati alla privacy delle tue informazioni personali</value>
-  </data>
+  
+
+	<data name="RegistrationPassword" xml:space="preserve">
+		<value>Password
+</value>
+	</data>
+
+	<data name="LogEditOSPSettingsButton" xml:space="preserve">
+		<value>Modifica le tue impostazioni di privacy
+</value>
+	</data>
+
+	<data name="NotificationsType" xml:space="preserve">
+		<value>Tipo
+</value>
+	</data>
+
+	<data name="LogRequestedAccessDenied" xml:space="preserve">
+		<value>La richiesta è stata bloccata perchè non soddisfa le tue impostazioni di privacy
+</value>
+	</data>
+
+	<data name="RegistrationBackButton" xml:space="preserve">
+		<value>Torna indietro
+</value>
+	</data>
+
+	<data name="RegistrationFullName" xml:space="preserve">
+		<value>Nome e cognome
+</value>
+	</data>
+
+	<data name="NotificationsShow" xml:space="preserve">
+		<value>Mostra
+</value>
+	</data>
+
+	<data name="LogType" xml:space="preserve">
+		<value>Tipo
+</value>
+	</data>
+
+	<data name="DataAccessLogsSubtitle" xml:space="preserve">
+		<value>Questo diario ti mostra come i tuoi dati sono stati utilizzati fino a questo momento. Ogni richiesta di utilizzo, sia essa accettata o rifiutata, è mostrata nella lista seguente. Questi risultati riflettono le impostazioni che hai fornito nelle tue preferenze di gestione privacy, e ti permettono di vedere se le tue scelte sono state applicate correttamente
+</value>
+	</data>
+
+	<data name="LoginRemember" xml:space="preserve">
+		<value>Ricordami
+</value>
+	</data>
+
+	<data name="NotificationsTitle" xml:space="preserve">
+		<value>Notifiche
+</value>
+	</data>
+
+	<data name="LogAccessGranted" xml:space="preserve">
+		<value>Accesso consentito</value>
+	</data>
+
+	<data name="RegistrationAccountDetails" xml:space="preserve">
+		<value>Inserisci i dati del tuo account:
+</value>
+	</data>
+
+	<data name="LogTitle" xml:space="preserve">
+		<value>Titolo
+</value>
+	</data>
+
+	<data name="AccessPreferencesUpdateUPP" xml:space="preserve">
+		<value>Politica sulla privacy degli utenti
+</value>
+	</data>
+
+	<data name="AccessPreferencesReverseUPPToDefault" xml:space="preserve">
+		<value>Ripristina i valori di default
+</value>
+	</data>
+
+	<data name="LogAccessDenied" xml:space="preserve">
+		<value>Accesso negato
+</value>
+	</data>
+
+	<data name="Log" xml:space="preserve">
+		<value>Diario
+</value>
+	</data>
+
+	<data name="LogSearch" xml:space="preserve">
+		<value>Ricerca
+</value>
+	</data>
+
+	<data name="NotificationsSearch" xml:space="preserve">
+		<value>Ricerca
+</value>
+	</data>
+
+	<data name="DashboardSettingsUpdated" xml:space="preserve">
+		<value>Le tue impostazioni di privacy sono state aggiornate perché hai fatto delle modifiche tramite la dashboard
+</value>
+	</data>
+
+	<data name="LoginUsername" xml:space="preserve">
+		<value>Username
+</value>
+	</data>
+
+	<data name="LoginNewAccount" xml:space="preserve">
+		<value>CREA UN ACCOUNT
+</value>
+	</data>
+
+	<data name="RegistrationSubtitle" xml:space="preserve">
+		<value>Inserisci i tuoi dati personali:
+</value>
+	</data>
+
+	<data name="LoginPasswordForgot" xml:space="preserve">
+		<value>Hai dimenticato la password?
+</value>
+	</data>
+
+	<data name="LogMessage" xml:space="preserve">
+		<value>Messaggio
+</value>
+	</data>
+
+	<data name="DashboardMotivation" xml:space="preserve">
+		<value>Spesso ti viene chiesto di fornire i tuoi dati personali a diverse organizzazioni, così che tu possa utilizzare i loro servizi. Ogni volta che ti iscrivi ad un servizio, accetti i termini di utilizzo e le modalità di gestione della privacy che esso impone. A volte quindi può essere complicato gestire la condivisione dei tuoi dati con altri: come fare a tenere traccia di chi accede ai tuoi dati, o modificare i loro permessi di accesso? La dashboard di OPERANDO ti permette di operare eventuali modifiche alla modalità di accesso ai tuoi dati personali da parte dei servizi a cui sei iscritto, o di gestire nuove richieste di utilizzo dei tuoi dati.
+</value>
+	</data>
+
+	<data name="DashboardRecendDataRequests" xml:space="preserve">
+		<value>LE ULTIME RICHIESTE DI ACCESSO AI DATI
+</value>
+	</data>
+
+	<data name="LoginTitle" xml:space="preserve">
+		<value>Login - Operando G2C
+</value>
+	</data>
+
+	<data name="RegistrationCity" xml:space="preserve">
+		<value>Città
+</value>
+	</data>
+
+	<data name="RegistrationCountry" xml:space="preserve">
+		<value>Nazione
+</value>
+	</data>
+
+	<data name="LoginSubtitle" xml:space="preserve">
+		<value>Login
+</value>
+	</data>
+
+	<data name="LoginButton" xml:space="preserve">
+		<value>Login
+</value>
+	</data>
+
+	<data name="LogActions" xml:space="preserve">
+		<value>Azioni
+</value>
+	</data>
+
+	<data name="LogShow" xml:space="preserve">
+		<value>Mostra
+</value>
+	</data>
+
+	<data name="RegistrationUsername" xml:space="preserve">
+		<value>Username
+</value>
+	</data>
+
+	<data name="LoginPassword" xml:space="preserve">
+		<value>Password
+</value>
+	</data>
+
+	<data name="DashboardRecentNotifications" xml:space="preserve">
+		<value>NOTIFICHE PIU' RECENTI
+</value>
+	</data>
+
+	<data name="RegistrationEmail" xml:space="preserve">
+		<value>Email
+</value>
+	</data>
+
+	<data name="NotificationsDate" xml:space="preserve">
+		<value>Data
+</value>
+	</data>
+
+	<data name="DataAccessLogsTitle" xml:space="preserve">
+		<value>Diario di accesso ai dati
+</value>
+	</data>
+
+	<data name="NotificationsMessage" xml:space="preserve">
+		<value>Messaggio
+</value>
+	</data>
+
+	<data name="AccessPreferencesYourPrivacySettings" xml:space="preserve">
+		<value>Le tue impostazioni di privacy sono:
+</value>
+	</data>
+
+	<data name="NotificationsNoData" xml:space="preserve">
+		<value>Nessun dato disponibile
+</value>
+	</data>
+
+	<data name="DashboardOverview" xml:space="preserve">
+		<value>Questa homepage è una dashboard, ovvero un luogo centralizzato in cui puoi gestire aspetti correlati alla privacy delle tue informazioni personali
+</value>
+	</data>
+
+	<data name="RegistrationUserType" xml:space="preserve">
+		<value>Tipo di utente
+</value>
+	</data>
+
+	<data name="DashboardSubtitle" xml:space="preserve">
+		<value>Home
+</value>
+	</data>
+
+	<data name="LogShowingRecap" xml:space="preserve">
+		<value>Mostrati
+</value>
+	</data>
+
+	<data name="DashboardViewAllButton" xml:space="preserve">
+		<value>Visualizza tutto
+</value>
+	</data>
+
+	<data name="RegistrationSubmitButton" xml:space="preserve">
+		<value>Invia
+</value>
+	</data>
+
+	<data name="RegistrationTerms" xml:space="preserve">
+		<value>Accetto i termini di servizio e di gestione privacy
+</value>
+	</data>
+
+	<data name="LogDate" xml:space="preserve">
+		<value>Data
+</value>
+	</data>
+
+	<data name="NotificationsDescription" xml:space="preserve">
+		<value>In questa sezione ti vengono mostrati gli eventi per te rilevanti, come ad esempio: richieste di accesso ai tuoi dati personali, suggerimenti su cambiamenti alle impostazioni di accesso ai tuoi dati. Le richieste sono mostrate dalla più recente alla meno recente; puoi decidere di filtrarle (tra In attesa, Approvata, Richiesta), oppure di cercare liberamente nella lista
+</value>
+	</data>
+
+	<data name="DashboardLinkToProject" xml:space="preserve">
+		<value>Se vuoi sapere di più su come funziona OPERANDO, visita il sito del progetto: 
+</value>
+	</data>
+
+	<data name="RegistrationPasswordConfirm" xml:space="preserve">
+		<value>Reinserisci la password
+</value>
+	</data>
+
+	<data name="DashboardTitle" xml:space="preserve">
+		<value>Dashboard
+</value>
+	</data>
+
+	<data name="AccessPreferencesRoleShouldBeAbleToAccess" xml:space="preserve">
+		<value>dovrebbe essere in grado di accedere a questi dati:
+</value>
+	</data>
+
+	<data name="LogFilterByType" xml:space="preserve">
+		<value>Filtra per tipo
+</value>
+	</data>
+
+	<data name="RegistrationTitle" xml:space="preserve">
+		<value>Registrati
+</value>
+	</data>
+
+	<data name="LogRequester" xml:space="preserve">
+		<value>Richiedente
+</value>
+	</data>
+
+	<data name="LogRequestedAccessAllowed" xml:space="preserve">
+		<value>La richiesta è stata accettata perchè soddisfa le tue impostazioni di privacy
+</value>
+	</data>
+
+	<data name="AccessPreferencesSubtitle" xml:space="preserve">
+		<value>Procedura guidata di impostazione dei livelli di privacy
+</value>
+	</data>
+
+	<data name="RegistrationAddress" xml:space="preserve">
+		<value>Indirizzo
+</value>
+	</data>
+
+	<data name="AccessPreferencesTitle" xml:space="preserve">
+		<value>Preferenze di accesso
+</value>
+	</data>
+
+	<data name="AccessPreferencesDescription" xml:space="preserve">
+		<value>Questa pagina mostra le preferenze di privacy da te espresse. Puoi visualizzare le organizzazioni che hanno accesso ai tuoi dati, vedere come i tuoi dati vengono utilizzati, e modificare i loro permessi di accesso. Queste impostazioni vengono imposte automaticamente per te da OPERANDO,  una piattaforma indipendente, così da assicurare che i tuoi dati vengano  usati solo nelle modalità che tu hai specificato.
+</value>
+	</data>
+
+	<data name="LogRequestedAccess" xml:space="preserve">
+		<value>ha richiesto di accedere a questi tuoi dati:
+</value>
+	</data>
+
+	<data name="DataSubjectName" xml:space="preserve">
+		<value>Soggetto
+</value>
+	</data>
+
+	<data name="NotificationsEmpty" xml:space="preserve">
+		<value>Nessun record trovato
+</value>
+	</data>
+
+
 </root>

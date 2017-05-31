@@ -10,8 +10,8 @@
 
 namespace Resources {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,15 +23,15 @@ namespace Resources {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class WebResources {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal WebResources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace Resources {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,32 +59,553 @@ namespace Resources {
                 resourceCulture = value;
             }
         }
+
         
-        /// <summary>
-        ///   Looks up a localized string similar to If you want to know more about how OPERANDO works, visit the project website:.
-        /// </summary>
-        internal static string DashboardLinkToProject {
-            get {
-                return ResourceManager.GetString("DashboardLinkToProject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You give your personal information to many organisations in order to use their services, and agree to many terms and policies to do so. It can be difficult to keep track of who has access to your data, or update how you would like it to be used. This OPERANDO dashboard shows you a summary of: notifications about any changes to services and how your data is used, requests for the use of your data and links to other areas so you can make changes in response to this information..
-        /// </summary>
-        internal static string DashboardMotivation {
-            get {
-                return ResourceManager.GetString("DashboardMotivation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The homepage acts as a dashboard; a central place where you are able to manage the privacy of your personal information..
-        /// </summary>
-        internal static string DashboardOverview {
-            get {
-                return ResourceManager.GetString("DashboardOverview", resourceCulture);
-            }
-        }
+
+	/// <summary>
+	///   Translation resource for RegistrationPassword
+	/// </summary>
+	internal static string RegistrationPassword {
+		get {
+			return ResourceManager.GetString("RegistrationPassword", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogEditOSPSettingsButton
+	/// </summary>
+	internal static string LogEditOSPSettingsButton {
+		get {
+			return ResourceManager.GetString("LogEditOSPSettingsButton", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsType
+	/// </summary>
+	internal static string NotificationsType {
+		get {
+			return ResourceManager.GetString("NotificationsType", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogRequestedAccessDenied
+	/// </summary>
+	internal static string LogRequestedAccessDenied {
+		get {
+			return ResourceManager.GetString("LogRequestedAccessDenied", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationBackButton
+	/// </summary>
+	internal static string RegistrationBackButton {
+		get {
+			return ResourceManager.GetString("RegistrationBackButton", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationFullName
+	/// </summary>
+	internal static string RegistrationFullName {
+		get {
+			return ResourceManager.GetString("RegistrationFullName", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsShow
+	/// </summary>
+	internal static string NotificationsShow {
+		get {
+			return ResourceManager.GetString("NotificationsShow", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogType
+	/// </summary>
+	internal static string LogType {
+		get {
+			return ResourceManager.GetString("LogType", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DataAccessLogsSubtitle
+	/// </summary>
+	internal static string DataAccessLogsSubtitle {
+		get {
+			return ResourceManager.GetString("DataAccessLogsSubtitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LoginRemember
+	/// </summary>
+	internal static string LoginRemember {
+		get {
+			return ResourceManager.GetString("LoginRemember", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsTitle
+	/// </summary>
+	internal static string NotificationsTitle {
+		get {
+			return ResourceManager.GetString("NotificationsTitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogAccessGranted
+	/// </summary>
+	internal static string LogAccessGranted {
+		get {
+			return ResourceManager.GetString("LogAccessGranted", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationAccountDetails
+	/// </summary>
+	internal static string RegistrationAccountDetails {
+		get {
+			return ResourceManager.GetString("RegistrationAccountDetails", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogTitle
+	/// </summary>
+	internal static string LogTitle {
+		get {
+			return ResourceManager.GetString("LogTitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for AccessPreferencesUpdateUPP
+	/// </summary>
+	internal static string AccessPreferencesUpdateUPP {
+		get {
+			return ResourceManager.GetString("AccessPreferencesUpdateUPP", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for AccessPreferencesReverseUPPToDefault
+	/// </summary>
+	internal static string AccessPreferencesReverseUPPToDefault {
+		get {
+			return ResourceManager.GetString("AccessPreferencesReverseUPPToDefault", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogAccessDenied
+	/// </summary>
+	internal static string LogAccessDenied {
+		get {
+			return ResourceManager.GetString("LogAccessDenied", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for Log
+	/// </summary>
+	internal static string Log {
+		get {
+			return ResourceManager.GetString("Log", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogSearch
+	/// </summary>
+	internal static string LogSearch {
+		get {
+			return ResourceManager.GetString("LogSearch", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsSearch
+	/// </summary>
+	internal static string NotificationsSearch {
+		get {
+			return ResourceManager.GetString("NotificationsSearch", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardSettingsUpdated
+	/// </summary>
+	internal static string DashboardSettingsUpdated {
+		get {
+			return ResourceManager.GetString("DashboardSettingsUpdated", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LoginUsername
+	/// </summary>
+	internal static string LoginUsername {
+		get {
+			return ResourceManager.GetString("LoginUsername", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LoginNewAccount
+	/// </summary>
+	internal static string LoginNewAccount {
+		get {
+			return ResourceManager.GetString("LoginNewAccount", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationSubtitle
+	/// </summary>
+	internal static string RegistrationSubtitle {
+		get {
+			return ResourceManager.GetString("RegistrationSubtitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LoginPasswordForgot
+	/// </summary>
+	internal static string LoginPasswordForgot {
+		get {
+			return ResourceManager.GetString("LoginPasswordForgot", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogMessage
+	/// </summary>
+	internal static string LogMessage {
+		get {
+			return ResourceManager.GetString("LogMessage", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardMotivation
+	/// </summary>
+	internal static string DashboardMotivation {
+		get {
+			return ResourceManager.GetString("DashboardMotivation", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardRecendDataRequests
+	/// </summary>
+	internal static string DashboardRecendDataRequests {
+		get {
+			return ResourceManager.GetString("DashboardRecendDataRequests", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LoginTitle
+	/// </summary>
+	internal static string LoginTitle {
+		get {
+			return ResourceManager.GetString("LoginTitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationCity
+	/// </summary>
+	internal static string RegistrationCity {
+		get {
+			return ResourceManager.GetString("RegistrationCity", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationCountry
+	/// </summary>
+	internal static string RegistrationCountry {
+		get {
+			return ResourceManager.GetString("RegistrationCountry", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LoginSubtitle
+	/// </summary>
+	internal static string LoginSubtitle {
+		get {
+			return ResourceManager.GetString("LoginSubtitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LoginButton
+	/// </summary>
+	internal static string LoginButton {
+		get {
+			return ResourceManager.GetString("LoginButton", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogActions
+	/// </summary>
+	internal static string LogActions {
+		get {
+			return ResourceManager.GetString("LogActions", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogShow
+	/// </summary>
+	internal static string LogShow {
+		get {
+			return ResourceManager.GetString("LogShow", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationUsername
+	/// </summary>
+	internal static string RegistrationUsername {
+		get {
+			return ResourceManager.GetString("RegistrationUsername", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LoginPassword
+	/// </summary>
+	internal static string LoginPassword {
+		get {
+			return ResourceManager.GetString("LoginPassword", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardRecentNotifications
+	/// </summary>
+	internal static string DashboardRecentNotifications {
+		get {
+			return ResourceManager.GetString("DashboardRecentNotifications", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationEmail
+	/// </summary>
+	internal static string RegistrationEmail {
+		get {
+			return ResourceManager.GetString("RegistrationEmail", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsDate
+	/// </summary>
+	internal static string NotificationsDate {
+		get {
+			return ResourceManager.GetString("NotificationsDate", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DataAccessLogsTitle
+	/// </summary>
+	internal static string DataAccessLogsTitle {
+		get {
+			return ResourceManager.GetString("DataAccessLogsTitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsMessage
+	/// </summary>
+	internal static string NotificationsMessage {
+		get {
+			return ResourceManager.GetString("NotificationsMessage", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for AccessPreferencesYourPrivacySettings
+	/// </summary>
+	internal static string AccessPreferencesYourPrivacySettings {
+		get {
+			return ResourceManager.GetString("AccessPreferencesYourPrivacySettings", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsNoData
+	/// </summary>
+	internal static string NotificationsNoData {
+		get {
+			return ResourceManager.GetString("NotificationsNoData", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardOverview
+	/// </summary>
+	internal static string DashboardOverview {
+		get {
+			return ResourceManager.GetString("DashboardOverview", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationUserType
+	/// </summary>
+	internal static string RegistrationUserType {
+		get {
+			return ResourceManager.GetString("RegistrationUserType", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardSubtitle
+	/// </summary>
+	internal static string DashboardSubtitle {
+		get {
+			return ResourceManager.GetString("DashboardSubtitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogShowingRecap
+	/// </summary>
+	internal static string LogShowingRecap {
+		get {
+			return ResourceManager.GetString("LogShowingRecap", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardViewAllButton
+	/// </summary>
+	internal static string DashboardViewAllButton {
+		get {
+			return ResourceManager.GetString("DashboardViewAllButton", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationSubmitButton
+	/// </summary>
+	internal static string RegistrationSubmitButton {
+		get {
+			return ResourceManager.GetString("RegistrationSubmitButton", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationTerms
+	/// </summary>
+	internal static string RegistrationTerms {
+		get {
+			return ResourceManager.GetString("RegistrationTerms", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogDate
+	/// </summary>
+	internal static string LogDate {
+		get {
+			return ResourceManager.GetString("LogDate", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsDescription
+	/// </summary>
+	internal static string NotificationsDescription {
+		get {
+			return ResourceManager.GetString("NotificationsDescription", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardLinkToProject
+	/// </summary>
+	internal static string DashboardLinkToProject {
+		get {
+			return ResourceManager.GetString("DashboardLinkToProject", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationPasswordConfirm
+	/// </summary>
+	internal static string RegistrationPasswordConfirm {
+		get {
+			return ResourceManager.GetString("RegistrationPasswordConfirm", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DashboardTitle
+	/// </summary>
+	internal static string DashboardTitle {
+		get {
+			return ResourceManager.GetString("DashboardTitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for AccessPreferencesRoleShouldBeAbleToAccess
+	/// </summary>
+	internal static string AccessPreferencesRoleShouldBeAbleToAccess {
+		get {
+			return ResourceManager.GetString("AccessPreferencesRoleShouldBeAbleToAccess", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogFilterByType
+	/// </summary>
+	internal static string LogFilterByType {
+		get {
+			return ResourceManager.GetString("LogFilterByType", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationTitle
+	/// </summary>
+	internal static string RegistrationTitle {
+		get {
+			return ResourceManager.GetString("RegistrationTitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogRequester
+	/// </summary>
+	internal static string LogRequester {
+		get {
+			return ResourceManager.GetString("LogRequester", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogRequestedAccessAllowed
+	/// </summary>
+	internal static string LogRequestedAccessAllowed {
+		get {
+			return ResourceManager.GetString("LogRequestedAccessAllowed", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for AccessPreferencesSubtitle
+	/// </summary>
+	internal static string AccessPreferencesSubtitle {
+		get {
+			return ResourceManager.GetString("AccessPreferencesSubtitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for RegistrationAddress
+	/// </summary>
+	internal static string RegistrationAddress {
+		get {
+			return ResourceManager.GetString("RegistrationAddress", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for AccessPreferencesTitle
+	/// </summary>
+	internal static string AccessPreferencesTitle {
+		get {
+			return ResourceManager.GetString("AccessPreferencesTitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for AccessPreferencesDescription
+	/// </summary>
+	internal static string AccessPreferencesDescription {
+		get {
+			return ResourceManager.GetString("AccessPreferencesDescription", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for LogRequestedAccess
+	/// </summary>
+	internal static string LogRequestedAccess {
+		get {
+			return ResourceManager.GetString("LogRequestedAccess", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for DataSubjectName
+	/// </summary>
+	internal static string DataSubjectName {
+		get {
+			return ResourceManager.GetString("DataSubjectName", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for NotificationsEmpty
+	/// </summary>
+	internal static string NotificationsEmpty {
+		get {
+			return ResourceManager.GetString("NotificationsEmpty", resourceCulture);		}
+	}
+
+
     }
 }
