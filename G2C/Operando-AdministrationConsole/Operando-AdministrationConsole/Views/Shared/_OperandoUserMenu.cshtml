@@ -9,14 +9,19 @@
     //    Session["Username"] = "Wendy";
     //}
 
-
-    string userName = Session["Username"].ToString();
+    string userName = "logout";
     string userSurname = "";
-
-    //string avatarUrl = "~/assets/layouts/operando/img/avatar_operando.png";
-
+    if (Session["Username"] != null)
+    {
+        userName = Session["Username"].ToString();
+        userSurname = "";
+    }
+    else
+    {
+        //GOTO LOGIN
+        Response.Redirect("~/");
+    }
 }
-
 
 
 <li class="separator hide"> </li>
