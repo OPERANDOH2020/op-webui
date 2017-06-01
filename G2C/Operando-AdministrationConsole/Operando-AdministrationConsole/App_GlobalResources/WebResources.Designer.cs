@@ -71,6 +71,14 @@ namespace Resources {
 	}
 
 	/// <summary>
+	///   Translation resource for DashboardRecentDataRequests
+	/// </summary>
+	internal static string DashboardRecentDataRequests {
+		get {
+			return ResourceManager.GetString("DashboardRecentDataRequests", resourceCulture);		}
+	}
+
+	/// <summary>
 	///   Translation resource for LogEditOSPSettingsButton
 	/// </summary>
 	internal static string LogEditOSPSettingsButton {
@@ -119,14 +127,6 @@ namespace Resources {
 	}
 
 	/// <summary>
-	///   Translation resource for LogType
-	/// </summary>
-	internal static string LogType {
-		get {
-			return ResourceManager.GetString("LogType", resourceCulture);		}
-	}
-
-	/// <summary>
 	///   Translation resource for DataAccessLogsSubtitle
 	/// </summary>
 	internal static string DataAccessLogsSubtitle {
@@ -148,6 +148,14 @@ namespace Resources {
 	internal static string NotificationsTitle {
 		get {
 			return ResourceManager.GetString("NotificationsTitle", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for MenuDashboard
+	/// </summary>
+	internal static string MenuDashboard {
+		get {
+			return ResourceManager.GetString("MenuDashboard", resourceCulture);		}
 	}
 
 	/// <summary>
@@ -279,11 +287,11 @@ namespace Resources {
 	}
 
 	/// <summary>
-	///   Translation resource for DashboardRecendDataRequests
+	///   Translation resource for LogType
 	/// </summary>
-	internal static string DashboardRecendDataRequests {
+	internal static string LogType {
 		get {
-			return ResourceManager.GetString("DashboardRecendDataRequests", resourceCulture);		}
+			return ResourceManager.GetString("LogType", resourceCulture);		}
 	}
 
 	/// <summary>
@@ -399,6 +407,14 @@ namespace Resources {
 	}
 
 	/// <summary>
+	///   Translation resource for MenuAccessPreferences
+	/// </summary>
+	internal static string MenuAccessPreferences {
+		get {
+			return ResourceManager.GetString("MenuAccessPreferences", resourceCulture);		}
+	}
+
+	/// <summary>
 	///   Translation resource for AccessPreferencesYourPrivacySettings
 	/// </summary>
 	internal static string AccessPreferencesYourPrivacySettings {
@@ -495,6 +511,14 @@ namespace Resources {
 	}
 
 	/// <summary>
+	///   Translation resource for MenuNotifications
+	/// </summary>
+	internal static string MenuNotifications {
+		get {
+			return ResourceManager.GetString("MenuNotifications", resourceCulture);		}
+	}
+
+	/// <summary>
 	///   Translation resource for RegistrationPasswordConfirm
 	/// </summary>
 	internal static string RegistrationPasswordConfirm {
@@ -564,6 +588,14 @@ namespace Resources {
 	internal static string RegistrationAddress {
 		get {
 			return ResourceManager.GetString("RegistrationAddress", resourceCulture);		}
+	}
+
+	/// <summary>
+	///   Translation resource for MenuDataAccessLog
+	/// </summary>
+	internal static string MenuDataAccessLog {
+		get {
+			return ResourceManager.GetString("MenuDataAccessLog", resourceCulture);		}
 	}
 
 	/// <summary>

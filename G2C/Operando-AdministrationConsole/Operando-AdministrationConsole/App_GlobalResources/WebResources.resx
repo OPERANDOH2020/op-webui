@@ -117,10 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-
+  
 
 	<data name="RegistrationPassword" xml:space="preserve">
 		<value>Password</value>
+	</data>
+
+	<data name="DashboardRecentDataRequests" xml:space="preserve">
+		<value>MOST RECENT DATA REQUESTS</value>
 	</data>
 
 	<data name="LogEditOSPSettingsButton" xml:space="preserve">
@@ -147,10 +151,6 @@
 		<value>Show</value>
 	</data>
 
-	<data name="LogType" xml:space="preserve">
-		<value>Type</value>
-	</data>
-
 	<data name="DataAccessLogsSubtitle" xml:space="preserve">
 		<value>This log shows how your data is being used. Each request, whether accepted or rejected, is shown. These results reflect the settings in your privacy preferences, and allow you to see your choices being enforced</value>
 	</data>
@@ -161,6 +161,10 @@
 
 	<data name="NotificationsTitle" xml:space="preserve">
 		<value>Notifications</value>
+	</data>
+
+	<data name="MenuDashboard" xml:space="preserve">
+		<value>Dashboard</value>
 	</data>
 
 	<data name="LogAccessGranted" xml:space="preserve">
@@ -227,8 +231,8 @@
 		<value>You give your personal information to many organisations in order to use their services, and agree to many terms and policies to do so. It can be difficult to keep track of who has access to your data, or update how you would like it to be used. This OPERANDO dashboard shows you a summary of: notifications about any changes to services and how your data is used, requests for the use of your data and links to other areas so you can make changes in response to this information.</value>
 	</data>
 
-	<data name="DashboardRecentDataRequests" xml:space="preserve">
-		<value>MOST RECENT DATA REQUESTS</value>
+	<data name="LogType" xml:space="preserve">
+		<value>Type</value>
 	</data>
 
 	<data name="LoginTitle" xml:space="preserve">
@@ -287,6 +291,10 @@
 		<value>Message</value>
 	</data>
 
+	<data name="MenuAccessPreferences" xml:space="preserve">
+		<value>Access Preferences</value>
+	</data>
+
 	<data name="AccessPreferencesYourPrivacySettings" xml:space="preserve">
 		<value>Your privacy settings are:</value>
 	</data>
@@ -335,6 +343,10 @@
 		<value>If you want to know more about how OPERANDO works, visit the project website: </value>
 	</data>
 
+	<data name="MenuNotifications" xml:space="preserve">
+		<value>Notifications</value>
+	</data>
+
 	<data name="RegistrationPasswordConfirm" xml:space="preserve">
 		<value>Re-type Your Password</value>
 	</data>
@@ -369,6 +381,10 @@
 
 	<data name="RegistrationAddress" xml:space="preserve">
 		<value>Address</value>
+	</data>
+
+	<data name="MenuDataAccessLog" xml:space="preserve">
+		<value>Data Access Log</value>
 	</data>
 
 	<data name="AccessPreferencesTitle" xml:space="preserve">
