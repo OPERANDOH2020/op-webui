@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
+
 
 	<data name="RegistrationPassword" xml:space="preserve">
 		<value>Password
@@ -253,7 +253,7 @@
 </value>
 	</data>
 
-	<data name="DashboardRecendDataRequests" xml:space="preserve">
+	<data name="DashboardRecentDataRequests" xml:space="preserve">
 		<value>LE ULTIME RICHIESTE DI ACCESSO AI DATI
 </value>
 	</data>
@@ -384,7 +384,7 @@
 	</data>
 
 	<data name="DashboardLinkToProject" xml:space="preserve">
-		<value>Se vuoi sapere di più su come funziona OPERANDO, visita il sito del progetto: 
+		<value>Se vuoi sapere di più su come funziona OPERANDO, visita il sito del progetto:
 </value>
 	</data>
 

@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
+
 
 	<data name="RegistrationPassword" xml:space="preserve">
 		<value>Password</value>
@@ -227,7 +227,7 @@
 		<value>You give your personal information to many organisations in order to use their services, and agree to many terms and policies to do so. It can be difficult to keep track of who has access to your data, or update how you would like it to be used. This OPERANDO dashboard shows you a summary of: notifications about any changes to services and how your data is used, requests for the use of your data and links to other areas so you can make changes in response to this information.</value>
 	</data>
 
-	<data name="DashboardRecendDataRequests" xml:space="preserve">
+	<data name="DashboardRecentDataRequests" xml:space="preserve">
 		<value>MOST RECENT DATA REQUESTS</value>
 	</data>
 
@@ -320,7 +320,7 @@
 	</data>
 
 	<data name="RegistrationTerms" xml:space="preserve">
-		<value>I agree to the Terms of Service  & Privacy Policy</value>
+		<value>I agree to the Terms of Service &amp; Privacy Policy</value>
 	</data>
 
 	<data name="LogDate" xml:space="preserve">
