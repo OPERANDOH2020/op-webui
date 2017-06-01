@@ -45,12 +45,13 @@
                 <a href='@Url.Action("Index", "Dashboard")'>
                     <img src='@Url.Content("~/assets/layouts/operando/img/logo-light-big.png")'  alt="logo" class="logo-default" />
                 </a>
+                <!--
                 <div class="menu-toggler sidebar-toggler">
-                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                </div>
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header
+                </div>-->
             </div>
             <!-- END LOGO -->
-            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER
             <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN PAGE TOP -->
@@ -108,11 +109,11 @@
     <!-- BEGIN FOOTER -->
     @RenderPage("~/Views/Shared/_OperandoFooterDefault.cshtml")
     <!-- END FOOTER -->
-    
+
     <!--[if lt IE 9]>
     @Scripts.Render("~/operando/plugins/old-ie")
     <![endif]-->
-    
+
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     @RenderSection("PagePlugins", required: false)
     <!-- END PAGE LEVEL PLUGINS -->

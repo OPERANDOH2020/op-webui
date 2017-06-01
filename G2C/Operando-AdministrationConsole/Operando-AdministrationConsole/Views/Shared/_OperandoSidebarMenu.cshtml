@@ -49,7 +49,7 @@
 <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 <div class="page-sidebar navbar-collapse collapse">
     <!-- BEGIN SIDEBAR MENU -->
-    
+
     <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
     <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
     <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
@@ -74,7 +74,7 @@
                 { @activeClass }'>
                     <a href="@Url.Action("Index", "Dashboard")" class="nav-link ">
                         <i class="icon-bar-chart"></i>
-                        <span class="title">Dashboard</span>
+                        <span class="title">@Resources.WebResources.MenuDashboard</span>
                         @if (currentController == "Dashboard" && currentAction == "Index")
                         {
                             @:<span class="selected"></span>
@@ -88,7 +88,7 @@
                 { @activeClass }">
                     <a href="@Url.Action("Notifications", "Dashboard")" class="nav-link ">
                         <i class="icon-bell"></i>
-                        <span class="title">Notifications</span>
+                        <span class="title">@Resources.WebResources.MenuNotifications</span>
                         @if (currentController == "Dashboard" && currentAction == "Notifications")
                         {
                             @:<span class="selected"></span>
@@ -96,7 +96,7 @@
                     </a>
                 </li>
             }
-                <!-- 
+                <!--
                 <li class="nav-item @if (currentController == "Dashboard" && currentAction == "UserProfile") { @activeClass }">
                     <a href="@Url.Action("UserProfile", "Dashboard")" class="nav-link ">
                         <i class="icon-user"></i>
@@ -111,7 +111,7 @@
             @*</ul>
         </li>*@
 
-        <!-- 
+        <!--
         <li class="heading">
             <h3 class="uppercase">End User</h3>
         </li>
@@ -133,7 +133,7 @@
                 { @activeClass }'>
                     <a href="@Url.Action("AccessPreferences", "DataSubject")" class="nav-link ">
                         <i class="icon-settings"></i>
-                        <span class="title">Access Preferences</span>
+                        <span class="title">@Resources.WebResources.MenuAccessPreferences</span>
                         @if (currentController == "DataSubject" && currentAction == "AccessPreferences")
                         {
                             @:<span class="selected"></span>
@@ -141,19 +141,22 @@
                     </a>
                 </li>
             }
-            @if (allView || normal_user)
-                        {
-                <li class='nav-item @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire")
-                { @activeClass }'>
-                    <a href="@Url.Action("PrivacyQuestionnaire", "DataSubject")" class="nav-link ">
-                        <i class="icon-question"></i>
-                        <span class="title">Privacy Questionnaire</span>
-                        @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire")
-                        {
-                            @:<span class="selected"></span>
-                            }
-                    </a>
-                </li>
+
+            @if (System.Web.Configuration.WebConfigurationManager.AppSettings["hideNonProductionReadyPages"] == "false") {
+                if (allView || normal_user)
+                {
+                    <li class='nav-item @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire")
+                    { @activeClass }'>
+                        <a href="@Url.Action("PrivacyQuestionnaire", "DataSubject")" class="nav-link ">
+                            <i class="icon-question"></i>
+                            <span class="title">Privacy Questionnaire</span>
+                            @if (currentController == "DataSubject" && currentAction == "PrivacyQuestionnaire")
+                            {
+                                @:<span class="selected"></span>
+                                }
+                        </a>
+                    </li>
+                }
             }
             @if (allView || normal_user)
                         {
@@ -161,7 +164,7 @@
                             { @activeClass }'>
                     <a href="@Url.Action("DataAccessLogs", "DataSubject")" class="nav-link ">
                         <i class="icon-layers"></i>
-                        <span class="title">Data Access Log</span>
+                        <span class="title">@Resources.WebResources.MenuDataAccessLog</span>
                         @if (currentController == "DataSubject" && currentAction == "DataAccessLogs")
                         {
                             @:<span class="selected"></span>
@@ -171,7 +174,7 @@
             }
             @*</ul>
         </li>*@
-        
+
         <!--
         <li class="heading">
             <h3 class="uppercase">OSP Admin</h3>
@@ -218,7 +221,7 @@
             }
             @*</ul>
         </li>*@
-		
+
 		  <!-- ............................................... -->
 
         @*<li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "UppManagementTool")) { @activeClass }'>
@@ -283,8 +286,8 @@
     @* ---------------------------------------------------------------------------- *@
     @* ----------------------------- Big Data Analytics ------------------------------ *@
     @* ---------------------------------------------------------------------------- *@
-		
-		
+
+
         @*<li class='nav-item @if (currentController == "OspAdmin" && (currentAction == "BigDataAnalytics")) { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-globe"></i>
@@ -550,7 +553,7 @@
 
 
 
-    
+
 
 
 
@@ -558,7 +561,7 @@
 
 
         @* ---------------------------------------------------------------------------- *@
-      
+
     </ul>
     <!-- END SIDEBAR MENU -->
 </div>

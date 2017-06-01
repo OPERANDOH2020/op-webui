@@ -39,26 +39,32 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <span class="caption-subject font-dark bold uppercase">Privacy wizard</span>
+                    <span class="caption-subject font-dark bold uppercase"> @Resources.WebResources.AccessPreferencesSubtitle</span>
                 </div>
             </div>
             <div class="portlet-body row">
-                <div class="col-md-10">
+                @if (System.Web.Configuration.WebConfigurationManager.AppSettings["hideNonProductionReadyPages"]=="false") {
+                  <div class="col-md-10">
+                      <p>
+                          @Resources.WebResources.AccessPreferencesDescription
+                      </p>
+                      <p>You can use our privacy wizard to generate a recommended privacy policy quickly and easily.</p>
+                  </div>
+                  <div class="col-md-2 text-right">
+                          @*<p> <button type="button" class="btn yellow-gold">Start</button></p>*@
+                      <form class="form-horizontal" role="form" method="post" name="questionnaire">
+                          <div class="form-actions right">
+                              <button type="submit" class="btn yellow-gold" name="qstage">Start</button>
+                          </div>
+                      </form>
+                  </div>
+                } else {
+                <div class="col-md-12">
                     <p>
-                        Your privacy preferences are shown here. You can see, and change, which organisations have access to your data and how it is used.
-                        <br/>
-                        These settings are enforced automatically for you by OPERANDO, an independent platform, to ensure that your data is only used in ways which you have agreed to..
+                        @Resources.WebResources.AccessPreferencesDescription
                     </p>
-                    <p>You can use our privacy wizard to generate a recomended privacy policy quickly and easily.</p>
                 </div>
-                <div class="col-md-2 text-right">
-                        @*<p> <button type="button" class="btn yellow-gold">Start</button></p>*@
-                    <form class="form-horizontal" role="form" method="post" name="questionnaire">
-                        <div class="form-actions right">
-                            <button type="submit" class="btn yellow-gold" name="qstage">Start</button>
-                        </div>
-                    </form>
-                </div>
+                }
             </div>
         </div>
 
@@ -75,14 +81,14 @@
                         </div>
                     </div>
                     <div class="portlet-body form">
-                        <p>Your privacy settings are:</p>
+                        <p>@Resources.WebResources.AccessPreferencesYourPrivacySettings</p>
                         <form class="form-horizontal" role="form" method="post" name="@osp.OspId form">
                             <div class="form-body">
 
                                 @foreach (var groupPolicy in osp.map)
                                 {
                                     <div class="form-group">
-                                        <label class="col-md-7 control-label">@groupPolicy.groupKey should be able to access the following data:</label>
+                                        <label class="col-md-7 control-label">@groupPolicy.groupKey @Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</label>
 
                                         <div class="col-md-5">
                                             @foreach (var policy in groupPolicy.gap)
@@ -119,8 +125,8 @@
     }
                             </div>
                             <div class="form-actions right">
-                                <button type="submit" class="btn yellow-gold" name="@osp.OspId">Update UPP</button>
-                                <button type="submit" class="btn default" name="reset_@(osp.OspId)">Back to default values</button>
+                                <button type="submit" class="btn yellow-gold" name="@osp.OspId">@Resources.WebResources.AccessPreferencesUpdateUPP</button>
+                                <button type="submit" class="btn default" name="reset_@(osp.OspId)">@Resources.WebResources.AccessPreferencesReverseUPPToDefault</button>
                             </div>
                         </form>
                     </div>
