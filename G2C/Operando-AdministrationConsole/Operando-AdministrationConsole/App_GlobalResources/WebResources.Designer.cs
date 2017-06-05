@@ -241,6 +241,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a Home.
+        /// </summary>
+        internal static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a Log.
         /// </summary>
         internal static string Log {
@@ -717,5 +726,13 @@ namespace Resources {
             }
         }
         
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Data Subject.
+        /// </summary>
+        internal static string SectionDataSubject {
+            get {
+                return ResourceManager.GetString("SectionDataSubject", resourceCulture);
+            }
+        }
     }
 }
