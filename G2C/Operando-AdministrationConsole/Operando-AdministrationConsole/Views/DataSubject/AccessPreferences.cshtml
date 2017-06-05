@@ -25,10 +25,7 @@
                 foreach (var osp in Model)
                 {
                     <li @if (osp.selected) { <text> class="active" </text> }>
-                        <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected)
-                    {<text>" true"</text>}
-                    else
-                    {<text>"false"</text>}>@osp.OspId</a>
+                        <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected) {<text>" true"</text>} else {<text>"false"</text>}>@osp.OspId</a>
                 </li>
                 }
             }
@@ -77,7 +74,7 @@
                 <div class="portlet light tab-pane @if(osp.selected){<text>active</text>}else{<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
                     <div class="portlet-title">
                         <div class="caption">
-                            <span class="caption-subject font-dark bold uppercase">@osp.OspId privacy settings</span>
+                            <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspId</span>
                         </div>
                     </div>
                     <div class="portlet-body form">
@@ -88,7 +85,7 @@
                                 @foreach (var groupPolicy in osp.map)
                                 {
                                     <div class="form-group">
-                                        <label class="col-md-7 control-label">@groupPolicy.groupKey @Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</label>
+                                        <label class="col-md-7 control-label">@groupPolicy.groupKey.ToString().Replace("Nutritionist", "Nutrizionisti").Replace("Researcher", "Ricercatori").Replace("EndUser", "FoodCoach in tuo ncome") @Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</label>
 
                                         <div class="col-md-5">
                                             @foreach (var policy in groupPolicy.gap)
@@ -114,7 +111,17 @@
                                                                name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
                                                                value="@policy.Permission"
                                                                @if (policy.Permission == true) { @: checked="checked"
-                                                                                                                              }> @policy.Resource
+                                                                                                                              }> @{
+                                                                                                                                  string label = policy.Resource.ToString()
+                                                                                                                                    .Replace("FoodcoachUserId", "Il tuo identificativo FoodCoach")
+                                                                                                                                    .Replace("WeightId", "L'identificativo del tuo peso")
+                                                                                                                                    .Replace("Moment", "Il momento della giornata in cui ti pesi")
+                                                                                                                                    .Replace("Date", "In quali giorni ti pesi")
+                                                                                                                                    .Replace("RegistrationTimestamp", "Quando registri il tuo peso")
+                                                                                                                                    .Replace("ScaleRitualId", "Il tuo rito della bilancia")
+                                                                                                                                    .Replace("Weight", "Il tuo peso")
+                                                                                                                                    .Replace("ID", "Il tuo identificativo Operando");
+                                                                                                                              } @label
                                                                                                                             <span></span>
                                                                                                                         </label>
                                                                                                                     </div>
