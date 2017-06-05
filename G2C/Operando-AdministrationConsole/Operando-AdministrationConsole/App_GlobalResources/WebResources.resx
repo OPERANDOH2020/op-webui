@@ -336,4 +336,10 @@
   <data name="AccessPreferencesOSPPrivacySettings" xml:space="preserve">
     <value>Privacy settings for the app</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="SectionDataSubject" xml:space="preserve">
+    <value>Data Subject</value>
+  </data>
 </root>

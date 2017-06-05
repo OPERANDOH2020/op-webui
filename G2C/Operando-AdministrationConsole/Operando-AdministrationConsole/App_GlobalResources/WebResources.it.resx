@@ -407,4 +407,10 @@
   <data name="AccessPreferencesOSPPrivacySettings" xml:space="preserve">
     <value>Gestisci le impostazioni dell'app</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="SectionDataSubject" xml:space="preserve">
+    <value>Paziente</value>
+  </data>
 </root>

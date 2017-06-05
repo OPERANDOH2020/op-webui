@@ -96,9 +96,13 @@
                     <!-- END PAGE TITLE -->
                 </div>
                 <!-- END PAGE HEAD-->
+                @if (System.Web.Configuration.WebConfigurationManager.AppSettings["hideNonProductionReadyPages"] == "false")
+                {
                 <!-- BEGIN PAGE BREADCRUMB -->
                 @RenderPage("~/Views/Shared/_OperandoBreadcrumbs.cshtml")
                 <!-- END PAGE BREADCRUMB -->
+                }
+                
                 @RenderBody()
             </div>
             <!-- END CONTENT BODY -->
