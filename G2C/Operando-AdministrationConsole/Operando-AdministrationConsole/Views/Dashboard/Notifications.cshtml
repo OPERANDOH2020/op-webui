@@ -35,7 +35,7 @@
                     {
                         <tr>
                             <td>@notification.Title</td>
-                            <td>@notification.Description</td>
+                            <td>@notification.Description.ToString().Replace("Your privacy settings were updated because of changes you made through the dashboard.", @Resources.WebResources.DashboardSettingsUpdated)</td>
                             <td>@notification.TimeStamp</td>
                         </tr>
                     }

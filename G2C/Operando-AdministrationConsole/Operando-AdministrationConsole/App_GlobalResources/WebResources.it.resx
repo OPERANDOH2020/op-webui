@@ -302,7 +302,7 @@
 </value>
   </data>
   <data name="DashboardOverview" xml:space="preserve">
-    <value>Questa homepage è una dashboard, ovvero un luogo centralizzato in cui puoi gestire aspetti correlati alla privacy delle tue informazioni personali
+    <value>Questa homepage è una dashboard, ovvero un luogo centralizzato in cui puoi gestire aspetti correlati alla privacy delle tue informazioni personali.
 </value>
   </data>
   <data name="RegistrationUserType" xml:space="preserve">
@@ -403,5 +403,8 @@
   <data name="NotificationsEmpty" xml:space="preserve">
     <value>Nessun record trovato
 </value>
+  </data>
+  <data name="AccessPreferencesOSPPrivacySettings" xml:space="preserve">
+    <value>Gestisci le impostazioni dell'app</value>
   </data>
 </root>
