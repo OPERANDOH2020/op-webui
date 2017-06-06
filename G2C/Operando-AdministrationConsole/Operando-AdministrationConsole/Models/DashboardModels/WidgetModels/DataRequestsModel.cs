@@ -17,15 +17,7 @@ namespace Operando_AdministrationConsole.Models.DashboardModels.WidgetModels
         {
             Description = log.description;
             Timestamp = log.logDate;
-            switch (log.logLevel)
-            {
-                case "INFO":
-                    WasAllowed = true;
-                    break;
-                case "WARN":
-                    WasAllowed = false;
-                    break;
-            }
+            WasAllowed = !log.title.Equals(DataAccessLog.AccessDeniedTitle);
         }
     }
 }

@@ -55,15 +55,13 @@
                                 <td>
                                     @if (item.AccessGranted)
                                     {
-                                        <div class="label label-sm label-success">
-                                            <i class="fa fa-info-circle"></i>
-                                        </div> <span class="hidden">@Resources.WebResources.LogAccessGranted</span>
+                                        <i class="fa fa-check-circle-o" style="color: green; font-size:16px;"></i>
+                                        <span class="hidden">@Resources.WebResources.LogAccessGranted</span>
                                     }
                                     else
                                     {
-                                        <div class="label label-sm label-danger">
-                                            <i class="fa fa-warning"></i>
-                                        </div><span class="hidden">@Resources.WebResources.LogAccessDenied</span>
+                                        <i class="fa fa-ban" style="color: red; font-size:16px;"></i>
+                                        <span class="hidden">@Resources.WebResources.LogAccessDenied</span>
                                     }
                                 </td>
                                 <td>@item.LogDate</td>

@@ -334,8 +334,7 @@
 </value>
   </data>
   <data name="NotificationsDescription" xml:space="preserve">
-    <value>In questa sezione ti vengono mostrati gli eventi per te rilevanti, come ad esempio: richieste di accesso ai tuoi dati personali, suggerimenti su cambiamenti alle impostazioni di accesso ai tuoi dati. Le richieste sono mostrate dalla più recente alla meno recente; puoi decidere di filtrarle (tra In attesa, Approvata, Richiesta), oppure di cercare liberamente nella lista
-</value>
+    <value>In questa sezione ti vengono notificate le modifiche alle impostazioni sulle policy di accesso ai tuoi dati. Le notifiche sono mostrate dalla più recente alla meno recente, ma hai la possibilità di cercarle liberamente attraverso la search box.</value>
   </data>
   <data name="DashboardLinkToProject" xml:space="preserve">
     <value>Se vuoi sapere di più su come funziona OPERANDO, visita il sito del progetto: 
