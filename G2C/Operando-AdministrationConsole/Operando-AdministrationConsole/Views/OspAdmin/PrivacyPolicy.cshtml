@@ -79,18 +79,25 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <p>Setting up your privacy policy will allow OPERANDO to enforce the statements within the policy. Since they are enforced, this information can be used to prove regulation compliance to regulators.</p>
+                @if (canEdit)
+                {
+                    <p>Setting up your privacy policy will allow OPERANDO to enforce the statements within the policy. Since they are enforced, this information can be used to prove regulation compliance to regulators.</p>
+                }
+                else
+                {
+                    <p>From this page, you can see the privacy policies of the online services who can request your data. The policies are presented in a simple way (saying who using the service can view your data, what data they can see, and what it's used for), making the policy clear for everyone.</p>
+                }
                 <h3>Who can use data</h3>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>User type of data user</th>
-                                <th>User type of data subject</th>
-                                <th>Type of information used</th>
-                                <th>Reason for use</th>
-                                <th style="min-width: 120px;"><!-- ACTION COLUMN --></th>
-                            </tr>
+                        <tr>
+                            <th>User type of data user</th>
+                            <th>User type of data subject</th>
+                            <th>Type of information used</th>
+                            <th>Reason for use</th>
+                            <th style="min-width: 120px;"><!-- ACTION COLUMN --></th>
+                        </tr>
                         </thead>
                         <tbody>
                         @if (canEdit)
@@ -116,11 +123,12 @@
                                     </div>
                                 </td>
                             }
-                                <td data-bind="text: Datauser, visible: !$data.EditableCopy.Editing()"></td>
-                                <td data-bind="text: Datasubjecttype, visible: !$data.EditableCopy.Editing()"></td>
-                                <td data-bind="text: Datatype, visible: !$data.EditableCopy.Editing()"></td>
+                            <td data-bind="text: Datauser, visible: !$data.EditableCopy.Editing()"></td>
+                            <td data-bind="text: Datasubjecttype, visible: !$data.EditableCopy.Editing()"></td>
+                            <td data-bind="text: Datatype, visible: !$data.EditableCopy.Editing()"></td>
                             <td data-bind="text: Reason, visible: !$data.EditableCopy.Editing()"></td>
-                            @if (canEdit) { 
+                            @if (canEdit)
+                            {
                                 <td data-bind="visible: !$data.EditableCopy.Editing()">
                                     <div class="btn-group btn-group-circle">
                                         <button type="button" class="btn btn-outline green btn-sm" data-bind="click: function(){$data.EditableCopy.Editing(true)}">Edit</button>
