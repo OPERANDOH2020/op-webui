@@ -42,6 +42,10 @@
     </td>
 }
 
+@{
+    bool canEdit = Session["UserType"]?.ToString() == "osp_admin";
+}
+
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -89,6 +93,8 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @if (canEdit)
+                        {
                             <tr>
                                 @PolicyEditRow("OperandoPrivacyPolicy.model.newPolicy")
                                 <td>
@@ -97,20 +103,24 @@
                                     </div>
                                 </td>
                             </tr>
-                            <!-- ko foreach: OperandoPrivacyPolicy.model.policies -->
-                            <tr>
-                                @PolicyEditRow("$data.EditableCopy")
+                        }
+                        <!-- ko foreach: OperandoPrivacyPolicy.model.policies -->
+                        <tr>
+                            @PolicyEditRow("$data.EditableCopy")
+                            @if (canEdit)
+                            {
                                 <td data-bind="visible: $data.EditableCopy.Editing">
                                     <div class="btn-group btn-group-circle">
                                         <button type="button" class="btn btn-outline green btn-sm" data-bind="click: function(){OperandoPrivacyPolicy.updatePolicy($data)}">Save</button>
                                         <button type="button" class="btn btn-outline red btn-sm" data-bind="click: function(){$data.EditableCopy.Editing(false)}" \>Cancel</button>
                                     </div>
                                 </td>
-
+                            }
                                 <td data-bind="text: Datauser, visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Datasubjecttype, visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Datatype, visible: !$data.EditableCopy.Editing()"></td>
-                                <td data-bind="text: Reason, visible: !$data.EditableCopy.Editing()"></td>
+                            <td data-bind="text: Reason, visible: !$data.EditableCopy.Editing()"></td>
+                            @if (canEdit) { 
                                 <td data-bind="visible: !$data.EditableCopy.Editing()">
                                     <div class="btn-group btn-group-circle">
                                         <button type="button" class="btn btn-outline green btn-sm" data-bind="click: function(){$data.EditableCopy.Editing(true)}">Edit</button>
@@ -120,8 +130,9 @@
                                         </button>
                                     </div>
                                 </td>
-                            </tr>
-                            <!-- /ko -->
+                            }
+                        </tr>
+                        <!-- /ko -->
                         </tbody>
                     </table>
                 </div>
