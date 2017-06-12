@@ -104,34 +104,24 @@
                                                                            name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
                                                                            value="@policy.Permission"
                                                                            @if (policy.Permission == true) { @: checked="checked"
-                                                                                                                                                                                                                                                         }
+                                                                           }
                                                                            disabled readonly>
                                                                     break;
                                                                 }
                                                             }
                                                             <input @{if (hiddenFlag) { <text> type="hidden" </text>  } else { <text> type="checkbox" </text>   } }
-                                                                   name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
-                                                                   value="@policy.Permission"
-                                                                   @if (policy.Permission == true) { @: checked="checked"
-                                                                                                                                                                                                 }> @{
-                                                                                                                                                                                                     string label = policy.Resource.ToString()
-                                                                                                                                                                                                       .Replace("FoodcoachUserId", "Il tuo identificativo FoodCoach")
-                                                                                                                                                                                                       .Replace("WeightId", "L'identificativo del tuo peso")
-                                                                                                                                                                                                       .Replace("Moment", "Il momento della giornata in cui ti pesi")
-                                                                                                                                                                                                       .Replace("Date", "In quali giorni ti pesi")
-                                                                                                                                                                                                       .Replace("RegistrationTimestamp", "Quando registri il tuo peso")
-                                                                                                                                                                                                       .Replace("ScaleRitualId", "Il tuo rito della bilancia")
-                                                                                                                                                                                                       .Replace("Weight", "Il tuo peso")
-                                                                                                                                                                                                       .Replace("ID", "Il tuo identificativo Operando");
-                                                                                                                                                                                                } @label
-                                                                                                                                                                                                <span></span>
-                                                                                                                                                                                            </label>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                                     }
+                                                                name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
+                                                                value="@policy.Permission"
+                                                                @if (policy.Permission == true) { @: checked="checked"
+                                                                }> @policy.Resource
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                }
                                             </div>
 
                                         </div>
-                                                                                                                                                                                                     }
+                                    }
                                 </div>
                                 <div class="form-actions right">
                                     <button type="submit" class="btn yellow-gold" name="@osp.OspId">@Resources.WebResources.AccessPreferencesUpdateUPP</button>
