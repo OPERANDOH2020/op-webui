@@ -1,7 +1,7 @@
 ﻿
 @{
-    ViewBag.MenuSection = "Data Subject";
-    ViewBag.Title = "Access Preferences";
+    ViewBag.MenuSection = Resources.WebResources.SectionDataSubject;
+    ViewBag.Title = Resources.WebResources.AccessPreferencesTitle;
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
 
@@ -13,121 +13,136 @@
 <!-- BEGIN PAGE BASE CONTENT -->
 <!-- Form modified by IT Innovation Centre 2016 -->
 <div class="portlet-body font-grey-gallery">
-    <div class="tabbable-custom-operando col-md-3 col-sm-3 col-xs-3">
-        <ul class="nav nav-tabs tabs-left">
-            @*foreach (var osp in ViewBag.ospppList)*@
-            @if (!Model.Any())
-            {
-                <li>No authorised OSPs found.</li>
-            }
-            else
-            {
-                foreach (var osp in Model)
+    @if (Model.Count > 1)
+    {
+        <div class="tabbable-custom-operando col-md-3 col-sm-3 col-xs-3">
+            <ul class="nav nav-tabs tabs-left">
+                @*foreach (var osp in ViewBag.ospppList)*@
+                @if (!Model.Any())
                 {
-                    <li @if (osp.selected) { <text> class="active" </text> }>
-                        <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected)
-                    {<text>" true"</text>}
-                    else
-                    {<text>"false"</text>}>@osp.OspId</a>
-                </li>
+                    <li>No authorised OSPs found.</li>
                 }
-            }
-        </ul>
-    </div>
-
-    <div class="col-md-9 col-sm-9 col-xs-9 tabs-custom-operando">
-        <div class="portlet light">
-            <div class="portlet-title">
-                <div class="caption">
-                    <span class="caption-subject font-dark bold uppercase">Privacy wizard</span>
-                </div>
-            </div>
-            <div class="portlet-body row">
-                <div class="col-md-10">
-                    <p>
-                        Your privacy preferences are shown here. You can see, and change, which organisations have access to your data and how it is used.
-                        <br/>
-                        These settings are enforced automatically for you by OPERANDO, an independent platform, to ensure that your data is only used in ways which you have agreed to..
-                    </p>
-                    <p>You can use our privacy wizard to generate a recomended privacy policy quickly and easily.</p>
-                </div>
-                <div class="col-md-2 text-right">
-                        @*<p> <button type="button" class="btn yellow-gold">Start</button></p>*@
-                    <form class="form-horizontal" role="form" method="post" name="questionnaire">
-                        <div class="form-actions right">
-                            <button type="submit" class="btn yellow-gold" name="qstage">Start</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                else
+                {
+                    foreach (var osp in Model)
+                    {
+                        <li @if (osp.selected)
+                        { <text> class="active" </text> }>
+                            <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected)
+                            {<text>" true"</text>}
+                            else
+                            {<text>"false"</text>}>@osp.OspId</a>
+                    </li>
+                    }
+                }
+            </ul>
         </div>
-
-        <div class="tab-content">
-
-            @*foreach (var osp in ViewBag.ospppList)*@
-            @foreach(var osp in Model)
+    }
+    @if (Model.Count > 1) { <text><div class="col-md-9 col-sm-9 col-xs-9 tabs-custom-operando"></text> }
+    else { <text><div class="col-md-12 col-sm-12 col-xs-12 tabs-custom-operando"></text> }
+            @if (System.Web.Configuration.WebConfigurationManager.AppSettings["hideNonProductionReadyPages"] == "false")
             {
-                <!-- BEGIN TAB @osp.OspId CONTENT -->
-                <div class="portlet light tab-pane @if(osp.selected){<text>active</text>}else{<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <span class="caption-subject font-dark bold uppercase">@osp.OspId privacy settings</span>
-                        </div>
-                    </div>
-                    <div class="portlet-body form">
-                        <p>Your privacy settings are:</p>
-                        <form class="form-horizontal" role="form" method="post" name="@osp.OspId form">
-                            <div class="form-body">
-
-                                @foreach (var groupPolicy in osp.map)
-                                {
-                                    <div class="form-group">
-                                        <label class="col-md-7 control-label">@groupPolicy.groupKey should be able to access the following data:</label>
-
-                                        <div class="col-md-5">
-                                            @foreach (var policy in groupPolicy.gap)
-                                            {
-                                                <div class="mt-checkbox-list">
-                                                    <label class="mt-checkbox">
-                                                        @{var hiddenFlag = false;}
-                                                        @foreach (PolicyAttribute pa in policy.Attributes)
-                                                        {
-                                                            if ((pa.AttributeName == "fixed") && (pa.AttributeValue == "true"))
-                                                            {
-                                                                hiddenFlag = true;
-                                                                <input type="checkbox"
-                                                                       name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
-                                                                       value="@policy.Permission"
-                                                                       @if (policy.Permission == true) { @: checked="checked"
-                                                                                                                                                                              }
-                                                                       disabled readonly>
-                                                                break;
-                                                            }
-                                                        }
-                                                        <input @{if (hiddenFlag) { <text> type="hidden" </text> } else { <text> type="checkbox" </text>  } }
-                                                               name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
-                                                               value="@policy.Permission"
-                                                               @if (policy.Permission == true) { @: checked="checked"
-                                                                                                                              }> @policy.Resource
-                                                                                                                            <span></span>
-                                                                                                                        </label>
-                                                                                                                    </div>
-    }
-                                        </div>
-
-                                    </div>
-    }
-                            </div>
-                            <div class="form-actions right">
-                                <button type="submit" class="btn yellow-gold" name="@osp.OspId">Update UPP</button>
-                                <button type="submit" class="btn default" name="reset_@(osp.OspId)">Back to default values</button>
-                            </div>
-                        </form>
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-dark bold uppercase"> @Resources.WebResources.AccessPreferencesSubtitle</span>
                     </div>
                 </div>
+                <div class="portlet-body row">
+                    
+                        <div class="col-md-10">
+                            <p>
+                                @Resources.WebResources.AccessPreferencesDescription
+                            </p>
+                            <p>You can use our privacy wizard to generate a recommended privacy policy quickly and easily.</p>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            @*<p> <button type="button" class="btn yellow-gold">Start</button></p>*@
+                            <form class="form-horizontal" role="form" method="post" name="questionnaire">
+                                <div class="form-actions right">
+                                    <button type="submit" class="btn yellow-gold" name="qstage">Start</button>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
             }
+            <div class="tab-content">
+
+                @*foreach (var osp in ViewBag.ospppList)*@
+                @foreach (var osp in Model)
+                {
+                <!-- BEGIN TAB @osp.OspId CONTENT -->
+                    <div class="portlet light tab-pane @if(osp.selected){<text>active</text>}else{<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspId</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <p>@Resources.WebResources.AccessPreferencesDescription</p>
+                            <form class="form-horizontal" role="form" method="post" name="@osp.OspId form">
+                                <div class="form-body">
+
+                                    @foreach (var groupPolicy in osp.map)
+                                    {
+                                        <div class="form-group">
+                                            <label class="col-md-7 control-label">@groupPolicy.groupKey.ToString().Replace("Nutritionist", "Ogni nutrizionista").Replace("SocialNetworks", "Il social network").Replace("Researcher", "Ogni ricercatore").Replace("EndUser", "Il tuo profilo FoodCoach, una volta che hai fatto login con le tue credenziali,") @Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</label>
+
+                                            <div class="col-md-5">
+                                                @foreach (var policy in groupPolicy.gap)
+                                                {
+                                                    <div class="mt-checkbox-list">
+                                                        <label class="mt-checkbox">
+                                                            @{var hiddenFlag = false;}
+                                                            @foreach (PolicyAttribute pa in policy.Attributes)
+                                                            {
+                                                                if ((pa.AttributeName == "fixed") && (pa.AttributeValue == "true"))
+                                                                {
+                                                                    hiddenFlag = true;
+                                                                    <input type="checkbox"
+                                                                           name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
+                                                                           value="@policy.Permission"
+                                                                           @if (policy.Permission == true) { @: checked="checked"
+                                                                                                                                                                                                                                                         }
+                                                                           disabled readonly>
+                                                                    break;
+                                                                }
+                                                            }
+                                                            <input @{if (hiddenFlag) { <text> type="hidden" </text>  } else { <text> type="checkbox" </text>   } }
+                                                                   name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
+                                                                   value="@policy.Permission"
+                                                                   @if (policy.Permission == true) { @: checked="checked"
+                                                                                                                                                                                                 }> @{
+                                                                                                                                                                                                     string label = policy.Resource.ToString()
+                                                                                                                                                                                                       .Replace("FoodcoachUserId", "Il tuo identificativo FoodCoach")
+                                                                                                                                                                                                       .Replace("WeightId", "L'identificativo del tuo peso")
+                                                                                                                                                                                                       .Replace("Moment", "Il momento della giornata in cui ti pesi")
+                                                                                                                                                                                                       .Replace("Date", "In quali giorni ti pesi")
+                                                                                                                                                                                                       .Replace("RegistrationTimestamp", "Quando registri il tuo peso")
+                                                                                                                                                                                                       .Replace("ScaleRitualId", "Il tuo rito della bilancia")
+                                                                                                                                                                                                       .Replace("Weight", "Il tuo peso")
+                                                                                                                                                                                                       .Replace("ID", "Il tuo identificativo Operando");
+                                                                                                                                                                                                } @label
+                                                                                                                                                                                                <span></span>
+                                                                                                                                                                                            </label>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                                     }
+                                            </div>
+
+                                        </div>
+                                                                                                                                                                                                     }
+                                </div>
+                                <div class="form-actions right">
+                                    <button type="submit" class="btn yellow-gold" name="@osp.OspId">@Resources.WebResources.AccessPreferencesUpdateUPP</button>
+                                    <button type="submit" class="btn default" name="reset_@(osp.OspId)">@Resources.WebResources.AccessPreferencesReverseUPPToDefault</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                                                                                                                                                                                                     }
+            </div>
         </div>
-    </div>
 </div>
 
 <!-- END PAGE BASE CONTENT -->
