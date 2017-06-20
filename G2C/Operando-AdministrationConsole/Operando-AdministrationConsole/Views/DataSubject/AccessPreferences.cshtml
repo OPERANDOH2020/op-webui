@@ -87,7 +87,7 @@
                                     @foreach (var groupPolicy in osp.map)
                                     {
                                         <div class="form-group">
-                                            <label class="col-md-7 control-label">@groupPolicy.groupKey.ToString().Replace("Nutritionist", "Ogni nutrizionista").Replace("SocialNetworks", "Il social network").Replace("Researcher", "Ogni ricercatore").Replace("EndUser", "Il tuo profilo FoodCoach, una volta che hai fatto login con le tue credenziali,") @Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</label>
+                                            <label class="col-md-7 control-label">@groupPolicy.groupKey @Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</label>
 
                                             <div class="col-md-5">
                                                 @foreach (var policy in groupPolicy.gap)

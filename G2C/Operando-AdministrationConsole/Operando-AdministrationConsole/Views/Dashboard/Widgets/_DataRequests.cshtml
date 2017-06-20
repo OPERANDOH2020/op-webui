@@ -34,17 +34,9 @@
                                 <div class="desc">
                                     @{
                                         string label = log.Description.ToString()
-                                                                    .Replace("requested access to your", @Resources.WebResources.LogRequestedAccess)
-                                                                    .Replace("The request was denied, because it did not comply with your privacy settings", @Resources.WebResources.LogRequestedAccessDenied)
-                                                                    .Replace("The request was granted, because it complied with your privacy settings", @Resources.WebResources.LogRequestedAccessAllowed)
-                                                                    .Replace("FoodcoachUserId", " il tuo identificativo FoodCoach")
-                                                                    .Replace("WeightId", " l'identificativo del tuo peso")
-                                                                    .Replace("Moment", " il momento della giornata in cui ti pesi")
-                                                                    .Replace("Date", " in quali giorni ti pesi")
-                                                                    .Replace("RegistrationTimestamp", " quando registri il tuo peso")
-                                                                    .Replace("ScaleRitualId", " il tuo rito della bilancia")
-                                                                    .Replace("Weight", " il tuo peso")
-                                                                    .Replace("ID", " il tuo identificativo Operando");
+                                            .Replace("requested access to your", @Resources.WebResources.LogRequestedAccess)
+                                            .Replace("The request was denied, because it did not comply with your privacy settings", @Resources.WebResources.LogRequestedAccessDenied)
+                                            .Replace("The request was granted, because it complied with your privacy settings", @Resources.WebResources.LogRequestedAccessAllowed);
                                     }
                                     @label
                                 </div>
