@@ -31,7 +31,7 @@ namespace Operando_AdministrationConsole.Controllers
         public DataSubjectController()
         {
             _aapiClient = new AapiClient();
-            _ldbClient = new LdbClient();
+            _ldbClient = new LdbClient(ConfigurationManager.AppSettings["ldbBasePath"]);
         }
 
         public ActionResult DataAccessLogs()

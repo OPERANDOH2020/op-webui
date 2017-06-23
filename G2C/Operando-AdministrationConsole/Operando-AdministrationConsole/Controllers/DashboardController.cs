@@ -32,7 +32,7 @@ namespace Operando_AdministrationConsole.Controllers
         public DashboardController()
         {
             _bdaClient = new BdaClient();
-            _ldbService = new LdbClient();
+            _ldbService = new LdbClient(ConfigurationManager.AppSettings["ldbBasePath"]);
         }
 
         public ActionResult EmptyPage()
