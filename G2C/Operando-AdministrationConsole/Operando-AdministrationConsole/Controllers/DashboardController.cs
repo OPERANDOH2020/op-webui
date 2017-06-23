@@ -7,9 +7,11 @@ using System.Web.Mvc.Html;
 using Operando_AdministrationConsole.Models;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using eu.operando.core.bda;
 using eu.operando.core.ldb;
+using eu.operando.core.ldb.Model;
 using Operando_AdministrationConsole.Helper;
 using Operando_AdministrationConsole.Models.DashboardModels;
 using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels;
@@ -30,7 +32,7 @@ namespace Operando_AdministrationConsole.Controllers
         public DashboardController()
         {
             _bdaClient = new BdaClient();
-            _ldbService = new LdbClient();
+            _ldbService = new LdbClient(ConfigurationManager.AppSettings["ldbBasePath"]);
         }
 
         public ActionResult EmptyPage()
@@ -240,7 +242,25 @@ namespace Operando_AdministrationConsole.Controllers
         {
             var username = Session["Username"] as string;
 
-            var logMessages = _ldbService.GetNotifications(username);
+            IList<DataAccessLog> logMessages;
+
+            try
+            {
+                logMessages = _ldbService.GetNotifications(username);
+            }
+            catch(Exception e)
+            {
+                Debug.Print("Dashboard could not get notifications: " + e.Message);
+                logMessages = new List<DataAccessLog>()
+                {
+                    new DataAccessLog()
+                    {
+                        title = "Error",
+                        description = "Could not get notifications",
+                        logDate = DateTime.Now
+                    }
+                };
+            }
 
             var model = logMessages.Select(_ => new NotificationsModel(_))
             .OrderByDescending(_ => _.TimeStamp)
@@ -261,7 +281,24 @@ namespace Operando_AdministrationConsole.Controllers
         {
             var username = Session["Username"] as string;
 
-            var logMessages = _ldbService.GetNotifications(username);
+            IList<DataAccessLog> logMessages;
+
+            try
+            {
+                logMessages = _ldbService.GetNotifications(username);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Dashboard could not get notifications: " + e.Message);
+                logMessages = new List<DataAccessLog>()
+                {
+                    new DataAccessLog()
+                    {
+                        description = "Error - Could not get notifications",
+                        logDate = DateTime.Now
+                    }
+                };
+            }
 
             var model = logMessages.Select(_ => new NotificationsWidgetModel(_))
             .OrderByDescending(_ => _.TimeStamp)
@@ -275,7 +312,24 @@ namespace Operando_AdministrationConsole.Controllers
         {
             var username = Session["Username"] as string;
 
-            var logMessages = _ldbService.GetDataAccessLogs(username);
+            IList<DataAccessLog> logMessages;
+
+            try
+            {
+                logMessages = _ldbService.GetDataAccessLogs(username);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Dashboard could not get data access logs: " + e.Message);
+                logMessages = new List<DataAccessLog>()
+                {
+                    new DataAccessLog()
+                    {
+                        description = "Error - Could not get data access logs",
+                        logDate = DateTime.Now
+                    }
+                };
+            }
 
             var model = logMessages.Select(_ => new DataRequestsModel(_))
             .OrderByDescending(_ => _.Timestamp)

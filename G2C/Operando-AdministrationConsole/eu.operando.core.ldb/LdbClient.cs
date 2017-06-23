@@ -12,6 +12,12 @@ namespace eu.operando.core.ldb
 {
     public class LdbClient : ILdbClient
     {
+        private readonly string _baseUrl;
+
+        public LdbClient(string baseUrl)
+        {
+            _baseUrl = baseUrl;
+        }
         public IList<DataAccessLog> GetDataAccessLogs(string userId)
         {
             return RequestDataAccessLogs($"logType=data_access&affectedUserId={userId}");
@@ -27,13 +33,11 @@ namespace eu.operando.core.ldb
         private List<DataAccessLog> RequestDataAccessLogs(string searchString)
         {
             List<DataAccessLog> logList = new List<DataAccessLog>();
-
-            var baseURL = "http://192.168.99.177:8091/operando/core/ldbsearch/log/search";
-
+            
             string jsonString;
             using (WebClient client = new WebClient())
             {
-                jsonString = client.DownloadString(baseURL + "?" + searchString);
+                jsonString = client.DownloadString(_baseUrl + "?" + searchString);
             }
 
 

@@ -2,7 +2,7 @@
 @model DashboardModel
 @{
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
-    ViewBag.Title = "Dashboard";
+    ViewBag.Title = Resources.WebResources.DashboardTitle;
 }
 
 
@@ -10,16 +10,13 @@
 
 <div class="m-heading-1 border-grey-silver m-bordered">
     <p>
-        The homepage acts as a dashboard; a central place where you are able to manage the privacy of your personal information.
+        @Resources.WebResources.DashboardOverview
         <br />
         <br />
-        You give your personal information to many organisations in order to use their services, and agree to many terms and policies to do so.
-         It can be difficult to keep track of who has access to your data, or update how you would like it to be used.
-        This OPERANDO dashboard shows you a summary of: notifications about any changes to services and how your data is used, 
-        requests for the use of your data and links to other areas so you can make changes in response to this information.
+        @Resources.WebResources.DashboardMotivation
         <br/>
         <br/>
-        If you want to know more about how OPERANDO works, visit the project website: <a href="http://www.operando.eu" target="_blank">www.operando.eu</a> 
+        @Resources.WebResources.DashboardLinkToProject <a href="http://www.operando.eu" target="_blank">www.operando.eu</a> 
     </p>
 </div>
 

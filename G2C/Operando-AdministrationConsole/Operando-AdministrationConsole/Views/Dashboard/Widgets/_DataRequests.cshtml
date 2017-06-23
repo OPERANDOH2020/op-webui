@@ -4,10 +4,10 @@
     <div class="portlet-title">
         <div class="caption">
             <i class="icon-equalizer font-dark hide"></i>
-            <span class="caption-subject font-dark bold uppercase">Most recent Data Requests</span>
+            <span class="caption-subject font-dark bold uppercase"> @Resources.WebResources.DashboardRecentDataRequests </span>
         </div>
         <div class="tools">
-            <a href="@Url.Action("DataAccessLogs", "DataSubject")">View all <i class="icon-arrow-right"></i></a>
+            <a href="@Url.Action("DataAccessLogs", "DataSubject")">@Resources.WebResources.DashboardViewAllButton <i class="icon-arrow-right"></i></a>
         </div>
     </div>
     <div class="portlet-body">
@@ -22,20 +22,24 @@
                                 {
                                     if (log.WasAllowed.Value)
                                     {
-                                        <div class="label label-sm label-success">
-                                            <i class="fa fa-info-circle"></i>
-                                        </div>
+                                        <i class="fa fa-check-circle-o" style="color: green; font-size:16px; margin:5px;"></i>
                                     }
                                     else
                                     {
-                                        <div class="label label-sm label-danger">
-                                            <i class="fa fa-warning"></i>
-                                        </div>
+                                        <i class="fa fa-ban" style="color: red; font-size:16px; margin:5px;"></i>
                                     }
                                 }
                             </div>
                             <div class="cont-col2">
-                                <div class="desc">@log.Description </div>
+                                <div class="desc">
+                                    @{
+                                        string label = log.Description.ToString()
+                                            .Replace("requested access to your", @Resources.WebResources.LogRequestedAccess)
+                                            .Replace("The request was denied, because it did not comply with your privacy settings", @Resources.WebResources.LogRequestedAccessDenied)
+                                            .Replace("The request was granted, because it complied with your privacy settings", @Resources.WebResources.LogRequestedAccessAllowed);
+                                    }
+                                    @label
+                                </div>
                             </div>
                         </div>
                     </div>
