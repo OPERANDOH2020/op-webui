@@ -191,7 +191,7 @@
                 }
             </a>
             <ul class="sub-menu">*@
-            @if (allView || osp_admin)
+            @if (allView || normal_user || osp_admin)
             {
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy")
                 { @activeClass }'>
