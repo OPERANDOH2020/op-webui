@@ -392,6 +392,7 @@ ORDER BY NeedWillingToHelpWith, EmploymentStatus, AreaOfOccupation]]></xml-prope
                     <text-property name="heading">NumberOfVolunteers</text-property>
                 </structure>
             </list-property>
+            <list-property name="parameters"/>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
                     <structure>
@@ -412,7 +413,7 @@ ORDER BY NeedWillingToHelpWith, EmploymentStatus, AreaOfOccupation]]></xml-prope
                 </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[select count(1) AS NumberOfVolunteers
-from [Ami].[dbo].[Volunteer]]]></xml-property>
+from Volunteer]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
