@@ -76,7 +76,7 @@
                                 }
                                 </td>
                                 <td>@{
-                                        string label = item.Description.ToString()
+                                        string label = item.Message.ToString()
                                             .Replace("requested access to your", @Resources.WebResources.LogRequestedAccess)
                                             .Replace("The request was denied, because it did not comply with your privacy settings", @Resources.WebResources.LogRequestedAccessDenied)
                                             .Replace("The request was granted, because it complied with your privacy settings", @Resources.WebResources.LogRequestedAccessAllowed);

@@ -332,7 +332,7 @@ namespace Operando_AdministrationConsole.Controllers
             }
 
             var model = logMessages.Select(_ => new DataRequestsModel(_))
-            .OrderByDescending(_ => _.Timestamp)
+            .OrderByDescending(_ => _.LogDate)
             .Take(count);
 
             return PartialView("Widgets/_DataRequests", model);

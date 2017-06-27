@@ -18,22 +18,19 @@
                     <div class="col1">
                         <div class="cont">
                             <div class="cont-col1">
-                                @if (log.WasAllowed.HasValue)
+                                @if (log.AccessGranted)
                                 {
-                                    if (log.WasAllowed.Value)
-                                    {
-                                        <i class="fa fa-check-circle-o" style="color: green; font-size:16px; margin:5px;"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="fa fa-ban" style="color: red; font-size:16px; margin:5px;"></i>
-                                    }
+                                    <i class="fa fa-check-circle-o" style="color: green; font-size:16px; margin:5px;"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-ban" style="color: red; font-size:16px; margin:5px;"></i>
                                 }
                             </div>
                             <div class="cont-col2">
                                 <div class="desc">
                                     @{
-                                        string label = log.Description.ToString()
+                                        string label = log.Message
                                             .Replace("requested access to your", @Resources.WebResources.LogRequestedAccess)
                                             .Replace("The request was denied, because it did not comply with your privacy settings", @Resources.WebResources.LogRequestedAccessDenied)
                                             .Replace("The request was granted, because it complied with your privacy settings", @Resources.WebResources.LogRequestedAccessAllowed);
@@ -44,7 +41,7 @@
                         </div>
                     </div>
                     <div class="col2">
-                        <div class="date">@log.Timestamp.ToString("G")</div>
+                        <div class="date">@log.LogDate.ToString("G")</div>
                     </div>
                 </li>
             }
