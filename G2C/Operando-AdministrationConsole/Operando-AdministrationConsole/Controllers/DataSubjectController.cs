@@ -176,7 +176,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             //ViewBag.ospppList = userSP;
             List<ModOSPConsents> opsModList = GroupAP(userSP, userSP.ElementAt(0).OspId);
-            return View(opsModList);
+            return View(opsModList.Select(oml => new AccessPreferenceModel(oml)).ToList());
         }
 
         /* Convert list of OSPConsents to a modified view model that helps visualisation*/
@@ -404,7 +404,8 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 selected = resetOsp;
             }
-            return View(GroupAP(userSP, selected));
+            var entity = GroupAP(userSP, selected);
+            return View(entity.Select(oml => new AccessPreferenceModel(oml)).ToList());
         }
 
         public ActionResult PrivacyWizard()

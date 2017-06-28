@@ -74,6 +74,15 @@ namespace Operando_AdministrationConsole.Controllers
                         {
                             Session["Email"] = attr["attrValue"].ToString();
                         }
+                        if (attr["attrName"].ToString() == "registration_date")
+                        {
+                            DateTime dateTime;
+                            var success = DateTime.TryParse(attr["attrValue"].ToString(), out dateTime);
+                            if (success)
+                            {
+                                Session["RegistrationDate"] = dateTime;
+                            }
+                        }
                     }
 
                     return RedirectToAction("Index", "Dashboard");

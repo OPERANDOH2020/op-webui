@@ -11,7 +11,7 @@ namespace eu.operando.core.ldb
     {
         IList<DataAccessLog> GetDataAccessLogs(string userId);
 
-        IList<DataAccessLog> GetNotifications(string userId);
+        IList<DataAccessLog> GetNotifications(string userId, DateTime? startDate = null);
 
     }
 }

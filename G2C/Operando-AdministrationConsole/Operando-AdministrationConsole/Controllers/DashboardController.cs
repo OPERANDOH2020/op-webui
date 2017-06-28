@@ -241,12 +241,13 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult Notifications()
         {
             var username = Session["Username"] as string;
+            var registrationDate = Session["RegistrationDate"] as DateTime?;
 
             IList<DataAccessLog> logMessages;
 
             try
             {
-                logMessages = _ldbService.GetNotifications(username);
+                logMessages = _ldbService.GetNotifications(username, registrationDate);
             }
             catch(Exception e)
             {
@@ -280,12 +281,13 @@ namespace Operando_AdministrationConsole.Controllers
         public PartialViewResult NotificationsWidget(int count = 5)
         {
             var username = Session["Username"] as string;
+            var registrationDate = Session["RegistrationDate"] as DateTime?;
 
             IList<DataAccessLog> logMessages;
 
             try
             {
-                logMessages = _ldbService.GetNotifications(username);
+                logMessages = _ldbService.GetNotifications(username, registrationDate);
             }
             catch (Exception e)
             {

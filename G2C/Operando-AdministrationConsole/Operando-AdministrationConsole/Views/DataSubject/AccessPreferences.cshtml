@@ -8,7 +8,7 @@
 @using eu.operando.core.pdb.cli.Model;
 @using Operando_AdministrationConsole.Models.DataSubjectModels;
 @*model OSPConsents*@
-@model IList<ModOSPConsents>
+@model IList<AccessPreferenceModel>
 
 <!-- BEGIN PAGE BASE CONTENT -->
 <!-- Form modified by IT Innovation Centre 2016 -->
@@ -26,9 +26,9 @@
                 {
                     foreach (var osp in Model)
                     {
-                        <li @if (osp.selected)
+                        <li @if (osp.Selected)
                         { <text> class="active" </text> }>
-                            <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected)
+                            <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.Selected)
                             {<text>" true"</text>}
                             else
                             {<text>"false"</text>}>@osp.OspId</a>
@@ -73,7 +73,7 @@
                 @foreach (var osp in Model)
                 {
                 <!-- BEGIN TAB @osp.OspId CONTENT -->
-                    <div class="portlet light tab-pane @if(osp.selected){<text>active</text>}else{<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
+                    <div class="portlet light tab-pane @if(osp.Selected){<text>active</text>}else{<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
                         <div class="portlet-title">
                             <div class="caption">
                                 <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspId</span>
@@ -84,24 +84,24 @@
                             <form class="form-horizontal" role="form" method="post" name="@osp.OspId form">
                                 <div class="form-body">
 
-                                    @foreach (var groupPolicy in osp.map)
+                                    @foreach (var groupPolicy in osp.Map)
                                     {
                                         <div class="form-group">
-                                            <label class="col-md-7 control-label">@groupPolicy.groupKey @Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</label>
+                                            <label class="col-md-7 control-label">@groupPolicy.GroupKey @Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</label>
 
                                             <div class="col-md-5">
-                                                @foreach (var policy in groupPolicy.gap)
+                                                @foreach (var policy in groupPolicy.GroupedPolicies)
                                                 {
                                                     <div class="mt-checkbox-list">
                                                         <label class="mt-checkbox">
                                                             @{var hiddenFlag = false;}
-                                                            @foreach (PolicyAttribute pa in policy.Attributes)
+                                                            @foreach (var pa in policy.Attributes)
                                                             {
                                                                 if ((pa.AttributeName == "fixed") && (pa.AttributeValue == "true"))
                                                                 {
                                                                     hiddenFlag = true;
                                                                     <input type="checkbox"
-                                                                           name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
+                                                                           name="@policy.Subject.GetHashCode() @policy.RawResource.GetHashCode() @policy.Action.GetHashCode()"
                                                                            value="@policy.Permission"
                                                                            @if (policy.Permission == true) { @: checked="checked"
                                                                            }
@@ -110,7 +110,7 @@
                                                                 }
                                                             }
                                                             <input @{if (hiddenFlag) { <text> type="hidden" </text>  } else { <text> type="checkbox" </text>   } }
-                                                                name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
+                                                                name="@policy.Subject.GetHashCode() @policy.RawResource.GetHashCode() @policy.Action.GetHashCode()"
                                                                 value="@policy.Permission"
                                                                 @if (policy.Permission == true) { @: checked="checked"
                                                                 }> @policy.Resource
