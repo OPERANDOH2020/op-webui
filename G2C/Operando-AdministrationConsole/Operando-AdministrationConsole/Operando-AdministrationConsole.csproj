@@ -261,6 +261,7 @@
     <Compile Include="Models\DataSubjectModels\AbstractDataAccessLogModel.cs" />
     <Compile Include="Models\DataSubjectModels\AccessPreferenceModel.cs" />
     <Compile Include="Models\DataSubjectModels\DataAccessLogModel.cs" />
+	<Compile Include="Models\DataSubjectModels\LogMessage.cs" />
     <Compile Include="Models\DataSubjectModels\ModOSPConsents.cs" />
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
