@@ -7,6 +7,7 @@
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
 
+@using Operando_AdministrationConsole.Helper
 @using Operando_AdministrationConsole.Models;
 @*model PrivacyPolicy*@
 @model IList<OSPReasonPolicy>
@@ -14,29 +15,61 @@
 @*Create a series of table cells allowing editing of a bound regulation*@
 @helper PolicyEditRow(string binding)
 {
+    var dataUsers = new List<string>
+    {
+        "Volunteer Link-Up",
+        "Abingdon Good Neighbour Scheme",
+        "Ami Administrator"
+    };
+
+    var dataSubjects = new List<string>
+    {
+        "Volunteer",
+        "Client of Volunteer Organisation"
+    };
+
+    var dataTypes = new List<string>
+    {
+        "Availability",
+        "ConfidentialNote",
+        "Matches",
+        "Preference",
+        "Unsuccessful",
+        "VolunteerUnsuccessfulReason",
+        "VolunteerChecklistItems",
+        "Email",
+        "Title",
+        "FirstName",
+        "LastName",
+        "RegistrationDate",
+        "Address"
+    };
+
     <td data-bind="visible: @(binding).Editing">
         <input class="form-control" list="userType" placeholder="Enter text" data-bind="value: @(binding).Datauser">
         <datalist id="userType">
-            <option>Doctor</option>
-            <option>Receptionist</option>
-            <option>Healthcare assistant</option>
-            <option>Pharmacist</option>
+            @foreach (var user in dataUsers)
+            {
+                <option>@user</option>
+            }
         </datalist>
     </td>
     <td data-bind="visible: @(binding).Editing">
         <input class="form-control" list="subjectType" placeholder="Enter text" data-bind="value: @(binding).Datasubjecttype">
         <datalist id="subjectType">
-            <option>Patient</option>
-            <option>Patient's family</option>
+            @foreach (var subject in dataSubjects)
+            {
+                <option>@subject</option>
+            }
         </datalist>
     </td>
     <td data-bind="visible: @(binding).Editing">
         <input class="form-control" list="dataType" placeholder="Enter text" data-bind="value: @(binding).Datatype">
         <datalist id="dataType">
-            <option>Medication</option>
-            <option>Email address</option>
-            <option>Phone number</option>
-            <option>Home address</option>
+            @foreach (var resource in dataTypes)
+            {
+                <option>@AmiDictionaries.NiceResourceNameOrDefault(resource)</option>
+            }
         </datalist>
     </td>
     <td data-bind="visible: @(binding).Editing">
