@@ -4,13 +4,13 @@ namespace Operando_AdministrationConsole.Helper
 {
     public static class AmiDictionaries
     {
-        public static readonly Dictionary<string, string> Accessors = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> Accessors = new Dictionary<string, string>
         {
             {"volunteer_linkup", "Volunteer Link-Up"},
             {"abingdon_good_neighbour_scheme", "Abingdon Good Neighbour Scheme"}
         };
 
-        public static readonly Dictionary<string, string> Resources = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> Resources = new Dictionary<string, string>
         {
             {"odata.metadata", "OData Metadata"},
             {"ConfidentialNote", "Confidential Note"},
