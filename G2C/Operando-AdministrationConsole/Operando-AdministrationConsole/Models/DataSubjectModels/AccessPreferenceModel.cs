@@ -27,7 +27,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
         public List<AccessPolicyModel> GroupedPolicies { get; set; }
 
-        public string GroupKey => AmiDictionaries.NiceAccessorOrDefault(RawGroupKey);
+        public string GroupKey => AmiDictionaries.NiceAccessorNameOrDefault(RawGroupKey);
 
         private string RawGroupKey { get; set; }
 

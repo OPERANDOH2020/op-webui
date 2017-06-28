@@ -239,6 +239,7 @@
     </Compile>
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\RegulatorController.cs" />
+    <Compile Include="Helper\AmiDictionaries.cs" />
     <Compile Include="Helper\StaticStrings.cs" />
     <Compile Include="Helper\OperandoWebServiceHelper.cs" />
     <Compile Include="Controllers\DashboardController.cs" />

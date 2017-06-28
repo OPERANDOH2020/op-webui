@@ -12,7 +12,13 @@ namespace Operando_AdministrationConsole.Helper
 
         public static readonly Dictionary<string, string> Resources = new Dictionary<string, string>
         {
-            // TODO
+            {"odata.metadata", "Odata Metadata"},
+            {"ConfidentialNote", "Confidential Note"},
+            {"VolunteerUnsuccessfulReason", "Volunteer Unsuccessful Reason"},
+            {"VolunteerChecklistItems", "Volunteer Checklist Items"},
+            {"FirstName", "First Name"},
+            {"LastName", "Last Name"},
+            {"RegistrationDate", "Registration Date"}
         };
 
         public static string NiceAccessorNameOrDefault(string accessor)
