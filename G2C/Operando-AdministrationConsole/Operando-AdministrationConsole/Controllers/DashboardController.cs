@@ -331,9 +331,10 @@ namespace Operando_AdministrationConsole.Controllers
                 };
             }
 
-            var model = logMessages.Select(_ => new DataRequestsModel(_))
-            .OrderByDescending(_ => _.LogDate)
-            .Take(count);
+            var model = logMessages.Select(log => new DataRequestsModel(log))
+                .Where(logModel => logModel.ShouldBeShownOnDashboard())
+                .OrderByDescending(logModel => logModel.LogDate)
+                .Take(count);
 
             return PartialView("Widgets/_DataRequests", model);
         }

@@ -44,7 +44,9 @@ namespace Operando_AdministrationConsole.Controllers
 
                 var entities = _ldbClient.GetDataAccessLogs(username);
 
-                logList = entities.Select(_ => new DataAccessLogModel(_)).ToList();
+                logList = entities.Select(log => new DataAccessLogModel(log))
+                    .Where(logModel => logModel.ShouldBeShownOnDashboard())
+                    .ToList();
             }
             catch (Exception)
             {
