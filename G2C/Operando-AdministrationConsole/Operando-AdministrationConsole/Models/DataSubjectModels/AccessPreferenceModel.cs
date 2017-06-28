@@ -6,28 +6,28 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 {
     public class AccessPreferenceModel
     {
-        public bool selected { get; set; }
+        public bool Selected { get; set; }
         public string OspId { get; set; }
-        public IList<GroupedPolicyModel> map { get; set; }
+        public IList<GroupedPolicyModel> Map { get; set; }
 
         public AccessPreferenceModel(ModOSPConsents entity)
         {
-            selected = entity.selected;
+            Selected = entity.selected;
             OspId = entity.OspId;
-            map = entity.map.Select(g => new GroupedPolicyModel(g)).ToList();
+            Map = entity.map.Select(g => new GroupedPolicyModel(g)).ToList();
         }
 
     }
 
     public class GroupedPolicyModel
     {
-        public List<AccessPolicyModel> gap { get; set; }
-        public string groupKey { get; set; }
+        public List<AccessPolicyModel> GroupedPolicies { get; set; }
+        public string GroupKey { get; set; }
 
         public GroupedPolicyModel(GroupAccessPolicies entity)
         {
-            gap = entity.gap.Select(ap => new AccessPolicyModel(ap)).ToList();
-            groupKey = entity.groupKey;
+            GroupedPolicies = entity.gap.Select(ap => new AccessPolicyModel(ap)).ToList();
+            GroupKey = entity.groupKey;
         }
     }
 
