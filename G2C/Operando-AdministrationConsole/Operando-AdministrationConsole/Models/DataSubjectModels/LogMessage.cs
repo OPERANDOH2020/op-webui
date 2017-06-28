@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using eu.operando.core.ldb.Model;
+using Operando_AdministrationConsole.Helper;
 
 namespace Operando_AdministrationConsole.Models.DataSubjectModels
 {
@@ -41,7 +42,8 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
             get
             {
                 string fieldsInMessageStr = Regex.Replace(Message, PhraseWithFieldsRegex, GetFieldsRegex);
-                IEnumerable<string> fieldsInMessage = fieldsInMessageStr.Split(',');
+                IEnumerable<string> fieldsInMessageWithSpaces = fieldsInMessageStr.Split(',');
+                IEnumerable<string> fieldsInMessage = fieldsInMessageWithSpaces.Select(field => field.Trim());
                 return fieldsInMessage;
             }
         }
@@ -59,10 +61,21 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
         public void HideUnwantedFields()
         {
             IEnumerable<string> fieldsToShow = FieldsInMessage.Where(field => !FieldsNotToShow.Contains(field));
-            string fieldsToShowStr = String.Join(", ", fieldsToShow);
-            string messageWithOnlyFieldsToShow = Regex.Replace(Message, PhraseWithFieldsRegex,
-                ReplaceFieldsRegexPrefix + fieldsToShowStr + ReplaceFieldsRegexSuffix);
-            Message = messageWithOnlyFieldsToShow;
+            UpdateFieldsInMessage(fieldsToShow);
+        }
+
+        public void MakeFieldnamesUserFriendly()
+        {
+            IEnumerable<string> fieldsWithNiceNames = FieldsInMessage.Select(AmiDictionaries.NiceResourceNameOrDefault);
+            UpdateFieldsInMessage(fieldsWithNiceNames);
+        }
+
+        private void UpdateFieldsInMessage(IEnumerable<string> newFields)
+        {
+            string newFieldsStr = String.Join(", ", newFields);
+            string messageWithNewFields = Regex.Replace(Message, PhraseWithFieldsRegex,
+                ReplaceFieldsRegexPrefix + newFieldsStr + ReplaceFieldsRegexSuffix);
+            Message = messageWithNewFields;
         }
     }
 }

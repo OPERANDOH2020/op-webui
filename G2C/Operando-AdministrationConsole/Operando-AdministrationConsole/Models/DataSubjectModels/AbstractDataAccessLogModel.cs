@@ -25,6 +25,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
             var logMessage = new LogMessage(entity);
             logMessage.ReplaceUserIdsWithRoles();
             logMessage.HideUnwantedFields();
+            logMessage.MakeFieldnamesUserFriendly();
 
             return logMessage;
         }
