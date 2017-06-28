@@ -23,11 +23,11 @@ namespace eu.operando.core.ldb
             return RequestDataAccessLogs($"logType=data_access&affectedUserId={userId}");
         }
 
-        public IList<DataAccessLog> GetNotifications(string userId)
+        public IList<DataAccessLog> GetNotifications(string userId, DateTime? startDate = null)
         {
             List<DataAccessLog> notifications = RequestDataAccessLogs($"logType=notification&affectedUserId={userId}");
             notifications.AddRange(RequestDataAccessLogs("logType=notification&title=Ami Privacy Policy change"));
-            return notifications;
+            return notifications.Where(n => startDate == null || n.logDate > startDate).ToList();
         }
 
         private List<DataAccessLog> RequestDataAccessLogs(string searchString)
