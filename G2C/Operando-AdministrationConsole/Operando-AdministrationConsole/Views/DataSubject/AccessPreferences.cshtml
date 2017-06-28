@@ -101,7 +101,7 @@
                                                                 {
                                                                     hiddenFlag = true;
                                                                     <input type="checkbox"
-                                                                           name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
+                                                                           name="@policy.Subject.GetHashCode() @policy.RawResource.GetHashCode() @policy.Action.GetHashCode()"
                                                                            value="@policy.Permission"
                                                                            @if (policy.Permission == true) { @: checked="checked"
                                                                            }
@@ -110,7 +110,7 @@
                                                                 }
                                                             }
                                                             <input @{if (hiddenFlag) { <text> type="hidden" </text>  } else { <text> type="checkbox" </text>   } }
-                                                                name="@policy.Subject.GetHashCode() @policy.Resource.GetHashCode() @policy.Action.GetHashCode()"
+                                                                name="@policy.Subject.GetHashCode() @policy.RawResource.GetHashCode() @policy.Action.GetHashCode()"
                                                                 value="@policy.Permission"
                                                                 @if (policy.Permission == true) { @: checked="checked"
                                                                 }> @policy.Resource
