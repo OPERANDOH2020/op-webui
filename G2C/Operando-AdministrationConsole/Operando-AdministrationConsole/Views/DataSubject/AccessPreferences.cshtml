@@ -8,7 +8,7 @@
 @using eu.operando.core.pdb.cli.Model;
 @using Operando_AdministrationConsole.Models.DataSubjectModels;
 @*model OSPConsents*@
-@model IList<ModOSPConsents>
+@model IList<AccessPreferenceModel>
 
 <!-- BEGIN PAGE BASE CONTENT -->
 <!-- Form modified by IT Innovation Centre 2016 -->
@@ -95,7 +95,7 @@
                                                     <div class="mt-checkbox-list">
                                                         <label class="mt-checkbox">
                                                             @{var hiddenFlag = false;}
-                                                            @foreach (PolicyAttribute pa in policy.Attributes)
+                                                            @foreach (var pa in policy.Attributes)
                                                             {
                                                                 if ((pa.AttributeName == "fixed") && (pa.AttributeValue == "true"))
                                                                 {
