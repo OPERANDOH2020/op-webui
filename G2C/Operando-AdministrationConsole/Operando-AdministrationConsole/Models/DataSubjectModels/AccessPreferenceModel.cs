@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using eu.operando.core.pdb.cli.Model;
+using Operando_AdministrationConsole.Helper;
 
 namespace Operando_AdministrationConsole.Models.DataSubjectModels
 {
@@ -22,15 +23,11 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
     public class GroupedPolicyModel
     {
-        private static readonly Dictionary<string, string> AccessorDictionary = new Dictionary<string, string>
-        {
-            {"volunteer_linkup", "Volunteer Linkup"},
-            {"abingdon_good_neighbour_scheme", "Abingdon Good Neighbour Scheme"}
-        };
+
 
         public List<AccessPolicyModel> GroupedPolicies { get; set; }
 
-        public string GroupKey => AccessorDictionary.ContainsKey(RawGroupKey) ? AccessorDictionary[RawGroupKey] : RawGroupKey;
+        public string GroupKey => AmiDictionaries.NiceAccessorOrDefault(RawGroupKey);
 
         private string RawGroupKey { get; set; }
 
@@ -43,10 +40,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
     public class AccessPolicyModel
     {
-        public static readonly Dictionary<string, string> ResourceDictionary = new Dictionary<string, string>
-        {
-            // TODO if we're changing these
-        };
+        
 
         public string Subject { get; set; }
         public string RawResource { get; set; }
@@ -54,7 +48,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
         public List<AttributeModel> Attributes { get; set; }
         public AccessPolicy.ActionEnum? Action { get; set; }
 
-        public string Resource => ResourceDictionary.ContainsKey(RawResource) ? ResourceDictionary[RawResource] : RawResource;
+        public string Resource => AmiDictionaries.NiceResourceNameOrDefault(RawResource);
 
         public AccessPolicyModel(AccessPolicy ap)
         {
