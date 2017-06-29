@@ -288,94 +288,44 @@
     {
         e.preventDefault();
 
-
         var valName = $('#NameNewReport').val()
         var valEmail = $('#EmailNewReport').val()
         var valDescription = $('#SummaryNewReport').val()
-
-        if (valName.length == 0 || valEmail.lenght == 0 || valDescription.length == 0) {
-
-            alert("the fields are not are properly completed");
-
-            if (valName.length == 0) {
-
-                $("#NameNewReport").css("border", "1px solid red");
+        
+        $.ajax({
+            async: false,
+            type: "post",
+            url: "../ASPXSaveAjax/SendMailNewReport.aspx",
+            data: { name: valName, email: valEmail, description: valDescription },
+            datatype: "text",
+            success: function (data) {
+                window.location.href = "#tab_1_1";
+                $('#SendMailNewReport').addClass('mt-sweetalert');
+                $('#SendMailNewReport').removeAttr("data-title");
+                $('#SendMailNewReport').removeAttr("data-message");
+                $('#SendMailNewReport').removeAttr("data-type");
+                $('#SendMailNewReport').removeAttr("data-confirm-button-class");
+                $('#SendMailNewReport').attr("data-title", "success");
+                $('#SendMailNewReport').attr("data-message", "Email sent successfully");
+                $('#SendMailNewReport').attr("data-type", "success");
+                $('#SendMailNewReport').attr("data-confirm-button-class", "btn-success");
+                $('#modalNewRequest').modal('hide');
+                reloadSweetAlert($('#SendMailNewReport'));
+            },
+            error: function (xhr, status, error) {
+                $('#SendMailNewReport').addClass('mt-sweetalert');
+                $('#SendMailNewReport').removeAttr("data-title");
+                $('#SendMailNewReport').removeAttr("data-message");
+                $('#SendMailNewReport').removeAttr("data-type");
+                $('#SendMailNewReport').removeAttr("data-confirm-button-class");
+                $('#SendMailNewReport').attr("data-title", "error");
+                $('#SendMailNewReport').attr("data-message", "Mail sending failed, please try again later");
+                $('#SendMailNewReport').attr("data-type", "error");
+                $('#SendMailNewReport').attr("data-confirm-button-class", "btn-error");
+                $('#modalNewRequest').modal('hide');
+                reloadSweetAlert($('#SendMailNewReport'));
             }
-
-            if (valEmail.length == 0) {
-                $("#EmailNewReport").css("border", "1px solid red");
-            }
-
-            if (valDescription.length == 0) {
-                $("#SummaryNewReport").css("border", "1px solid red");
-            }
-
-            if (valName.length == 0) {
-                $("#NameNewReport").focus();
-            }
-            else {
-
-                if (valEmail.length == 0) {
-                    $("#EmailNewReport").focus();
-                }
-                else {
-                    if (valDescription.length == 0) {
-                        $("#SummaryNewReport").focus();
-                    }
-                }
-            }
-
-
-            $('#SendMailNewReport').addClass('mt-sweetalert');
-            $('#SendMailNewReport').removeAttr("data-title");
-            $('#SendMailNewReport').removeAttr("data-message");
-            $('#SendMailNewReport').removeAttr("data-type");
-            $('#SendMailNewReport').removeAttr("data-confirm-button-class");
-            $('#SendMailNewReport').attr("data-title", "error");
-            $('#SendMailNewReport').attr("data-message", "Mail sending failed, please try again later");
-            $('#SendMailNewReport').attr("data-type", "error");
-            $('#SendMailNewReport').attr("data-confirm-button-class", "btn-error");
-            reloadSweetAlert($('#SendMailNewReport'));
-        }
-        else {
-
-
-
-            $.ajax({
-                async: false,
-                type: "post",
-                url: "../ASPXSaveAjax/SendMailNewReport.aspx",
-                data: { name: valName, email: valEmail, description: valDescription },
-                datatype: "text",
-                success: function (data) {
-                    window.location.href = "#tab_1_1";
-                    $('#SendMailNewReport').addClass('mt-sweetalert');
-                    $('#SendMailNewReport').removeAttr("data-title");
-                    $('#SendMailNewReport').removeAttr("data-message");
-                    $('#SendMailNewReport').removeAttr("data-type");
-                    $('#SendMailNewReport').removeAttr("data-confirm-button-class");
-                    $('#SendMailNewReport').attr("data-title", "success");
-                    $('#SendMailNewReport').attr("data-message", "Email sent successfully");
-                    $('#SendMailNewReport').attr("data-type", "success");
-                    $('#SendMailNewReport').attr("data-confirm-button-class", "btn-success");
-                    $('#modalNewRequest').modal('hide');
-                    reloadSweetAlert($('#SendMailNewReport'));
-                },
-                error: function (xhr, status, error) {
-                    $('#SendMailNewReport').addClass('mt-sweetalert');
-                    $('#SendMailNewReport').removeAttr("data-title");
-                    $('#SendMailNewReport').removeAttr("data-message");
-                    $('#SendMailNewReport').removeAttr("data-type");
-                    $('#SendMailNewReport').removeAttr("data-confirm-button-class");
-                    $('#SendMailNewReport').attr("data-title", "error");
-                    $('#SendMailNewReport').attr("data-message", "Mail sending failed, please try again later");
-                    $('#SendMailNewReport').attr("data-type", "error");
-                    $('#SendMailNewReport').attr("data-confirm-button-class", "btn-error");
-                    $('#modalNewRequest').modal('hide');
-                    reloadSweetAlert($('#SendMailNewReport'));
-                }
-            });
-        }
+        });
     }
 
     function salvaSchedule(valID) {
