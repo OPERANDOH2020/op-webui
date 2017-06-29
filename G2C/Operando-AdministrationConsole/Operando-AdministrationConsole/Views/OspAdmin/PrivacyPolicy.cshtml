@@ -68,7 +68,7 @@
         <datalist id="dataType">
             @foreach (var resource in dataTypes)
             {
-                <option>@AmiDictionaries.NiceResourceNameOrDefault(resource)</option>
+                <option>@AmiNiceStringConverter.NiceResourceNameOrDefault(resource)</option>
             }
         </datalist>
     </td>

@@ -25,7 +25,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
     {
         public List<AccessPolicyModel> GroupedPolicies { get; set; }
 
-        public string GroupKey => AmiDictionaries.NiceAccessorNameOrDefault(RawGroupKey);
+        public string GroupKey => AmiNiceStringConverter.NiceAccessorNameOrDefault(RawGroupKey);
 
         private string RawGroupKey { get; set; }
 
@@ -44,7 +44,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
         public List<AttributeModel> Attributes { get; set; }
         public AccessPolicy.ActionEnum? Action { get; set; }
 
-        public string Resource => AmiDictionaries.NiceResourceNameOrDefault(RawResource);
+        public string Resource => AmiNiceStringConverter.NiceResourceNameOrDefault(RawResource);
 
         public AccessPolicyModel(AccessPolicy ap)
         {

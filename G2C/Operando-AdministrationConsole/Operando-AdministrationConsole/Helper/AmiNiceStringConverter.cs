@@ -2,7 +2,7 @@
 
 namespace Operando_AdministrationConsole.Helper
 {
-    public static class AmiDictionaries
+    public static class AmiNiceStringConverter
     {
         private static readonly Dictionary<string, string> Accessors = new Dictionary<string, string>
         {
