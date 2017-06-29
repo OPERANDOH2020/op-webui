@@ -23,8 +23,6 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
     public class GroupedPolicyModel
     {
-
-
         public List<AccessPolicyModel> GroupedPolicies { get; set; }
 
         public string GroupKey => AmiDictionaries.NiceAccessorNameOrDefault(RawGroupKey);
@@ -40,8 +38,6 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
     public class AccessPolicyModel
     {
-        
-
         public string Subject { get; set; }
         public string RawResource { get; set; }
         public bool? Permission { get; set; }
