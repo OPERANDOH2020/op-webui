@@ -66,7 +66,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
         public void MakeFieldnamesUserFriendly()
         {
-            IEnumerable<string> fieldsWithNiceNames = FieldsInMessage.Select(AmiDictionaries.NiceResourceNameOrDefault);
+            IEnumerable<string> fieldsWithNiceNames = FieldsInMessage.Select(AmiNiceStringConverter.NiceResourceNameOrDefault);
             UpdateFieldsInMessage(fieldsWithNiceNames);
         }
 
