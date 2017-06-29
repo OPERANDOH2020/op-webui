@@ -10,32 +10,10 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 {
     public class LogMessage
     {
-        private const string UserIdToReplace = "141";
-        private const string RoleToReplaceWith = "Volunteer Link-Up";
-
         private static readonly string PhraseWithFieldsRegex = "(.+requested access to your )(.*)(" + Regex.Escape(".") + ".+)";
         private const string GetFieldsRegex = "$2";
         private const string ReplaceFieldsRegexPrefix = "$1";
-        private static readonly string ReplaceFieldsRegexSuffix = "$3";
-
-        private static readonly IList<string> FieldsNotToShow = new List<string>
-        {
-            "ActivationDate",
-            "ActivationUrl",
-            "Address_Id",
-            "AmiUserId",
-            "Availability_Id",
-            "ConfidentialNote_Id",
-            "DateOfBirth",
-            "GenderType",
-            "Gender_Value",
-            "OtherGender",
-            "Preferences_Id",
-            "ReferrerType_Value",
-            "UnsuccessfulReason_Id",
-            "VolunteerOrganisation",
-            "VolunteerOrganisation_Id"
-        };
+        private const string ReplaceFieldsRegexSuffix = "$3";
 
         public string Message { get; private set; }
         public IEnumerable<string> FieldsInMessage {
@@ -53,14 +31,14 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
             Message = entity.description;
         }
 
-        public void ReplaceUserIdsWithRoles()
+        public void ReplaceUserIdsWithRoles(string userIdToReplace, string roleToReplaceWith)
         {
-            Message = Message.Replace(UserIdToReplace, RoleToReplaceWith);
+            Message = Message.Replace(userIdToReplace, roleToReplaceWith);
         }
 
-        public void HideUnwantedFields()
+        public void HideUnwantedFields(IList<string> fieldsNotToShow)
         {
-            IEnumerable<string> fieldsToShow = FieldsInMessage.Where(field => !FieldsNotToShow.Contains(field));
+            IEnumerable<string> fieldsToShow = FieldsInMessage.Where(field => !fieldsNotToShow.Contains(field));
             UpdateFieldsInMessage(fieldsToShow);
         }
 

@@ -14,7 +14,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
         public DataAccessLogModel(DataAccessLog entity) : base(entity)
         {
             Title = entity.title;
-            RequesterId = entity.requesterId;
+            RequesterId = entity.requesterId.Replace(UserIdToReplace, RoleToReplaceWith);
         }
     }
 }
