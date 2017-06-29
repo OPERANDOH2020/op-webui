@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.WebPages;
 using eu.operando.core.ldb.Model;
 
 namespace Operando_AdministrationConsole.Models.DataSubjectModels
@@ -74,7 +73,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
         public bool ShouldBeShownOnDashboard()
         {
-            IEnumerable<string> fieldsInMessage = _logMessage.FieldsInMessage;
+            IEnumerable<string> fieldsInMessage = _logMessage.FieldsRequested;
             return fieldsInMessage.Any(field => !string.IsNullOrEmpty(field));
         }
     }
