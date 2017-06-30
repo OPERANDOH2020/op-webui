@@ -3695,6 +3695,7 @@
     <Content Include="assets\global\plugins\jcrop\js\jquery.Jcrop.js" />
     <Content Include="assets\global\plugins\jcrop\js\jquery.Jcrop.min.js" />
     <Content Include="assets\global\plugins\jcrop\MIT-LICENSE.txt" />
+    <Content Include="assets\global\plugins\jquery.min.js" />
     <Content Include="assets\global\plugins\jquery-3.2.1.min.js" />
     <Content Include="assets\global\plugins\jquery.min-tmp.js" />
     <Content Include="assets\global\plugins\jquery-bootpag\jquery.bootpag.js" />
