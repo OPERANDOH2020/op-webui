@@ -3,11 +3,10 @@
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption">
-            <i class="icon-bell"></i>
-            <span class="caption-subject font-dark bold uppercase">MOST RECENT NOTIFICATIONS</span>
+            <span class="caption-subject font-dark bold uppercase"> @Resources.WebResources.DashboardRecentNotifications </span>
         </div>
         <div class="tools">
-            <a href="@Url.Action("Notifications", "Dashboard")">View all <i class="icon-arrow-right"></i></a>
+            <a href="@Url.Action("Notifications", "Dashboard")">@Resources.WebResources.DashboardViewAllButton <i class="icon-arrow-right"></i></a>
         </div>
     </div>
     <div class="portlet-body">
@@ -23,7 +22,7 @@
                                 </div>
                             </div>
                             <div class="cont-col2">
-                                <div class="desc">@notification.Description</div>
+                                <div class="desc">@notification.Description.ToString().Replace("Your privacy settings were updated because of changes you made through the dashboard.", @Resources.WebResources.DashboardSettingsUpdated)</div>
                             </div>
                         </div>
                     </div>

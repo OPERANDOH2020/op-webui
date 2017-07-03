@@ -1,40 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operando-AdministrationConsole", "Operando-AdministrationConsole.csproj", "{BF2C26B0-5A2E-4EDB-9306-6BEFF92C3DE0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eu.operando.interfaces.aapi", "..\aapi_client\src\IO.Swagger\eu.operando.interfaces.aapi.csproj", "{594234D1-BB49-41AC-A663-2A1C38807015}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eu.operando.core.ose.cli", "..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj", "{84E74BA6-D914-4A68-840A-EE8FBC5C304D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eu.operando.core.pdb.cli", "..\eu_operando_core_pdb_cli\src\IO.Swagger\eu.operando.core.pdb.cli.csproj", "{BCBEB1A3-81DA-4CDD-87C6-BECF5783D727}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF2C26B0-5A2E-4EDB-9306-6BEFF92C3DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF2C26B0-5A2E-4EDB-9306-6BEFF92C3DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF2C26B0-5A2E-4EDB-9306-6BEFF92C3DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF2C26B0-5A2E-4EDB-9306-6BEFF92C3DE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{594234D1-BB49-41AC-A663-2A1C38807015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{594234D1-BB49-41AC-A663-2A1C38807015}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{594234D1-BB49-41AC-A663-2A1C38807015}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{594234D1-BB49-41AC-A663-2A1C38807015}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84E74BA6-D914-4A68-840A-EE8FBC5C304D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84E74BA6-D914-4A68-840A-EE8FBC5C304D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84E74BA6-D914-4A68-840A-EE8FBC5C304D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84E74BA6-D914-4A68-840A-EE8FBC5C304D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BCBEB1A3-81DA-4CDD-87C6-BECF5783D727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCBEB1A3-81DA-4CDD-87C6-BECF5783D727}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCBEB1A3-81DA-4CDD-87C6-BECF5783D727}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCBEB1A3-81DA-4CDD-87C6-BECF5783D727}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

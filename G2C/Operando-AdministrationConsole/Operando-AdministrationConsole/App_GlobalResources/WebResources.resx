@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="RegistrationPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DashboardRecentDataRequests" xml:space="preserve">
+    <value>MOST RECENT DATA REQUESTS</value>
+  </data>
+  <data name="LogEditOSPSettingsButton" xml:space="preserve">
+    <value>Edit OSP settings</value>
+  </data>
+  <data name="NotificationsType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="LogRequestedAccessDenied" xml:space="preserve">
+    <value>The request was denied, because it did not comply with your privacy settings</value>
+  </data>
+  <data name="RegistrationBackButton" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="RegistrationFullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="NotificationsShow" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="DataAccessLogsSubtitle" xml:space="preserve">
+    <value>This log shows how your data is being used. Each request, whether accepted or rejected, is shown. These results reflect the settings in your privacy preferences, and allow you to see your choices being enforced</value>
+  </data>
+  <data name="LoginRemember" xml:space="preserve">
+    <value>Remember</value>
+  </data>
+  <data name="NotificationsTitle" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="MenuDashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="LogAccessGranted" xml:space="preserve">
+    <value>Access granted</value>
+  </data>
+  <data name="RegistrationAccountDetails" xml:space="preserve">
+    <value>Enter your account details below: </value>
+  </data>
+  <data name="LogTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="AccessPreferencesUpdateUPP" xml:space="preserve">
+    <value>Update UPP (User Privacy Policy)</value>
+  </data>
+  <data name="AccessPreferencesReverseUPPToDefault" xml:space="preserve">
+    <value>Back to default values</value>
+  </data>
+  <data name="LogAccessDenied" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="LogSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="NotificationsSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="DashboardSettingsUpdated" xml:space="preserve">
+    <value>Your privacy settings were updated because of changes you made through the dashboard.</value>
+  </data>
+  <data name="LoginUsername" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="LoginNewAccount" xml:space="preserve">
+    <value>CREATE AN ACCOUNT</value>
+  </data>
+  <data name="RegistrationSubtitle" xml:space="preserve">
+    <value>Enter your personal details below:</value>
+  </data>
+  <data name="LoginPasswordForgot" xml:space="preserve">
+    <value>Forgot Password?</value>
+  </data>
+  <data name="LogMessage" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="DashboardMotivation" xml:space="preserve">
+    <value>You give your personal information to many organisations in order to use their services, and agree to many terms and policies to do so. It can be difficult to keep track of who has access to your data, or update how you would like it to be used. This OPERANDO dashboard shows you a summary of: notifications about any changes to services and how your data is used, requests for the use of your data and links to other areas so you can make changes in response to this information.</value>
+  </data>
+  <data name="LogType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Login - Operando G2C</value>
+  </data>
+  <data name="RegistrationCity" xml:space="preserve">
+    <value>City/Town</value>
+  </data>
+  <data name="RegistrationCountry" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="LoginSubtitle" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LogActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="LogShow" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="RegistrationUsername" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DashboardRecentNotifications" xml:space="preserve">
+    <value>MOST RECENT NOTIFICATIONS</value>
+  </data>
+  <data name="RegistrationEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="NotificationsDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DataAccessLogsTitle" xml:space="preserve">
+    <value>Data access logs</value>
+  </data>
+  <data name="NotificationsMessage" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="MenuAccessPreferences" xml:space="preserve">
+    <value>Access Preferences</value>
+  </data>
+  <data name="AccessPreferencesYourPrivacySettings" xml:space="preserve">
+    <value>Your privacy settings are:</value>
+  </data>
+  <data name="NotificationsNoData" xml:space="preserve">
+    <value>No data available in table</value>
+  </data>
+  <data name="DashboardOverview" xml:space="preserve">
+    <value>The homepage acts as a dashboard; a central place where you are able to manage the privacy of your personal information.</value>
+  </data>
+  <data name="RegistrationUserType" xml:space="preserve">
+    <value>User type</value>
+  </data>
+  <data name="DashboardSubtitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="LogShowingRecap" xml:space="preserve">
+    <value>Showing</value>
+  </data>
+  <data name="DashboardViewAllButton" xml:space="preserve">
+    <value>View all</value>
+  </data>
+  <data name="RegistrationSubmitButton" xml:space="preserve">
+    <value>SUBMIT</value>
+  </data>
+  <data name="RegistrationTerms" xml:space="preserve">
+    <value>I agree to the Terms of Service &amp; Privacy Policy</value>
+  </data>
+  <data name="LogDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="NotificationsDescription" xml:space="preserve">
+    <value>Events relevant to you (e.g. pending data access requests, recommended/automatic changes to settings) are displayed in this section. Requests are shown with the most recent first, but you can filter (Pending, Approved, Requested) or search freely.</value>
+  </data>
+  <data name="DashboardLinkToProject" xml:space="preserve">
+    <value>If you want to know more about how OPERANDO works, visit the project website: </value>
+  </data>
+  <data name="MenuNotifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="RegistrationPasswordConfirm" xml:space="preserve">
+    <value>Re-type Your Password</value>
+  </data>
+  <data name="DashboardTitle" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="AccessPreferencesRoleShouldBeAbleToAccess" xml:space="preserve">
+    <value>should be able to access the following data:</value>
+  </data>
+  <data name="LogFilterByType" xml:space="preserve">
+    <value>Filter by Type</value>
+  </data>
+  <data name="RegistrationTitle" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="LogRequester" xml:space="preserve">
+    <value>Requester</value>
+  </data>
+  <data name="LogRequestedAccessAllowed" xml:space="preserve">
+    <value>The request was allowed, because it did comply with your privacy settings</value>
+  </data>
+  <data name="AccessPreferencesSubtitle" xml:space="preserve">
+    <value>PRIVACY WIZARD</value>
+  </data>
+  <data name="RegistrationAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="MenuDataAccessLog" xml:space="preserve">
+    <value>Data Access Log</value>
+  </data>
+  <data name="AccessPreferencesTitle" xml:space="preserve">
+    <value>Access preferences</value>
+  </data>
+  <data name="AccessPreferencesDescription" xml:space="preserve">
+    <value>Your privacy preferences are shown here. You can see, and change, which organisations have access to your data and how it is used. These settings are enforced automatically for you by OPERANDO, an  independent platform, to ensure that your data is only used in ways  which you have agreed to.</value>
+  </data>
+  <data name="LogRequestedAccess" xml:space="preserve">
+    <value>requested access to your</value>
+  </data>
+  <data name="DataSubjectName" xml:space="preserve">
+    <value>Data subject</value>
+  </data>
+  <data name="NotificationsEmpty" xml:space="preserve">
+    <value>No records found</value>
+  </data>
+  <data name="AccessPreferencesOSPPrivacySettings" xml:space="preserve">
+    <value>Privacy settings for the app</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="SectionDataSubject" xml:space="preserve">
+    <value>Data Subject</value>
+  </data>
+</root>
