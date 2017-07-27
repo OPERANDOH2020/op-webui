@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eu.operando.core.ldb", "eu.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eu.operando.core.cpcu.cli", "eu_operando_core_cpcu.cli\src\IO.Swagger\eu.operando.core.cpcu.cli.csproj", "{EAB5384A-7A38-40CA-AD29-87C217CF3C13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eu.operando.core.pc.pq", "eu.operando.core.pc.pq\src\IO.Swagger\eu.operando.core.pc.pq.csproj", "{1FFC1FCC-5224-45F1-AE4F-E9535AD02ACA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{EAB5384A-7A38-40CA-AD29-87C217CF3C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAB5384A-7A38-40CA-AD29-87C217CF3C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAB5384A-7A38-40CA-AD29-87C217CF3C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FFC1FCC-5224-45F1-AE4F-E9535AD02ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FFC1FCC-5224-45F1-AE4F-E9535AD02ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FFC1FCC-5224-45F1-AE4F-E9535AD02ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FFC1FCC-5224-45F1-AE4F-E9535AD02ACA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
