@@ -14,9 +14,9 @@ using System.Net.Http;
 using eu.operando.core.ldb;
 using Operando_AdministrationConsole.Models.DataSubjectModels;
 using System.Text;
-using eu.operando.core.cpcu.cli.Model;
 using eu.operando.interfaces.aapi.Model;
 using eu.operando.core.pc.pq.Model;
+using System.Text.RegularExpressions;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -68,7 +68,7 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         /* Fetch OSP list and filter it with AAPI authorised OSPs */
-        public List<OSPPrivacyPolicy> GetOspList()
+        public List<OSPPrivacyPolicy> GetAuthorisedOspList()
         {
             string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
             var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
@@ -116,10 +116,31 @@ namespace Operando_AdministrationConsole.Controllers
             return checkedOSPList;
         }
 
+        public OSPReasonPolicy getPrivacyPolicyAccessReasons(string ospId)
+        {
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
+
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+            OSPReasonPolicy ospReasonPolicy = null;
+            try
+            {                
+                ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospId);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling OSPOspIdPrivacyPolicyAccessReasonsGet for " + ospId + ":" + e.Message);
+            }
+            return ospReasonPolicy;
+        }
+
         /* Method modified by IT Innovation Centre 2016 */
         public ActionResult AccessPreferences()
         {
-            List<OSPPrivacyPolicy> availableOSPs = GetOspList();
+            List<OSPPrivacyPolicy> availableOSPs = GetAuthorisedOspList();
             if (!availableOSPs.Any())
             {
                 return View(new List<ModOSPConsents>());
@@ -186,10 +207,167 @@ namespace Operando_AdministrationConsole.Controllers
             return View(opsModList);
         }
 
-        /* Convert list of OSPConsents to a modified view model that helps visualisation*/
+        private string getCategory(AccessPolicy ap)
+        {
+            string category = "";
+            foreach(var attr in ap.Attributes)
+            {
+                if(attr.AttributeName != null)
+                {
+                if (attr.AttributeName.ToString() == "category")
+                {
+                    category = attr.AttributeValue.ToString();
+                        break;
+                    }
+                }
+            }
+            return category;
+        }
+
         private List<ModOSPConsents> GroupAP(List<OSPConsents> consents, string selctedOspId)
         {
             List<ModOSPConsents> modConsentsList = new List<ModOSPConsents>();
+            
+            foreach (OSPConsents cons in consents)
+            {
+                // get access reasons
+                OSPReasonPolicy osprp = getPrivacyPolicyAccessReasons(cons.OspId);
+                Dictionary<string, string> datauserDict = new Dictionary<string, string>();
+                Dictionary<string, string> datatypeDict = new Dictionary<string, string>();
+                if(osprp != null)
+                {
+                    foreach (var rp in osprp.Policies)
+                    {
+                        if (!string.IsNullOrEmpty(rp.Datauser))
+                        {
+                            if (!string.IsNullOrEmpty(rp.Reason))
+                            {
+                                if (datauserDict.ContainsKey(rp.Datauser))
+                                {
+                                    datauserDict[rp.Datauser] = rp.Reason;
+                                }
+                                else
+                                {
+                                    datauserDict.Add(rp.Datauser, rp.Reason);
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (var rp in osprp.Policies)
+                    {
+                        if (!string.IsNullOrEmpty(rp.Datatype))
+                        {
+                            if (!string.IsNullOrEmpty(rp.Reason))
+                            {
+                                if (datatypeDict.ContainsKey(rp.Datatype))
+                                {
+                                    datatypeDict[rp.Datatype] = rp.Reason;
+                                }
+                                else
+                                {
+                                    datatypeDict.Add(rp.Datatype, rp.Reason);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                ModOSPConsents mod = new ModOSPConsents();
+                mod.OspId = cons.OspId;
+                if (selctedOspId == cons.OspId)
+                {
+                    mod.selected = true;
+                }
+                mod.groupAPBySubject = new List<GroupAccessPolicies>();
+
+                Dictionary<string, Dictionary<string, List<AccessPolicy>>> sortedAP = sortMyAP(cons.AccessPolicies);
+
+                foreach(KeyValuePair<string, Dictionary<string, List<AccessPolicy>>> entry in sortedAP)
+                {
+                    GroupAccessPolicies gap = new GroupAccessPolicies();
+                    gap.groupSubject = entry.Key;
+                    gap.categoryAPList = new List<Category>();
+                    foreach (KeyValuePair<string, List<AccessPolicy>> bentry in entry.Value)
+                    {
+                        Category cat = new Category();
+                        cat.category = bentry.Key;
+                        cat.categoryAPList = new List<AccessPolicyWithReason>();
+                        foreach(AccessPolicy ap in bentry.Value)
+                        {
+                            AccessPolicyWithReason apr = new AccessPolicyWithReason();
+                            apr.accessPolicy = ap;
+                            if (datauserDict.ContainsKey(ap.Subject))
+                            {
+                                apr.reason = datauserDict[ap.Subject];
+                            } else
+                            {
+                                if(datatypeDict.ContainsKey(cat.category))
+                                {
+                                    apr.reason = datatypeDict[cat.category];
+                                }
+                            }
+                            // if still arp.reason is empty
+                            if (string.IsNullOrEmpty(apr.reason))
+                            {
+                                string can = (bool)ap.Permission ? " can " : " cannot ";
+                                apr.reason = ap.Subject.ToString() + can + ap.Action.ToString() + " " + ap.Resource.ToString();
+                            }
+                            cat.categoryAPList.Add(apr);
+                        }
+                        gap.categoryAPList.Add(cat);
+                    }
+                    mod.groupAPBySubject.Add(gap);
+                }
+                modConsentsList.Add(mod);                
+            }
+
+                return modConsentsList;
+        }
+
+        private Dictionary<string, Dictionary<string, List<AccessPolicy>>> sortMyAP(List<AccessPolicy> apList)
+        {
+            Dictionary<string, Dictionary<string, List<AccessPolicy>>> sortedAP =
+                new Dictionary<string, Dictionary<string, List<AccessPolicy>>>();
+            string category;
+            foreach (AccessPolicy ap in apList)
+            {
+                category = getCategory(ap);
+                if (sortedAP.ContainsKey(ap.Subject))
+                {
+                    if (sortedAP[ap.Subject].ContainsKey(category))
+                    {
+                        sortedAP[ap.Subject][category].Add(ap);
+                    }
+                    else
+                    {                        
+                        List<AccessPolicy> subjectCategoryList = new List<AccessPolicy>();
+                        subjectCategoryList.Add(ap);
+                        sortedAP[ap.Subject].Add(category, subjectCategoryList);
+                    }
+                } 
+                else
+                {
+                    Dictionary<string, List<AccessPolicy>> innerDict = new Dictionary<string, List<AccessPolicy>>();
+                    List<AccessPolicy> subjectCategoryList = new List<AccessPolicy>();
+                    subjectCategoryList.Add(ap);
+                    innerDict.Add(category, subjectCategoryList);
+                    sortedAP.Add(ap.Subject, innerDict);
+                }
+            }
+
+            return sortedAP;
+        }
+
+        /* Convert list of OSPConsents to a modified view model that helps visualisation*/
+        /*
+        private List<ModOSPConsents> GroupAP1(List<OSPConsents> consents, string selctedOspId)
+        {
+            List<ModOSPConsents> modConsentsList = new List<ModOSPConsents>();
+            // subjcects categorised
+            List<Dictionary<string, Dictionary<string, List<AccessPolicy>>>> listSortedAP = 
+                new List<Dictionary<string, Dictionary<string, List<AccessPolicy>>>>();
+
             foreach (OSPConsents cons in consents)
             {
                 ModOSPConsents mod = new ModOSPConsents();
@@ -198,8 +376,9 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     mod.selected = true;
                 }
-                mod.map = new List<GroupAccessPolicies>();
+                //mod.groupAPBySubject = new List<GroupAccessPolicies>();
                 Dictionary<string, List<AccessPolicy>> dict = new Dictionary<string, List<AccessPolicy>>();
+                
                 foreach (AccessPolicy ap in cons.AccessPolicies)
                 {
                     if (dict.ContainsKey(ap.Subject))
@@ -216,15 +395,18 @@ namespace Operando_AdministrationConsole.Controllers
                 foreach (KeyValuePair<string, List<AccessPolicy>> pair in dict)
                 {
                     GroupAccessPolicies groupAP = new GroupAccessPolicies();
-                    groupAP.groupKey = pair.Key;
-                    groupAP.gap = pair.Value;
-                    mod.map.Add(groupAP);
+                    groupAP.groupSubject = pair.Key;
+                    groupAP.categoryAPList = pair.Value;
+                    mod.groupAPBySubject.Add(groupAP);
                 }
-                modConsentsList.Add(mod);
+                //modConsentsList.Add(mod);
+
+                listSortedAP.Add(sortMyAP(cons.AccessPolicies));
             }
 
             return modConsentsList;
         }
+        */
 
         /* Method modified by IT Innovation Centre 2016 */
         [HttpPost]
@@ -271,7 +453,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
 
-            List<OSPPrivacyPolicy> checkedOSPList = GetOspList();
+            List<OSPPrivacyPolicy> checkedOSPList = GetAuthorisedOspList();
             List<OSPConsents> newSOP = new List<OSPConsents>();
             string selectedOSPID = "";
             try
@@ -290,6 +472,8 @@ namespace Operando_AdministrationConsole.Controllers
                         selectedOSPID = selectedOSP.PolicyUrl;
                         //selectedOSPID = selectedOSP.OspPolicyId;
 
+                        //string pattern = "^\\d+.\\d+.\\d+ ";
+                        //Regex rgx = new Regex(pattern);
                         foreach (eu.operando.core.pdb.cli.Model.AccessPolicy ap in selectedOSP.Policies)
                         {
                             string ospKey = string.Concat(string.Concat(ap.Subject.GetHashCode().ToString(), " "), ap.Resource.GetHashCode().ToString());
@@ -298,6 +482,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                             foreach (string item in policiesKey)
                             {
+                                //string strippedItem = rgx.Replace(item, "");
                                 if (item.Contains(ospKey))
                                 {
                                     ap.Permission = true;
@@ -432,7 +617,7 @@ namespace Operando_AdministrationConsole.Controllers
             string ospId = Session["QuestionnaireOSP"].ToString();
 
             try
-            {
+            {                
                 List<Questionobject> result = getQInstance.QuestionsUserIdOspIdGet(Session["Username"].ToString(), ospId, "EN");
                 Dictionary<string, List<ModQuestionObject>> qnDict = new Dictionary<string, List<ModQuestionObject>>();
                 int qId = 1;
@@ -487,7 +672,6 @@ namespace Operando_AdministrationConsole.Controllers
                         answeredQList.Add(modQ.qObj);
                     }
                 }
-                Session["questionnaire"] = null;
 
                 try
                 {
@@ -498,6 +682,7 @@ namespace Operando_AdministrationConsole.Controllers
                 catch (eu.operando.core.pc.pq.Client.ApiException ex)
                 {
                     Debug.Print("got pq client exception: " + ex.Message);
+                    return RedirectToAction("Index", "Dashboard");
                 }
             }
             catch (OperationCanceledException) { }

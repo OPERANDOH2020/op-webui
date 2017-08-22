@@ -280,6 +280,20 @@
                 </a>
             </li>
         }
+@if (allView || psp_admin)
+{
+    <li class='nav-item @if (currentController == "Access" && currentAction == "AuthenticationRequest")
+                    { @activeClass }'>
+        <a href="@Url.Action("AuthenticationRequest", "Access")" class="nav-link ">
+            <i class="icon-users"></i>
+            <span class="title">Authentication Request</span>
+            @if (currentController == "Access" && currentAction == "AuthenticationRequest")
+            {
+                @:<span class="selected"></span>
+                                }
+        </a>
+    </li>
+}
         @*</ul>
         </li>*@
 

@@ -584,6 +584,7 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        /*
         [HttpGet]
         public async Task<ActionResult> UserQuestionnaireGenerator()
         {
@@ -602,6 +603,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             return View();
         }
+        */
 
         /* Method modified by IT Innovation Centre 2017 */
         private string GetUppServiceTicket(string serviceName)

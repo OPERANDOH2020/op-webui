@@ -5787,7 +5787,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -5852,6 +5854,7 @@
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
     <Content Include="Views\PspAdmin\ServiceMonitoring.cshtml" />
+    <Content Include="Views\Access\AuthenticationRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5903,10 +5906,6 @@
     <ProjectReference Include="..\eu.operando.core.ldb\eu.operando.core.ldb.csproj">
       <Project>{3E09F267-B1C4-4BDB-AFFC-38C235BE8CAB}</Project>
       <Name>eu.operando.core.ldb</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eu_operando_core_cpcu.cli\src\IO.Swagger\eu.operando.core.cpcu.cli.csproj">
-      <Project>{eab5384a-7a38-40ca-ad29-87c217cf3c13}</Project>
-      <Name>eu.operando.core.cpcu.cli</Name>
     </ProjectReference>
     <ProjectReference Include="..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>

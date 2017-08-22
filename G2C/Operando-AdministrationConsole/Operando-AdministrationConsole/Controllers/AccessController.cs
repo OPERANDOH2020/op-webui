@@ -153,5 +153,59 @@ namespace Operando_AdministrationConsole.Controllers
         {
             return View();
         }
+
+        public ActionResult AuthenticationRequest()
+        {
+            return View();
+        }
+
+        /* Method modified by IT Innovation Centre 2016 */
+        [HttpPost]
+        public ActionResult AuthenticationRequest(Models.RegisterViewModel rvm)
+        {
+            Debug.Print("REGISTRATION: " + rvm.ToString());
+            if (ModelState.IsValid)
+            {
+                Debug.Print("REGISTRATION is valid.");
+                ModelState.Clear();
+                string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+                var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+                try
+                {
+                    User user = new User(rvm.Username, rvm.Password);
+                    List<eu.operando.interfaces.aapi.Model.Attribute> optAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", rvm.Usertype));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", rvm.Fullname));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("email", rvm.Email));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("address", rvm.Address));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("city", rvm.City));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("country", rvm.Country));
+                    user.OptionalAttrs = optAttributes;
+
+                    List<eu.operando.interfaces.aapi.Model.PrivacySetting> privacySettings = new List<eu.operando.interfaces.aapi.Model.PrivacySetting>();
+                    privacySettings.Add(new eu.operando.interfaces.aapi.Model.PrivacySetting("string", "string"));
+                    user.PrivacySettings = privacySettings;
+
+                    List<eu.operando.interfaces.aapi.Model.Attribute> requiredAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
+                    requiredAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("string", "string"));
+                    user.RequiredAttrs = requiredAttributes;
+
+                    Debug.Print("USER to registration: " + user.ToJson());
+
+                    // register user
+                    var usr = userInstance.AapiUserRegisterPost(user);
+                    Debug.Print("USER reg sesponse: " + usr.ToJson());
+                }
+                catch (Exception e)
+                {
+                    Debug.Print("Exception when calling: " + e.Message);
+                }
+                ViewBag.Message = rvm.Username + " successfully registered";
+
+                //return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Login", "Access");
+            }
+            return View();
+        }
     }
 }
