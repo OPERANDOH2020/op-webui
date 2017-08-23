@@ -3929,7 +3929,6 @@
     <Content Include="assets\global\plugins\jcrop\js\jquery.Jcrop.min.js" />
     <Content Include="assets\global\plugins\jcrop\MIT-LICENSE.txt" />
     <Content Include="assets\global\plugins\jquery-3.2.1.min.js" />
-    <Content Include="assets\global\plugins\jquery.min-tmp.js" />
     <Content Include="assets\global\plugins\jquery-bootpag\jquery.bootpag.js" />
     <Content Include="assets\global\plugins\jquery-bootpag\jquery.bootpag.min.js" />
     <Content Include="assets\global\plugins\jquery-bootpag\LICENSE.txt" />
@@ -4149,6 +4148,7 @@
     <Content Include="assets\global\plugins\jquery.blockui.min.js" />
     <Content Include="assets\global\plugins\jquery.easing.js" />
     <Content Include="assets\global\plugins\jquery.input-ip-address-control-1.0.min.js" />
+    <Content Include="assets\global\plugins\jquery.min.js" />
     <Content Include="assets\global\plugins\jquery.mockjax.js" />
     <Content Include="assets\global\plugins\jquery.parallax.js" />
     <Content Include="assets\global\plugins\jquery.pulsate.min.js" />
