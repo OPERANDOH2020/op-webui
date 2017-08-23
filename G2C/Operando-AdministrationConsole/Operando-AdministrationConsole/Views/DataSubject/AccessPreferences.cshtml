@@ -168,7 +168,7 @@ else
                                                             @foreach (PolicyAttribute pa in pwr.accessPolicy.Attributes)
                                                             {
                                                                 if (pa.AttributeName == "tooltip")
-                                                                { tooltipTitle = pa.AttributeValue + ": " + pwr.reason; }
+                                                                { tooltipTitle = pwr.reason + ": " + pa.AttributeValue; }
                                                                 if ((pa.AttributeName == "fixed") && (pa.AttributeValue == "true"))
                                                                 {
                                                                     hiddenFlag = true;

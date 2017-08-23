@@ -234,8 +234,21 @@ namespace Operando_AdministrationConsole.Controllers
                 OSPReasonPolicy osprp = getPrivacyPolicyAccessReasons(cons.OspId);
                 Dictionary<string, string> datauserDict = new Dictionary<string, string>();
                 Dictionary<string, string> datatypeDict = new Dictionary<string, string>();
+                Dictionary<string, string> reasonDict = new Dictionary<string, string>();
                 if(osprp != null)
                 {
+                    foreach(var rp in osprp.Policies)
+                    {
+                        if (!string.IsNullOrEmpty(rp.Datauser) && !string.IsNullOrEmpty(rp.Datatype))
+                        {
+                            if (!reasonDict.ContainsKey(rp.Datauser + rp.Datatype))
+                            {
+                                reasonDict.Add(rp.Datauser + rp.Datatype, rp.Reason);
+                            }
+                        } 
+
+                    }
+                    /*
                     foreach (var rp in osprp.Policies)
                     {
                         if (!string.IsNullOrEmpty(rp.Datauser))
@@ -270,7 +283,7 @@ namespace Operando_AdministrationConsole.Controllers
                                 }
                             }
                         }
-                    }
+                    }*/
                 }
 
                 ModOSPConsents mod = new ModOSPConsents();
@@ -297,6 +310,11 @@ namespace Operando_AdministrationConsole.Controllers
                         {
                             AccessPolicyWithReason apr = new AccessPolicyWithReason();
                             apr.accessPolicy = ap;
+                            if (reasonDict.ContainsKey(entry.Key + bentry.Key))
+                            {
+                                apr.reason = reasonDict[entry.Key + bentry.Key];
+                            }
+                            /*
                             if (datauserDict.ContainsKey(ap.Subject))
                             {
                                 apr.reason = datauserDict[ap.Subject];
@@ -306,7 +324,7 @@ namespace Operando_AdministrationConsole.Controllers
                                 {
                                     apr.reason = datatypeDict[cat.category];
                                 }
-                            }
+                            }*/
                             // if still arp.reason is empty
                             if (string.IsNullOrEmpty(apr.reason))
                             {
