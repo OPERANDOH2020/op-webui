@@ -141,7 +141,7 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult AccessPreferences()
         {
             List<OSPPrivacyPolicy> availableOSPs = GetAuthorisedOspList();
-            if (!availableOSPs.Any())
+            if (!availableOSPs.Any()) 
             {
                 return View(new List<ModOSPConsents>());
             }
@@ -629,7 +629,7 @@ namespace Operando_AdministrationConsole.Controllers
         //public async Task<ActionResult> PrivacyQuestionnaire()
         public ActionResult PrivacyQuestionnaire()
         {
-            string qUriBase = ConfigurationManager.AppSettings["questionnaireURLOUT1"].ToString();
+            string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
             var qConfiguration = new eu.operando.core.pc.pq.Client.Configuration(new eu.operando.core.pc.pq.Client.ApiClient(qUriBase));
             var getQInstance = new eu.operando.core.pc.pq.Api.QuestionsApi(qConfiguration);
             string ospId = Session["QuestionnaireOSP"].ToString();
@@ -675,7 +675,7 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult PrivacyQuestionnaire(FormCollection formCol)
         {
             var res = Response;
-            string qUriBase = ConfigurationManager.AppSettings["questionnaireURLOUT1"].ToString();
+            string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
             var qConfiguration = new eu.operando.core.pc.pq.Client.Configuration(new eu.operando.core.pc.pq.Client.ApiClient(qUriBase));
             var postQInstance = new eu.operando.core.pc.pq.Api.QuestionsApi(qConfiguration);
             Dictionary<string, List<ModQuestionObject>> qnDict = Session["questionnaire"] as Dictionary<string, List<ModQuestionObject>>;
