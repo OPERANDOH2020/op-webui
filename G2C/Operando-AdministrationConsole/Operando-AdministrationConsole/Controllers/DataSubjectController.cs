@@ -629,6 +629,11 @@ namespace Operando_AdministrationConsole.Controllers
         //public async Task<ActionResult> PrivacyQuestionnaire()
         public ActionResult PrivacyQuestionnaire()
         {
+            if (Session["QuestionnaireOSP"] == null)
+            {
+                // redirect to access preferences page
+                return RedirectToAction("AccessPreferences", "DataSubject");
+            }
             string qUriBase = ConfigurationManager.AppSettings["questionnaireURL"].ToString();
             var qConfiguration = new eu.operando.core.pc.pq.Client.Configuration(new eu.operando.core.pc.pq.Client.ApiClient(qUriBase));
             var getQInstance = new eu.operando.core.pc.pq.Api.QuestionsApi(qConfiguration);
