@@ -329,7 +329,7 @@ namespace Operando_AdministrationConsole.Controllers
                             if (string.IsNullOrEmpty(apr.reason))
                             {
                                 string can = (bool)ap.Permission ? " can " : " cannot ";
-                                apr.reason = ap.Subject.ToString() + can + ap.Action.ToString() + " " + ap.Resource.ToString();
+                                apr.reason = apr.accessPolicy.Subject + can + apr.accessPolicy.Action + " " + apr.accessPolicy.Resource;
                             }
                             cat.categoryAPList.Add(apr);
                         }

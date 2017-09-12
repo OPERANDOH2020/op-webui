@@ -5,16 +5,22 @@ namespace Operando_AdministrationConsole.Models
 {
     public class AccessPolicyModel
     {
-        public AccessPolicy.ActionEnum? Action { get; set; }
-        public bool? Permission { get; set; }
-        public string RawResource { get; set; }
-        public string Subject { get; set; }
+        // Properties
+        public AccessPolicy.ActionEnum? Action { get;}
+        public bool? Permission { get; }
+        public string RawResource { get; }
+        public string Subject { get; }
 
-        public string Resource { get; set; }
+        // "Nice" Properties
+        public string Resource { get; }
 
-        public string Category { get; set; }
-        public string Tooltip { get; set; }
-        public bool Fixed { get; set; }
+        // Attributes
+        public string Category { get; }
+        public string Tooltip { get; }
+        public bool Fixed { get; }
+
+        // Settable Properties
+        public string Reason { get; set; }
 
         public AccessPolicyModel(AccessPolicy accessPolicy, INiceStringConverter stringConverter)
         {
