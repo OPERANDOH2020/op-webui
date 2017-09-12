@@ -6,13 +6,15 @@ namespace Operando_AdministrationConsole.Models
     public class AccessPolicyModel
     {
         // Properties
-        public AccessPolicy.ActionEnum? Action { get;}
+        public AccessPolicy.ActionEnum? RawAction { get;}
         public bool? Permission { get; }
         public string RawResource { get; }
-        public string Subject { get; }
+        public string RawSubject { get; }
 
         // "Nice" Properties
         public string Resource { get; }
+        public string Action { get; }
+        public string Subject { get; }
 
         // Attributes
         public string Category { get; }
@@ -24,12 +26,14 @@ namespace Operando_AdministrationConsole.Models
 
         public AccessPolicyModel(AccessPolicy accessPolicy, INiceStringConverter stringConverter)
         {
-            Action = accessPolicy.Action;
+            RawAction = accessPolicy.Action;
             Permission = accessPolicy.Permission;
             RawResource = accessPolicy.Resource;
-            Subject = accessPolicy.Subject;
+            RawSubject = accessPolicy.Subject;
 
-            Resource = RawResource; // TODO stringConverter.NiceResourceNameOrDefault(RawResource);
+            Resource = stringConverter.NiceResourceNameOrDefault(RawResource);
+            Action = stringConverter.NiceActionNameOrDefault(RawAction.ToString());
+            Subject = stringConverter.NiceSubjectNameOrDefault(RawSubject);
 
             foreach (PolicyAttribute attribute in accessPolicy.Attributes)
             {

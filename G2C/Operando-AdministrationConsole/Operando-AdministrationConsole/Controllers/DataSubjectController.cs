@@ -17,6 +17,7 @@ using System.Text;
 using eu.operando.interfaces.aapi.Model;
 using eu.operando.core.pc.pq.Model;
 using System.Text.RegularExpressions;
+using Operando_AdministrationConsole.Helper;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -25,6 +26,7 @@ namespace Operando_AdministrationConsole.Controllers
     {
         private readonly IAapiClient _aapiClient;
         private readonly ILdbClient _ldbClient;
+        private readonly INiceStringConverter _stringConverter;
 
         public string errMsg = String.Empty;
         //private QRootObject qGet;
@@ -33,6 +35,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             _aapiClient = new AapiClient();
             _ldbClient = new LdbClient(ConfigurationManager.AppSettings["ldbBasePath"]);
+            _stringConverter = new DebugNiceStringConverter();
         }
 
         public ActionResult DataAccessLogs()
@@ -309,7 +312,7 @@ namespace Operando_AdministrationConsole.Controllers
                         foreach(AccessPolicy ap in bentry.Value)
                         {
                             AccessPolicyWithReason apr = new AccessPolicyWithReason();
-                            apr.accessPolicy = new AccessPolicyModel(ap, null);
+                            apr.accessPolicy = new AccessPolicyModel(ap, _stringConverter);
                             if (reasonDict.ContainsKey(entry.Key + bentry.Key))
                             {
                                 apr.reason = reasonDict[entry.Key + bentry.Key];

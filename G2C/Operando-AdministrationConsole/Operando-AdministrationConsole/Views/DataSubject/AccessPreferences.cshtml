@@ -167,7 +167,7 @@
                                                             {
                                                                 hiddenFlag = true;
                                                                 <input type="checkbox"
-                                                                        name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.Subject.GetHashCode() @pwr.accessPolicy.RawResource.GetHashCode() @pwr.accessPolicy.Action.GetHashCode()"
+                                                                        name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.RawSubject.GetHashCode() @pwr.accessPolicy.RawResource.GetHashCode() @pwr.accessPolicy.RawAction.GetHashCode()"
                                                                         value="@pwr.accessPolicy.Permission"
                                                                         id="@(catId)"
                                                                         @if (pwr.accessPolicy.Permission == true) { @: checked="checked"
@@ -176,7 +176,7 @@
                                                                 @*break;*@
                                                             }
                                                             <input @{if (hiddenFlag) { <text> type="hidden" </text>      } else { <text> type="checkbox" </text>       } }
-                                                                name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.Subject.GetHashCode() @pwr.accessPolicy.RawResource.GetHashCode() @pwr.accessPolicy.Action.GetHashCode()"
+                                                                name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.RawSubject.GetHashCode() @pwr.accessPolicy.RawResource.GetHashCode() @pwr.accessPolicy.RawAction.GetHashCode()"
                                                                 value="@pwr.accessPolicy.Permission"
                                                                 id="@(catId)"
                                                                 @if (pwr.accessPolicy.Permission == true) { @: checked="checked"
