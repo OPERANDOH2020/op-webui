@@ -309,7 +309,7 @@ namespace Operando_AdministrationConsole.Controllers
                         foreach(AccessPolicy ap in bentry.Value)
                         {
                             AccessPolicyWithReason apr = new AccessPolicyWithReason();
-                            apr.accessPolicy = ap;
+                            apr.accessPolicy = new AccessPolicyModel(ap, null);
                             if (reasonDict.ContainsKey(entry.Key + bentry.Key))
                             {
                                 apr.reason = reasonDict[entry.Key + bentry.Key];

@@ -7,112 +7,121 @@
 
 @using eu.operando.core.pdb.cli.Model;
 @using Operando_AdministrationConsole.Models.DataSubjectModels;
-@*model OSPConsents*@
 @model IList<ModOSPConsents>
 
 <!-- BEGIN PAGE BASE CONTENT -->
 <!-- Form modified by IT Innovation Centre 2016 -->
 <div class="portlet-body font-grey-gallery">
-    @if (Model.Count > 1)
-    {
-        <div class="tabbable-custom-operando col-md-3 col-sm-3 col-xs-3">
-            <ul class="nav nav-tabs tabs-left">
-                @*foreach (var osp in ViewBag.ospppList)*@
-                @if (!Model.Any())
-                {
-                    <li>No authorised OSPs found.</li>
-                }
-                else
-                {
-                    foreach (var osp in Model)
-                    {
-                        <li @if (osp.selected)
-                        { <text> class="active" </text> }>
-                            <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected)
-                            {<text>" true"</text>}
-                            else
-                            {<text>"false"</text>}>@osp.OspId</a>
-                    </li>
-                    }
-                }
-            </ul>
-        </div>
-    }
-    @if (Model.Count > 1) { <text><div class="col-md-9 col-sm-9 col-xs-9 tabs-custom-operando">
-    </text> }
-else
-{ <text><div class="col-md-12 col-sm-12 col-xs-12 tabs-custom-operando">
-</text> }
-@if (System.Web.Configuration.WebConfigurationManager.AppSettings["hideNonProductionReadyPages"] == "false")
+@if (Model.Count > 1)
+{
+    <div class="tabbable-custom-operando col-md-3 col-sm-3 col-xs-3">
+        <ul class="nav nav-tabs tabs-left">
+            @if (!Model.Any())
             {
-    <div class="portlet light">
-        <div class="portlet-title">
-            <div class="caption">
-                <span class="caption-subject font-dark bold uppercase"> @Resources.WebResources.AccessPreferencesSubtitle</span>
-            </div>
-        </div>
-        <div class="portlet-body row">
-
-            <div class="col-md-10">
-                <p>
-                    @Resources.WebResources.AccessPreferencesDescription
-                </p>
-                <p>You can use our privacy wizard to generate a recommended privacy policy quickly and easily.</p>
-            </div>
-            <div class="col-md-2 text-right">
-                @*<p> <button type="button" class="btn yellow-gold">Start</button></p>*@
-                <form class="form-horizontal" role="form" method="post" name="questionnaire">
-                    <div class="form-actions right">
-                        <button type="submit" class="btn yellow-gold" name="qstage">Start</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                <li>No authorised OSPs found.</li>
+            }
+            else
+            {
+                foreach (var osp in Model)
+                {
+                    <li @if (osp.selected)
+                        {
+                            <text> class="active" </text>
+                        }>
+                        <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=
+                           "@if (osp.selected)
+                            {
+                                <text>true</text>
+                            }
+                            else
+                            {
+                                <text>false</text>
+                            }">
+                            @osp.OspId
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
     </div>
 }
-<div class="tab-content">
-
-    @*foreach (var osp in ViewBag.ospppList)*@
-    @{ int ospNum = 0;}
-    @foreach (var osp in Model)
+<div class=
+     "@if (Model.Count > 1)
+      {
+          <text>col-md-9 col-sm-9 col-xs-9 tabs-custom-operando></text>
+      }
+      else
+      {
+          <text>col-md-12 col-sm-12 col-xs-12 tabs-custom-operando</text>
+      }">
+    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["hideNonProductionReadyPages"] == "false")
     {
-        ospNum += 1;
-                <!-- BEGIN TAB @osp.OspId CONTENT -->
-        <div class="portlet light tab-pane @if (osp.selected) {<text>active</text>} else {<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
+        <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <span class="caption-subject font-dark bold uppercase">Privacy wizard</span>
+                    <span class="caption-subject font-dark bold uppercase"> @Resources.WebResources.AccessPreferencesSubtitle</span>
                 </div>
             </div>
+            <div class="portlet-body row">
 
-            <div class="portlet-body">
                 <div class="col-md-10">
+                    <p>
+                        @Resources.WebResources.AccessPreferencesDescription
+                    </p>
                     <p>You can use our privacy wizard to generate a recommended privacy policy quickly and easily.</p>
                 </div>
                 <div class="col-md-2 text-right">
-                    <form class="form-horizontal" role="form" method="post" name="qn_@(osp.OspId)">
+                    @*<p> <button type="button" class="btn yellow-gold">Start</button></p>*@
+                    <form class="form-horizontal" role="form" method="post" name="questionnaire">
                         <div class="form-actions right">
-                            <button type="submit" class="btn yellow-gold" name="qstage_@(osp.OspId)">Start</button>
+                            <button type="submit" class="btn yellow-gold" name="qstage">Start</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-            <div class="portlet-title">
-                <div class="caption">
-                    <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspId</span>
+        </div>
+    }
+    <div class="tab-content">
+        @{ int ospNum = 0;}
+        @foreach (var osp in Model)
+        {
+            ospNum += 1;
+            <!-- BEGIN TAB @osp.OspId CONTENT -->
+            <div class="portlet light tab-pane @if (osp.selected) {<text>active</text>} else {<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-dark bold uppercase">Privacy wizard</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="portlet-body form">
-                <p>@Resources.WebResources.AccessPreferencesDescription</p>
-                <form class="form-horizontal" role="form" method="post" name="@osp.OspId form">
-                    <div class="form-body">
-                        <div class="form-group">
+                <div class="portlet-body">
+                    <div class="col-md-10">
+                        <p>You can use our privacy wizard to generate a recommended privacy policy quickly and easily.</p>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <form class="form-horizontal" role="form" method="post" name="qn_@(osp.OspId)">
+                            <div class="form-actions right">
+                                <button type="submit" class="btn yellow-gold" name="qstage_@(osp.OspId)">Start</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-                            <div class="table-responsive">
-                                <table id="@(osp.OspId)-table" class="table table-striped table-bordered table-hover table-condensed">
-                                    <thead>
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspId</span>
+                    </div>
+                </div>
+
+                <div class="portlet-body form">
+                    <p>@Resources.WebResources.AccessPreferencesDescription</p>
+                    <form class="form-horizontal" role="form" method="post" name="@osp.OspId form">
+                        <div class="form-body">
+                            <div class="form-group">
+
+                                <div class="table-responsive">
+                                    <table id="@(osp.OspId)-table" class="table table-striped table-bordered table-hover table-condensed">
+                                        <thead>
                                         @*<tr><th>@Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</th>*@
                                         <tr>
                                             <th>Category:</th>
@@ -123,27 +132,17 @@ else
                                         </tr>
                                         <tr>
                                             <th>Action:</th>
-                                            @{ var attrName = "";}
                                             @foreach (var subject in osp.groupAPBySubject[0].categoryAPList)
                                             {
                                                 <th>all</th>
                                                 foreach (var policy in subject.categoryAPList)
                                                 {
-                                                    attrName = policy.accessPolicy.Resource.Split('.').Last();
-                                                    foreach (PolicyAttribute pa in policy.accessPolicy.Attributes)
-                                                    {
-                                                        if ((pa.AttributeName == "friendly_name"))
-                                                        {
-                                                            attrName = pa.AttributeValue;
-                                                            break;
-                                                        }
-                                                    }
-                                                    <td>@(policy.accessPolicy.Action): @attrName</td>
+                                                    <td>@(policy.accessPolicy.Action): @policy.accessPolicy.Resource</td>
                                                 }
                                             }
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                        </thead>
+                                        <tbody>
                                         @{ int catId = 1; int subNum = 1;}
                                         @foreach (var groupSubject in osp.groupAPBySubject)
                                         {
@@ -163,59 +162,53 @@ else
                                                     foreach (var pwr in policyCategory.categoryAPList)
                                                     {
                                                         <td class="td-center">
-                                                            @{var hiddenFlag = false;
-                                                                var tooltipTitle = "";}
-                                                            @foreach (PolicyAttribute pa in pwr.accessPolicy.Attributes)
+                                                            @{var hiddenFlag = false;}
+                                                            @if (pwr.accessPolicy.Fixed)
                                                             {
-                                                                if (pa.AttributeName == "tooltip")
-                                                                { tooltipTitle = pwr.reason + ": " + pa.AttributeValue; }
-                                                                if ((pa.AttributeName == "fixed") && (pa.AttributeValue == "true"))
-                                                                {
-                                                                    hiddenFlag = true;
-                                                                    <input type="checkbox"
-                                                                           name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.Subject.GetHashCode() @pwr.accessPolicy.Resource.GetHashCode() @pwr.accessPolicy.Action.GetHashCode()"
-                                                                           value="@pwr.accessPolicy.Permission"
-                                                                           id="@(catId)"
-                                                                           @if (pwr.accessPolicy.Permission == true) { @: checked="checked"
-                                                                                                                                                                                                                                                                                                                                                          }
-                                                                           disabled readonly>                                                                
-                                                                    @*break;*@
-                                                                }
+                                                                hiddenFlag = true;
+                                                                <input type="checkbox"
+                                                                        name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.Subject.GetHashCode() @pwr.accessPolicy.RawResource.GetHashCode() @pwr.accessPolicy.Action.GetHashCode()"
+                                                                        value="@pwr.accessPolicy.Permission"
+                                                                        id="@(catId)"
+                                                                        @if (pwr.accessPolicy.Permission == true) { @: checked="checked"
+                                                                        }
+                                                                        disabled readonly>                                                                
+                                                                @*break;*@
                                                             }
                                                             <input @{if (hiddenFlag) { <text> type="hidden" </text>      } else { <text> type="checkbox" </text>       } }
-                                                                   name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.Subject.GetHashCode() @pwr.accessPolicy.Resource.GetHashCode() @pwr.accessPolicy.Action.GetHashCode()"
-                                                                   value="@pwr.accessPolicy.Permission"
-                                                                   id="@(catId)"
-                                                                   @if (pwr.accessPolicy.Permission == true) { @: checked="checked"
-                                                                                                                                                                                                                                                                                                                                                                                                }
-                                                                   data-toggle="tooltip" data-placement="top" title="@(tooltipTitle)"> @*@policy.Action*@
-                                                                <span></span>
-                                                            </td>
-                                                                        catId += 1;
+                                                                name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.Subject.GetHashCode() @pwr.accessPolicy.RawResource.GetHashCode() @pwr.accessPolicy.Action.GetHashCode()"
+                                                                value="@pwr.accessPolicy.Permission"
+                                                                id="@(catId)"
+                                                                @if (pwr.accessPolicy.Permission == true) { @: checked="checked"
+                                                                }
+                                                                data-toggle="tooltip" data-placement="top" title="@(pwr.reason + ": " + pwr.accessPolicy.Tooltip)"> @*@policy.Action*@
+                                                            <span></span>
+                                                        </td>
+                                                        catId += 1;
 
-                                                                    }
-                                                                    catNum += 1;
-                                                                }
-                                                                           </tr>
-                                                                    subNum += 1;
-                                                                }
-                                    </tbody>
-                                </table>
+                                                    }
+                                                    catNum += 1;
+                                                }
+                                            </tr>
+                                            subNum += 1;
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
                     
 
-                    <div class="form-actions right">
-                        <button type="submit" class="btn yellow-gold" name="@osp.OspId">@Resources.WebResources.AccessPreferencesUpdateUPP</button>
-                        <button type="submit" class="btn default" name="reset_@(osp.OspId)">@Resources.WebResources.AccessPreferencesReverseUPPToDefault</button>
-                    </div>
-                </form>
+                        <div class="form-actions right">
+                            <button type="submit" class="btn yellow-gold" name="@osp.OspId">@Resources.WebResources.AccessPreferencesUpdateUPP</button>
+                            <button type="submit" class="btn default" name="reset_@(osp.OspId)">@Resources.WebResources.AccessPreferencesReverseUPPToDefault</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 </div>
 </div>
 

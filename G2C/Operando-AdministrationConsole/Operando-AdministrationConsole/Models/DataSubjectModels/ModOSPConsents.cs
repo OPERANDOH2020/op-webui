@@ -32,6 +32,6 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
     {
         [DefaultValue("empty")]
         public string reason { get; set; }
-        public AccessPolicy accessPolicy { get; set; }
+        public AccessPolicyModel accessPolicy { get; set; }
     }
 }
