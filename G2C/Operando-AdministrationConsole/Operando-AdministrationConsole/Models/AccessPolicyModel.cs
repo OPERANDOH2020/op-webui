@@ -7,7 +7,7 @@ namespace Operando_AdministrationConsole.Models
     {
         // Properties
         public AccessPolicy.ActionEnum? RawAction { get;}
-        public bool? Permission { get; }
+        public bool Permission { get; }
         public string RawResource { get; }
         public string RawSubject { get; }
 
@@ -27,7 +27,7 @@ namespace Operando_AdministrationConsole.Models
         public AccessPolicyModel(AccessPolicy accessPolicy, INiceStringConverter stringConverter)
         {
             RawAction = accessPolicy.Action;
-            Permission = accessPolicy.Permission;
+            Permission = accessPolicy.Permission ?? false;
             RawResource = accessPolicy.Resource;
             RawSubject = accessPolicy.Subject;
 
@@ -59,7 +59,5 @@ namespace Operando_AdministrationConsole.Models
                 }
             }
         }
-
-        
     }
 }

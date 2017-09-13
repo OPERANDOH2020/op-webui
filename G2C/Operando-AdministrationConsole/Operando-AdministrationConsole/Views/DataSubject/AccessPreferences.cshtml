@@ -125,63 +125,63 @@
                                         @*<tr><th>@Resources.WebResources.AccessPreferencesRoleShouldBeAbleToAccess</th>*@
                                         <tr>
                                             <th>Category:</th>
-                                            @foreach (var subject in osp.groupAPBySubject[0].categoryAPList)
+                                            @foreach (var byCategory in osp.AccessPoliciesBySubjectThenCategory.First())
                                             {
-                                                <th colspan="@(subject.categoryAPList.Count + 1)">@(subject.category)</th>
+                                                <th colspan="@(byCategory.Count() + 1)">@(byCategory.Key)</th>
                                             }
                                         </tr>
                                         <tr>
                                             <th>Action:</th>
-                                            @foreach (var subject in osp.groupAPBySubject[0].categoryAPList)
+                                            @foreach (var byCategory in osp.AccessPoliciesBySubjectThenCategory.First())
                                             {
                                                 <th>all</th>
-                                                foreach (var policy in subject.categoryAPList)
+                                                foreach (var policy in byCategory)
                                                 {
-                                                    <td>@(policy.accessPolicy.Action): @policy.accessPolicy.Resource</td>
+                                                    <td>@(policy.Action): @policy.Resource</td>
                                                 }
                                             }
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @{ int catId = 1; int subNum = 1;}
-                                        @foreach (var groupSubject in osp.groupAPBySubject)
+                                        @foreach (var bySubject in osp.AccessPoliciesBySubjectThenCategory)
                                         {
                                             <tr>
                                                 <th>
-                                                    <label class="control-label">@groupSubject.groupSubject</label>
+                                                    <label class="control-label">@bySubject.Key</label>
                                                 </th>
                                                 @{ int catNum = 1;}
-                                                @foreach (var policyCategory in groupSubject.categoryAPList)
+                                                @foreach (var byCategory in bySubject)
                                                 {
                                                     <th>
                                                         <input type="checkbox" name="@(ospNum).@(subNum).@(catNum)" id="@(catId)"
                                                                onclick="toggle(this)"
-                                                               data-toggle="tooltip" data-placement="top" title="select @(policyCategory.category)" /><span></span>
+                                                               data-toggle="tooltip" data-placement="top" title="select @(byCategory.Key)" /><span></span>
                                                     </th>
                                                     catId += 1;
-                                                    foreach (var pwr in policyCategory.categoryAPList)
+                                                    foreach (var accessPolicy in byCategory)
                                                     {
                                                         <td class="td-center">
                                                             @{var hiddenFlag = false;}
-                                                            @if (pwr.accessPolicy.Fixed)
+                                                            @if (accessPolicy.Fixed)
                                                             {
                                                                 hiddenFlag = true;
                                                                 <input type="checkbox"
-                                                                        name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.RawSubject.GetHashCode() @pwr.accessPolicy.RawResource.GetHashCode() @pwr.accessPolicy.RawAction.GetHashCode()"
-                                                                        value="@pwr.accessPolicy.Permission"
+                                                                        name="@(ospNum).@(subNum).@(catNum) @accessPolicy.RawSubject.GetHashCode() @accessPolicy.RawResource.GetHashCode() @accessPolicy.RawAction.GetHashCode()"
+                                                                        value="@accessPolicy.Permission"
                                                                         id="@(catId)"
-                                                                        @if (pwr.accessPolicy.Permission == true) { @: checked="checked"
+                                                                        @if (accessPolicy.Permission == true) { @: checked="checked"
                                                                         }
                                                                         disabled readonly>                                                                
                                                                 @*break;*@
                                                             }
                                                             <input @{if (hiddenFlag) { <text> type="hidden" </text>      } else { <text> type="checkbox" </text>       } }
-                                                                name="@(ospNum).@(subNum).@(catNum) @pwr.accessPolicy.RawSubject.GetHashCode() @pwr.accessPolicy.RawResource.GetHashCode() @pwr.accessPolicy.RawAction.GetHashCode()"
-                                                                value="@pwr.accessPolicy.Permission"
+                                                                name="@(ospNum).@(subNum).@(catNum) @accessPolicy.RawSubject.GetHashCode() @accessPolicy.RawResource.GetHashCode() @accessPolicy.RawAction.GetHashCode()"
+                                                                value="@accessPolicy.Permission"
                                                                 id="@(catId)"
-                                                                @if (pwr.accessPolicy.Permission == true) { @: checked="checked"
+                                                                @if (accessPolicy.Permission == true) { @: checked="checked"
                                                                 }
-                                                                data-toggle="tooltip" data-placement="top" title="@(pwr.reason + ": " + pwr.accessPolicy.Tooltip)"> @*@policy.Action*@
+                                                                data-toggle="tooltip" data-placement="top" title="@(accessPolicy.Reason + ": " + accessPolicy.Tooltip)">
                                                             <span></span>
                                                         </td>
                                                         catId += 1;
