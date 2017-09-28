@@ -57,11 +57,18 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         /* Method modified by IT Innovation Centre 2017 */
-        private string GetServiceTicket()
+        public string GetServiceTicket()
         {
             string pdbOSPSId = ConfigurationManager.AppSettings["pdbOSPSId"];
-
-            string ticketGrantingTicket = Session["TGT"] as string;
+            string ticketGrantingTicket;
+            if (Session == null)
+            {
+                ticketGrantingTicket = System.Web.HttpContext.Current.Session["TGT"] as string;
+            }
+            else
+            {
+                ticketGrantingTicket = Session["TGT"] as string;
+            }
 
             return _aapiClient.GetServiceTicket(ticketGrantingTicket, pdbOSPSId);
         }
