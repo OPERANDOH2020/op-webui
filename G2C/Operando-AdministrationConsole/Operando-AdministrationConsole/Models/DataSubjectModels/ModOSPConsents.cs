@@ -10,7 +10,7 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
     public class ModOSPConsents
     {
         public string OspId { get; set; }
-        public List<GroupAccessPolicies> map { get; set; }
+        public List<GroupAccessPolicies> groupAPBySubject { get; set; }
         [DefaultValue(false)]
         public bool selected  {get; set;}
 
@@ -18,7 +18,20 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
     public class GroupAccessPolicies
     {
-        public string groupKey { get; set; }
-        public List<AccessPolicy> gap { get; set; }
+        public string groupSubject { get; set; }
+        public List<Category> categoryAPList { get; set; }
+    }
+
+    public class Category
+    {
+        public string category { get; set; }
+        public List<AccessPolicyWithReason> categoryAPList { get; set; }
+    }
+
+    public class AccessPolicyWithReason
+    {
+        [DefaultValue("empty")]
+        public string reason { get; set; }
+        public AccessPolicy accessPolicy { get; set; }
     }
 }

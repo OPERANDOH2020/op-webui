@@ -261,9 +261,17 @@
     <Compile Include="Models\DataSubjectModels\DataAccessLogModel.cs" />
     <Compile Include="Models\DataSubjectModels\ModOSPConsents.cs" />
     <Compile Include="Models\DataSubjectModels\ModQuestionObject.cs" />
+    <Compile Include="Models\OspAdminModels\EntityType.cs" />
+    <Compile Include="Models\OspAdminModels\Key.cs" />
+    <Compile Include="Models\OspAdminModels\NavigationProperty.cs" />
+    <Compile Include="Models\OspAdminModels\PolicyAtrribute.cs" />
+    <Compile Include="Models\OspAdminModels\Property.cs" />
+    <Compile Include="Models\OspAdminModels\PropertyRef.cs" />
     <Compile Include="Models\OspAdminModels\RequestNewBdaExtractModel.cs" />
+    <Compile Include="Models\OspAdminModels\Resource.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataJobModel.cs" />
     <Compile Include="Models\PspAnalystModels\BigDataScheduleModel.cs" />
+    <Compile Include="Models\PspAnalystModels\Report.cs" />
     <Compile Include="Models\Regulation.cs" />
     <Compile Include="Models\RegulatorModels\ComplianceReportModel.cs" />
     <Compile Include="Models\RegulatorModels\ReportsModel.cs" />
@@ -3929,7 +3937,6 @@
     <Content Include="assets\global\plugins\jcrop\js\jquery.Jcrop.min.js" />
     <Content Include="assets\global\plugins\jcrop\MIT-LICENSE.txt" />
     <Content Include="assets\global\plugins\jquery-3.2.1.min.js" />
-    <Content Include="assets\global\plugins\jquery.min-tmp.js" />
     <Content Include="assets\global\plugins\jquery-bootpag\jquery.bootpag.js" />
     <Content Include="assets\global\plugins\jquery-bootpag\jquery.bootpag.min.js" />
     <Content Include="assets\global\plugins\jquery-bootpag\LICENSE.txt" />
@@ -4149,6 +4156,7 @@
     <Content Include="assets\global\plugins\jquery.blockui.min.js" />
     <Content Include="assets\global\plugins\jquery.easing.js" />
     <Content Include="assets\global\plugins\jquery.input-ip-address-control-1.0.min.js" />
+    <Content Include="assets\global\plugins\jquery.min.js" />
     <Content Include="assets\global\plugins\jquery.mockjax.js" />
     <Content Include="assets\global\plugins\jquery.parallax.js" />
     <Content Include="assets\global\plugins\jquery.pulsate.min.js" />
@@ -5757,6 +5765,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -5771,11 +5780,14 @@
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\NamespacesAndEnumSupport.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Scripts\_vs2012.intellisense.js" />
+    <Content Include="Scripts\_vs2012.intellisense.Test.js" />
     <Content Include="Views\OspAdmin\RequestNewBdaExtraction.cshtml" />
     <Content Include="Views\PspAnalyst\ModelEditors\BigDataJobModelEditor.cshtml" />
     <Content Include="Web.config">
@@ -5787,7 +5799,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -5852,6 +5866,11 @@
     <Content Include="Views\OspAdmin\UppManagementTool.cshtml" />
     <Content Include="Views\DataSubject\PrivacyQuestionnaire.cshtml" />
     <Content Include="Views\PspAdmin\ServiceMonitoring.cshtml" />
+    <Content Include="Views\OspAdmin\UpdatePolicy.cshtml" />
+    <Content Include="Views\OspAdmin\_CategoryPage.cshtml" />
+    <Content Include="Views\OspAdmin\_RecordPage.cshtml" />
+    <Content Include="Views\PspAnalyst\ReviewLogs.cshtml" />
+    <Content Include="Views\Access\AuthenticationRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5903,10 +5922,6 @@
     <ProjectReference Include="..\eu.operando.core.ldb\eu.operando.core.ldb.csproj">
       <Project>{3E09F267-B1C4-4BDB-AFFC-38C235BE8CAB}</Project>
       <Name>eu.operando.core.ldb</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eu_operando_core_cpcu.cli\src\IO.Swagger\eu.operando.core.cpcu.cli.csproj">
-      <Project>{eab5384a-7a38-40ca-ad29-87c217cf3c13}</Project>
-      <Name>eu.operando.core.cpcu.cli</Name>
     </ProjectReference>
     <ProjectReference Include="..\eu_operando_core_ose_cli\src\IO.Swagger\eu.operando.core.ose.cli.csproj">
       <Project>{84e74ba6-d914-4a68-840a-ee8fbc5c304d}</Project>

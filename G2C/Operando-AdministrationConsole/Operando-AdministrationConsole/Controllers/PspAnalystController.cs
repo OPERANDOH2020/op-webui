@@ -18,13 +18,20 @@ using eu.operando.common.Services;
 using eu.operando.core.bda;
 using eu.operando.core.bda.Model;
 using Operando_AdministrationConsole.Models.PspAnalystModels;
+using eu.operando.core.pdb.cli.Model;
+using System.Configuration;
+using System.Diagnostics;
+using eu.operando.interfaces.aapi.Model;
+using eu.operando.interfaces.aapi;
+using eu.operando.core.ldb.Model;
+using System.Globalization;
 
 namespace Operando_AdministrationConsole.Controllers
 {
     public class PspAnalystController : Controller
     {
         private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
-
+        private readonly IAapiClient _aapiClient;
         private static readonly Uri RegulationsRoot = new Uri("http://localhost:8080/stub-pdb/api/regulations/");
 
         private readonly IBdaClient _bdaClient;
@@ -42,6 +49,7 @@ namespace Operando_AdministrationConsole.Controllers
         public PspAnalystController()
         {
             _bdaClient = new BdaClient();
+            _aapiClient = new AapiClient();
         }
 
         // GET: PspAnalyst
@@ -295,6 +303,161 @@ namespace Operando_AdministrationConsole.Controllers
             await _bdaClient.DeleteScheduleAsync(schedule);
 
             return RedirectToAction("BigDataAnalyticsConfig");
+        }
+        public List<OSPPrivacyPolicy> GetOspList()
+        {
+            string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(getConfiguration("pdbOSPSId"));
+
+            List<OSPPrivacyPolicy> checkedOSPList = new List<OSPPrivacyPolicy>();
+            try
+            {
+                OspList ospList = userInstance.OspListGet();
+                Debug.Print("OSP LIST: " + ospList.ToString());
+
+
+                var filter = "{\"policy_text\" : \"\"}";
+                var response = instance.OSPGet(filter);
+
+                foreach (string ospItem in ospList.osps)
+                {
+                    foreach (OSPPrivacyPolicy ospInstance in response)
+                    {
+                        if ((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
+                        {
+                            checkedOSPList.Add(ospInstance);
+                            break;
+    }
+}
+                }
+                if (checkedOSPList.Count == 0)
+                {
+                    checkedOSPList = response;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling OSP list: " + e.Message);
+            }
+            return checkedOSPList;
+        }
+        private eu.operando.core.pdb.cli.Client.Configuration getConfiguration(string serviceIdKey)
+        {
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+            string pdbOSPSId = ConfigurationManager.AppSettings[serviceIdKey];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, GetUppServiceTicket(pdbOSPSId));
+
+            return configuration;
+        }
+        private string GetUppServiceTicket(string serviceName)
+        {
+            var ticketGrantingTicket = Session["TGT"] as string;
+
+            return _aapiClient.GetServiceTicket(ticketGrantingTicket, serviceName);
+        }
+        //method to show the Review Logs page
+        public ActionResult ReviewLogs()
+        {
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            ViewBag.ospList = ospList;
+            return View();
+        }
+        /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
+        //This method returns a report for a particular OSP's logs, whether they are valid or not, and if not, returning which logs are not valid
+        [HttpGet]
+        public JsonResult ReportEvaluation(string OSPId, int startday, int startmonth, int startyear, int endday, int endmonth, int endyear)
+        {
+          
+
+            string baseurl = ConfigurationManager.AppSettings["ldbBasePath"];
+            //instance to get from the log database
+            var instance = new eu.operando.core.ldb.LdbClient(baseurl);
+            //gets the list of OSPs
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+
+            //creates datetime objects for the start date and end date selected by the user on the html page
+            DateTime startDate = new DateTime(startyear, startmonth, startday).Date;
+            DateTime endDate = new DateTime(endyear, endmonth, endday).Date;
+            //gets the OSPPolicyId from the string submitted from the HTML page
+            string[] ospStrings = OSPId.Split('/');
+            string OspPolicyId = ospStrings[1];
+
+            
+            OSPPrivacyPolicy matchingOsp = ospList.Where(o => o.OspPolicyId.Equals(OspPolicyId)).First();
+            HashSet<String> roles = new HashSet<string>();
+
+            foreach (AccessPolicy policy in matchingOsp.Policies)
+            {
+                roles.Add(policy.Subject);
+            }
+            //get the data access logs
+            IList<DataAccessLog> logs = instance.GetDataAccessLogs(OspPolicyId);
+            List<DataAccessLog> logsToCheck = new List<DataAccessLog>();
+            //sorts by logs that fall within the region for the dates
+            foreach (var log in logs)
+            {
+                if (log.logDate >= startDate && log.logDate <= endDate && log.requesterId.Equals(matchingOsp.OspPolicyId))
+                {
+                    logsToCheck.Add(log);
+                }
+            }
+            //creates a report object
+            Report report = new Report();
+            //goes through each log that matches the dates
+            foreach (var log in logsToCheck)
+            {
+                bool found = false;
+                string matchedrole = "nothing";
+                //checks if there is a role matching the role accesed according to the logs
+                foreach (var role in roles)
+                {
+                    if (Regex.IsMatch(log.description, role, RegexOptions.IgnoreCase))
+                    {
+                        found = true;
+                        matchedrole = role;
+                        break;
+                    }
+                }
+                //runs if there is a matching role
+                if (found)
+                {
+                    //checks if there is a resource and role which matches (the policy for this log)
+                    if (matchingOsp.Policies.Any(p => p.Subject.Equals(matchedrole) && p.Resource.Equals(log.title)))
+                    {
+                        report.validLogs.Add(log);
+                    }
+                    else
+                    {
+                        report.invalidLogs.Add(log);
+                    }
+                }
+                else
+                {
+                    report.invalidLogs.Add(log);
+                }
+            }
+            //builds a string to return based on the report outcome.
+            String html = "Status: ";
+            if (report.checkValid())     
+            {
+                html = "All logs for OSP " + OSPId + " are valid for the selected date period";
+            }
+            else
+            {
+                foreach (var log in report.invalidLogs)
+                {
+                    html += OSPId + " has made an invalid request with the resource " + log.title + ". ";
+                }
+            }
+
+
+
+            return Json(html, JsonRequestBehavior.AllowGet);
         }
     }
 }

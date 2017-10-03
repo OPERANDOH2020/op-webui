@@ -1,4 +1,5 @@
-﻿using eu.operando.interfaces.aapi.Model;
+﻿using eu.operando.core.pdb.cli.Model;
+using eu.operando.interfaces.aapi.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -151,6 +152,97 @@ namespace Operando_AdministrationConsole.Controllers
 
         public ActionResult Lock()
         {
+            return View();
+        }
+
+        public ActionResult AuthenticationRequest()
+        {
+            var dataSubject = new DataSubjectController();
+
+            List<OSPPrivacyPolicy> availableOSPs = dataSubject.GetAuthorisedOspList();
+            ViewBag.ospList = availableOSPs;
+            return View();
+        }
+
+        /* Method modified by IT Innovation Centre 2016 */
+        [HttpPost]
+        public ActionResult AuthenticationRequest(Models.RegisterViewModel rvm)
+        {
+            Debug.Print("REGISTRATION: " + rvm.ToString());
+            if (ModelState.IsValid)
+            {
+                Debug.Print("REGISTRATION is valid.");
+                ModelState.Clear();
+                string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+                var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+                try
+                {
+                    User user = new User(rvm.Username, rvm.Password);
+                    List<eu.operando.interfaces.aapi.Model.Attribute> optAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", rvm.Usertype));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", rvm.Fullname));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("email", rvm.Email));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("address", rvm.Address));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("city", rvm.City));
+                    optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("country", rvm.Country));
+                    user.OptionalAttrs = optAttributes;
+
+                    List<eu.operando.interfaces.aapi.Model.PrivacySetting> privacySettings = new List<eu.operando.interfaces.aapi.Model.PrivacySetting>();
+                    privacySettings.Add(new eu.operando.interfaces.aapi.Model.PrivacySetting("string", "string"));
+                    user.PrivacySettings = privacySettings;
+
+                    List<eu.operando.interfaces.aapi.Model.Attribute> requiredAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
+                    requiredAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("string", "string"));
+                    user.RequiredAttrs = requiredAttributes;
+
+                    Debug.Print("USER to registration: " + user.ToJson());
+
+                    // register user
+                    var usr = userInstance.AapiUserRegisterPost(user);
+                    Debug.Print("USER reg sesponse: " + usr.ToJson());
+
+                    // create an empty UPP
+                    var dataSubject = new DataSubjectController();
+                    List<OSPPrivacyPolicy> availableOSPs = dataSubject.GetAuthorisedOspList();
+                    OSPPrivacyPolicy selectedOSP = null;
+                    foreach(var osp in availableOSPs)
+                    {
+                        if(osp.PolicyUrl == rvm.Osp)
+                        {
+                            selectedOSP = osp;
+                            break;
+                        }
+                    }
+                    string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+                    string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+                    
+                    var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+                    configuration.AddDefaultHeader(stHeaderName, dataSubject.GetServiceTicket());
+
+                    //var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+                                        
+                    var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
+
+                    OSPConsents newConsent = new OSPConsents();
+                    newConsent.OspId = selectedOSP.PolicyUrl;
+                    newConsent.AccessPolicies = selectedOSP.Policies;
+
+                    UserPrivacyPolicy userUPP = new UserPrivacyPolicy();
+                    userUPP.UserId = rvm.Username;
+                    userUPP.SubscribedOspPolicies = new List<OSPConsents>() { newConsent };
+                    userUPP.SubscribedOspSettings = new List<OSPSettings>();
+                    userUPP.UserPreferences = new List<UserPreference>();
+                    postInstance.UserPrivacyPolicyPost(userUPP);
+                }
+                catch (Exception e)
+                {
+                    Debug.Print("Exception when calling: " + e.Message);
+                }
+                ViewBag.Message = rvm.Username + " successfully registered";
+
+                return RedirectToAction("Index", "Dashboard");
+                //return RedirectToAction("Login", "Access");
+            }
             return View();
         }
     }

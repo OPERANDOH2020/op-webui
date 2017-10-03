@@ -58,28 +58,11 @@
                                                     @{  int metaCount = 1;}
                                                     @foreach (var metaVal in statement.qObj.Meta.Split(','))
                                                     {
-                                                        <label class="col-lg-1 col-md-1 col-xs-2">
-                                                            <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.qId)" class="icheck" value="@metaCount"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> @metaCount</div>
+                                                        <label class="col-lg-3 col-md-3 col-xs-5">
+                                                            <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.qId)" class="icheck" value="@metaCount"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins><br/>@metaVal</div>
                                                         </label>
                                                         metaCount += 1;
-                                                    }
-                                                    @*
-                                                    <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="1"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 1</div>
-                                                    </label>
-                                                    <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="2"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 2 </div>
-                                                    </label>
-                                                    <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="3"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 3</div>
-                                                    </label>
-                                                    <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="4"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> 4</div>
-                                                    </label>
-                                                    <label class="col-lg-1 col-md-1 col-xs-2">
-                                                        <div class="iradio_minimal-grey" style="position: relative;"><input type="radio" name="radio@(statement.Rating)" class="icheck" value="5"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> <span class="valore10">5</span></div>
-                                                    </label>
-                                                        *@
+                                                    }                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -124,7 +107,12 @@
                                 Continue
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                            <a href="javascript:;" class="btn button-submit yellow-gold btn-success yellow-gold mt-sweetalert" onclick="document.forms[0].submit();return false;" data-title="Success" data-message="Success message" data-type="success" data-allow-outside-click="true" data-confirm-button-class="btn-success" style="display: none;">
+                            <a href="javascript:;" class="btn button-submit yellow-gold btn-success yellow-gold"
+                               onclick="document.forms[0].submit();return false;" 
+                               data-title="Success" data-message="Success message" 
+                               data-type="success" data-allow-outside-click="true" 
+                               data-confirm-button-class="btn-success"
+                               style="display: none;">
                                 Submit <i class="fa fa-check"></i>
                             </a>
                         </div>

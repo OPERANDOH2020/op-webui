@@ -249,6 +249,21 @@
                     </a>
                 </li>
             }
+
+@if (allView || osp_admin)
+            {
+    <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UpdatePolicy")
+                { @activeClass }'>
+        <a href="@Url.Action("UpdatePolicy", "OspAdmin")" class="nav-link ">
+            <i class="icon-users"></i>
+            <span class="title">Update Policy Preferences</span>
+            @if (currentController == "OspAdmin" && currentAction == "UpdatePolicy")
+            {
+                @:<span class="selected"></span>
+                        }
+        </a>
+    </li>
+}
                 @*</ul></li>*@
 
         @* ---------------------------------------------------------------------------- *@
@@ -280,6 +295,20 @@
                 </a>
             </li>
         }
+@if (allView || psp_admin)
+{
+    <li class='nav-item @if (currentController == "Access" && currentAction == "AuthenticationRequest")
+                    { @activeClass }'>
+        <a href="@Url.Action("AuthenticationRequest", "Access")" class="nav-link ">
+            <i class="icon-users"></i>
+            <span class="title">Authentication Request</span>
+            @if (currentController == "Access" && currentAction == "AuthenticationRequest")
+            {
+                @:<span class="selected"></span>
+                                }
+        </a>
+    </li>
+}
         @*</ul>
         </li>*@
 

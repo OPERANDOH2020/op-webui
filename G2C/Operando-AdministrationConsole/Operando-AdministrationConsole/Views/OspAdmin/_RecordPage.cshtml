@@ -1,0 +1,340 @@
+﻿<!--Created by IT Innovation Centre, Christopher Coles, 06/09/2017-->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+        }
+        /* Style the tab */
+        .content {
+            width: 70%;
+            border-left: none;
+            height: 300px;
+            border: 1px solid black;
+            outline-style: double;
+            outline-color: red;
+            overflow-y: scroll;
+        }
+
+
+
+
+        .inputbutton {
+            background-color: orange;
+            border: none;
+            color: white;
+            padding: 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .setbutton {
+            background-color: orange;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .deletebutton {
+            background-color: #ff0000;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .pastearea {
+            display: none;
+        }
+
+
+        /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+        .show {
+            display: block;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <button class="inputbutton" onclick="toggleodata()">Input OData</button>
+    <button class="addRole" onclick="addRole()">Add Role</button>
+    <button class="addResource" onclick="addResource()">Add Resource</button>
+    <div class="pastearea" id="pastearea" style="display:none">
+        <textarea rows="4" cols="50" id="odatatextarea">Paste OData here</textarea>
+        <button onclick="submitOdata('@ViewBag.osp.OspPolicyId')">submit OData</button>
+    </div>
+    <div class="inputarea" id="roleinput" style="display:none">
+        <textarea rows="1" cols="20" id="roleinputtext">input role here</textarea>
+        <button onclick="submitRole('@ViewBag.osp.OspPolicyId')">submit role</button>
+    </div>
+    <div class="inputarea" id="resourceinput"  style="display:none">
+        <textarea rows="1" cols="20" id="resourceinputtext">input resource here</textarea>
+        <button onclick="submitResource('@ViewBag.osp.OspPolicyId')">submit resource</button>
+    </div>
+
+    @ViewBag.osp.PolicyUrl
+
+    <div class="content">
+        
+        @{ int rowIdNumber = 0;}
+        @foreach (var role in ViewBag.roles)
+        {
+            @role 
+            <button onclick="removeRole('@role','@ViewBag.osp.OspPolicyId' )">Remove '@role' role</button>
+            <table class="table table-bordered table-condensed table-hover table-striped">
+
+                <thead>
+                    <tr>
+                        <th>Resource</th>
+                        <th>Collect</th>
+                        <th>Create</th>
+                        <th>Delete</th>
+                        <th>Update</th>
+                        <th>Access</th>
+                        <th>Use</th>
+                        <th>Disclose</th>
+                        <th>Archive</th>    
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @{ List<AccessPolicy> policyList = ViewBag.roleDictionary[role];
+                        HashSet<string> resources = ViewBag.roleResourceDictionary[role];}
+                    @foreach (var resource in resources)
+                    {
+                        {
+                            rowIdNumber++;
+                        }
+                        <tr hidden>
+                            <td id="@(rowIdNumber)role" hidden>@role</td>
+                        </tr>
+                        <tr id="@(rowIdNumber)row">
+                       <td id="@(rowIdNumber)resource">@resource</td>
+                            @foreach (var action in ViewBag.actionList)
+                            {
+                                if (policyList.Any(p => p.Action.Equals(action) && p.Resource.Equals(resource)))
+                                {
+                                    int index = policyList.FindIndex(p => p.Action.Equals(action) && p.Resource.Equals(resource));
+                                    AccessPolicy policy = policyList[index];
+                                    if (policy.Permission.Equals(true))
+                                    {
+                                        <td>
+                                            <select id="@(rowIdNumber)@(action)">
+                                                <option value="true" selected="selected">True</option>
+                                                <option value="false">False</option>
+                                                <option value="ignore">Ignore</option>
+                                            </select>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <select id="@(rowIdNumber)@(action)">
+                                                <option value="true">True</option>
+                                                <option value="false" selected="selected">False</option>
+                                                <option value="ignore">Ignore</option>
+                                            </select>
+                                        </td>
+                                    }
+                                }
+                                else
+                                {
+                                    <td>
+                                        <select id="@(rowIdNumber)@(action)">
+                                            <option value="true">True</option>
+                                            <option value="false">False</option>
+                                            <option value="ignore" selected="selected">Ignore</option>
+                                        </select>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    }
+
+
+            </tbody>
+
+        </table>
+                        }
+
+                </div>
+
+                <button class="setbutton" onclick="setRecords(@rowIdNumber)">Set Records</button>
+                <div id="responseText"></div>
+
+<script type="text/javascript">
+
+        function toggleodata() {
+            var div = document.getElementById("pastearea");
+            div.style.display = div.style.display == "none" ? "block" : "none";
+        }
+
+        function addRole() {
+            var div = document.getElementById("roleinput");
+            div.style.display = div.style.display == "none" ? "block" : "none";
+        }
+        function addResource() {
+            var div = document.getElementById("resourceinput");
+            div.style.display = div.style.display == "none" ? "block" : "none";
+        }
+        function submitOdata(OspPolicyId) {
+            var odata = document.getElementById("odatatextarea").value;
+            $.ajax({
+                type: "put",
+                data: { OspPolicyId: OspPolicyId, odatainput: odata },
+                url: '@Url.Action("addRecord", "OspAdmin")',
+                success: successFunc,
+                error: errorFunc
+            });
+
+            function successFunc(data, status) {
+                alert('Odata Record Added, please reload page to see updates');
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+        }
+        function submitRole(OspPolicyId) {
+            var role = document.getElementById("roleinputtext").value;
+            $.ajax({
+                type: "put",
+                data: { OspPolicyId: OspPolicyId, role: role },
+                url: '@Url.Action("addRole", "OspAdmin")',
+                success: successFunc,
+                error: errorFunc
+            });
+
+            function successFunc(data, status) {
+                alert('Role Added, please reload page to see updates');
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+        }
+
+
+        function submitResource(OspPolicyId) {
+            var resource = document.getElementById("resourceinputtext").value;
+            $.ajax({
+                type: "put",
+                data: { OspPolicyId: OspPolicyId, resource: resource },
+                url: '@Url.Action("addResource", "OspAdmin")',
+                success: successFunc,
+                error: errorFunc
+            });
+
+            function successFunc(data, status) {
+                alert('Resource added, please reload page to see updates');
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+        }
+
+        function removeRole(role, OspPolicyId) {
+            $.ajax({
+                type: "put",
+                data: { OspPolicyId: OspPolicyId, role: role },
+                url: '@Url.Action("removeRole", "OspAdmin")',
+                success: successFunc,
+                error: errorFunc
+            });
+
+            function successFunc(data, status) {
+                alert('Role removed, please reload page to see updates');
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+        }
+
+
+        function setRecords(numberOfRows) {
+            var rolearr = new Array();
+            var resourcearr = new Array();
+            var collectarr = new Array();
+            var createarr = new Array();
+            var deletearr = new Array();
+            var updatearr = new Array();
+            var accessarr = new Array();
+            var usearr = new Array();
+            var disclosearr = new Array();
+            var archivearr = new Array();
+
+            for (i = 1; i <= numberOfRows; i++) {
+                var role = document.getElementById(i + "role").innerText;
+                rolearr.push(role);
+                var resource = document.getElementById(i + "resource").innerText;
+                resourcearr.push(resource);
+                var categorySelectorCollect = document.getElementById(i + "Collect");
+                var collectvar = categorySelectorCollect.options[categorySelectorCollect.selectedIndex].text;
+                collectarr.push(collectvar);
+                var categorySelectorCreate = document.getElementById(i + "Create");
+                var createvar = categorySelectorCreate.options[categorySelectorCreate.selectedIndex].text;
+                createarr.push(createvar);
+                var categorySelectorDelete = document.getElementById(i + "Delete");
+                var deletevar = categorySelectorDelete.options[categorySelectorDelete.selectedIndex].text;
+                deletearr.push(deletevar);
+                var categorySelectorUpdate = document.getElementById(i + "Update");
+                var updatevar = categorySelectorUpdate.options[categorySelectorUpdate.selectedIndex].text;
+                updatearr.push(updatevar);
+                var categorySelectorAccess = document.getElementById(i + "Access");
+                var accessvar = categorySelectorAccess.options[categorySelectorAccess.selectedIndex].text;
+                accessarr.push(accessvar);
+                var categorySelectorUse = document.getElementById(i + "Use");
+                var usevar = categorySelectorUse.options[categorySelectorUse.selectedIndex].text;
+                usearr.push(usevar);
+                var categorySelectorDisclose = document.getElementById(i + "Disclose");
+                var disclosevar = categorySelectorDisclose.options[categorySelectorDisclose.selectedIndex].text;
+                disclosearr.push(disclosevar);
+                var categorySelectorArchive = document.getElementById(i + "Archive");
+                var archivevar = categorySelectorArchive.options[categorySelectorArchive.selectedIndex].text;
+                archivearr.push(archivevar);
+            }
+
+            $.ajax({
+                    type: "put",
+                    data: { rolearr: rolearr, resourcearr: resourcearr, collectarr: collectarr, createarr: createarr, deletearr: deletearr, updatearr: updatearr, accessarr: accessarr, usearr: usearr, disclosearr: disclosearr, archivearr: archivearr},
+                    url: '@Url.Action("updateAccessPolicy", "OspAdmin")',
+                    success: successfunc,
+                    error: errorFunc
+            });
+
+            function successfunc() {
+                alert('Updated policies, please reload page to see updates');
+            }
+            function errorFunc() {
+                alert('error');
+            }
+        }
+
+                </script>
+
+            </body>
+        </html>

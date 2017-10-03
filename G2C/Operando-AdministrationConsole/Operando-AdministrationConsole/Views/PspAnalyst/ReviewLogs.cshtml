@@ -1,0 +1,63 @@
+﻿<!--Created by IT Innovation Centre, Christopher Coles, 06/09/2017-->
+@{
+    ViewBag.MenuSection = "PSP Analyst";
+    ViewBag.Title = "Review Logs";
+    Layout = "~/Views/Shared/_LayoutOperando.cshtml";
+}
+@using Operando_AdministrationConsole.Models;
+@using Operando_AdministrationConsole.Extension;
+
+<select id="selector">
+    @foreach (var osp in ViewBag.ospList)
+    {
+
+        <option>@osp.PolicyUrl/@osp.OspPolicyId</option>
+   
+    }
+            </select>
+
+<table>
+    <tr>
+        <th></th>
+        <th>day</th>
+        <th>month</th>
+        <th>year</th>
+    </tr>
+    <tr>
+        <td>start date</td>
+        <td><input type="number" id="startday" min="1" max="31" /></td>
+        <td><input type="number" id="startmonth" min="1" max="12" /></td>
+        <td><input type="number" id="startyear" min="2016" max="2018" /></td>
+    </tr>
+    <tr>
+        <td>end date</td>
+        <td><input type="number" id="endday" min="1" max="31" /></td>
+        <td><input type="number" id="endmonth" min="1" max="12" /></td>
+        <td><input type="number" id="endyear" min="2016" max="2018" /></td>
+    </tr>
+    
+</table>
+    
+ <div id="resultDiv"></div>
+<button style="display:none" id="notificationButton">Send notification to OSP that behaviour is invalid</button>
+<button onclick="submitRequest()">Submit request for report evaluation</button>
+<script type="text/javascript">
+    function submitRequest() {
+        document.getElementById("notificationButton").style.display = "block";
+        var selector = document.getElementById("selector");
+        var OSPId = selector.options[selector.selectedIndex].text;
+        var startday = document.getElementById("startday").value;
+        var startmonth = document.getElementById("startmonth").value;
+        var startyear = document.getElementById("startyear").value;
+        var endday = document.getElementById("endday").value;
+        var endmonth = document.getElementById("endmonth").value;
+        var endyear = document.getElementById("endyear").value;
+        	$.getJSON('@Url.Action("ReportEvaluation", "PspAnalyst")', { OSPId: OSPId, startday: startday, startmonth: startmonth, startyear: startyear, endday: endday, endmonth: endmonth, endyear: endyear },
+            function (data) {
+                document.getElementById("resultDiv").innerHTML = data;
+            }
+        );
+      
+
+    }
+</script>
