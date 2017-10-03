@@ -1,5 +1,4 @@
 ﻿using HtmlAgilityPack;
-using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,10 +6,12 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.Data.SqlClient;
+using SharpConnect.MySql;
+using SharpConnect.MySql.SyncPatt;
 
 public class RestReportsHandler : IHttpHandler
 {
@@ -331,22 +332,23 @@ public class RestReportsHandler : IHttpHandler
         }
         #endregion
 
+        
         MySqlConnection connection = null;
         MySqlDataReader reader = null;
 
         try
         {
-            connection = new MySqlConnection();
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+            connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString);
             connection.Open();
 
             string query = "SELECT * FROM t_report_mng_list where id = " + idReport;
             MySqlCommand cmd = new MySqlCommand(query, connection);
             reader = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(reader);
 
-            if (dt.Rows.Count <= 0)
+            /*DataTable dt = new DataTable();
+            dt.Load(reader);*/
+
+            if (!reader.HasRows)
             {
                 context.Response.StatusCode = 404;
                 context.Response.StatusDescription = "Report not found";
@@ -357,10 +359,12 @@ public class RestReportsHandler : IHttpHandler
             }
             else
             {
-                string reportLocation = dt.Rows[0]["Location"].ToString();
+                reader.Read();
+
+                string reportLocation = reader.GetString("Location"); // dt.Rows[0]["Location"].ToString();
                 string reportFileName = "";
 
-                string parametri = dt.Rows[0]["Parameters"].ToString();
+                string parametri = reader.GetString("Parameters"); //dt.Rows[0]["Parameters"].ToString();
                 string[] arrayParametri = parametri.Split('&');
                 foreach (string parametro in arrayParametri)
                 {
@@ -368,8 +372,8 @@ public class RestReportsHandler : IHttpHandler
                         reportFileName = parametro.Split('=')[1];
                 }
 
-                string reportName = dt.Rows[0]["Report"].ToString();
-                string reportDescription = dt.Rows[0]["Description"].ToString();
+                string reportName = reader.GetString("Report"); //dt.Rows[0]["Report"].ToString();
+                string reportDescription = reader.GetString("Description"); //dt.Rows[0]["Description"].ToString();
 
                 reportLocation = reportLocation.Replace("/frameset", "/preview");
                 reportLocation += "?__format=" + reportFormat;
