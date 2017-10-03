@@ -1,39 +1,46 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"  %>
-<%@ Import Namespace="MySql.Data" %>
-<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Import Namespace="SharpConnect.MySql" %>
+<%@ Import Namespace="SharpConnect.MySql.SyncPatt" %>
+
 <script runat="server">
 
     public void Page_Load(Object o , EventArgs e)
     {
-        string ID = Request.Form["ID"]; 
+        string ID = Request.Form["ID"];
         string Report = Request.Form["Report"].Replace("'","''");
         string Description = Request.Form["Description"].Replace("'", "''");
         string Version = Request.Form["Version"].Replace("'", "''");
         string Location = Request.Form["Location"].Replace("'", "''");
         string Parameters = Request.Form["Parameters"].Replace("'", "''");
         string OSPs = Request.Form["OSPs"].Replace("'", "''").Remove(0,1);
-        
-        MySqlConnection connection = new MySqlConnection();
-        connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+
+        MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString);
 
         connection.Open();
-        MySqlCommand cmd = new MySqlCommand();
-        cmd.Connection = connection;
+        MySqlCommand cmd = null;
+        String sql = "";
 
         if (ID=="0")
         {
-            cmd.CommandText = "INSERT INTO t_report_mng_list (Report, Description, Version, Location, Parameters, OSPs) VALUES ('" + Report + "','" + Description + "','" + Version + "','" + Location + "','" + Parameters + "','" + OSPs + "')";
+            sql = "INSERT INTO t_report_mng_list (Report, Description, Version, Location, Parameters, OSPs) VALUES ('" + Report + "','" + Description + "','" + Version + "','" + Location + "','" + Parameters + "','" + OSPs + "')";
+            cmd = new MySqlCommand(sql,connection);
             cmd.ExecuteNonQuery();
         }
         else
         {
-            cmd.CommandText = "UPDATE t_report_mng_list SET Report='" + Report + "',Description='" + Description + "',Version='" + Version + "',Location='" + Location + "',Parameters='" + Parameters + "',OSPs='" + OSPs + "' WHERE ID= " + ID;
+            sql = "UPDATE t_report_mng_list SET Report='" + Report + "',Description='" + Description + "',Version='" + Version + "',Location='" + Location + "',Parameters='" + Parameters + "',OSPs='" + OSPs + "' WHERE ID= " + ID;
+            cmd = new MySqlCommand(sql,connection);
             cmd.ExecuteNonQuery();
-            cmd.CommandText = "UPDATE t_report_mng_results R SET R.Report='" + Report + "' WHERE IDreport= " + ID;
+
+            sql = "UPDATE t_report_mng_results R SET R.Report='" + Report + "' WHERE IDreport= " + ID;
+            cmd = new MySqlCommand(sql,connection);
             cmd.ExecuteNonQuery();
-            cmd.CommandText = "UPDATE t_report_mng_schedules R SET R.Report='" + Report + "' WHERE IDreport= " + ID;
+
+            sql = "UPDATE t_report_mng_schedules R SET R.Report='" + Report + "' WHERE IDreport= " + ID;
+            cmd = new MySqlCommand(sql,connection);
             cmd.ExecuteNonQuery();
         }
+
 
         connection.Close();
     }

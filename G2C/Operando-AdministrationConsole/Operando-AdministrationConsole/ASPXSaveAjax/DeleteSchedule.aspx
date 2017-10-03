@@ -1,22 +1,22 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"  %>
-<%@ Import Namespace="MySql.Data" %>
-<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Import Namespace="SharpConnect.MySql" %>
+<%@ Import Namespace="SharpConnect.MySql.SyncPatt" %>
+
 <script runat="server">
 
     public void Page_Load(Object o , EventArgs e)
     {
-        string ID = Request.Form["ID"]; 
-        
-        MySqlConnection connection = new MySqlConnection();
-        connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+        string ID = Request.Form["ID"];
+
+        MySqlConnection connection = new MySqlConnection( ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString);
 
         connection.Open();
-        MySqlCommand cmd = new MySqlCommand();
-        cmd.Connection = connection;
 
-        cmd.CommandText = "DELETE FROM t_report_mng_schedules WHERE ID=" + ID;
+        String sql = "DELETE FROM t_report_mng_schedules WHERE ID=" + ID;
 
+        MySqlCommand cmd = new MySqlCommand(sql,connection);
         cmd.ExecuteNonQuery();
+
         connection.Close();
     }
 

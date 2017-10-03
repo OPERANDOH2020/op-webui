@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" Debug="true"%>
 
-<%@ Import Namespace="MySql.Data" %>
-<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Import Namespace="SharpConnect.MySql" %>
+<%@ Import Namespace="SharpConnect.MySql.SyncPatt" %>
 
 <script runat="server">
 
@@ -136,21 +136,22 @@
         }
         NextScheduled = NextScheduledDate.ToString("yyyy-MM-dd HH:mm:ss");
 
-        MySqlConnection connection = new MySqlConnection();
-        connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+        MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString);
 
         connection.Open();
-        MySqlCommand cmd = new MySqlCommand();
-        cmd.Connection = connection;
+        
+        String sql = "";
 
         if (ID=="0")
         {
-            cmd.CommandText = "INSERT INTO t_report_mng_schedules(OSPs, Report, StartDate, RepeatEveryNumb, RepeatEveryType, DayOfWeek, StoragePeriodNumb, StoragePeriodType, DescriptionSchedules,NextScheduled,Lastrun,GiornoMese, GiornoAnno,Description,Version,IDReport) VALUES ('" + OSPs + "','" + Report + "', '" + StartDate + "','" + RepeatEveryNumb + "','" + RepeatEveryType + "','" + DayOfWeek + "','" + StoragePeriodNumb + "','" + StoragePeriodType + "','" + DescriptionSchedules + "','" + NextScheduled + "',null ,'" + DayOfMonth + "','" + DayOfYear + "','"+Description+"','"+Version+"','"+IDReport+"')";
+            sql = "INSERT INTO t_report_mng_schedules(OSPs, Report, StartDate, RepeatEveryNumb, RepeatEveryType, DayOfWeek, StoragePeriodNumb, StoragePeriodType, DescriptionSchedules,NextScheduled,Lastrun,GiornoMese, GiornoAnno,Description,Version,IDReport) VALUES ('" + OSPs + "','" + Report + "', '" + StartDate + "','" + RepeatEveryNumb + "','" + RepeatEveryType + "','" + DayOfWeek + "','" + StoragePeriodNumb + "','" + StoragePeriodType + "','" + DescriptionSchedules + "','" + NextScheduled + "',null ,'" + DayOfMonth + "','" + DayOfYear + "','"+Description+"','"+Version+"','"+IDReport+"')";
         }
         else
         {
-            cmd.CommandText = "UPDATE t_report_mng_schedules SET OSPs='" + OSPs + "',Report='" + Report + "',StartDate='" + StartDate + "',RepeatEveryNumb='" + RepeatEveryNumb + "',RepeatEveryType='" + RepeatEveryType + "',DayOfWeek='" + DayOfWeek + "',StoragePeriodNumb='" + StoragePeriodNumb + "',StoragePeriodType='" + StoragePeriodType + "',DescriptionSchedules='" + DescriptionSchedules + "',NextScheduled='" + NextScheduled +"', GiornoMese='" + DayOfMonth + "', GiornoAnno='" + DayOfYear + "' WHERE ID=" + ID;
+            sql = "UPDATE t_report_mng_schedules SET OSPs='" + OSPs + "',Report='" + Report + "',StartDate='" + StartDate + "',RepeatEveryNumb='" + RepeatEveryNumb + "',RepeatEveryType='" + RepeatEveryType + "',DayOfWeek='" + DayOfWeek + "',StoragePeriodNumb='" + StoragePeriodNumb + "',StoragePeriodType='" + StoragePeriodType + "',DescriptionSchedules='" + DescriptionSchedules + "',NextScheduled='" + NextScheduled +"', GiornoMese='" + DayOfMonth + "', GiornoAnno='" + DayOfYear + "' WHERE ID=" + ID;
         }
+
+        MySqlCommand cmd = new MySqlCommand(sql,connection);
         try
         {
             cmd.ExecuteNonQuery();

@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using SharpConnect.MySql;
+using SharpConnect.MySql.SyncPatt;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -49,22 +50,22 @@ namespace Operando_AdministrationConsole.Controllers
             reportManager.schedulesObj = new Schedules();
 
             
-            MySqlConnection connection = new MySqlConnection();
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
-            
+            MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString);
+                        
             // creo la lista dei report
             Reports reports = new Reports();
             reportManager.reportsObj.ReportList = new List<Reports>();
 
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = connection;
+            MySqlCommand cmd = null;
 
             try
             {
 
                 connection.Open();
 
-                cmd.CommandText ="select * from t_report_mng_list ";
+                String sql = "select * from t_report_mng_list ";
+                cmd = new MySqlCommand(sql,connection);
+                
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -126,15 +127,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -148,7 +149,9 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_list where Report not IN (Select DISTINCT report FROM t_report_mng_schedules)";
+                String sql = "select * from t_report_mng_list where Report not IN (Select DISTINCT report FROM t_report_mng_schedules)";
+
+                cmd = new MySqlCommand(sql,connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -210,15 +213,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -234,7 +237,9 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_results ";
+                String sql = "select * from t_report_mng_results ";
+
+                cmd = new MySqlCommand(sql, connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -287,15 +292,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -309,11 +314,13 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = @"select A.Report, LR.Lastrun, NS.NextScheduled 
+                String sql = @"select A.Report, LR.Lastrun, NS.NextScheduled 
                 from t_report_mng_schedules A
                 join (select report, MAX(Lastrun) as Lastrun from t_report_mng_schedules Group By Report) LR ON LR.report = A.report
                 join (select report, MIN(NextScheduled) as NextScheduled from t_report_mng_schedules Group By Report) NS ON NS.report = A.report
                 Group By A.Report";
+
+                cmd = new MySqlCommand(sql, connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -370,15 +377,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -393,7 +400,8 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_schedules";
+                String sql = "select * from t_report_mng_schedules";
+                cmd = new MySqlCommand(sql, connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -538,15 +546,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }

@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <%@ Import Namespace="System.Net" %>
 <%@ Import Namespace="System.Net.Mail" %>
-<%@ Import Namespace="MySql.Data" %>
-<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Import Namespace="SharpConnect.MySql" %>
+<%@ Import Namespace="SharpConnect.MySql.SyncPatt" %>
 <%@ Import Namespace="RestSharp" %>
 <%@ Import Namespace="System.Diagnostics" %>
 
@@ -43,17 +43,16 @@
             var content = response.Content; // raw content as string
                                             //Debug.Assert(content.IndexOf("Queued. Thank you.")>=0, "Error on send mail");
 
-            MySqlConnection connection = new MySqlConnection();
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+            MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString);
 
             connection.Open();
 
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = connection;
+            String Sql = "INSERT INTO t_report_mng_request (InsertDate, Name, Email, Description) VALUES ('" + theDate.ToString("yyyy-MM-dd H:mm:ss") + "','" + nameRequest + "','" + emailRequest + "','" + descriptionRequest + "')";
+
+            MySqlCommand cmd = new MySqlCommand(Sql,connection);
 
             DateTime theDate = DateTime.Now;
-
-            cmd.CommandText = "INSERT INTO t_report_mng_request (InsertDate, Name, Email, Description) VALUES ('" + theDate.ToString("yyyy-MM-dd H:mm:ss") + "','" + nameRequest + "','" + emailRequest + "','" + descriptionRequest + "')";
+            
             try
             {
                 cmd.ExecuteNonQuery(); 
