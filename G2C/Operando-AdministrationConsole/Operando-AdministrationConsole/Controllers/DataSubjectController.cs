@@ -2,21 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Operando_AdministrationConsole.Models;
-using System.Net;
-using Newtonsoft.Json;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
 using System.Configuration;
 using System.Linq;
 using eu.operando.interfaces.aapi;
-using System.Threading.Tasks;
-using System.Net.Http;
 using eu.operando.core.ldb;
 using Operando_AdministrationConsole.Models.DataSubjectModels;
-using System.Text;
 using eu.operando.interfaces.aapi.Model;
 using eu.operando.core.pc.pq.Model;
-using System.Text.RegularExpressions;
 using Operando_AdministrationConsole.Helper;
 
 namespace Operando_AdministrationConsole.Controllers
@@ -210,23 +204,6 @@ namespace Operando_AdministrationConsole.Controllers
             return View(opsModList);
         }
 
-        private string getCategory(AccessPolicy ap)
-        {
-            string category = "";
-            foreach(var attr in ap.Attributes)
-            {
-                if(attr.AttributeName != null)
-                {
-                if (attr.AttributeName.ToString() == "category")
-                {
-                    category = attr.AttributeValue.ToString();
-                        break;
-                    }
-                }
-            }
-            return category;
-        }
-
         private List<ModOSPConsents> GroupAP(List<OSPConsents> consents, string selctedOspId)
         {
             List<ModOSPConsents> modConsentsList = new List<ModOSPConsents>();
@@ -289,40 +266,6 @@ namespace Operando_AdministrationConsole.Controllers
             }
 
             return modConsentsList;
-        }
-
-        private Dictionary<string, Dictionary<string, List<AccessPolicy>>> sortMyAP(List<AccessPolicy> apList)
-        {
-            Dictionary<string, Dictionary<string, List<AccessPolicy>>> sortedAP =
-                new Dictionary<string, Dictionary<string, List<AccessPolicy>>>();
-            string category;
-            foreach (AccessPolicy ap in apList)
-            {
-                category = getCategory(ap);
-                if (sortedAP.ContainsKey(ap.Subject))
-                {
-                    if (sortedAP[ap.Subject].ContainsKey(category))
-                    {
-                        sortedAP[ap.Subject][category].Add(ap);
-                    }
-                    else
-                    {                        
-                        List<AccessPolicy> subjectCategoryList = new List<AccessPolicy>();
-                        subjectCategoryList.Add(ap);
-                        sortedAP[ap.Subject].Add(category, subjectCategoryList);
-                    }
-                } 
-                else
-                {
-                    Dictionary<string, List<AccessPolicy>> innerDict = new Dictionary<string, List<AccessPolicy>>();
-                    List<AccessPolicy> subjectCategoryList = new List<AccessPolicy>();
-                    subjectCategoryList.Add(ap);
-                    innerDict.Add(category, subjectCategoryList);
-                    sortedAP.Add(ap.Subject, innerDict);
-                }
-            }
-
-            return sortedAP;
         }
         
         /* Method modified by IT Innovation Centre 2016 */
