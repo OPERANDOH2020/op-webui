@@ -97,6 +97,10 @@
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SharpConnect.MySql, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SharpConnect.MySql\SharpConnect.MySql.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -5926,10 +5930,6 @@
     <ProjectReference Include="..\eu_operando_core_pdb.cli\src\IO.Swagger\eu.operando.core.pdb.cli.csproj">
       <Project>{48ac054b-9a99-4212-b345-6037b35574e8}</Project>
       <Name>eu.operando.core.pdb.cli</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharpConnect.MySql.Net20\SharpConnect.MySql.Net20.csproj">
-      <Project>{94d01ede-0499-422f-8081-90d94ad163fa}</Project>
-      <Name>SharpConnect.MySql.Net20</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
