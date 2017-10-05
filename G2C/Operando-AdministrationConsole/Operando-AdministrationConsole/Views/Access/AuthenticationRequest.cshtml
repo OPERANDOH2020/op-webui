@@ -4,6 +4,8 @@
     ViewBag.BodyCssClass = "login";
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
+@using eu.operando.core.pdb.cli.Model;
+@Model IList<OSPPrivacyPolicy>
 
 <!-- BEGIN LOGO -->
 <div class="m-heading-1 border-grey-silver m-bordered">
@@ -285,6 +287,17 @@
                             <option value="ZW">Zimbabwe</option>
                         </select>
                     </div>
+                    <p class="hint">Choose your OSP:</p>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Country</label>
+                        <select name="osp" class="form-control">
+                            @foreach (var osp in ViewBag.ospList)
+                            {
+                                <option value="@osp.PolicyUrl">@osp.PolicyUrl</option>
+                            }
+                        </select>
+                    </div>
+
                     <p class="hint"> Enter your account details below: </p>
                     <div class="form-group">
                         <label class="control-label visible-ie8 visible-ie9">User type</label>

@@ -1,4 +1,5 @@
-﻿using eu.operando.interfaces.aapi.Model;
+﻿using eu.operando.core.pdb.cli.Model;
+using eu.operando.interfaces.aapi.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -156,6 +157,10 @@ namespace Operando_AdministrationConsole.Controllers
 
         public ActionResult AuthenticationRequest()
         {
+            var dataSubject = new DataSubjectController();
+
+            List<OSPPrivacyPolicy> availableOSPs = dataSubject.GetAuthorisedOspList();
+            ViewBag.ospList = availableOSPs;
             return View();
         }
 
@@ -195,6 +200,39 @@ namespace Operando_AdministrationConsole.Controllers
                     // register user
                     var usr = userInstance.AapiUserRegisterPost(user);
                     Debug.Print("USER reg sesponse: " + usr.ToJson());
+
+                    // create an empty UPP
+                    var dataSubject = new DataSubjectController();
+                    List<OSPPrivacyPolicy> availableOSPs = dataSubject.GetAuthorisedOspList();
+                    OSPPrivacyPolicy selectedOSP = null;
+                    foreach(var osp in availableOSPs)
+                    {
+                        if(osp.PolicyUrl == rvm.Osp)
+                        {
+                            selectedOSP = osp;
+                            break;
+                        }
+                    }
+                    string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+                    string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+                    
+                    var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+                    configuration.AddDefaultHeader(stHeaderName, dataSubject.GetServiceTicket());
+
+                    //var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+                                        
+                    var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
+
+                    OSPConsents newConsent = new OSPConsents();
+                    newConsent.OspId = selectedOSP.PolicyUrl;
+                    newConsent.AccessPolicies = selectedOSP.Policies;
+
+                    UserPrivacyPolicy userUPP = new UserPrivacyPolicy();
+                    userUPP.UserId = rvm.Username;
+                    userUPP.SubscribedOspPolicies = new List<OSPConsents>() { newConsent };
+                    userUPP.SubscribedOspSettings = new List<OSPSettings>();
+                    userUPP.UserPreferences = new List<UserPreference>();
+                    postInstance.UserPrivacyPolicyPost(userUPP);
                 }
                 catch (Exception e)
                 {
@@ -202,8 +240,8 @@ namespace Operando_AdministrationConsole.Controllers
                 }
                 ViewBag.Message = rvm.Username + " successfully registered";
 
-                //return RedirectToAction("Index", "Dashboard");
-                return RedirectToAction("Login", "Access");
+                return RedirectToAction("Index", "Dashboard");
+                //return RedirectToAction("Login", "Access");
             }
             return View();
         }

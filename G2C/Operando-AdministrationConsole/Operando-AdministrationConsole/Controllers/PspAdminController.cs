@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using SharpConnect.MySql;
+using SharpConnect.MySql.SyncPatt;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -49,22 +50,22 @@ namespace Operando_AdministrationConsole.Controllers
             reportManager.schedulesObj = new Schedules();
 
             
-            MySqlConnection connection = new MySqlConnection();
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
-            
+            MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString);
+                        
             // creo la lista dei report
             Reports reports = new Reports();
             reportManager.reportsObj.ReportList = new List<Reports>();
 
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = connection;
+            MySqlCommand cmd = null;
 
             try
             {
 
                 connection.Open();
 
-                cmd.CommandText ="select * from t_report_mng_list ";
+                String sql = "select * from t_report_mng_list ";
+                cmd = new MySqlCommand(sql,connection);
+                
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -126,15 +127,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -148,7 +149,9 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_list where Report not IN (Select DISTINCT report FROM t_report_mng_schedules)";
+                String sql = "select * from t_report_mng_list where Report not IN (Select DISTINCT report FROM t_report_mng_schedules)";
+
+                cmd = new MySqlCommand(sql,connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -210,15 +213,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -234,7 +237,9 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_results ";
+                String sql = "select * from t_report_mng_results ";
+
+                cmd = new MySqlCommand(sql, connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -287,15 +292,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -309,11 +314,13 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = @"select A.Report, LR.Lastrun, NS.NextScheduled 
+                String sql = @"select A.Report, LR.Lastrun, NS.NextScheduled 
                 from t_report_mng_schedules A
                 join (select report, MAX(Lastrun) as Lastrun from t_report_mng_schedules Group By Report) LR ON LR.report = A.report
                 join (select report, MIN(NextScheduled) as NextScheduled from t_report_mng_schedules Group By Report) NS ON NS.report = A.report
                 Group By A.Report";
+
+                cmd = new MySqlCommand(sql, connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -370,15 +377,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -393,7 +400,8 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_schedules";
+                String sql = "select * from t_report_mng_schedules";
+                cmd = new MySqlCommand(sql, connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -538,15 +546,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -564,23 +572,53 @@ namespace Operando_AdministrationConsole.Controllers
         public ActionResult UsersManagement()
         {
             List<ViewUser> users = new List<ViewUser>();
-            ViewUser user1 = new ViewUser();
-            user1.userName = "pm1";
-            user1.email = "pm1@operando.org";
-            user1.userType = "normal_user";
-            users.Add(user1);
 
-            ViewUser user2 = new ViewUser();
-            user2.userName = "pm2";
-            user2.email = "pm2@operando.org";
-            user2.userType = "osp_admin";
-            users.Add(user2);
+            var dataSubject = new DataSubjectController();
 
-            ViewUser user3 = new ViewUser();
-            user3.userName = "pm3";
-            user3.email = "pm3@operando.org";
-            user3.userType = "psp_admin";
-            users.Add(user3);
+            List<OSPPrivacyPolicy> availableOSPs = dataSubject.GetAuthorisedOspList();
+            ViewBag.ospList = availableOSPs;
+
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, dataSubject.GetServiceTicket());
+            var getInstance = new eu.operando.core.pdb.cli.Api.GETApi(configuration);
+
+            string userBasePath = ConfigurationManager.AppSettings["userAapiBasePath"];
+            var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
+
+            try
+            {
+                // get whole list of UPP from PDB in order to get the list of users
+                var filter = "{\"userId\" : \"\"}";
+                var uppUsersList = getInstance.UserPrivacyPolicyGet(filter);
+
+                foreach(var upp in uppUsersList)
+                {
+                    // get user profile from AAPI
+                    var usr = userInstance.UserUsernameGet(upp.UserId);
+                    ViewUser user = new ViewUser();
+                    Newtonsoft.Json.Linq.JObject jProfile = Newtonsoft.Json.Linq.JObject.Parse(usr.ToJson());
+                    foreach (var attr in jProfile["optionalAttrs"])
+                    {
+                        if (attr["attrName"].ToString() == "user_type")
+                        {
+                            user.userType = attr["attrValue"].ToString();
+                        }
+                        if (attr["attrName"].ToString() == "email")
+                        {
+                            user.email = attr["attrValue"].ToString();
+                        }
+                    }
+                    user.userName = upp.UserId;
+                    users.Add(user);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling: " + e.Message);
+            }
 
             return View(users);
         }

@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Operando_AdministrationConsole.Models;
-using MySql.Data.MySqlClient;
+using SharpConnect.MySql;
+using SharpConnect.MySql.SyncPatt;
 using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -73,23 +74,19 @@ namespace Operando_AdministrationConsole.Controllers
                 model.Results = new Results();
                 model.Requests = new Requests();
 
-            MySqlConnection connection = new MySqlConnection();
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+            MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString);
 
-
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = connection;
-
+            MySqlCommand cmd = null;
 
             // creo la lista dei result
-                model.Results.ResultList = new List<Results>();
+            model.Results.ResultList = new List<Results>();
 
             try
             {
 
                 connection.Open();
-
-                cmd.CommandText = "select * from T_report_mng_results ORDER BY ExecutionDate DESC Limit 0,3";
+                String sql = "select * from T_report_mng_results ORDER BY ExecutionDate DESC Limit 0,3";
+                cmd = new MySqlCommand(sql, connection);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -142,15 +139,15 @@ namespace Operando_AdministrationConsole.Controllers
                     reader.Close();
 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 //throw e;
                 Results results = new Results();
@@ -160,7 +157,7 @@ namespace Operando_AdministrationConsole.Controllers
                 results.Report = "Error";
                 results.ReportDescription = _mysqlDBError;
                 results.ReportVersion = "";
-                    model.Results.ResultList.Add(results);
+                model.Results.ResultList.Add(results);
             }
             connection.Close();
 
@@ -173,8 +170,8 @@ namespace Operando_AdministrationConsole.Controllers
 
                 connection.Open();
 
-                cmd.CommandText = "select * from t_report_mng_request ORDER BY InsertDate DESC Limit 0,2";
-
+                String sql = "select * from t_report_mng_request ORDER BY InsertDate DESC Limit 0,2";
+                cmd = new MySqlCommand(sql, connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 try
@@ -212,15 +209,15 @@ namespace Operando_AdministrationConsole.Controllers
                     }
                     reader.Close(); 
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     string MessageString = "Read error occurred  / entry not found loading the Column details: "
-                        + e.ErrorCode + " - " + e.Message + "; \n\nPlease Continue";
+                        + e.Message + "; \n\nPlease Continue";
                     //MessageBox.Show(MessageString, "SQL Read Error");
                     reader.Close();
                 }
             }
-            catch (MySqlException e)
+            catch (Exception e)
             {
                 //throw e;
                 Requests request = new Requests();
@@ -229,7 +226,7 @@ namespace Operando_AdministrationConsole.Controllers
                 request.Email = "#";
                 request.InsertDate = DateTime.Now;
                 request.Name = "#";
-                    model.Requests.RequestList.Add(request);
+                model.Requests.RequestList.Add(request);
             }
             connection.Close();
             }

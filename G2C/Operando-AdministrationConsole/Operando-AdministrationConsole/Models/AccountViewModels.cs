@@ -103,6 +103,11 @@ namespace Operando_AdministrationConsole.Models
         [StringLength(2, ErrorMessage = "The {0} must be {2} characters long.", MinimumLength = 2)]
         [Display(Name = "Country")]
         public string Country { get; set; }
+        
+        [Required]
+        [StringLength(100, ErrorMessage = "Please choose an OSP provider.", MinimumLength = 1)]
+        [Display(Name = "OSP")]
+        public string Osp { get; set; }
 
         [Required]
         [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
