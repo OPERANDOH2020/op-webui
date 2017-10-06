@@ -6,6 +6,10 @@
             border-right: 1px solid #ddd;
             background-color: #fff;
         }
+
+		table .collapse.in {
+		    display: table-cell !important;
+		}
         
         @media (max-width: 768px) {
            .table-responsive>.fixed-column {

@@ -118,7 +118,11 @@ else
                                             <th>Category:</th>
                                             @foreach (var subject in osp.groupAPBySubject[0].categoryAPList)
                                             {
-                                                <th colspan="@(subject.categoryAPList.Count + 1)">@(subject.category)</th>
+                                                <th class="Category_@(subject.category.ToString().Replace(" ",""))@(osp.OspId)-table" colspan="@(subject.categoryAPList.Count + 1)">@(subject.category)
+                                                    <a class="TdCollapseProvacy" data-toggle="collapse" data-target=".Td_@(subject.category.ToString().Replace(" ",""))@(osp.OspId)-table" href="#"
+                                                       aria-expanded="true" aria-controls=".Td_@(subject.category.ToString().Replace(" ",""))@(osp.OspId)-table">Show all Fields</a>
+</th>
+
                                             }
                                         </tr>
                                         <tr>
@@ -126,7 +130,7 @@ else
                                             @{ var attrName = "";}
                                             @foreach (var subject in osp.groupAPBySubject[0].categoryAPList)
                                             {
-                                                <th>all</th>
+                                                <th class="Th_@(subject.category.ToString().Replace(" ",""))@(osp.OspId)-table" colspan="@(subject.categoryAPList.Count + 1)">all</th>
                                                 foreach (var policy in subject.categoryAPList)
                                                 {
                                                     attrName = policy.accessPolicy.Resource.Split('.').Last();
@@ -138,7 +142,7 @@ else
                                                             break;
                                                         }
                                                     }
-                                                    <td>@(policy.accessPolicy.Action): @attrName</td>
+                                                    <td class="Td_@(subject.category.ToString().Replace(" ",""))@(osp.OspId)-table collapse">@(policy.accessPolicy.Action): @attrName</td>
                                                 }
                                             }
                                         </tr>
@@ -154,7 +158,7 @@ else
                                                 @{ int catNum = 1;}
                                                 @foreach (var policyCategory in groupSubject.categoryAPList)
                                                 {
-                                                    <th>
+                                                    <th class="Th_@(policyCategory.category.ToString().Replace(" ",""))@(osp.OspId)-table" colspan="@(policyCategory.categoryAPList.Count + 1)">
                                                         <input type="checkbox" name="@(ospNum).@(subNum).@(catNum)" id="@(catId)"
                                                                onclick="toggle(this)"
                                                                data-toggle="tooltip" data-placement="top" title="select @(policyCategory.category)" /><span></span>
@@ -162,7 +166,7 @@ else
                                                     catId += 1;
                                                     foreach (var pwr in policyCategory.categoryAPList)
                                                     {
-                                                        <td class="td-center">
+                                                        <td class="Td_@(policyCategory.category.ToString().Replace(" ",""))@(osp.OspId)-table collapse">
                                                             @{var hiddenFlag = false;
                                                                 var tooltipTitle = "";}
                                                             @foreach (PolicyAttribute pa in pwr.accessPolicy.Attributes)
@@ -256,6 +260,27 @@ else
                 }
             }
         }
+
+        $(document).ready(function () {
+            $(".page-titlem-portlet__head-textSmall").css("display", "none");
+        });
+
+
+
+        $(".TdCollapseProvacy").click(function () {
+            var dataTarget = $(this).data("target");
+            var dataTargetTh = dataTarget.replace("Td_", "Th_");
+            var dataTargetCategory = dataTarget.replace("Td_", "Category_");
+            
+            if (isNaN($(dataTargetTh).attr('colspan')))
+            {
+                $(dataTargetTh).attr('colspan', $(dataTargetCategory).attr('colspan'));
+            }
+            else
+            {
+                $(dataTargetTh).removeAttr('colspan');
+            }
+        });
 
         /*
         $(".table").each(function () {

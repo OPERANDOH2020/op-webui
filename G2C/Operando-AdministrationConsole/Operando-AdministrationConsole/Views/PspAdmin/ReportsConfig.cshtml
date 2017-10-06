@@ -646,20 +646,39 @@
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-xs-12">
-        <div class="m-heading-1 border-grey-silver m-bordered">
-            <p>
-                In this section you can manage Reports for each OSP:
-                <br />- <b>
-                    Reports tab:
-                </b> you can add a new Report, or view and modify existing Reports. You can filter by OSP or search freely.
-                <br />- <b>
-                    Results tab:
-                </b> you can see executions of the Reports with the most recent show first, and view it; you can filter by OSP or search freely.
-                <br />- <b>Schedules tab:</b> for each Report you can see the date of the last and next execution; you can filter by Report or OSP. Clicking on a row expands it, which allows
+        <div class="m-portlet OperandoPortlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon">
+                            <i class="fa fa-2x fa-orange fa-warning"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            <small class="page-titlem-portlet__head-textSmall">
+                                <a data-toggle="collapse" data-target="#PortletCollapsed" href="#"
+                                   aria-expanded="true" aria-controls="PortletCollapsed">Show/Hide</a>
+                            </small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body collapse" id="PortletCollapsed">
+                <div class="m-heading-1 border-grey-silver m-bordered">
+                    <p>
+                        In this section you can manage Reports for each OSP:
+                        <br />- <b>
+                            Reports tab:
+                        </b> you can add a new Report, or view and modify existing Reports. You can filter by OSP or search freely.
+                        <br />- <b>
+                            Results tab:
+                        </b> you can see executions of the Reports with the most recent show first, and view it; you can filter by OSP or search freely.
+                        <br />- <b>Schedules tab:</b> for each Report you can see the date of the last and next execution; you can filter by Report or OSP. Clicking on a row expands it, which allows
 
-                you to view and manage the schedule for it. To add a new schedule, fill in the last row (with an orange backround).
+                        you to view and manage the schedule for it. To add a new schedule, fill in the last row (with an orange backround).
 
-            </p>
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- BEGIN PORTLET -->
