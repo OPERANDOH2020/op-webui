@@ -656,13 +656,33 @@
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-xs-12">
-        <div class="m-heading-1 border-grey-silver m-bordered">
-            <p>
-                In this section you can manage your Reports: download available Reports, manage when reports are executed, or request a new Report definition is created:
-                <br />- <b>Reports tab:</b> here you can find available Reports ordered with the most recently run first; click on a row to expand it and download. You can also search the Reports for certain words.
-                <br />- <b>Schedules tab:</b> for each Report you can see the date of the last and next execution. Clicking on a row expands it, which allows you to view and manage the schedule for it. To add a new schedule, fill in the last row (with an orange background).
-</p>
+        <div class="m-portlet OperandoPortlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon">
+                            <i class="fa fa-2x fa-orange fa-warning"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            <small class="page-titlem-portlet__head-textSmall">
+                                <a data-toggle="collapse" data-target="#PortletCollapsed" href="#"
+                                   aria-expanded="true" aria-controls="PortletCollapsed">Show/Hide</a>
+                            </small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body collapse" id="PortletCollapsed">
+                <div class="m-heading-1 border-grey-silver m-bordered">
+                    <p>
+                        In this section you can manage your Reports: download available Reports, manage when reports are executed, or request a new Report definition is created:
+                        <br />- <b>Reports tab:</b> here you can find available Reports ordered with the most recently run first; click on a row to expand it and download. You can also search the Reports for certain words.
+                        <br />- <b>Schedules tab:</b> for each Report you can see the date of the last and next execution. Clicking on a row expands it, which allows you to view and manage the schedule for it. To add a new schedule, fill in the last row (with an orange background).
+                    </p>
+                </div>
+            </div>
         </div>
+      
         <!-- BEGIN PORTLET -->
         <div class="portlet light bordered">
             <div class="portlet-title tabbable-line">
