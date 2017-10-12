@@ -202,6 +202,53 @@ a:hover {
     color: #555;
 }
 
+/* text  */
+
+.OperandoPortlet.m-portlet {
+    -webkit-box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
+    -moz-box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
+    box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
+    background-color: #fff;
+}
+
+.OperandoPortlet.m-portlet .m-portlet__head {
+    border-bottom: 1px solid #ebedf2;
+    display: table;
+    padding: 0;
+    width: 100%;
+    padding: 0 2.2rem;
+    height: 5.1rem;
+}
+
+.OperandoPortlet.m-portlet .m-portlet__head .m-portlet__head-caption {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.OperandoPortlet.m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+}
+
+.OperandoPortlet.m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-icon {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 0;
+    padding: 0 13px 0 0;
+}
+
+.OperandoPortlet.m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text {
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.OperandoPortlet.m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-icon .fa-orange {
+    color: #E87E04;
+}
+
 /*  PAGE LOCK PAGE */
 
 .page-lock .lock-head {

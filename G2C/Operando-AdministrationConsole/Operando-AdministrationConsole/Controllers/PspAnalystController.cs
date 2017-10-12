@@ -32,7 +32,7 @@ namespace Operando_AdministrationConsole.Controllers
     {
         private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
         private readonly IAapiClient _aapiClient;
-        private static readonly Uri RegulationsRoot = new Uri("http://localhost:8080/stub-pdb/api/regulations/");
+        private readonly Uri _regulationsRoot;
 
         private readonly IBdaClient _bdaClient;
 
@@ -50,12 +50,17 @@ namespace Operando_AdministrationConsole.Controllers
         {
             _bdaClient = new BdaClient();
             _aapiClient = new AapiClient();
+            var pdbRoot = new Uri(ConfigurationManager.AppSettings["pdbBasePath"]);
+            _regulationsRoot = new Uri(
+                pdbRoot,
+                ConfigurationManager.AppSettings["pdbRegSId"]);
         }
 
         // GET: PspAnalyst
         public async Task<ActionResult> Regulations()
         {
-            List<Regulation> regulations = await helper.get<List<Regulation>>(RegulationsRoot.ToString()); //= await getAllRegulations();
+            var searchAll = new Uri(_regulationsRoot, "?filter=");
+            List<Regulation> regulations = await helper.get<List<Regulation>>(searchAll.ToString()); //= await getAllRegulations();
             return View(regulations);
         }
 
@@ -65,7 +70,7 @@ namespace Operando_AdministrationConsole.Controllers
             using(HttpClient client = new HttpClient())
             {
                 StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(regulation), Encoding.UTF8, "application/json");
-                var result = await client.PostAsync(RegulationsRoot, OperandoJson);
+                var result = await client.PostAsync(_regulationsRoot, OperandoJson);
                 Response.StatusCode = (int)result.StatusCode;
                 return Content(await result.Content.ReadAsStringAsync());
             }
@@ -77,7 +82,7 @@ namespace Operando_AdministrationConsole.Controllers
             using (HttpClient client = new HttpClient())
             {
                 StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(regulation), Encoding.UTF8, "application/json");
-                var result = await client.PutAsync(new Uri(RegulationsRoot, regulation.RegId), OperandoJson);
+                var result = await client.PutAsync(new Uri(_regulationsRoot, regulation.RegId), OperandoJson);
                 Response.StatusCode = (int)result.StatusCode;
                 return Content(await result.Content.ReadAsStringAsync());
             }
@@ -88,7 +93,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                var result = await client.DeleteAsync(new Uri(RegulationsRoot, id));
+                var result = await client.DeleteAsync(new Uri(_regulationsRoot, id));
                 Response.StatusCode = (int)result.StatusCode;
                 return Content(await result.Content.ReadAsStringAsync());
             }

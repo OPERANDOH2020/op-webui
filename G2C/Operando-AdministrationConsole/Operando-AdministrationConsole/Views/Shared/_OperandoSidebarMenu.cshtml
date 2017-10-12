@@ -377,12 +377,12 @@
             <h3 class="uppercase">PSP Analyst</h3>
         </li>
         -->
-        @*<li class='nav-item @if (currentController == "PSPAnalyst") { @activeClass }'>
+        @*<li class='nav-item @if (currentController == "PspAnalyst") { @activeClass }'>
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-feed"></i>
                 <span class="title">Analyst actions</span>
                 <span class="arrow open"></span>
-                @if (currentController == "PSPAnalyst")
+                @if (currentController == "PspAnalyst")
                 {
                     @:<span class="selected"></span>
                 }
@@ -390,12 +390,12 @@
             <ul class="sub-menu">*@
             @if (allView || psp_analyst)
                 {
-                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy")
+                <li class='nav-item @if (currentController == "PspAnalyst" && currentAction == "PrivacyPolicy")
                     { @activeClass }'>
-                    <a href="@Url.Action("PrivacyPolicy", "PSPAnalyst")" class="nav-link ">
+                    <a href="@Url.Action("PrivacyPolicy", "PspAnalyst")" class="nav-link ">
                         <i class="icon-puzzle"></i>
                         <span class="title">OSP compliance</span>
-                        @if (currentController == "PSPAnalyst" && currentAction == "PrivacyPolicy")
+                        @if (currentController == "PspAnalyst" && currentAction == "PrivacyPolicy")
                         {
                             @:<span class="selected"></span>
                             }
@@ -404,12 +404,12 @@
             }
             @if (allView || psp_analyst)
             {
-                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "Regulations")
+                <li class='nav-item @if (currentController == "PspAnalyst" && currentAction == "Regulations")
                 { @activeClass }'>
-                    <a href="@Url.Action("Regulations", "PSPAnalyst")" class="nav-link ">
+                    <a href="@Url.Action("Regulations", "PspAnalyst")" class="nav-link ">
                         <i class="icon-settings"></i>
                         <span class="title">Regulations</span>
-                        @if (currentController == "PSPAnalyst" && currentAction == "Regulations")
+                        @if (currentController == "PspAnalyst" && currentAction == "Regulations")
                         {
                             @:<span class="selected"></span>
                         }
@@ -418,12 +418,12 @@
             }
             @if (allView || psp_admin)
                         {
-                <li class='nav-item @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig")
+                <li class='nav-item @if (currentController == "PspAnalyst" && currentAction == "BigDataAnalyticsConfig")
                 { @activeClass }'>
-                    <a href="@Url.Action("BigDataAnalyticsConfig", "PSPAnalyst")" class="nav-link ">
+                    <a href="@Url.Action("BigDataAnalyticsConfig", "PspAnalyst")" class="nav-link ">
                         <i class="icon-globe"></i>
                         <span class="title">Big Data Analytics</span>
-                        @if (currentController == "PSPAnalyst" && currentAction == "BigDataAnalyticsConfig")
+                        @if (currentController == "PspAnalyst" && currentAction == "BigDataAnalyticsConfig")
                         {
                             @:<span class="selected"></span>
                         }

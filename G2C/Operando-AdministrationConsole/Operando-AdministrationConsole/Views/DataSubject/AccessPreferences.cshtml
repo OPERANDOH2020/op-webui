@@ -127,17 +127,20 @@
                                             <th>Category:</th>
                                             @foreach (var byCategory in osp.AccessPoliciesBySubjectThenCategory.First())
                                             {
-                                                <th colspan="@(byCategory.Count() + 1)">@(byCategory.Key)</th>
+                                                <th class="Category_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" colspan="@(byCategory.Count() + 1)">@(byCategory.Key)
+                                                    <a class="TdCollapseProvacy" data-toggle="collapse" data-target=".Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" href="#"
+                                                       aria-expanded="true" aria-controls=".Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table">Show all Fields</a>
+                                                </th>
                                             }
                                         </tr>
                                         <tr>
                                             <th>Action:</th>
                                             @foreach (var byCategory in osp.AccessPoliciesBySubjectThenCategory.First())
                                             {
-                                                <th>all</th>
+                                                <th class="Th_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" colspan="@(byCategory.Count() + 1)">all</th>
                                                 foreach (var policy in byCategory)
                                                 {
-                                                    <td>@(policy.Action): @policy.Resource</td>
+                                                    <td class="Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table collapse">@(policy.Action): @policy.Resource</td>
                                                 }
                                             }
                                         </tr>
@@ -153,7 +156,7 @@
                                                 @{ int catNum = 1;}
                                                 @foreach (var byCategory in bySubject)
                                                 {
-                                                    <th>
+                                                    <th class="Th_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" colspan="@(byCategory.Count() + 1)">
                                                         <input type="checkbox" name="@(ospNum).@(subNum).@(catNum)" id="@(catId)"
                                                                onclick="toggle(this)"
                                                                data-toggle="tooltip" data-placement="top" title="select @(byCategory.Key)" /><span></span>
@@ -161,7 +164,7 @@
                                                     catId += 1;
                                                     foreach (var accessPolicy in byCategory)
                                                     {
-                                                        <td class="td-center">
+                                                        <td class="Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table collapse">
                                                             @{var hiddenFlag = false;}
                                                             @if (accessPolicy.Fixed)
                                                             {
@@ -249,6 +252,27 @@
                 }
             }
         }
+
+        $(document).ready(function () {
+            $(".page-titlem-portlet__head-textSmall").css("display", "none");
+        });
+
+
+
+        $(".TdCollapseProvacy").click(function () {
+            var dataTarget = $(this).data("target");
+            var dataTargetTh = dataTarget.replace("Td_", "Th_");
+            var dataTargetCategory = dataTarget.replace("Td_", "Category_");
+            
+            if (isNaN($(dataTargetTh).attr('colspan')))
+            {
+                $(dataTargetTh).attr('colspan', $(dataTargetCategory).attr('colspan'));
+            }
+            else
+            {
+                $(dataTargetTh).removeAttr('colspan');
+            }
+        });
 
         /*
         $(".table").each(function () {
