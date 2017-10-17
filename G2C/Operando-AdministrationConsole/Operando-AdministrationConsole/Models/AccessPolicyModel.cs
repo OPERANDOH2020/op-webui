@@ -35,6 +35,9 @@ namespace Operando_AdministrationConsole.Models
             Action = stringConverter.NiceActionNameOrDefault(RawAction.ToString());
             Subject = stringConverter.NiceSubjectNameOrDefault(RawSubject);
 
+            Category = "";
+            Tooltip = "";
+
             foreach (PolicyAttribute attribute in accessPolicy.Attributes)
             {
                 switch (attribute.AttributeName)
