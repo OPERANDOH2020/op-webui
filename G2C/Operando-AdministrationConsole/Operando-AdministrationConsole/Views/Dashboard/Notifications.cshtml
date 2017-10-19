@@ -27,6 +27,7 @@
                             <th>@Resources.WebResources.NotificationsType</th>
                             <th>@Resources.WebResources.NotificationsMessage</th>
                             <th>@Resources.WebResources.NotificationsDate</th>
+                            <th>@Resources.WebResources.NotificationActionHeader</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +37,14 @@
                             <td>@notification.Title</td>
                             <td>@notification.Description.ToString().Replace("Your privacy settings were updated because of changes you made through the dashboard.", @Resources.WebResources.DashboardSettingsUpdated)</td>
                             <td>@notification.TimeStamp</td>
+                            @if (!string.IsNullOrEmpty(notification.ActionUrl))
+                             {
+                                 <td><a href="@notification.ActionUrl">@Resources.WebResources.NotificationActionStr</a></td>        
+                             }
+                             else
+                             {
+                                 <td></td>
+                             }
                         </tr>
                     }
                     </tbody>
