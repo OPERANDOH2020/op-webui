@@ -41,8 +41,8 @@
                         <th>@Resources.WebResources.LogType</th>
                         <th>@Resources.WebResources.LogDate</th>
                         <th>@Resources.WebResources.LogRequester</th>
-                        <th>Requested Fields</th> @* TODO localise *@
-                        <th>@Resources.WebResources.LogMessage</th>
+                        <th>Granted Requests</th> @* TODO localise *@
+                        <th>Denied Requests</th> @* TODO localise *@
                         <th>@Resources.WebResources.LogActions</th>
                     </tr>
                 </thead>
@@ -75,6 +75,8 @@
                                             <span>@string.Join(", ", item.GrantedFields)</span>
                                         </span>
                                     }
+                                </td>
+                                <td>
                                     @if (item.DeniedFields.Any())
                                     {
                                         <span>
@@ -84,13 +86,6 @@
                                         </span>
                                     }
                                 </td>
-                                <td>@{
-                                        string label = item.Description
-                                            .Replace("requested access to your", Resources.WebResources.LogRequestedAccess)
-                                            .Replace("The request was denied, because it did not comply with your privacy settings", Resources.WebResources.LogRequestedAccessDenied)
-                                            .Replace("The request was granted, because it complied with your privacy settings", Resources.WebResources.LogRequestedAccessAllowed);
-
-                                    } @label </td>
                                 <td>
                                     <a class="btn btn-circle btn-sm yellow-gold" href="@Url.Action("AccessPreferences", "DataSubject")"> @Resources.WebResources.LogEditOSPSettingsButton </a>
                                 </td>
