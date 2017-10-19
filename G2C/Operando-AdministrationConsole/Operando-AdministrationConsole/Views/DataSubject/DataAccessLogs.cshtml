@@ -41,24 +41,24 @@
                         <th>@Resources.WebResources.LogType</th>
                         <th>@Resources.WebResources.LogDate</th>
                         <th>@Resources.WebResources.LogRequester</th>
-                        <th>@Resources.WebResources.LogTitle</th>
+                        <th>Requested Fields</th> @* TODO localise *@
                         <th>@Resources.WebResources.LogMessage</th>
                         <th>@Resources.WebResources.LogActions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (String.IsNullOrEmpty(ViewBag.Error))
+                    @if (string.IsNullOrEmpty(ViewBag.Error))
                     {
                         foreach (var item in Model)
                         {
-                            <tr class="@(item.AccessGranted ? "granted" : "denied")">
+                            <tr class="@(item.GrantedFields.Any() ? "granted" : "") @(item.DeniedFields.Any() ? "denied" : "")">
                                 <td>
-                                    @if (item.AccessGranted)
+                                    @if (item.GrantedFields.Any())
                                     {
                                         <i class="fa fa-check-circle-o" style="color: green; font-size:16px;"></i>
                                         <span class="hidden">@Resources.WebResources.LogAccessGranted</span>
                                     }
-                                    else
+                                    @if(item.DeniedFields.Any())
                                     {
                                         <i class="fa fa-ban" style="color: red; font-size:16px;"></i>
                                         <span class="hidden">@Resources.WebResources.LogAccessDenied</span>
@@ -66,22 +66,31 @@
                                 </td>
                                 <td>@item.LogDate</td>
                                 <td>@item.RequesterId</td>
-                                <td>@if (item.AccessGranted)
-                                {
-                                    @Resources.WebResources.LogAccessGranted
-                                }
-                                else
-                                {
-                                    @Resources.WebResources.LogAccessDenied
-                                }
+                                <td>
+                                    @if (item.GrantedFields.Any())
+                                    {
+                                        <span>
+                                            <i class="fa fa-check-circle-o" style="color: green; font-size: 16px;"></i>
+                                            <span class="hidden">@Resources.WebResources.LogAccessGranted</span>
+                                            <span>@string.Join(", ", item.GrantedFields)</span>
+                                        </span>
+                                    }
+                                    @if (item.DeniedFields.Any())
+                                    {
+                                        <span>
+                                            <i class="fa fa-ban" style="color: red; font-size: 16px;"></i>
+                                            <span class="hidden">@Resources.WebResources.LogAccessDenied</span>
+                                            <span>@string.Join(", ", item.DeniedFields)</span>
+                                        </span>
+                                    }
                                 </td>
                                 <td>@{
-                                        string label = item.Description.ToString()
-                                            .Replace("requested access to your", @Resources.WebResources.LogRequestedAccess)
-                                            .Replace("The request was denied, because it did not comply with your privacy settings", @Resources.WebResources.LogRequestedAccessDenied)
-                                            .Replace("The request was granted, because it complied with your privacy settings", @Resources.WebResources.LogRequestedAccessAllowed);
+                                        string label = item.Description
+                                            .Replace("requested access to your", Resources.WebResources.LogRequestedAccess)
+                                            .Replace("The request was denied, because it did not comply with your privacy settings", Resources.WebResources.LogRequestedAccessDenied)
+                                            .Replace("The request was granted, because it complied with your privacy settings", Resources.WebResources.LogRequestedAccessAllowed);
 
-                                } @label </td>
+                                    } @label </td>
                                 <td>
                                     <a class="btn btn-circle btn-sm yellow-gold" href="@Url.Action("AccessPreferences", "DataSubject")"> @Resources.WebResources.LogEditOSPSettingsButton </a>
                                 </td>
