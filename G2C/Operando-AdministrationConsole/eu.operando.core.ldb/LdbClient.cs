@@ -72,6 +72,12 @@ namespace eu.operando.core.ldb
                             logItem.logType = prop.Value.ToString();
                         if (prop.Name == "affectedUserId")
                             logItem.affectedUserId = prop.Value.ToString();
+                        if (prop.Name == nameof(logItem.ospId))
+                            logItem.ospId = prop.Value.ToString();
+                        if (prop.Name == nameof(logItem.arrayRequestedFields))
+                            logItem.arrayRequestedFields = prop.Value.Children().Select(a => a.ToString()).ToArray();
+                        if (prop.Name == nameof(logItem.arrayGrantedFields))
+                            logItem.arrayGrantedFields = prop.Value.Children().Select(a => a.ToString()).ToArray();
                     }
 
                     logList.Add(logItem);
