@@ -16,6 +16,7 @@ using eu.operando.core.ldb.Model;
 using Operando_AdministrationConsole.Helper;
 using Operando_AdministrationConsole.Models.DashboardModels;
 using Operando_AdministrationConsole.Models.DashboardModels.WidgetModels;
+using Operando_AdministrationConsole.Models.DataSubjectModels;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -328,9 +329,11 @@ namespace Operando_AdministrationConsole.Controllers
                 };
             }
 
-            var model = logMessages.Select(_ => new DataRequestsModel(_))
-            .OrderByDescending(_ => _.Timestamp)
-            .Take(count);
+            var model = logMessages
+                .Where(l => l.arrayRequestedFields.Any())
+                .Select(l => new DataAccessLogModel(l))
+                .OrderByDescending(m => m.LogDate)
+                .Take(count);
 
             return PartialView("Widgets/_DataRequests", model);
         }

@@ -256,7 +256,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BdaModels.cs" />
     <Compile Include="Models\DashboardModels\NotificationsModel.cs" />
-    <Compile Include="Models\DashboardModels\WidgetModels\DataRequestsModel.cs" />
     <Compile Include="Models\DashboardModels\DashboardModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractRequestModel.cs" />
