@@ -7,7 +7,8 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 {
     public class DataAccessLogModel
     {
-        public DateTime LogDate;
+        public DateTime LogDateStart;
+        public DateTime? LogDateEnd;
         public string RequesterId;
 
         public IList<string> GrantedFields;
@@ -15,10 +16,19 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
         public DataAccessLogModel(DataAccessLog entity)
         {
-            LogDate = entity.logDate;
+            LogDateStart = entity.logDate;
             RequesterId = entity.requesterId;
             GrantedFields = entity.arrayRequestedFields.Where(s => entity.arrayGrantedFields.Contains(s)).ToList();
             DeniedFields = entity.arrayRequestedFields.Where(s => !entity.arrayGrantedFields.Contains(s)).ToList();
+        }
+
+        public DataAccessLogModel(IList<DataAccessLogModel> models)
+        {
+            LogDateStart = models.Min(m => m.LogDateStart);
+            LogDateEnd = models.Max(m => m.LogDateStart);
+            RequesterId = models.Select(m => m.RequesterId).Distinct().Single();
+            GrantedFields = models.SelectMany(m => m.GrantedFields).Distinct().ToList();
+            DeniedFields = models.SelectMany(m => m.DeniedFields).Distinct().ToList();
         }
     }
 }

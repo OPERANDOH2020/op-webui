@@ -42,9 +42,13 @@ namespace Operando_AdministrationConsole.Controllers
 
                 var entities = _ldbClient.GetDataAccessLogs(username);
 
-                logList = entities
+                var logs = entities
                     .Where(l => l.arrayRequestedFields.Any())
-                    .Select(l => new DataAccessLogModel(l)).ToList();
+                    .Select(l => new DataAccessLogModel(l));
+
+                var aggregator = new DataAccessLogAggregator();
+
+                logList = aggregator.Aggregate(logs).ToList();
             }
             catch (Exception)
             {

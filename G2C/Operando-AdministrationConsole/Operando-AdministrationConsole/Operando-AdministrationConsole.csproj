@@ -240,6 +240,7 @@
     </Compile>
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\RegulatorController.cs" />
+    <Compile Include="Helper\DataAccessLogAggregator.cs" />
     <Compile Include="Helper\DebugNiceStringConverter.cs" />
     <Compile Include="Helper\INiceStringConverter.cs" />
     <Compile Include="Helper\StaticStrings.cs" />

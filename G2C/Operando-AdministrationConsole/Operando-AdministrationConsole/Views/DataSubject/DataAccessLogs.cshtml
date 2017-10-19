@@ -64,7 +64,7 @@
                                         <span class="hidden">@Resources.WebResources.LogAccessDenied</span>
                                     }
                                 </td>
-                                <td>@item.LogDate</td>
+                                <td>@item.LogDateStart @(item.LogDateEnd.HasValue ? "- " + item.LogDateEnd.Value : "")</td>
                                 <td>@item.RequesterId</td>
                                 <td>
                                     @if (item.GrantedFields.Any())

@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="col2">
-                        <div class="date">@log.LogDate.ToString("G")</div>
+                        <div class="date">@log.LogDateStart.ToString("G") @(log.LogDateEnd.HasValue ? "- " + log.LogDateEnd.Value.ToString("G") : "")</div>
                     </div>
                 </li>
             }

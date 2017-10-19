@@ -331,9 +331,11 @@ namespace Operando_AdministrationConsole.Controllers
 
             var model = logMessages
                 .Where(l => l.arrayRequestedFields.Any())
-                .Select(l => new DataAccessLogModel(l))
-                .OrderByDescending(m => m.LogDate)
-                .Take(count);
+                .Select(l => new DataAccessLogModel(l));
+
+            var aggregator = new DataAccessLogAggregator();
+
+            model = aggregator.Aggregate(model);
 
             return PartialView("Widgets/_DataRequests", model);
         }
