@@ -27,10 +27,15 @@ namespace Operando_AdministrationConsole.Models.DashboardModels
             TimeStamp = log.logDate;
             ActionUrl = string.Empty;
 
+            SetActionUrl(urlHelper);
+        }
+
+        private void SetActionUrl(UrlHelper urlHelper)
+        {
             if (Title.StartsWith(PrivacySettingsUpdatedStr, StringComparison.InvariantCultureIgnoreCase))
             {
                 ActionUrl = urlHelper.Action("AccessPreferences", "DataSubject");
-                
+
             }
             else if (Title.StartsWith(OspPolicyChangeStr, StringComparison.InvariantCultureIgnoreCase))
             {

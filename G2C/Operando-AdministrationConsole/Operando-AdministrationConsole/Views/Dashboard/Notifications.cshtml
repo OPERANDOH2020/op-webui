@@ -39,7 +39,11 @@
                             <td>@notification.TimeStamp</td>
                             @if (!string.IsNullOrEmpty(notification.ActionUrl))
                              {
-                                 <td><a href="@notification.ActionUrl">@Resources.WebResources.NotificationActionStr</a></td>        
+                                 <td>
+                                     <a style="color:#0000cd" href="@notification.ActionUrl">
+                                         @Resources.WebResources.NotificationActionStr
+                                     </a>
+                                 </td>        
                              }
                              else
                              {
