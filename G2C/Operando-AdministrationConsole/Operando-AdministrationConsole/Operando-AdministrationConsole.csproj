@@ -241,8 +241,9 @@
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\RegulatorController.cs" />
     <Compile Include="Helper\DataAccessLogAggregator.cs" />
-    <Compile Include="Helper\DebugNiceStringConverter.cs" />
     <Compile Include="Helper\INiceStringConverter.cs" />
+    <Compile Include="Helper\ResourceCachingNiceStringConverter.cs" />
+    <Compile Include="Helper\ResourceFriendlyNameCache.cs" />
     <Compile Include="Helper\StaticStrings.cs" />
     <Compile Include="Helper\OperandoWebServiceHelper.cs" />
     <Compile Include="Controllers\DashboardController.cs" />

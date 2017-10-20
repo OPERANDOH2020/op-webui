@@ -49,9 +49,6 @@ namespace Operando_AdministrationConsole.Models
                     case "tooltip":
                         Tooltip = attribute.AttributeValue;
                         break;
-                    case "friendly_name":
-                        Resource = attribute.AttributeValue;
-                        break;
                     case "fixed":
                         bool result;
                         bool success = bool.TryParse(attribute.AttributeValue, out result);

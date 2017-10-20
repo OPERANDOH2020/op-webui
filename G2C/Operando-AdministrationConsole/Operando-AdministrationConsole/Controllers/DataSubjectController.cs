@@ -20,7 +20,6 @@ namespace Operando_AdministrationConsole.Controllers
     {
         private readonly IAapiClient _aapiClient;
         private readonly ILdbClient _ldbClient;
-        private readonly INiceStringConverter _stringConverter;
 
         public string errMsg = String.Empty;
         //private QRootObject qGet;
@@ -29,7 +28,6 @@ namespace Operando_AdministrationConsole.Controllers
         {
             _aapiClient = new AapiClient();
             _ldbClient = new LdbClient(ConfigurationManager.AppSettings["ldbBasePath"]);
-            _stringConverter = new DebugNiceStringConverter();
         }
 
         public ActionResult DataAccessLogs()
@@ -42,9 +40,21 @@ namespace Operando_AdministrationConsole.Controllers
 
                 var entities = _ldbClient.GetDataAccessLogs(username);
 
-                var logs = entities
+
+                var osps = GetAuthorisedOspList();
+
+                var groupedByOsp = entities
                     .Where(l => l.arrayRequestedFields.Any())
-                    .Select(l => new DataAccessLogModel(l, _stringConverter));
+                    .GroupBy(e => e.ospId);
+
+                var logs = groupedByOsp
+                    .SelectMany(es =>
+                    {
+                        var resourceCache = new ResourceFriendlyNameCache(osps.Where(o => string.Equals(o.PolicyUrl, es.Key, StringComparison.CurrentCultureIgnoreCase))
+                            .SelectMany(o => o.Policies).ToList());
+                        var stringConverter = new ResourceCachingNiceStringConverter(resourceCache);
+                        return es.Select(e => new DataAccessLogModel(e, stringConverter));
+                    });
 
                 var aggregator = new DataAccessLogAggregator();
 
@@ -253,7 +263,10 @@ namespace Operando_AdministrationConsole.Controllers
                     mod.selected = true;
                 }
 
-                var models = cons.AccessPolicies.Select(ap => new AccessPolicyModel(ap, _stringConverter)).ToList();
+                var resourceCache = new ResourceFriendlyNameCache(cons.AccessPolicies);
+                var stringConverter = new ResourceCachingNiceStringConverter(resourceCache);
+
+                var models = cons.AccessPolicies.Select(ap => new AccessPolicyModel(ap, stringConverter)).ToList();
 
                 foreach (AccessPolicyModel model in models)
                 {
