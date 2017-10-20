@@ -8,7 +8,7 @@ namespace Operando_AdministrationConsole.Helper
 
         private static readonly IDictionary<string, string> Accessors = new Dictionary<string, string>
         {
-            {"WebsiteAdmins", "WebsiteAdmin"},
+            {"WebsiteAdmins", "Website Admin"},
             {"ASL Bergamo - IL - Inspector", "Inspector"},
             {"ASL Bergamo - IL - Accountant", "Accountant"},
             {"Gaslini - Tutor", "Tutor"},
@@ -18,12 +18,12 @@ namespace Operando_AdministrationConsole.Helper
 
         private static readonly IDictionary<string, string> Resources = new Dictionary<string, string>
         {
-
+            // None
         };
 
-        private static readonly IDictionary<string, string> Actions = new Dictionary<string, string>()
+        private static readonly IDictionary<string, string> Actions = new Dictionary<string, string>
         {
-
+            // None
         };
 
         public ResourceCachingNiceStringConverter(ResourceFriendlyNameCache resourceCache)
