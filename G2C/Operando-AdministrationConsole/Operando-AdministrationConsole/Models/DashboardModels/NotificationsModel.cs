@@ -25,22 +25,22 @@ namespace Operando_AdministrationConsole.Models.DashboardModels
             Title = log.title;
             Description = log.description;
             TimeStamp = log.logDate;
-            ActionUrl = string.Empty;
-
-            SetActionUrl(urlHelper);
+            ActionUrl = GetActionUrl(log.title, urlHelper);
         }
 
-        private void SetActionUrl(UrlHelper urlHelper)
+        private static string GetActionUrl(string title, UrlHelper urlHelper)
         {
-            if (Title.StartsWith(PrivacySettingsUpdatedStr, StringComparison.InvariantCultureIgnoreCase))
+            if (title.StartsWith(PrivacySettingsUpdatedStr, StringComparison.InvariantCultureIgnoreCase))
             {
-                ActionUrl = urlHelper.Action("AccessPreferences", "DataSubject");
+                return urlHelper.Action("AccessPreferences", "DataSubject");
+            }
 
-            }
-            else if (Title.StartsWith(OspPolicyChangeStr, StringComparison.InvariantCultureIgnoreCase))
+            if (title.StartsWith(OspPolicyChangeStr, StringComparison.InvariantCultureIgnoreCase))
             {
-                ActionUrl = urlHelper.Action("PrivacyPolicy", "OspAdmin");
+                return urlHelper.Action("PrivacyPolicy", "OspAdmin");
             }
+
+            return string.Empty;
         }
     }
 }
