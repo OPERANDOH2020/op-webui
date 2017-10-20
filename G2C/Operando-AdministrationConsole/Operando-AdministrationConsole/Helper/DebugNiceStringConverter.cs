@@ -16,10 +16,5 @@
         {
             return $"*{action}*";
         }
-
-        public string NiceSubjectNameOrDefault(string subject)
-        {
-            return $"*{subject}*";
-        }
     }
 }

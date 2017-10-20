@@ -33,7 +33,7 @@ namespace Operando_AdministrationConsole.Models
 
             Resource = stringConverter.NiceResourceNameOrDefault(RawResource);
             Action = stringConverter.NiceActionNameOrDefault(RawAction.ToString());
-            Subject = stringConverter.NiceSubjectNameOrDefault(RawSubject);
+            Subject = stringConverter.NiceAccessorNameOrDefault(RawSubject);
 
             Category = "";
             Tooltip = "";

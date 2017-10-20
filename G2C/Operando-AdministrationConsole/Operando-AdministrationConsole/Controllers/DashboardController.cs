@@ -25,6 +25,7 @@ namespace Operando_AdministrationConsole.Controllers
         ReportManager reportManager = new ReportManager();
         private readonly IBdaClient _bdaClient;
         private readonly ILdbClient _ldbService;
+        private readonly INiceStringConverter _stringConverter;
 
         /// <summary>
         /// TODO -- how to get the OSP the current user (an OSP admin) works for
@@ -35,6 +36,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             _bdaClient = new BdaClient();
             _ldbService = new LdbClient(ConfigurationManager.AppSettings["ldbBasePath"]);
+            _stringConverter = new DebugNiceStringConverter();
         }
 
         public ActionResult EmptyPage()
@@ -331,7 +333,7 @@ namespace Operando_AdministrationConsole.Controllers
 
             var model = logMessages
                 .Where(l => l.arrayRequestedFields.Any())
-                .Select(l => new DataAccessLogModel(l));
+                .Select(l => new DataAccessLogModel(l, _stringConverter));
 
             var aggregator = new DataAccessLogAggregator();
 

@@ -13,7 +13,5 @@ namespace Operando_AdministrationConsole.Helper
         string NiceResourceNameOrDefault(string resource);
 
         string NiceActionNameOrDefault(string action);
-
-        string NiceSubjectNameOrDefault(string subject);
     }
 }

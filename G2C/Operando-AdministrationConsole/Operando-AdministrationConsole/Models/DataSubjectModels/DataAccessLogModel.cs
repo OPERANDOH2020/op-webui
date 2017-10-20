@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using eu.operando.core.ldb.Model;
+using Operando_AdministrationConsole.Helper;
 
 namespace Operando_AdministrationConsole.Models.DataSubjectModels
 {
@@ -14,12 +15,18 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
         public IList<string> GrantedFields;
         public IList<string> DeniedFields;
 
-        public DataAccessLogModel(DataAccessLog entity)
+        public DataAccessLogModel(DataAccessLog entity, INiceStringConverter stringConverter)
         {
             LogDateStart = entity.logDate;
-            RequesterId = entity.requesterId;
-            GrantedFields = entity.arrayRequestedFields.Where(s => entity.arrayGrantedFields.Contains(s)).ToList();
-            DeniedFields = entity.arrayRequestedFields.Where(s => !entity.arrayGrantedFields.Contains(s)).ToList();
+            RequesterId = stringConverter.NiceAccessorNameOrDefault(entity.requesterId);
+            GrantedFields = entity.arrayRequestedFields
+                .Where(s => entity.arrayGrantedFields.Contains(s))
+                .Select(stringConverter.NiceResourceNameOrDefault)
+                .ToList();
+            DeniedFields = entity.arrayRequestedFields
+                .Where(s => !entity.arrayGrantedFields.Contains(s))
+                .Select(stringConverter.NiceResourceNameOrDefault)
+                .ToList();
         }
 
         public DataAccessLogModel(IList<DataAccessLogModel> models)

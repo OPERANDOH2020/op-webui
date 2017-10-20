@@ -44,7 +44,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 var logs = entities
                     .Where(l => l.arrayRequestedFields.Any())
-                    .Select(l => new DataAccessLogModel(l));
+                    .Select(l => new DataAccessLogModel(l, _stringConverter));
 
                 var aggregator = new DataAccessLogAggregator();
 
