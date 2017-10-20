@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Operando_AdministrationConsole.Helper
 {
@@ -9,9 +6,25 @@ namespace Operando_AdministrationConsole.Helper
     {
         private readonly ResourceFriendlyNameCache _resourceCache;
 
-        private static readonly IDictionary<string, string> Accessors = new Dictionary<string, string>();
-        private static readonly IDictionary<string, string> Resources = new Dictionary<string, string>();
-        private static readonly IDictionary<string, string> Actions = new Dictionary<string, string>();
+        private static readonly IDictionary<string, string> Accessors = new Dictionary<string, string>
+        {
+            {"WebsiteAdmins", "WebsiteAdmin"},
+            {"ASL Bergamo - IL - Inspector", "Inspector"},
+            {"ASL Bergamo - IL - Accountant", "Accountant"},
+            {"Gaslini - Tutor", "Tutor"},
+            {"Gaslini - Doctor", "Doctor"},
+            {"VolunteerOrganisationAdmin", "Volunteer Organisation Admin"}
+        };
+
+        private static readonly IDictionary<string, string> Resources = new Dictionary<string, string>
+        {
+
+        };
+
+        private static readonly IDictionary<string, string> Actions = new Dictionary<string, string>()
+        {
+
+        };
 
         public ResourceCachingNiceStringConverter(ResourceFriendlyNameCache resourceCache)
         {
