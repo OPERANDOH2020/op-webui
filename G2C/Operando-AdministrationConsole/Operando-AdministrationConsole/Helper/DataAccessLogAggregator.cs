@@ -35,23 +35,12 @@ namespace Operando_AdministrationConsole.Helper
         {
             var sorted = models.OrderBy(m => m.LogDateStart).ToList();
 
-            var first = sorted.First();
-            var remaining = sorted.Skip(1);
-
-            var currentGroup = new List<DataAccessLogModel> {first};
-            var currentStart = first.LogDateStart;
+            var currentGroup = new List<DataAccessLogModel>();
+            var currentStart = sorted.FirstOrDefault()?.LogDateStart ?? DateTime.MinValue;
             var currentGranted = new SortedSet<string>();
-            foreach (var field in first.GrantedFields)
-            {
-                currentGranted.Add(field);
-            }
             var currentDenied = new SortedSet<string>();
-            foreach (var field in first.DeniedFields)
-            {
-                currentDenied.Add(field);
-            }
 
-            foreach (var model in remaining)
+            foreach (var model in sorted)
             {
                 var shouldStartNewGroup =
                     (currentStart.Day != model.LogDateStart.Day) ||
