@@ -46,8 +46,8 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
 
         protected bool Equals(DataAccessLogModel other)
         {
-            return LogDateStart.Equals(other.LogDateStart) &&
-                   LogDateEnd.Equals(other.LogDateEnd) &&
+            return LogDateStart == other.LogDateStart &&
+                   LogDateEnd == other.LogDateEnd &&
                    string.Equals(RequesterId, other.RequesterId) &&
                    GrantedFields.Count == other.GrantedFields.Count &&
                    GrantedFields.Zip(other.GrantedFields, string.Equals).All(b => b) &&

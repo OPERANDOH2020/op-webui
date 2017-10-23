@@ -35,7 +35,7 @@ namespace Operando_AdministrationConsoleTests.Helper
             // Act
             var expected = new List<DataAccessLogModel>
             {
-                CreateModel("osp", "req", new []{"thing1", "thing4"}, new [] {"thing3", "thing2"}, new DateTime(2000, 1, 1, 1, 1, 1), new DateTime(2000, 1, 2, 3, 1, 1))
+                CreateModel("osp", "req", new []{"thing1", "thing4"}, new [] {"thing2", "thing3"}, new DateTime(2000, 1, 1, 1, 1, 1), new DateTime(2000, 1, 1, 3, 1, 1))
             };
 
             var actual = _aggregator.Aggregate(logs).ToList();
@@ -148,11 +148,11 @@ namespace Operando_AdministrationConsoleTests.Helper
             // Arrange
             var logs = new List<DataAccessLogModel>
             {
-                CreateModel("osp", "req1", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 1, 1, 1, 1)),
-                CreateModel("osp", "req2", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 2, 1, 1, 1)),
-                CreateModel("osp", "req2", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 4, 1, 1, 1)),
-                CreateModel("osp", "req3", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 3, 1, 1, 1)),
-                CreateModel("osp", "req1", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 5, 1, 1, 1)),
+                CreateModel("osp", "req1", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 1, 1, 1)),
+                CreateModel("osp", "req2", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 2, 1, 1)),
+                CreateModel("osp", "req2", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 4, 1, 1)),
+                CreateModel("osp", "req3", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 3, 1, 1)),
+                CreateModel("osp", "req1", new []{"thing1"}, new string[0], new DateTime(2000, 1, 1, 5, 1, 1))
             };
 
             // Act
