@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Operando_AdministrationConsole.Models.DataSubjectModels;
 
@@ -8,20 +9,29 @@ namespace Operando_AdministrationConsole.Helper
     {
         public IEnumerable<DataAccessLogModel> Aggregate(IEnumerable<DataAccessLogModel> models)
         {
-            var groupedByRequester = models.GroupBy(m => m.RequesterId);
-            var aggregated = groupedByRequester.SelectMany(AggregateSameRequester);
+            var groupedByRequesterAndOsp = models
+                .GroupBy(m => m.RequesterId)
+                .SelectMany(g => g.GroupBy(m => m.OspId));
+            var aggregated = groupedByRequesterAndOsp.SelectMany(AggregateModels);
             var sorted = aggregated.OrderBy(m => m.LogDateEnd ?? m.LogDateStart);
             return sorted;
         }
 
-        private IEnumerable<DataAccessLogModel> AggregateSameRequester(IEnumerable<DataAccessLogModel> models)
+        private IEnumerable<DataAccessLogModel> AggregateModels(IEnumerable<DataAccessLogModel> models)
         {
-            var groupedByAggregatable = GroupByAggregatable(models);
-            var aggregated = groupedByAggregatable.Select(g => new DataAccessLogModel(g.ToList()));
+            var groupedByAggregatable = SplitByDayAndClashingRequests(models);
+            var aggregated = groupedByAggregatable
+                .Select(g => new DataAccessLogModel(
+                    "", 
+                    g.Select(l => l.RequesterId).Distinct().Single(),
+                    g.SelectMany(l => l.GrantedFields).Distinct(), 
+                    g.SelectMany(l => l.DeniedFields).Distinct(),
+                    g.Min(l => l.LogDateStart),
+                    g.Count > 1 ? (DateTime?) g.Max(m => m.LogDateStart) : null));
             return aggregated;
         }
 
-        private IEnumerable<IList<DataAccessLogModel>> GroupByAggregatable(IEnumerable<DataAccessLogModel> models)
+        private IEnumerable<IList<DataAccessLogModel>> SplitByDayAndClashingRequests(IEnumerable<DataAccessLogModel> models)
         {
             var sorted = models.OrderBy(m => m.LogDateStart).ToList();
 
@@ -43,10 +53,13 @@ namespace Operando_AdministrationConsole.Helper
 
             foreach (var model in remaining)
             {
-
-                if ((currentStart.Day != model.LogDateStart.Day) ||
+                var shouldStartNewGroup =
+                    (currentStart.Day != model.LogDateStart.Day) ||
                     (model.DeniedFields.Any(f => currentGranted.Contains(f))) ||
-                    (model.GrantedFields.Any(f => currentDenied.Contains(f))))
+                    (model.GrantedFields.Any(f => currentDenied.Contains(f)));
+
+
+                if (shouldStartNewGroup)
                 {
                     yield return currentGroup;
                     currentStart = model.LogDateStart;
