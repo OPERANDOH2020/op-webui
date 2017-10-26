@@ -169,7 +169,6 @@ namespace Operando_AdministrationConsoleTests.Helper
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
         private DataAccessLogModel CreateModel(string osp, string requester, string[] accepted, string[] denied, DateTime logStart, DateTime? logEnd = null)
         {
             var entity = new DataAccessLog

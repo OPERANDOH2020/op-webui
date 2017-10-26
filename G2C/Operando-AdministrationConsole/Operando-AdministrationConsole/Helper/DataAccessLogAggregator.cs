@@ -46,8 +46,6 @@ namespace Operando_AdministrationConsole.Helper
                     (currentStart.Day != model.LogDateStart.Day) ||
                     (model.DeniedFields.Any(f => currentGranted.Contains(f))) ||
                     (model.GrantedFields.Any(f => currentDenied.Contains(f)));
-
-
                 if (shouldStartNewGroup)
                 {
                     yield return currentGroup;
@@ -56,6 +54,7 @@ namespace Operando_AdministrationConsole.Helper
                     currentGranted.Clear();
                     currentDenied.Clear();
                 }
+
                 currentGroup.Add(model);
                 foreach (var field in model.GrantedFields)
                 {
@@ -65,7 +64,6 @@ namespace Operando_AdministrationConsole.Helper
                 {
                     currentDenied.Add(field);
                 }
-
             }
 
             yield return currentGroup;
