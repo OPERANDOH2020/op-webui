@@ -262,7 +262,7 @@ namespace Operando_AdministrationConsole.Controllers
                 };
             }
 
-            var model = logMessages.Select(_ => new NotificationsModel(_))
+            var model = logMessages.Select(_ => new NotificationsModel(_, Url))
                 .OrderByDescending(_ => _.TimeStamp)
                 .ToList();
 
