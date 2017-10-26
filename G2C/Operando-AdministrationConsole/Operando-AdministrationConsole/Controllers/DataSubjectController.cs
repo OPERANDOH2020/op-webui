@@ -73,6 +73,21 @@ namespace Operando_AdministrationConsole.Controllers
             return _aapiClient.GetServiceTicket(ticketGrantingTicket, pdbOSPSId);
         }
 
+        public string extractPolicyName(string pText)
+        {
+            string policyText = pText;
+            if (!String.IsNullOrEmpty(policyText))
+            {
+                var idx = policyText.IndexOf("  ");
+                if (idx > 0)
+                {
+                    policyText = policyText.Substring(0, idx);
+                }
+
+            }
+            return policyText;
+        }
+
         /* Fetch OSP list and filter it with AAPI authorised OSPs */
         public List<OSPPrivacyPolicy> GetAuthorisedOspList()
         {
@@ -101,7 +116,9 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     foreach (OSPPrivacyPolicy ospInstance in response)
                     {
-                        if ((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
+                        string policyText = extractPolicyName(ospInstance.PolicyText);               
+                        if ((ospInstance.PolicyUrl == ospItem) || (policyText == ospItem))
+                        //if ((ospInstance.PolicyUrl == ospItem) || (ospInstance.PolicyText == ospItem))
                         {
                             checkedOSPList.Add(ospInstance);
                             break;
@@ -215,7 +232,7 @@ namespace Operando_AdministrationConsole.Controllers
                 selectedOspId = userSP.ElementAt(0).OspId;
             }
 
-            List <ModOSPConsents> opsModList = GroupAP(userSP, selectedOspId);
+            List <ModOSPConsents> opsModList = GroupAP(userSP, selectedOspId, availableOSPs);
             return View(opsModList);
         }
 
@@ -236,14 +253,24 @@ namespace Operando_AdministrationConsole.Controllers
             return category;
         }
 
-        private List<ModOSPConsents> GroupAP(List<OSPConsents> consents, string selctedOspId)
+        private List<ModOSPConsents> GroupAP(List<OSPConsents> consents, string selctedOspId, List<OSPPrivacyPolicy> availableOSPs)
         {
             List<ModOSPConsents> modConsentsList = new List<ModOSPConsents>();
             
             foreach (OSPConsents cons in consents)
             {
+                // get consent proper ospid
+                string consOspPolicyId = cons.OspId;
+                foreach(var osp in availableOSPs)
+                {
+                    if(cons.OspId == osp.PolicyUrl)
+                    {
+                        consOspPolicyId = osp.OspPolicyId;
+                        break;
+                    }
+                }
                 // get access reasons
-                OSPReasonPolicy osprp = getPrivacyPolicyAccessReasons(cons.OspId);
+                OSPReasonPolicy osprp = getPrivacyPolicyAccessReasons(consOspPolicyId);
                 Dictionary<string, string> datauserDict = new Dictionary<string, string>();
                 Dictionary<string, string> datatypeDict = new Dictionary<string, string>();
                 Dictionary<string, string> reasonDict = new Dictionary<string, string>();
@@ -263,6 +290,21 @@ namespace Operando_AdministrationConsole.Controllers
 
                 ModOSPConsents mod = new ModOSPConsents();
                 mod.OspId = cons.OspId;
+                mod.OspFriendlyName = cons.OspId;
+
+                // find the ost text since consent has only the ospId
+                foreach(var osp in availableOSPs)
+                {
+                    if(osp.PolicyUrl == cons.OspId)
+                    {
+                        string policyText = extractPolicyName(osp.PolicyText);
+                        mod.OspFriendlyName = policyText;
+                        mod.OspPolicyText = osp.PolicyText;
+                        //mod.OspFriendlyName = osp.PolicyText;
+                        break;
+                    }
+                }
+
                 if (selctedOspId == cons.OspId)
                 {
                     mod.selected = true;
@@ -554,7 +596,7 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 selected = resetOsp;
             }
-            return View(GroupAP(userSP, selected));
+            return View(GroupAP(userSP, selected, checkedOSPList));
         }
 
         public ActionResult PrivacyWizard()

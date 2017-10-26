@@ -31,7 +31,7 @@
                             <a href="#tab_@osp.OspId.GetHashCode()" data-toggle="tab" aria-expanded=@if (osp.selected)
                             {<text>" true"</text>}
                             else
-                            {<text>"false"</text>}>@osp.OspId</a>
+                            {<text>"false"</text>}>@osp.OspFriendlyName</a>
                     </li>
                     }
                 }
@@ -100,12 +100,13 @@ else
 
             <div class="portlet-title">
                 <div class="caption">
-                    <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspId</span>
+                    <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspFriendlyName</span>
                 </div>
             </div>
 
             <div class="portlet-body form">
                 <p>@Resources.WebResources.AccessPreferencesDescription</p>
+                <p>@osp.OspPolicyText</p>
                 <form class="form-horizontal" role="form" method="post" name="@osp.OspId form">
                     <div class="form-body">
                         <div class="form-group">

@@ -342,4 +342,10 @@
   <data name="SectionDataSubject" xml:space="preserve">
     <value>Data Subject</value>
   </data>
+  <data name="NotificationActionHeader" xml:space="preserve">
+    <value>Related Action</value>
+  </data>
+  <data name="NotificationActionStr" xml:space="preserve">
+    <value>Go to page</value>
+  </data>
 </root>

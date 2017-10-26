@@ -91,12 +91,15 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
+        /*
         public ActionResult Registration()
         {
             return View();
         }
+        */
 
         /* Method modified by IT Innovation Centre 2016 */
+        /*
         [HttpPost]
         public ActionResult Registration(Models.RegisterViewModel rvm)
         {
@@ -144,6 +147,7 @@ namespace Operando_AdministrationConsole.Controllers
             }
             return View();
         }
+        */
 
         public ActionResult ResetPassword()
         {
