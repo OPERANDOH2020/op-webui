@@ -311,7 +311,7 @@ node {
                 if (hasPomFile){
 	                stage ('Source Maven Install'){
 	                 	try {
-	                 		pomPackaging=sh(returnStdout: true, script: "grep '<packaging>.*pom.*</packaging>' ${sourcesPath}/pom.xm").trim()
+	                 		pomPackaging=sh(returnStdout: true, script: "grep '<packaging>.*pom.*</packaging>' ${sourcesPath}/pom.xml").trim()
 	                 	} catch (err){
 	                 	}
 	 					if (currentVerbose) println ("pomPackaging = " + pomPackaging)				
