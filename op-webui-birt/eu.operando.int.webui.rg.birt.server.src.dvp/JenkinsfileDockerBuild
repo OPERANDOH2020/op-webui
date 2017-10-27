@@ -288,7 +288,7 @@ node {
 						sh "rm -rf ${devopsSourcesPath}/pom.xml"	   
 						sh "cp ${devopsSourcesGitPath}/pom.xml ${devopsSourcesPath}/pom.xml"
 						sh "rm -rf ${devopsSourcesPath}/src"	   
-						sh "cp ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
+						sh "cp -rp ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
 					} catch (err){
 					}
 	            }
@@ -297,7 +297,7 @@ node {
 	            stage ('Source Move'){
                   sh "rm -rf ${sourcesPath}"	   
                   sh "mkdir ${sourcesPath}"	   
-	              sh "cp ${sourcesGitPath}/* ${sourcesPath}"
+	              sh "cp -rp ${sourcesGitPath}/* ${sourcesPath}"
 	            }
             	stage ('Assess Sources Install Need'){          	
 					try {
@@ -404,7 +404,10 @@ node {
 		)
 		if (currentClearOnFail){
 			stage ('Clear on Fail'){
-            	sh "rm -rf ${WORKSPACE}/src"	   			
+            	sh "rm -rf ${devopsSourcesPath}/pom.xml"	   			
+            	sh "rm -rf ${devopsSourcesPath}/src"	   			
+            	sh "rm -rf ${devopsSourcesPath}/target"	   			
+            	sh "rm -rf ${devopsSourcesPath}/bin"	   			
 			}
 		}		
 	    throw err
