@@ -239,6 +239,10 @@
     </Compile>
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\RegulatorController.cs" />
+    <Compile Include="Helper\DataAccessLogAggregator.cs" />
+    <Compile Include="Helper\INiceStringConverter.cs" />
+    <Compile Include="Helper\ResourceCachingNiceStringConverter.cs" />
+    <Compile Include="Helper\ResourceFriendlyNameCache.cs" />
     <Compile Include="Helper\StaticStrings.cs" />
     <Compile Include="Helper\OperandoWebServiceHelper.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -249,10 +253,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccessPolicyModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BdaModels.cs" />
     <Compile Include="Models\DashboardModels\NotificationsModel.cs" />
-    <Compile Include="Models\DashboardModels\WidgetModels\DataRequestsModel.cs" />
     <Compile Include="Models\DashboardModels\DashboardModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractsModel.cs" />
     <Compile Include="Models\DashboardModels\WidgetModels\DataExtractRequestModel.cs" />
@@ -5936,6 +5940,7 @@
     <Content Include="App_GlobalResources\WebResources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>WebResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

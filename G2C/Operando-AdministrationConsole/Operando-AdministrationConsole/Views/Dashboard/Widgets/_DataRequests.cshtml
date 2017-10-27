@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Operando_AdministrationConsole.Models.DashboardModels.WidgetModels.DataRequestsModel>
+﻿@using Operando_AdministrationConsole.Models.DataSubjectModels
+@model IEnumerable<DataAccessLogModel>
 
 <div class="portlet light bordered">
     <div class="portlet-title">
@@ -17,34 +18,30 @@
                 <li class="font-grey-gallery">
                     <div class="col1">
                         <div class="cont">
-                            <div class="cont-col1">
-                                @if (log.WasAllowed.HasValue)
-                                {
-                                    if (log.WasAllowed.Value)
-                                    {
-                                        <i class="fa fa-check-circle-o" style="color: green; font-size:16px; margin:5px;"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="fa fa-ban" style="color: red; font-size:16px; margin:5px;"></i>
-                                    }
-                                }
-                            </div>
                             <div class="cont-col2">
                                 <div class="desc">
-                                    @{
-                                        string label = log.Description.ToString()
-                                            .Replace("requested access to your", @Resources.WebResources.LogRequestedAccess)
-                                            .Replace("The request was denied, because it did not comply with your privacy settings", @Resources.WebResources.LogRequestedAccessDenied)
-                                            .Replace("The request was granted, because it complied with your privacy settings", @Resources.WebResources.LogRequestedAccessAllowed);
+                                    @if (log.GrantedFields.Any())
+                                    {
+                                        <span>
+                                            <i class="fa fa-check-circle-o" style="color: green; font-size: 16px;"></i>
+                                            <span class="hidden">@Resources.WebResources.LogAccessGranted</span>
+                                            <span>@string.Join(", ", log.GrantedFields)</span>
+                                        </span>
                                     }
-                                    @label
+                                    @if (log.DeniedFields.Any())
+                                    {
+                                        <span>
+                                            <i class="fa fa-ban" style="color: red; font-size: 16px;"></i>
+                                            <span class="hidden">@Resources.WebResources.LogAccessDenied</span>
+                                            <span>@string.Join(", ", log.DeniedFields)</span>
+                                        </span>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col2">
-                        <div class="date">@log.Timestamp.ToString("G")</div>
+                        <div class="date">@log.LogDates</div>
                     </div>
                 </li>
             }

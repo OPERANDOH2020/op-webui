@@ -1,48 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using eu.operando.core.ldb.Model;
+using Operando_AdministrationConsole.Helper;
 
 namespace Operando_AdministrationConsole.Models.DataSubjectModels
 {
     public class DataAccessLogModel
     {
-        public bool AccessGranted;
-        public DateTime LogDate;
-        public string RequesterType;
-        public string Title;
-        public string Description;
-        public string RequesterId;
+        public DateTime LogDateStart { get; set; }
+        public DateTime? LogDateEnd { get; set; }
+        public string RequesterId { get; set; }
+        public string OspId { get; set; }
 
-        public DataAccessLogModel(DataAccessLog entity)
+        public IList<string> GrantedFields { get; set; }
+        public IList<string> DeniedFields { get; set; }
+
+        public string LogDates => LogDateStart.ToString("G") +
+                                  (LogDateEnd.HasValue ? " - " + LogDateEnd.Value.ToString("G") : "");
+
+        public DataAccessLogModel(DataAccessLog entity, INiceStringConverter stringConverter)
         {
-            AccessGranted = ParseAccessGranted(entity);
-            LogDate = entity.logDate;
-            RequesterType = entity.requesterType;
-            Title = entity.title;
-            Description = entity.description;
-            RequesterId = entity.requesterId;
+            LogDateStart = entity.logDate;
+            RequesterId = stringConverter.NiceAccessorNameOrDefault(entity.requesterId);
+            OspId = entity.ospId;
+            GrantedFields = entity.arrayRequestedFields
+                .Where(s => entity.arrayGrantedFields.Contains(s))
+                .Select(stringConverter.NiceResourceNameOrDefault)
+                .ToList();
+            DeniedFields = entity.arrayRequestedFields
+                .Where(s => !entity.arrayGrantedFields.Contains(s))
+                .Select(stringConverter.NiceResourceNameOrDefault)
+                .ToList();
         }
 
-        private bool ParseAccessGranted(DataAccessLog entity)
+        public DataAccessLogModel(string ospId, string requesterId, IEnumerable<string> grantedFields,
+            IEnumerable<string> deniedFields, DateTime logDateStart, DateTime? logDateEnd = null)
         {
-            bool accessGranted;
-            if (entity.title.Equals(DataAccessLog.AccessDeniedTitle))
+            OspId = ospId;
+            RequesterId = requesterId;
+            GrantedFields = grantedFields.ToList();
+            DeniedFields = deniedFields.ToList();
+            LogDateStart = logDateStart;
+            LogDateEnd = logDateEnd;
+        }
+
+        public override bool Equals(object that)
+        {
+            var model = that as DataAccessLogModel;
+            return model != null && Equals(model);
+        }
+
+        protected bool Equals(DataAccessLogModel other)
+        {
+            return LogDateStart == other.LogDateStart &&
+                   LogDateEnd == other.LogDateEnd &&
+                   string.Equals(RequesterId, other.RequesterId) &&
+                   GrantedFields.Count == other.GrantedFields.Count &&
+                   GrantedFields.Zip(other.GrantedFields, string.Equals).All(b => b) &&
+                   DeniedFields.Count == other.DeniedFields.Count &&
+                   DeniedFields.Zip(other.DeniedFields, string.Equals).All(b => b);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
             {
-                accessGranted = false;
+                var hashCode = LogDateStart.GetHashCode();
+                hashCode = (hashCode * 397) ^ LogDateEnd.GetHashCode();
+                hashCode = (hashCode * 397) ^ (RequesterId != null ? RequesterId.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (GrantedFields != null ? GrantedFields.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (DeniedFields != null ? DeniedFields.GetHashCode() : 0);
+                return hashCode;
             }
-            else if (entity.title.Equals(DataAccessLog.AccessGrantedTitle))
-            {
-                accessGranted = true;
-            }
-            else
-            {
-                // It would be preferable to do validation when the log is created, rather than when interpreting the log.
-                // Since we don't have control over the code that accepts logs, or does the logging, this is the next-best thing.
-                throw new ArgumentException("The data access log has an invalid title, so the ");
-            }
-            return accessGranted;
         }
     }
 }

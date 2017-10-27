@@ -10,30 +10,14 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
     public class ModOSPConsents
     {
         public string OspId { get; set; }
-        public string OspFriendlyName { get;  set;}
-        public string OspPolicyText { get; set; }
-        public List<GroupAccessPolicies> groupAPBySubject { get; set; }
+        public List<IGrouping<string, IGrouping<string, AccessPolicyModel>>> AccessPoliciesBySubjectThenCategory
+        {
+            get;
+            set;
+        }
+
         [DefaultValue(false)]
         public bool selected  {get; set;}
 
-    }
-
-    public class GroupAccessPolicies
-    {
-        public string groupSubject { get; set; }
-        public List<Category> categoryAPList { get; set; }
-    }
-
-    public class Category
-    {
-        public string category { get; set; }
-        public List<AccessPolicyWithReason> categoryAPList { get; set; }
-    }
-
-    public class AccessPolicyWithReason
-    {
-        [DefaultValue("empty")]
-        public string reason { get; set; }
-        public AccessPolicy accessPolicy { get; set; }
     }
 }

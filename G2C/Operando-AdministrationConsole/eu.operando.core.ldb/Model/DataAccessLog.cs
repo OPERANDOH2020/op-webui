@@ -20,5 +20,8 @@ namespace eu.operando.core.ldb.Model
         public string description;
         public string logType;
         public string affectedUserId;
+        public string ospId;
+        public string[] arrayRequestedFields;
+        public string[] arrayGrantedFields;
     }
 }
