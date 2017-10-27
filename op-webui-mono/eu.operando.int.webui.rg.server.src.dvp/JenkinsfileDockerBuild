@@ -191,14 +191,12 @@ node {
 				devopsSourcesCurrentCommit = sh(returnStdout: true, script: "git -C ${devopsSourcesGitRepoPath} rev-parse HEAD").trim()
 			} catch (err){
 			}
-			sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"
 			if (hasSources) {
 				hasNewSources=true
 				try{
 					sourcesCurrentCommit = sh(returnStdout: true, script: "git -C ${sourcesGitRepoPath} rev-parse HEAD").trim()
 				} catch (err){
 				}
-				sh "echo \"${sourcesCurrentCommit}\" > ${sourcesLastChangedCommitFile}"
 			}
 	        requiresBuild=true
 		}
@@ -234,7 +232,6 @@ node {
     		    	}
  			    	if (currentVerbose) println ("devopsSourcesDiffPreviousCommit = " + devopsSourcesDiffPreviousCommit)
  			    	if (devopsSourcesDiffPreviousCommit!=""){
-                        sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"
  		  				hasNewDevopsSources=true
     		        	requiresBuild=true
  			    	}
@@ -267,7 +264,6 @@ node {
 	    		    	}
 	 			    	if (currentVerbose) println ("sourcesDiffPreviousCommit = " + sourcesDiffPreviousCommit)
 	 			    	if (sourcesDiffPreviousCommit!=""){
-                            sh "echo \"${sourcesCurrentCommit}\" > ${sourcesLastChangedCommitFile}"
  		  				    hasNewSources=true
 	    		        	requiresBuild=true
 	 			    	}
@@ -289,16 +285,16 @@ node {
              if(hasNewDevopsSources){
 	            stage ('Devops Source Move'){
 	                  sh "rm -rf ${devopsSourcesPath}/src"	   
-	                  sh "mv ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
+	                  sh "cp ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
 	                  sh "rm -rf ${devopsSourcesPath}/pom.xml"	   
-	                  sh "mv ${devopsSourcesGitPath}/pom.xml ${devopsSourcesPath}/pom.xml"
+	                  sh "cp ${devopsSourcesGitPath}/pom.xml ${devopsSourcesPath}/pom.xml"
 	            }
             }
             if(hasNewSources){
 	            stage ('Source Move'){
                   sh "rm -rf ${sourcesPath}"	   
                   sh "mkdir ${sourcesPath}"	   
-	              sh "mv ${sourcesGitPath}/* ${sourcesPath}"
+	              sh "cp ${sourcesGitPath}/* ${sourcesPath}"
 	            }
             	stage ('Assess Sources Install Need'){          	
 					try {
@@ -376,6 +372,12 @@ node {
 					sh "'${mvnHome}/bin/mvn' docker:push --non-recursive -Dmaven.test.skip=true -f ${devopsSourcesPath}/pom.xml"
 	            }
             }				
+            stage ('Save Commit Ref'){
+				sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"
+				if (hasSources) {
+					sh "echo \"${sourcesCurrentCommit}\" > ${sourcesLastChangedCommitFile}"
+				}
+            }
 			if (currentContinueTasks) {
 				stage('Launch Depending Tasks') {
 					int i=0;
