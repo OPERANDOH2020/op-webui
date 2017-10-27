@@ -53,16 +53,16 @@ function filterLogs() {
         }
     });
 
+    // rows may have both classes, so should be visible if either is selected
+    $('tr.granted').removeClass('visible').addClass('hidden');
+    $('tr.denied').removeClass('visible').addClass('hidden');
+
     if (showAllowedLogs) {
         $('tr.granted').addClass('visible').removeClass('hidden');
-    } else {
-        $('tr.granted').removeClass('visible').addClass('hidden');
     }
 
     if (showDeniedLogs) {
         $('tr.denied').addClass('visible').removeClass('hidden');
-    } else {
-        $('tr.denied').removeClass('visible').addClass('hidden');
     }
 }
 
