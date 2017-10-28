@@ -200,6 +200,10 @@ node {
 		)
 		if (currentClearOnFail){
 			stage ('Clear on Fail'){
+            	sh "rm -rf ${devopsSourcesPath}/pom.xml"	   			
+            	sh "rm -rf ${devopsSourcesPath}/src"	   			
+            	sh "rm -rf ${devopsSourcesPath}/target"	   			
+            	sh "rm -rf ${devopsSourcesPath}/bin"	   			
 			}
 		}		
 	    throw err
