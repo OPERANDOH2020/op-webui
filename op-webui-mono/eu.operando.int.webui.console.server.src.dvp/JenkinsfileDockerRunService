@@ -159,7 +159,7 @@ node {
          if(hasNewDevopsSources){
             stage ('Devops Source Move'){
                   sh "rm -rf ${devopsSourcesPath}/src"	   
-                  sh "cp ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
+                  sh "cp -rp ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
                   sh "rm -rf ${devopsSourcesPath}/pom.xml"	   
                   sh "cp ${devopsSourcesGitPath}/pom.xml ${devopsSourcesPath}/pom.xml"
             }
@@ -200,10 +200,6 @@ node {
 		)
 		if (currentClearOnFail){
 			stage ('Clear on Fail'){
-            	sh "rm -rf ${devopsSourcesPath}/pom.xml"	   			
-            	sh "rm -rf ${devopsSourcesPath}/src"	   			
-            	sh "rm -rf ${devopsSourcesPath}/target"	   			
-            	sh "rm -rf ${devopsSourcesPath}/bin"	   			
 			}
 		}		
 	    throw err
