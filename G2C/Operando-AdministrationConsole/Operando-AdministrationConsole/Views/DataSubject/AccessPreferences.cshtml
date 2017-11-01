@@ -37,7 +37,7 @@
                             {
                                 <text>false</text>
                             }">
-                            @osp.OspId
+                            @osp.OspFriendlyName
                         </a>
                     </li>
                 }
@@ -109,12 +109,13 @@
 
                 <div class="portlet-title">
                     <div class="caption">
-                        <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspId</span>
+                        <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspFriendlyName</span>
                     </div>
                 </div>
 
                 <div class="portlet-body form">
                     <p>@Resources.WebResources.AccessPreferencesDescription</p>
+                    <p>@osp.OspPolicyText</p>
                     <form class="form-horizontal" role="form" method="post" name="@osp.OspId form">
                         <div class="form-body">
                             <div class="form-group">

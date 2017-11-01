@@ -10,6 +10,8 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
     public class ModOSPConsents
     {
         public string OspId { get; set; }
+        public string OspFriendlyName { get; set; }
+        public string OspPolicyText { get; set; }
         public List<IGrouping<string, IGrouping<string, AccessPolicyModel>>> AccessPoliciesBySubjectThenCategory
         {
             get;
