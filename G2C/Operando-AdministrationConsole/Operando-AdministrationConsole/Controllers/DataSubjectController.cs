@@ -86,6 +86,20 @@ namespace Operando_AdministrationConsole.Controllers
             return _aapiClient.GetServiceTicket(ticketGrantingTicket, pdbOSPSId);
         }
 
+        public string extractPolicyName(string pText)
+        {
+            string policyText = pText;
+            if (!String.IsNullOrEmpty(policyText))
+            {
+                var idx = policyText.IndexOf("  ");
+                if (idx > 0)
+                {
+                    policyText = policyText.Substring(0, idx);
+                }
+            }
+            return policyText;
+        }
+
         /* Fetch OSP list and filter it with AAPI authorised OSPs */
         public List<OSPPrivacyPolicy> GetAuthorisedOspList()
         {
@@ -228,16 +242,27 @@ namespace Operando_AdministrationConsole.Controllers
                 selectedOspId = userSP.ElementAt(0).OspId;
             }
 
-            List <ModOSPConsents> opsModList = GroupAP(userSP, selectedOspId);
+            List <ModOSPConsents> opsModList = GroupAP(userSP, selectedOspId, availableOSPs);
             return View(opsModList);
         }
 
-        private List<ModOSPConsents> GroupAP(List<OSPConsents> consents, string selctedOspId)
+        private List<ModOSPConsents> GroupAP(List<OSPConsents> consents, string selctedOspId, List<OSPPrivacyPolicy> availableOSPs)
         {
             List<ModOSPConsents> modConsentsList = new List<ModOSPConsents>();
 
             foreach (OSPConsents cons in consents)
             {
+                // get consent propte ospi
+                string consOspPolicyId = cons.OspId;
+                foreach(var osp in availableOSPs)
+                {
+                    if(cons.OspId == osp.PolicyUrl)
+                    {
+                        consOspPolicyId = osp.PolicyUrl;
+                        break;
+                    }
+                }
+
                 // get access reasons
                 OSPReasonPolicy osprp = getPrivacyPolicyAccessReasons(cons.OspId);
                 Dictionary<string, string> reasonDict = new Dictionary<string, string>();
@@ -258,6 +283,20 @@ namespace Operando_AdministrationConsole.Controllers
 
                 ModOSPConsents mod = new ModOSPConsents();
                 mod.OspId = cons.OspId;
+
+                mod.OspFriendlyName = cons.OspId;
+                // find the osp text since consent object has only the ospId
+                foreach(var osp in availableOSPs)
+                {
+                    if(osp.PolicyUrl == cons.OspId)
+                    {
+                        string policyText = extractPolicyName(osp.PolicyText);
+                        mod.OspFriendlyName = policyText;
+                        mod.OspPolicyText = osp.PolicyText;
+                        break;
+                    }
+                }
+
                 if (selctedOspId == cons.OspId)
                 {
                     mod.selected = true;
@@ -511,7 +550,7 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 selected = resetOsp;
             }
-            return View(GroupAP(userSP, selected));
+            return View(GroupAP(userSP, selected, checkedOSPList));
         }
 
         public ActionResult PrivacyWizard()
