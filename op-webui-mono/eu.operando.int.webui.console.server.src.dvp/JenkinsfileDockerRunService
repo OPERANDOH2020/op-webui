@@ -143,7 +143,6 @@ node {
 			    	}
 			    	if (currentVerbose) println ("devopsSourcesDiffPreviousCommit = " + devopsSourcesDiffPreviousCommit)
 			    	if (devopsSourcesDiffPreviousCommit!=""){
-                        sh "echo \"${devopsSourcesCurrentCommit}\" > ${devopsSourcesLastChangedCommitFile}"
 		  				hasNewDevopsSources=true
 			    	}
 			    }
@@ -160,9 +159,9 @@ node {
          if(hasNewDevopsSources){
             stage ('Devops Source Move'){
                   sh "rm -rf ${devopsSourcesPath}/src"	   
-                  sh "mv ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
+                  sh "cp -rp ${devopsSourcesGitPath}/src ${devopsSourcesPath}"	   
                   sh "rm -rf ${devopsSourcesPath}/pom.xml"	   
-                  sh "mv ${devopsSourcesGitPath}/pom.xml ${devopsSourcesPath}/pom.xml"
+                  sh "cp ${devopsSourcesGitPath}/pom.xml ${devopsSourcesPath}/pom.xml"
             }
         }
         if(currentVerbose){
@@ -201,7 +200,10 @@ node {
 		)
 		if (currentClearOnFail){
 			stage ('Clear on Fail'){
-            	sh "rm -rf ${WORKSPACE}/src"	   			
+            	sh "rm -rf ${devopsSourcesPath}/pom.xml"	   			
+            	sh "rm -rf ${devopsSourcesPath}/src"	   			
+            	sh "rm -rf ${devopsSourcesPath}/target"	   			
+            	sh "rm -rf ${devopsSourcesPath}/bin"	   			
 			}
 		}		
 	    throw err

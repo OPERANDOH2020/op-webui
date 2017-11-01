@@ -27,5 +27,8 @@ sed -i -e "s/Server=vmxlinux01\.progettidiimpresa\.it/Server=mysql\.integration\
 sed -i -e "s/user id=operando_report/user id=root/" \
 /usr/src/app/source/Operando-AdministrationConsole/Web.config 
 sed -i -e "s/password=opera22!/password=root/" \
-/usr/src/app/source/Operando-AdministrationConsole/Web.config 
+/usr/src/app/source/Operando-AdministrationConsole/Web.config
+
+# Remove the Test project that will not work in mono
+sed -i '/^Project.*Operando-AdministrationConsoleTests.*$/{$!{N;s/^Project.*Operando-AdministrationConsoleTests.*\nEndProject//;ty;P;D;:y}}' /usr/src/app/source/Operando-AdministrationConsole.sln 
 
