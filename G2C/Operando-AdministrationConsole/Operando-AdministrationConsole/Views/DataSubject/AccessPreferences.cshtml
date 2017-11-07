@@ -129,7 +129,7 @@
                                             @foreach (var byCategory in osp.AccessPoliciesBySubjectThenCategory.First())
                                             {
                                                 <th class="Category_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" colspan="@(byCategory.Count() + 1)">@(byCategory.Key)
-                                                    <a class="TdCollapseProvacy" data-toggle="collapse" data-target=".Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" href="#"
+                                                    <br /><a class="TdCollapseProvacy" data-toggle="collapse" data-target=".Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" href="#"
                                                        aria-expanded="true" aria-controls=".Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table">Show all Fields</a>
                                                 </th>
                                             }

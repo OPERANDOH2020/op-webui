@@ -627,3 +627,14 @@ tr.add-row {
         padding: 25px 30px 40px;
     }
 }
+
+
+/*************/
+a.TdCollapseProvacy {
+    color: #E87E04;
+    font-size:90%;
+}
+
+a:hover.TdCollapseProvacy {
+    color:black;
+}
