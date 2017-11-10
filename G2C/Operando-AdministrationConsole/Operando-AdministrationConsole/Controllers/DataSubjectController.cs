@@ -258,13 +258,15 @@ namespace Operando_AdministrationConsole.Controllers
                 {
                     if(cons.OspId == osp.PolicyUrl)
                     {
-                        consOspPolicyId = osp.PolicyUrl;
+                        //consOspPolicyId = osp.PolicyUrl;
+                        consOspPolicyId = osp.OspPolicyId;
                         break;
                     }
                 }
 
                 // get access reasons
-                OSPReasonPolicy osprp = getPrivacyPolicyAccessReasons(cons.OspId);
+                //OSPReasonPolicy osprp = getPrivacyPolicyAccessReasons(cons.OspId);
+                OSPReasonPolicy osprp = getPrivacyPolicyAccessReasons(consOspPolicyId);
                 Dictionary<string, string> reasonDict = new Dictionary<string, string>();
                 if (osprp != null)
                 {
@@ -573,6 +575,16 @@ namespace Operando_AdministrationConsole.Controllers
             var qConfiguration = new eu.operando.core.pc.pq.Client.Configuration(new eu.operando.core.pc.pq.Client.ApiClient(qUriBase));
             var getQInstance = new eu.operando.core.pc.pq.Api.QuestionsApi(qConfiguration);
             string ospId = Session["QuestionnaireOSP"].ToString();
+
+            List<OSPPrivacyPolicy> checkedOSPList = GetAuthorisedOspList();
+            foreach(var osp in checkedOSPList)
+            {
+                if(osp.PolicyUrl == ospId)
+                {
+                    ospId = osp.OspPolicyId;
+                    break;
+                }
+            }
 
             try
             {                
