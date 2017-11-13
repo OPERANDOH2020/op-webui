@@ -19,6 +19,7 @@ namespace Operando_AdministrationConsole.Models
         // Attributes
         public string Category { get; }
         public string Tooltip { get; }
+        public string TooltipReason { get; set; }
         public bool Fixed { get; }
 
         // Settable Properties

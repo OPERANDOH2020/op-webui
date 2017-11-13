@@ -160,7 +160,9 @@
                                                     <th class="Th_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" colspan="@(byCategory.Count() + 1)">
                                                         <input type="checkbox" name="@(ospNum).@(subNum).@(catNum)" id="@(catId)"
                                                                onclick="toggle(this)"
-                                                               data-toggle="tooltip" data-placement="top" title="@(bySubject.Key) uses @(byCategory.Key) for @(byCategory.ElementAt(0).Reason)" /><span></span>
+                                                               data-toggle="tooltip" data-placement="top" title="@(bySubject.Key) can @(byCategory.ElementAt(0).Action)  @(byCategory.Key) info @if (!string.IsNullOrEmpty(byCategory.ElementAt(0).Reason))
+                                                               { <text> for </text> }
+                                                               @(byCategory.ElementAt(0).Reason)" /><span></span>
                                                     </th>
                                                     catId += 1;
                                                     foreach (var accessPolicy in byCategory)
@@ -185,7 +187,7 @@
                                                                 id="@(catId)"
                                                                 @if (accessPolicy.Permission == true) { @: checked="checked"
                                                                 }
-                                                                data-toggle="tooltip" data-placement="top" title="@(bySubject.Key) uses @(accessPolicy.Tooltip) for @(accessPolicy.Reason)">
+                                                                data-toggle="tooltip" data-placement="top" title="@accessPolicy.TooltipReason">
                                                             <span></span>
                                                         </td>
                                                         catId += 1;

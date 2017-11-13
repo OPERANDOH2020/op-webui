@@ -311,15 +311,21 @@ namespace Operando_AdministrationConsole.Controllers
 
                 foreach (AccessPolicyModel model in models)
                 {
+                    string can = "can";
+                    if (!model.Permission)
+                    {
+                        can = "cannot";
+                    }
+                    model.TooltipReason = model.Subject + " " + can + " " + model.Action.ToLower() + " " + model.Resource.ToLower();
+
                     if (reasonDict.ContainsKey(model.Subject + model.Category))
                     {
-                        model.Reason = reasonDict[model.Subject + model.Category];
-                    }
-                    // if still Reason is empty
-                    if (string.IsNullOrEmpty(model.Reason))
-                    {
-                        string can = model.Permission ? " can " : " cannot ";
-                        model.Reason = model.Subject + can + model.Action + " " + model.Resource;
+                        string reason = reasonDict[model.Subject + model.Category];
+                        if (!string.IsNullOrEmpty(reason))
+                        {
+                            model.TooltipReason += " for " + reason;
+                            model.Reason = reason;
+                        }
                     }
                 }
                 // List<Grouping<(Subject, Category), Model>>
