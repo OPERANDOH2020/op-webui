@@ -139,7 +139,8 @@
                                             @foreach (var byCategory in osp.AccessPoliciesBySubjectThenCategory.First())
                                             {
                                                 <th class="Th_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table" colspan="@(byCategory.Count() + 1)">all</th>
-                                                foreach (var policy in byCategory)
+                                                            var lbyCategory = byCategory.ToList();
+                                                            foreach (var policy in lbyCategory.OrderBy(x => x.Action))
                                                 {
                                                     <td class="Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table collapse">@(policy.Action): @policy.Resource</td>
                                                 }
@@ -165,7 +166,8 @@
                                                                @(byCategory.ElementAt(0).Reason)" /><span></span>
                                                     </th>
                                                     catId += 1;
-                                                    foreach (var accessPolicy in byCategory)
+                                                            var listByCategory = byCategory.ToList();                                                            
+                                                            foreach (var accessPolicy in listByCategory.OrderBy(x => x.Action))
                                                     {
                                                         <td class="Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table collapse">
                                                             @{var hiddenFlag = false;}
