@@ -129,6 +129,7 @@
         var temp = JSON.parse(snapshot);
         for (var i = 0; i < temp.policies.length ; i++) {
             if (temp.policies[i].Id === policy.Id()) {
+                temp.policies[i].Reasonid = policy.EditableCopy.Reasonid();
                 temp.policies[i].Datauser = policy.EditableCopy.Datauser();
                 temp.policies[i].Datasubjecttype = policy.EditableCopy.Datasubjecttype();
                 temp.policies[i].Datatype = policy.EditableCopy.Datatype();
@@ -145,6 +146,7 @@
             data: JSON.stringify(temp)
         })
         .done(function () {
+            policy.Reasonid(policy.EditableCopy.Reasonid());
             policy.Datauser(policy.EditableCopy.Datauser());
             policy.Datasubjecttype(policy.EditableCopy.Datasubjecttype());
             policy.Datatype(policy.EditableCopy.Datatype());

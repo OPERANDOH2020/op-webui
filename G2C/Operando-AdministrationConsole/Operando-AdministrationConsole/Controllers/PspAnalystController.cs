@@ -334,8 +334,8 @@ namespace Operando_AdministrationConsole.Controllers
                         {
                             checkedOSPList.Add(ospInstance);
                             break;
-    }
-}
+                        }
+                    }
                 }
                 if (checkedOSPList.Count == 0)
                 {
@@ -387,10 +387,11 @@ namespace Operando_AdministrationConsole.Controllers
 
             //creates datetime objects for the start date and end date selected by the user on the html page
             DateTime startDate = new DateTime(startyear, startmonth, startday).Date;
-            DateTime endDate = new DateTime(endyear, endmonth, endday).Date;
+            DateTime endDate = new DateTime(endyear, endmonth, endday, 23, 59, 59);
             //gets the OSPPolicyId from the string submitted from the HTML page
             string[] ospStrings = OSPId.Split('/');
             string OspPolicyId = ospStrings[1];
+            string ospPolicyIdUrl = ospStrings[0];
 
             
             OSPPrivacyPolicy matchingOsp = ospList.Where(o => o.OspPolicyId.Equals(OspPolicyId)).First();
@@ -401,12 +402,12 @@ namespace Operando_AdministrationConsole.Controllers
                 roles.Add(policy.Subject);
             }
             //get the data access logs
-            IList<DataAccessLog> logs = instance.GetDataAccessLogs(OspPolicyId);
+            IList<DataAccessLog> logs = instance.GetDataAccessOspLogs(ospPolicyIdUrl);
             List<DataAccessLog> logsToCheck = new List<DataAccessLog>();
             //sorts by logs that fall within the region for the dates
             foreach (var log in logs)
             {
-                if (log.logDate >= startDate && log.logDate <= endDate && log.requesterId.Equals(matchingOsp.OspPolicyId))
+                if (log.logDate >= startDate && log.logDate <= endDate)
                 {
                     logsToCheck.Add(log);
                 }
@@ -459,8 +460,6 @@ namespace Operando_AdministrationConsole.Controllers
                     html += OSPId + " has made an invalid request with the resource " + log.title + ". ";
                 }
             }
-
-
 
             return Json(html, JsonRequestBehavior.AllowGet);
         }

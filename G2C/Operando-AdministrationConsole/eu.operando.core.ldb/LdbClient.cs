@@ -28,6 +28,10 @@ namespace eu.operando.core.ldb
             return RequestDataAccessLogs($"logType=notification&affectedUserId={userId}");
         }
 
+        public IList<DataAccessLog> GetDataAccessOspLogs(string ospId)
+        {
+            return RequestDataAccessLogs($"logType=data_access&ospId={ospId}");
+        }
         private List<DataAccessLog> RequestDataAccessLogs(string searchString)
         {
             List<DataAccessLog> logList = new List<DataAccessLog>();

@@ -122,7 +122,8 @@ namespace Operando_AdministrationConsole.Controllers
                 OSPReasonPolicy ospReasonPolicy = null;
                 try
                 {                    
-                    ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(osp.PolicyUrl);
+                    ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(osp.OspPolicyId);
+                    ospReasonPolicy.OspPolicyId = osp.PolicyUrl;       
                 }
                 catch (eu.operando.core.pdb.cli.Client.ApiException e)
                 {
@@ -132,6 +133,8 @@ namespace Operando_AdministrationConsole.Controllers
                 }
 
                 reasonPolicyList.Add(ospReasonPolicy);
+                // just return first osp for testing only
+                break;
             }
             return View(reasonPolicyList);
             //return View();
@@ -762,8 +765,10 @@ namespace Operando_AdministrationConsole.Controllers
             var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
             OSPReasonPolicyInput ospRPI = new OSPReasonPolicyInput();
             ospRPI.Policies = policy.Policies;
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            OSPPrivacyPolicy matchingOsp = ospList.Where(o => o.PolicyUrl.Equals(policy.OspPolicyId)).First();
 
-            instance.OSPOspIdPrivacyPolicyPut(policy.OspPolicyId, ospRPI);
+            instance.OSPOspIdPrivacyPolicyPut(matchingOsp.OspPolicyId, ospRPI);
 
             return Content(policy.ToString());
         }
