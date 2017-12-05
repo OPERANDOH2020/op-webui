@@ -90,10 +90,11 @@ Report Rest Service:
 Interactions with this form all occur via Web UI.
 The module is a modern and responsive web application, so the user could interact with it as with any other web or mobile site using a web browser.  
 ### RG
-Reports can be created using BIRT Report Designer. Once the report is created, it must be placed inside BIRT Viewer. After this, you can add these reports inside Operando Management Console using the section dedicated to reports management (PspAdmin/ReportsConfig and OspAdmin/Reports). Through the web UI console you can configure the scheduling of the report, set which OSPs the report should be visible to, change the input parameters and see the results.
-Alternatively, reports can be accessed through Report Rest Service application. You have to make HTTP GET call putting in the header the service ticket and in the query string the parameters:
-•	_reportId: specify the ID of the report (inside MySql table t_report_mng_list) to download.
-•	_format: specify the output format (HTML or PDF).
+Reports can be created using BIRT Report Designer. Once the report is created, it must be placed inside BIRT Viewer. After this, you can add these reports inside Operando Management Console using the section dedicated to reports management (PspAdmin/ReportsConfig and OspAdmin/Reports). <br />
+Through the web UI console you can configure the scheduling of the report, set which OSPs the report should be visible to, change the input parameters and see the results.<br />
+Alternatively, reports can be accessed through Report Rest Service application. You have to make HTTP GET call putting in the header the service ticket and in the query string the parameters:<br />
+•	_reportId: specify the ID of the report (inside MySql table t_report_mng_list) to download.<br />
+•	_format: specify the output format (HTML or PDF).<br />
 •	paramName: report parameters that are designated in the design mode can be passed as URL parameters by entering the paramName=value syntax.
 
 ## Future Plans
