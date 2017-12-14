@@ -134,7 +134,7 @@ namespace Operando_AdministrationConsole.Controllers
 
                 reasonPolicyList.Add(ospReasonPolicy);
                 // just return first osp for testing only
-                break;
+                // break;
             }
             return View(reasonPolicyList);
             //return View();
@@ -239,7 +239,7 @@ namespace Operando_AdministrationConsole.Controllers
         public void updateAccessPolicy(string[] rolearr, string[] resourcearr, string[] collectarr, string[] createarr, string[] deletearr, string[] updatearr, string[] accessarr, string[] usearr, string[] disclosearr, string[] archivearr)
         {
 
-            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+           var  instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
             List<OSPPrivacyPolicy> ospList = GetOspList();
             HashSet<string> roles = new HashSet<string>();
             List<AccessPolicy> policiesToRemove = new List<AccessPolicy>();
