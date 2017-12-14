@@ -101,15 +101,18 @@
                                 <th>Reason for use</th>
                                 <th style="min-width: 120px;"><!-- ACTION COLUMN --></th>
                             </tr>
-
-                            <tr>
-                                @PolicyEditRow("newPolicy")
-                                <td>
-                                    <div class="actions">
-                                        <button type="button" class="btn btn-circle yellow-gold btn-sm" data-bind="click: addNewPolicy">Add <i class="fa fa-plus"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
+                            @if (canEdit)
+                            {
+                                <tr>
+                                    @PolicyEditRow("newPolicy")
+                                    <td>
+                                        <div class="actions">
+                                            <button type="button" class="btn btn-circle yellow-gold btn-sm"
+                                                    data-bind="click: addNewPolicy">Add <i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                         </thead>
                         <tbody data-bind="foreach: policies">
                             <tr>
