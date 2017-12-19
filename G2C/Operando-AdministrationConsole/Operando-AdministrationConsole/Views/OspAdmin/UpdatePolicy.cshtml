@@ -1,17 +1,57 @@
 ﻿<!--Created by IT Innovation Centre, Christopher Coles, 06/09/2017-->
 @{
     bool canEdit = Session["UserType"]?.ToString() == "osp_admin";
-
-//    ViewBag.MenuSection = canEdit ? "OSP Admin" : "Data Subject";
     ViewBag.Title = "Update Policy";
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
 }
 @using Operando_AdministrationConsole.Models;
 @using eu.operando.core.pdb.cli.Model;
 @using Operando_AdministrationConsole.Models.DataSubjectModels;
-@*model OSPConsents*@
 
+<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-globe font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase"> OSP Policy</span>
+                </div>
+            </div>
+            <div class="portlet-body">
 
+                <button class="btn default" type="button" id="recordbutton" onclick="loadRecords()">Change to records</button>
+                <button class="btn default" type="button" id="categorybutton" onclick="loadCategories()">Change to categories</button>
+                
+                <div class="col-xs-12" style="height:10px;"></div>
+
+                <div id="displayarea">
+
+                </div>
+                <div id="displayarea2">
+
+                </div>
+                <script type="text/javascript">
+                    function loadRecords() {
+                        $("#displayarea").load('@Url.Action("DisplayRecords", "OspAdmin")');
+                        $("#displayarea").show();
+                        $("#displayarea2").hide();
+
+                    }
+                    function loadCategories() {
+                        $("#displayarea2").load('@Url.Action("DisplayCategories", "OspAdmin")');
+                        $("#displayarea2").show();
+                        $("#displayarea").hide();
+                    }
+                    window.onload = function () {
+                        loadRecords();
+                    };
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*
 <html>
     <head>
     </head>
@@ -45,3 +85,4 @@
     </div>
 </body>
 </html>
+    *@

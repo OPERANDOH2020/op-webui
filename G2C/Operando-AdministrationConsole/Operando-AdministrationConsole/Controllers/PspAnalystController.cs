@@ -375,7 +375,7 @@ namespace Operando_AdministrationConsole.Controllers
         /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
         //This method returns a report for a particular OSP's logs, whether they are valid or not, and if not, returning which logs are not valid
         [HttpGet]
-        public JsonResult ReportEvaluation(string OSPId, int startday, int startmonth, int startyear, int endday, int endmonth, int endyear)
+        public JsonResult ReportEvaluation(string ospUrl, string ospId, int startday, int startmonth, int startyear, int endday, int endmonth, int endyear)
         {
           
 
@@ -389,9 +389,10 @@ namespace Operando_AdministrationConsole.Controllers
             DateTime startDate = new DateTime(startyear, startmonth, startday).Date;
             DateTime endDate = new DateTime(endyear, endmonth, endday, 23, 59, 59);
             //gets the OSPPolicyId from the string submitted from the HTML page
-            string[] ospStrings = OSPId.Split('/');
-            string OspPolicyId = ospStrings[1];
-            string ospPolicyIdUrl = ospStrings[0];
+            //string[] ospStrings = OSPId.Split('/');
+            string OspPolicyId = ospId; // ospStrings[1];
+            string ospPolicyIdUrl = ospUrl; // ospStrings[0];
+            string OSPId = ospUrl + '/' + ospId;
 
             
             OSPPrivacyPolicy matchingOsp = ospList.Where(o => o.OspPolicyId.Equals(OspPolicyId)).First();

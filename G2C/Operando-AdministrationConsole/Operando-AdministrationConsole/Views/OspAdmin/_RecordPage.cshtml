@@ -11,8 +11,8 @@
             font-family: "Lato", sans-serif;
         }
         /* Style the tab */
-        .content {
-            width: 70%;
+        .content1 {
+            width: 90%;
             border-left: none;
             height: 300px;
             border: 1px solid black;
@@ -77,20 +77,21 @@
 </head>
 
 <body>
-    <button class="inputbutton" onclick="toggleodata()">Input OData</button>
-    <button class="addRole" onclick="addRole()">Add Role</button>
-    <button class="addResource" onclick="addResource()">Add Resource</button>
+        <button class="btn yellow-gold" type="button" onclick="toggleodata()">Input OData</button>
+        <button class="btn default" type="button" onclick="addRole()">Add Role</button>
+        <button class="btn default" type="button" onclick="addResource()">Add Resource</button>
+    <div class="col-xs-12" style="height:10px;"></div>
     <div class="pastearea" id="pastearea" style="display:none">
         <textarea rows="4" cols="50" id="odatatextarea">Paste OData here</textarea>
-        <button onclick="submitOdata('@ViewBag.osp.OspPolicyId')">submit OData</button>
+        <button class="btn default" type="button" onclick="submitOdata('@ViewBag.osp.OspPolicyId')">submit OData</button>
     </div>
     <div class="inputarea" id="roleinput" style="display:none">
         <textarea rows="1" cols="20" id="roleinputtext">input role here</textarea>
-        <button onclick="submitRole('@ViewBag.osp.OspPolicyId')">submit role</button>
+        <button class="btn default" type="button" onclick="submitRole('@ViewBag.osp.OspPolicyId')">submit role</button>
     </div>
     <div class="inputarea" id="resourceinput"  style="display:none">
         <textarea rows="1" cols="20" id="resourceinputtext">input resource here</textarea>
-        <button onclick="submitResource('@ViewBag.osp.OspPolicyId')">submit resource</button>
+        <button class="btn default" type="button" onclick="submitResource('@ViewBag.osp.OspPolicyId')">submit resource</button>
     </div>
 
     @ViewBag.osp.PolicyUrl
@@ -101,7 +102,8 @@
         @foreach (var role in ViewBag.roles)
         {
             @role 
-            <button onclick="removeRole('@role','@ViewBag.osp.OspPolicyId' )">Remove '@role' role</button>
+            <button class="btn default" type="button" onclick="removeRole('@role','@ViewBag.osp.OspPolicyId' )">Remove '@role' role</button>
+            <div class="col-xs-12" style="height:5px;"></div>
             <table class="table table-bordered table-condensed table-hover table-striped">
 
                 <thead>
@@ -180,8 +182,8 @@
                         }
 
                 </div>
-
-                <button class="setbutton" onclick="setRecords(@rowIdNumber)">Set Records</button>
+    <div class="col-xs-12" style="height:10px;"></div>
+                <button class="btn yellow-gold" type="button" onclick="setRecords(@rowIdNumber)">Set Records</button>
                 <div id="responseText"></div>
 
 <script type="text/javascript">

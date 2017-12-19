@@ -166,10 +166,10 @@
                                                                @(byCategory.ElementAt(0).Reason)" /><span></span>
                                                     </th>
                                                     catId += 1;
-                                                            var listByCategory = byCategory.ToList();                                                            
-                                                            foreach (var accessPolicy in listByCategory.OrderBy(x => x.Action))
+                                                    var listByCategory = byCategory.ToList();
+                                                    foreach (var accessPolicy in listByCategory.OrderBy(x => x.Action))
                                                     {
-                                                        <td class="Td_@(byCategory.Key.Replace(" ",""))@(osp.OspId)-table collapse">
+                                                        <td class="Td_@(byCategory.Key.Replace(" ", ""))@(osp.OspId)-table collapse">
                                                             @{var hiddenFlag = false;}
                                                             @if (accessPolicy.Fixed)
                                                             {
@@ -180,8 +180,7 @@
                                                                         id="@(catId)"
                                                                         @if (accessPolicy.Permission == true) { @: checked="checked"
                                                                         }
-                                                                        disabled readonly>                                                                
-                                                                @*break;*@
+                                                                        required>    
                                                             }
                                                             <input @{if (hiddenFlag) { <text> type="hidden" </text>      } else { <text> type="checkbox" </text>       } }
                                                                 name="@(ospNum).@(subNum).@(catNum) @accessPolicy.RawSubject.GetHashCode() @accessPolicy.RawResource.GetHashCode() @accessPolicy.RawAction.GetHashCode()"
@@ -189,10 +188,12 @@
                                                                 id="@(catId)"
                                                                 @if (accessPolicy.Permission == true) { @: checked="checked"
                                                                 }
-                                                                data-toggle="tooltip" data-placement="top" title="@accessPolicy.TooltipReason">
-                                                            <span></span>
-                                                        </td>
-                                                        catId += 1;
+                                                                data-toggle="tooltip" data-placement="top" title="@accessPolicy.TooltipReason" @{if (hiddenFlag) { <text> required </text> } }>
+
+<span></span>
+
+</td>
+catId += 1;
 
                                                     }
                                                     catNum += 1;
@@ -242,6 +243,7 @@
 @section PageScripts {
     <script src="~/assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
     <script src="~/assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 
     <script type="text/javascript">
         /* enable tooltip */ 
