@@ -116,15 +116,44 @@
                                                                                     {
                                                                                         <button type="button" onclick="$('#tabUserManagement01').removeClass('active'); $('#tabUserManagement03').addClass('active');" class="btn btn-outline green btn-sm scheduleDetail_@(count)" data-toggle="tab" id="editButtonScheduler_@(count)" href="#tabUserManagement03"> Edit </button>
                                                                                     }
-                                                                                    <button type="button" class="btn btn-outline red btn-sm scheduleDetail_@(count)" data-toggle="confirmation" id="deleteButtonScheduler_@(count)" data-id="@(count)" data-original-title="Are you sure ?" data-placement="left" data-singleton="true" data-on-confirm="deleteRowClick">Delete</button>
+                                                                                    <!--
+                                                                                    <button type="button" class="btn btn-outline red btn-sm scheduleDetail_@(count)" 
+                                                                                            data-toggle="confirmation" id="deleteButtonScheduler_@(count)" 
+                                                                                            data-id="@(count)" data-original-title="Are you sure ?" 
+                                                                                            data-placement="left" data-singleton="true" 
+                                                                                            data-on-confirm="deleteUser('@(user.userName)')">Delete</button>
+                                                                                        -->
+                                                                                    <button type="button" class="btn btn-outline red btn-sm scheduleDetail_@(count)"
+                                                                                            id="delete_user_@(count)"
+                                                                                            onclick="deleteUser('@(user.userName)')">Delete
+                                                                                            </button>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
                                                                         if (oddeven == "odd") { oddeven = "even"; }
                                                                         count++;
                                                                     }
+
                                                                 </tbody>
                                                             </table>
+
+                                                            <script>
+                                                                function deleteUser(username) {
+                                                                    var urlUserAdd = "@Url.Action("UsersManagementDelete", "PspAdmin")/";
+                                                                    $.ajax({
+                                                                        url: urlUserAdd,
+                                                                        method: "delete",
+                                                                        data: JSON.stringify({
+                                                                            userName: username
+                                                                        }),
+                                                                        contentType: "application/json"
+                                                                    }).done(function () {
+                                                                        alert("The user deleted.");
+                                                                    }).fail(function () {
+                                                                        alert("The user could not be deleted. Please try again.");
+                                                                    });
+                                                                }
+                                                            </script>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -176,7 +205,7 @@
                             </div>
 
                             <div class="portlet-body">
-                                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                                <div >
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -505,13 +534,14 @@
                                                 <div class="form-group">
                                                     <label class="control-label visible-ie8 visible-ie9 col-md-3">User type</label>
                                                     <div class="col-md-6">
-                                                        <select name="usertype" class="form-control">
+                                                        <select id="UserType_add" name="usertype" class="form-control">
                                                             <option value="">User type</option>
                                                             <option value="psp_analyst">PSP Analyst</option>
                                                             <option value="psp_admin">PSP Admin</option>
                                                         </select>
                                                         </div>
                                                     </div>
+
                                                 <div class="form-group">
                                                     <label class="control-label visible-ie8 visible-ie9 col-md-3">Username</label>
                                                     <div class="col-md-6">
@@ -521,7 +551,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label visible-ie8 visible-ie9 col-md-3">Password</label>
                                                     <div class="col-md-6">
-                                                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="Password" name="password" id="Password_add"/>
+                                                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" id="Password_add"/>
                                                     </div>
                                                     </div>
                                                 <div class="form-group">
@@ -553,42 +583,32 @@
                                     </div>
                                     <script>
                                         function addNewUser() {
-                                            
-                                        var username = document.getElementById("Username_add").value;
-                                        var useremail = document.getElementById("E-mail_add").value;
-                                        var usertype = document.getElementById("UserType_add").value;
-                                        var urlUserAdd = "@Url.Action("UsersManagementAdd", "PspAdmin")/";
-                                        $.ajax({
-                                            url: urlUserAdd,
-                                            method: "put",
-                                            data: JSON.stringify({
-                                                userName: username,
-                                                email: useremail,
-                                                userType: usertype
-                                            }),
-                                            contentType: "application/json"
-                                        })
-        .done(function () {
-            //policyModel.addPolicy();
-            // Just init all the confirmations rather than trying
-            // to find the new one specifically
-            //$('[data-toggle=confirmation]').confirmation({
-            //    rootSelector: '[data-toggle=confirmation]'
-            //});
-            alert("The user added.");
-        })
-        .fail(function () {
-            alert("The user could not be added. Please try again.");
-        });
 
-                                    }
+                                            var username = document.getElementById("Username_add").value;
+                                            var useremail = document.getElementById("E-mail_add").value;
+                                            var usertype = document.getElementById("UserType_add").value;
+                                            var userpassword = document.getElementById("Password_add").value;
+                                            var urlUserAdd = "@Url.Action("UsersManagementAdd", "PspAdmin")/";
+                                            $.ajax({
+                                                url: urlUserAdd,
+                                                method: "put",
+                                                data: JSON.stringify({
+                                                    userName: username,
+                                                    userPassword: userpassword,
+                                                    email: useremail,
+                                                    userType: usertype
+                                                }),
+                                                contentType: "application/json"
+                                            }).done(function () {
+                                                //alert("The user added.");
+                                            }).fail(function () {
+                                                alert("The user could not be added. Please try again.");
+                                            });
+                                        }
                                     </script>
-
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

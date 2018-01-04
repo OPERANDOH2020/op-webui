@@ -9,6 +9,7 @@ namespace Operando_AdministrationConsole.Models
     public class ViewUser
     {
         public string userName { get; set; }
+        public string userPassword { get; set; }
         public string email { get; set; }
         public string userType { get; set; }
         [DefaultValue("name")]

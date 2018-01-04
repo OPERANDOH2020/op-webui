@@ -594,25 +594,32 @@ namespace Operando_AdministrationConsole.Controllers
                 var filter = "{\"userId\" : \"\"}";
                 var uppUsersList = getInstance.UserPrivacyPolicyGet(filter);
 
-                foreach(var upp in uppUsersList)
+                foreach (var upp in uppUsersList)
                 {
-                    // get user profile from AAPI
-                    var usr = userInstance.UserUsernameGet(upp.UserId);
-                    ViewUser user = new ViewUser();
-                    Newtonsoft.Json.Linq.JObject jProfile = Newtonsoft.Json.Linq.JObject.Parse(usr.ToJson());
-                    foreach (var attr in jProfile["optionalAttrs"])
+                    try
                     {
-                        if (attr["attrName"].ToString() == "user_type")
+                        // get user profile from AAPI
+                        var usr = userInstance.UserUsernameGet(upp.UserId);
+                        ViewUser user = new ViewUser();
+                        Newtonsoft.Json.Linq.JObject jProfile = Newtonsoft.Json.Linq.JObject.Parse(usr.ToJson());
+                        foreach (var attr in jProfile["optionalAttrs"])
                         {
-                            user.userType = attr["attrValue"].ToString();
+                            if (attr["attrName"].ToString() == "user_type")
+                            {
+                                user.userType = attr["attrValue"].ToString();
+                            }
+                            if (attr["attrName"].ToString() == "email")
+                            {
+                                user.email = attr["attrValue"].ToString();
+                            }
                         }
-                        if (attr["attrName"].ToString() == "email")
-                        {
-                            user.email = attr["attrValue"].ToString();
-                        }
+                        user.userName = upp.UserId;
+                        users.Add(user);
                     }
-                    user.userName = upp.UserId;
-                    users.Add(user);
+                    catch (Exception e)
+                    {
+                        Debug.Print("User " + upp.UserId + " does not seem to have an AAPI account?");
+                    }
                 }
             }
             catch (Exception e)
@@ -649,7 +656,7 @@ namespace Operando_AdministrationConsole.Controllers
 
         private User convertUser(ViewUser userIn)
         {
-            User user = new User(userIn.userName, "operando");
+            User user = new User(userIn.userName, userIn.userPassword);
             List<eu.operando.interfaces.aapi.Model.Attribute> optAttributes = new List<eu.operando.interfaces.aapi.Model.Attribute>();
             optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("user_type", userIn.userType));
             optAttributes.Add(new eu.operando.interfaces.aapi.Model.Attribute("fullname", userIn.fullName));
@@ -691,19 +698,26 @@ namespace Operando_AdministrationConsole.Controllers
             }
             ViewBag.Message = userIn.userName + " successfully added";
 
+            var dataSubject = new DataSubjectController();
+            dataSubject.createUPP(userIn.userName);
+            List<OSPPrivacyPolicy> availableOSPs = dataSubject.GetAuthorisedOspList();
+            ViewBag.ospList = availableOSPs;
+
             return View();
         }
 
         [HttpDelete]
         public ActionResult UsersManagementDelete(ViewUser userIn)
         {
-            string userBasePath = ConfigurationManager.AppSettings["aapiBasePath"];
+            string userBasePath = ConfigurationManager.AppSettings["aapiBasePath1"];
             var userInstance = new eu.operando.interfaces.aapi.Api.DefaultApi(userBasePath);
             try
             {
                 // delete user
                 var usr = userInstance.UserUsernameDelete(userIn.userName);
                 Debug.Print("USER delete response: " + usr.ToJson());
+                var dataSubject = new DataSubjectController();
+                dataSubject.deleteUPP(userIn.userName);
             }
             catch (Exception e)
             {
