@@ -404,6 +404,7 @@ namespace Operando_AdministrationConsole.Controllers
             }
             //get the data access logs
             IList<DataAccessLog> logs = instance.GetDataAccessOspLogs(ospPolicyIdUrl);
+            //IList<DataAccessLog> logs = instance.GetDataAccessLogs("");
             List<DataAccessLog> logsToCheck = new List<DataAccessLog>();
             //sorts by logs that fall within the region for the dates
             foreach (var log in logs)

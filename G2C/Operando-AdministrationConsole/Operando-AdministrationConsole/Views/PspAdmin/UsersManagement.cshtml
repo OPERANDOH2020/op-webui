@@ -142,18 +142,19 @@
                                                                     var urlUserAdd = "@Url.Action("UsersManagementDelete", "PspAdmin")/";
                                                                     $.ajax({
                                                                         url: urlUserAdd,
-                                                                        method: "delete",
+                                                                        method: "put",
                                                                         data: JSON.stringify({
                                                                             userName: username
                                                                         }),
                                                                         contentType: "application/json"
                                                                     }).done(function () {
-                                                                        alert("The user deleted.");
+                                                                        alert("The user is deleted.");
                                                                     }).fail(function () {
                                                                         alert("The user could not be deleted. Please try again.");
                                                                     });
                                                                 }
                                                             </script>
+
                                                         </div>
                                                     </div>
                                                 </div>

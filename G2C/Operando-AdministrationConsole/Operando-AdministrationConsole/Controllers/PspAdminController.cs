@@ -706,7 +706,7 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-        [HttpDelete]
+        [HttpPut]
         public ActionResult UsersManagementDelete(ViewUser userIn)
         {
             string userBasePath = ConfigurationManager.AppSettings["aapiBasePath1"];
