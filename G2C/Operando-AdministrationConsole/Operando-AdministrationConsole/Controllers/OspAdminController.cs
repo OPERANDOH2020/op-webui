@@ -772,7 +772,23 @@ namespace Operando_AdministrationConsole.Controllers
 
             return Content(policy.ToString());
         }
-        
+
+        [HttpPut]
+        public ActionResult UpdatePrivacyPolicyReason(OSPReasonPolicy policy)
+        {
+            var instance = new eu.operando.core.pdb.cli.Api.OSPApi(getConfiguration("pdbOSPSId"));
+
+            OSPReasonPolicyInput ospRPI = new OSPReasonPolicyInput();
+            
+            ospRPI.Policies = policy.Policies;
+
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            OSPPrivacyPolicy matchingOsp = ospList.Where(o => o.PolicyUrl.Equals(policy.OspPolicyId)).First();
+
+            instance.OSPOspIdPrivacyPolicyAccessReasonsReasonIdPut(matchingOsp.OspPolicyId, policy.Policies[0].Reasonid, policy.Policies[0]);
+
+            return Content(policy.ToString());
+        }
 
         [HttpDelete]
         public async Task<ActionResult> DeletePrivacyPolicy(OSPReasonPolicy policy)

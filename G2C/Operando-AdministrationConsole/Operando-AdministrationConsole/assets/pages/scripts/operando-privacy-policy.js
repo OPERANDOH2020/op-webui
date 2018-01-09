@@ -17,7 +17,8 @@
         return hash;
     };
 
-    var AccessPolicy = function (Datauser, Datasubjecttype, Datatype, Reason, IsEditable) {
+    var AccessPolicy = function (Reasonid, Datauser, Datasubjecttype, Datatype, Reason, IsEditable) {
+        this.Reasonid = ko.observable(Reasonid);
         this.Datauser = ko.observable(Datauser);
         this.Datasubjecttype = ko.observable(Datasubjecttype);
         this.Datatype = ko.observable(Datatype);
@@ -29,6 +30,7 @@
             var prime = 31;
             var result = 1;
 
+            result = prime * result + hashString(this.Reasonid());
             result = prime * result + hashString(this.Datauser());
             result = prime * result + hashString(this.Datasubjecttype());
             result = prime * result + hashString(this.Datatype());
@@ -42,7 +44,7 @@
     }
 
     var EditableAccessPolicy = function (policy) {
-        var editable = new AccessPolicy(policy.Datauser(), policy.Datasubjecttype(), policy.Datatype(), policy.Reason(), false);
+        var editable = new AccessPolicy(policy.Reasonid(), policy.Datauser(), policy.Datasubjecttype(), policy.Datatype(), policy.Reason(), false);
         editable.Editing = ko.observable(false);
         return editable;
     };
@@ -51,17 +53,18 @@
     var policies = [];
     for (var i = 0; i < initialState.Policies.length; i++) {
         var policy = initialState.Policies[i];
-        policies[i] = new AccessPolicy(policy.Datauser, policy.Datasubjecttype, policy.Datatype, policy.Reason, true);
+        policies[i] = new AccessPolicy(policy.Reasonid, policy.Datauser, policy.Datasubjecttype, policy.Datatype, policy.Reason, true);
     }
     self.policies = ko.observableArray(policies);
 
-    self.newPolicy = new EditableAccessPolicy(new AccessPolicy("", "", "", ""));
+    self.newPolicy = new EditableAccessPolicy(new AccessPolicy("", "", "", "", ""));
     self.newPolicy.Editing(true);
 
     self.addPolicy = function () {
-        var newPolicy = new AccessPolicy(self.newPolicy.Datauser(), self.newPolicy.Datasubjecttype(), self.newPolicy.Datatype(), self.newPolicy.Reason(), true);
+        var newPolicy = new AccessPolicy(self.newPolicy.Reasonid(), self.newPolicy.Datauser(), self.newPolicy.Datasubjecttype(), self.newPolicy.Datatype(), self.newPolicy.Reason(), true);
         self.policies.push(newPolicy);
 
+        self.newPolicy.Reasonid("");
         self.newPolicy.Datauser("");
         self.newPolicy.Datasubjecttype("");
         self.newPolicy.Datatype("");
@@ -115,25 +118,38 @@
         // Create JSON having the appropriate policy updated
         // with the new values
         var snapshot = ko.toJSON(self);
+        var tempUrl = "/OspAdmin/UpdatePrivacyPolicyReason";
+        //alert("new url " + tempUrl);
         var temp = JSON.parse(snapshot);
+        var singlep = { 'OspPolicyId': temp.OspPolicyId, policies: [{Reasonid: "", Datauser: "", Datasubjecttype: "", Datatype: "", Reason: ""}]};
         for (var i = 0; i < temp.policies.length ; i++) {
             if (temp.policies[i].Id === policy.Id()) {
+                temp.policies[i].Reasonid = policy.EditableCopy.Reasonid();
                 temp.policies[i].Datauser = policy.EditableCopy.Datauser();
                 temp.policies[i].Datasubjecttype = policy.EditableCopy.Datasubjecttype();
                 temp.policies[i].Datatype = policy.EditableCopy.Datatype();
                 temp.policies[i].Reason = policy.EditableCopy.Reason();
 
+                //singlep.policies[0].Id = policy.Id();
+                singlep.policies[0].Reasonid = policy.EditableCopy.Reasonid();
+                singlep.policies[0].Datauser = policy.EditableCopy.Datauser();
+                singlep.policies[0].Datasubjecttype = policy.EditableCopy.Datasubjecttype();
+                singlep.policies[0].Datatype = policy.EditableCopy.Datatype();
+                singlep.policies[0].Reason = policy.EditableCopy.Reason();
+                
                 break;
             }
         }
 
         $.ajax({
-            url: urlUpdate,
+            url: tempUrl,
             method: "PUT",
             contentType: "application/json",
-            data: JSON.stringify(temp)
+            //data: JSON.stringify(temp)
+            data: JSON.stringify(singlep)
         })
         .done(function () {
+            policy.Reasonid(policy.EditableCopy.Reasonid());
             policy.Datauser(policy.EditableCopy.Datauser());
             policy.Datasubjecttype(policy.EditableCopy.Datasubjecttype());
             policy.Datatype(policy.EditableCopy.Datatype());

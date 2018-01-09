@@ -1,7 +1,7 @@
 ﻿
 @{
     bool canEdit = Session["UserType"]?.ToString() == "osp_admin";
-    
+    canEdit = true;
     ViewBag.MenuSection = canEdit ? "OSP Admin" : "Data Subject";
     ViewBag.Title = "Privacy Policy";
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
@@ -14,6 +14,9 @@
 @*Create a series of table cells allowing editing of a bound regulation*@
 @helper PolicyEditRow(string binding)
 {
+    <td data-bind="visible: @(binding).Editing">
+        <input type="text" class="form-control" placeholder="Enter text" data-bind="value: @(binding).Reasonid" readonly>
+    </td>
     <td data-bind="visible: @(binding).Editing">
         <input class="form-control" list="userType" placeholder="Enter text" data-bind="value: @(binding).Datauser">
         <datalist id="userType">
@@ -102,6 +105,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Reason ID</th>
                                 <th>User type of data user</th>
                                 <th>User type of data subject</th>
                                 <th>Type of information used</th>
@@ -133,6 +137,7 @@
                                         </div>
                                     </td>
                                 }
+                                <td data-bind="text: Reasonid, visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Datauser, visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Datasubjecttype, visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Datatype, visible: !$data.EditableCopy.Editing()"></td>
