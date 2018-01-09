@@ -139,7 +139,7 @@
 
                                                             <script>
                                                                 function deleteUser(username) {
-                                                                    var urlUserAdd = "@Url.Action("UsersManagementDelete", "PspAdmin")/panos";
+                                                                    var urlUserAdd = "@Url.Action("UsersManagementDelete", "PspAdmin")/";
                                                                     $.ajax({
                                                                         url: urlUserAdd,
                                                                         type: "put",
@@ -150,7 +150,8 @@
                                                                         }),
                                                                         error: function (xhr, status) { alert(status + "XHR " + xhr.responseText);}
                                                                     }).done(function () {
-                                                                        alert("The user is deleted.");
+                                                                        //alert("The user is deleted.");
+                                                                        window.location.reload();
                                                                     }).fail(function () {
                                                                         alert("The user could not be deleted. Please try again.");
                                                                     });

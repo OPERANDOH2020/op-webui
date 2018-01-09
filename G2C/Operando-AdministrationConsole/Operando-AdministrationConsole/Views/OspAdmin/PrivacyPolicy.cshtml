@@ -1,7 +1,7 @@
 ﻿
 @{
     bool canEdit = Session["UserType"]?.ToString() == "osp_admin";
-    canEdit = true;
+    
     ViewBag.MenuSection = canEdit ? "OSP Admin" : "Data Subject";
     ViewBag.Title = "Privacy Policy";
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";

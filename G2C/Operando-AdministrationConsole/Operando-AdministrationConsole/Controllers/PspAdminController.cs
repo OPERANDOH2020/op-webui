@@ -723,9 +723,7 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 Debug.Print("Exception when calling: " + e.Message);
             }
-            ViewBag.Message = userIn.userName + " successfully deleted";
-
-            return View();
+            return Content(userIn.userName + " successfully deleted");
         }
         // ----------------------------------
         // ------ MODULES SETTINGS ----------
