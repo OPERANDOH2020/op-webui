@@ -38,6 +38,13 @@
             return result;
         }, this);
 
+        this.Rid = ko.pureComputed(function () {
+            var prime = 31;
+            var res = 1;
+            res = prime * res + hashString(this.Reasonid());
+            return res;
+        }, this);
+
         if (IsEditable) {
             this.EditableCopy = new EditableAccessPolicy(this);
         }
@@ -78,8 +85,9 @@
     }
 
     this.addNewPolicy = function () {
-        if (doesIdExist(self.newPolicy.Id())) {
-            showAlert("There is already a policy with these values.");
+        //if (doesIdExist(self.newPolicy.Id())) {
+        if (doesIdCoExist(self.newPolicy.Id(), self.newPolicy.Rid())) {
+            showAlert("There is already a policy with these values, or change the policy reason ID.");
             return;
         }
 
@@ -193,6 +201,13 @@
             showAlert("The private policy could not be deleted. Please try again.");
         });
     }.bind(this);
+
+    function doesIdCoExist(id, rid) {
+        // Check that no existing policy has the Id
+        var existingIds = $.map(self.policies(), function (p) { return p.Id() });
+        var existingRids = $.map(self.policies(), function (p) { return p.Rid() });
+        return (existingIds.indexOf(id) > -1) || (existingRids.indexOf(rid) > -1) ;
+    }
 
     function doesIdExist(id) {
         // Check that no existing policy has the Id

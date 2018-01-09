@@ -15,7 +15,7 @@
 @helper PolicyEditRow(string binding)
 {
     <td data-bind="visible: @(binding).Editing">
-        <input type="text" class="form-control" placeholder="Enter text" data-bind="value: @(binding).Reasonid" readonly>
+        <input type="text" class="form-control" placeholder="Enter text" data-bind="value: @(binding).Reasonid">
     </td>
     <td data-bind="visible: @(binding).Editing">
         <input class="form-control" list="userType" placeholder="Enter text" data-bind="value: @(binding).Datauser">
