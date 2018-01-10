@@ -295,6 +295,7 @@
                 </a>
             </li>
         }
+        @*
 @if (allView || psp_admin)
 {
     <li class='nav-item @if (currentController == "Access" && currentAction == "AuthenticationRequest")
@@ -308,7 +309,7 @@
                                 }
         </a>
     </li>
-}
+} *@
 @if (allView || psp_admin)
 {
     <li class='nav-item @if (currentController == "PspAnalyst" && currentAction == "ReviewLogs")
