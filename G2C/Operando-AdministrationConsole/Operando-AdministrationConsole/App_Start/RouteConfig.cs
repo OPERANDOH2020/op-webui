@@ -19,6 +19,11 @@ namespace Operando_AdministrationConsole
                 //defaults: new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional }
                 defaults: new { controller = "Access" , action = "Login", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "EditAccessPolicy",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "OspAdmin", action = "EditAccessPolicy", id = UrlParameter.Optional }
+            );
         }
     }
 }

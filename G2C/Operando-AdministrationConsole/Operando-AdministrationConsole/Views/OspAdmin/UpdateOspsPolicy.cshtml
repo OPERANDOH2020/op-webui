@@ -1,0 +1,40 @@
+﻿@model Dictionary<string, string>
+
+@{
+    Layout = "~/Views/Shared/_LayoutOperando.cshtml";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-globe font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase"> OSP Policy @(ViewBag.policyUrl)</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div>
+                    <p>Update OSP Policies.</p>
+                </div>
+                <div>
+                    <table class="table table-hover">
+                        <tr>
+                            <th>OSP Name</th>
+                            <th>Action Edit Policies</th>
+                        </tr>
+                        @foreach (var osp in Model)
+            {
+                            <tr>
+                                <td>@(osp.Key)</td>
+                                <td>@Html.ActionLink("Edit OSP", "UpdateOspPolicy", new { id = osp.Value }, new { @class = "btn btn-primary btn-large" })</td>
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

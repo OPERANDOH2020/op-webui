@@ -125,10 +125,23 @@
                                                                                                             <tbody>
                                                                                                                 @foreach (var ap in consent.AccessPolicies)
                                                                                                                 {
+                                                                                                                    var res = ap.Resource;
+                                                                                                                    foreach(PolicyAttribute pa in ap.Attributes)
+                                                                                                                    {
+                                                                                                                        if(pa.AttributeName == "category")
+                                                                                                                        {
+                                                                                                                            res = pa.AttributeValue;
+                                                                                                                            continue;
+                                                                                                                        }
+                                                                                                                        if(pa.AttributeName == "friendly_name")
+                                                                                                                        {
+                                                                                                                            res += " " + pa.AttributeValue;
+                                                                                                                        }
+                                                                                                                    }
                                                                                                                     <tr id="ID" class="odd gradeX">
                                                                                                                         <td>@ap.Subject</td>
                                                                                                                         <td>@ap.Action</td>
-                                                                                                                        <td>@ap.Resource</td>
+                                                                                                                        <td>@res</td>
                                                                                                                         <td>@ap.Permission</td>
                                                                                                                     </tr>
                                                                                                                 }

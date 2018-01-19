@@ -252,9 +252,9 @@
 
 @if (allView || osp_admin)
             {
-    <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UpdatePolicy")
+    <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "UpdateOspsPolicy")
                 { @activeClass }'>
-        <a href="@Url.Action("UpdatePolicy", "OspAdmin")" class="nav-link ">
+        <a href="@Url.Action("UpdateOspsPolicy", "OspAdmin")" class="nav-link ">
             <i class="icon-users"></i>
             <span class="title">Update Policy Preferences</span>
             @if (currentController == "OspAdmin" && currentAction == "UpdatePolicy")

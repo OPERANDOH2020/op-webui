@@ -50,39 +50,3 @@
         </div>
     </div>
 </div>
-
-@*
-<html>
-    <head>
-    </head>
-<body>
-    <header>
-        <button id="recordbutton" onclick="loadRecords()">Change to records</button>
-        <button id="categorybutton" onclick="loadCategories()">Change to categories</button>
-    <script>
-        
-         function loadRecords() {
-            $("#displayarea").load('@Url.Action("DisplayRecords", "OspAdmin")');
-            $("#displayarea").show();
-            $("#displayarea2").hide();
-
-        }
-        function loadCategories() {
-            $("#displayarea2").load('@Url.Action("DisplayCategories", "OspAdmin")');
-            $("#displayarea2").show();
-            $("#displayarea").hide();
-        } 
-        window.onload = function () {
-            loadRecords();  
-        };
-    </script>
-    </header>
-    <div id="displayarea">
-
-    </div>
-    <div id="displayarea2">
-
-    </div>
-</body>
-</html>
-    *@

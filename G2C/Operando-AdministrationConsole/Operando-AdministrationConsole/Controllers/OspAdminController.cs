@@ -25,7 +25,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-
+using System.Runtime.Serialization;
 
 namespace Operando_AdministrationConsole.Controllers
 {
@@ -152,6 +152,376 @@ namespace Operando_AdministrationConsole.Controllers
             return View(policy);
         }
 
+        private Dictionary<string, string> getAccessReasons(string ospid)
+        {
+            Dictionary<string, string> categoryReason = new Dictionary<string, string>();
+
+            var instance = new eu.operando.core.pdb.cli.Api.GETApi(getConfiguration("pdbOSPSId"));
+            OSPReasonPolicy ospReasonPolicy = null;
+            try
+            {
+
+
+                ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(ospid);
+
+                foreach (var policy in ospReasonPolicy.Policies)
+                {
+                    if (!categoryReason.ContainsKey(policy.Datatype))
+                    {
+                        categoryReason[policy.Datatype] = policy.Reason;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("no osp reson policy found " + ex.Message);
+            }
+            
+            return categoryReason;
+        }
+
+        public ActionResult UpdateOspsPolicy()
+        {
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            Dictionary<string, string> osps = new Dictionary<string, string>();
+            foreach(var osp in ospList)
+            {
+                osps[osp.PolicyUrl] = osp.OspPolicyId;
+            }
+
+            return View(osps);
+        }
+
+        public ActionResult UpdateOspPolicy(string id = "")
+        {
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+
+            var resourceCache = new ResourceFriendlyNameCache(ospList[0].Policies);
+            var stringConverter = new ResourceCachingNiceStringConverter(resourceCache);
+
+            OSPPrivacyPolicy matchOsp;
+            if (string.IsNullOrEmpty(id))
+            {
+                matchOsp = ospList[0];
+            }
+            else
+            {
+                matchOsp = ospList.Where(o => o.OspPolicyId.Equals(id)).First();
+            }
+
+            var models = matchOsp.Policies.Select(ap => new AccessPolicyModel(ap, stringConverter)).ToList();
+
+            Dictionary<string, string> arDict = getAccessReasons(matchOsp.OspPolicyId);
+            List<string> categoryList = new List<string>(arDict.Keys);
+            ViewBag.categoryList = categoryList;
+
+            foreach (var model in models)
+            {
+                model.OspPolicyId = matchOsp.OspPolicyId;
+                if (!string.IsNullOrEmpty(model.Category) && arDict.ContainsKey(model.Category))
+                {
+                    model.Reason = arDict[model.Category];
+                }
+            }
+
+            ViewBag.ospid = matchOsp.OspPolicyId;
+            ViewBag.policyUrl = matchOsp.PolicyUrl;
+
+            return View(models);
+        }
+
+        public ActionResult CreateAccessPolicy(string id)
+        {
+            AccessPolicyModel model = new AccessPolicyModel();
+            model.OspPolicyId = id;
+
+            List<string> actionList = new List<string>(new string[] { "Access", "Archive", "Collect", "Create", "Delete", "Disclose", "Update", "Use" });
+            ViewBag.ActionList = actionList;
+
+            Dictionary<string, string> arDict = getAccessReasons(id);
+            List<string> categoryList = new List<string>(arDict.Keys);
+            ViewBag.categoryList = categoryList;
+            ViewBag.ospid = id;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateAccessPolicy(AccessPolicyModel apm)
+        {
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            OSPPrivacyPolicy matchOsp = ospList.Where(o => o.OspPolicyId.Equals(apm.OspPolicyId)).First();
+            AccessPolicy policy = new AccessPolicy();
+
+            AccessPolicy.ActionEnum action = new AccessPolicy.ActionEnum();
+
+            var enumType = typeof(AccessPolicy.ActionEnum);
+            foreach (var name in Enum.GetNames(enumType))
+            {
+                var enumMemberAttribute = ((EnumMemberAttribute[])enumType.GetField(name).GetCustomAttributes(typeof(EnumMemberAttribute), true)).Single();
+                if (enumMemberAttribute.Value == apm.Action)
+                {
+                    action = (AccessPolicy.ActionEnum)Enum.Parse(enumType, name);
+                    break;
+                }
+            }
+            policy.Subject = apm.RawSubject;
+            policy.Permission = apm.Permission;
+            policy.Action = action;
+            policy.Resource = apm.RawResource;
+
+            List<PolicyAttribute> attributes = new List<PolicyAttribute>();
+            policy.Attributes = attributes;
+
+            if (!string.IsNullOrEmpty(apm.Category))
+            {
+                bool setFoundFlag = false;
+                foreach (var attribute in policy.Attributes)
+                {
+                    if (attribute.AttributeName.Equals("Category"))
+                    {
+                        attribute.AttributeValue = apm.Category;
+                        setFoundFlag = true;
+                        break;
+                    }
+                }
+                if (!setFoundFlag)
+                {
+                    policy.Attributes.Add(new PolicyAttribute("Category", apm.Category));
+                }
+            }
+            if (!string.IsNullOrEmpty(apm.Tooltip))
+            {
+                bool setFoundFlag = false;
+                foreach (var attribute in policy.Attributes)
+                {
+                    if (attribute.AttributeName.Equals("tooltip"))
+                    {
+                        attribute.AttributeValue = apm.Tooltip;
+                        setFoundFlag = true;
+                        break;
+                    }
+                }
+                if (!setFoundFlag)
+                {
+                    policy.Attributes.Add(new PolicyAttribute("tooltip", apm.Tooltip));
+                }
+            }
+            if (!string.IsNullOrEmpty(apm.Resource) && !apm.RawResource.Equals(apm.Resource))
+            {
+                bool setFoundFlag = false;
+                foreach (var attribute in policy.Attributes)
+                {
+                    if (attribute.AttributeName.Equals("friendly_name"))
+                    {
+                        attribute.AttributeValue = apm.Resource;
+                        setFoundFlag = true;
+                        break;
+                    }
+                }
+                if (!setFoundFlag)
+                {
+                    policy.Attributes.Add(new PolicyAttribute("friendly_name", apm.Resource));
+                }
+            }
+
+            bool fixedFlag = false;
+            foreach (var attribute in policy.Attributes)
+            {
+                if (attribute.AttributeName.Equals("fixed"))
+                {
+                    attribute.AttributeValue = apm.Fixed.ToString();
+                    fixedFlag = true;
+                    break;
+                }
+            }
+            if (!fixedFlag)
+            {
+                policy.Attributes.Add(new PolicyAttribute("fixed", apm.Fixed.ToString()));
+            }
+
+            matchOsp.Policies.Add(policy);
+
+            OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
+            input.PolicyUrl = matchOsp.PolicyUrl;
+            input.PolicyText = matchOsp.PolicyText;
+            input.Workflow = matchOsp.Workflow;
+            input.Policies = matchOsp.Policies;
+
+            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            instance.OSPOspIdPut(matchOsp.OspPolicyId, input);
+
+            return RedirectToAction("UpdateOspPolicy");
+        }
+
+        public ActionResult DeleteAccessPolicy(string id, string ospid)
+        {
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            OSPPrivacyPolicy matchOsp = ospList.Where(o => o.OspPolicyId.Equals(ospid)).First();
+
+            List<AccessPolicy> apList = new List<AccessPolicy>();
+
+            foreach (var policy in matchOsp.Policies)
+            {
+                string hash = (policy.Subject + policy.Resource + policy.Action).GetHashCode().ToString();
+                if (!hash.Equals(id))
+                {
+                    apList.Add(policy);
+                }
+            }
+
+            OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
+            input.PolicyUrl = matchOsp.PolicyUrl;
+            input.PolicyText = matchOsp.PolicyText;
+            input.Workflow = matchOsp.Workflow;
+            input.Policies = apList;
+
+            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            instance.OSPOspIdPut(matchOsp.OspPolicyId, input);
+
+            return RedirectToAction("UpdateOspPolicy");
+        }
+
+        public ActionResult EditAccessPolicy(string id, string ospid)
+        {
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            OSPPrivacyPolicy matchOsp = ospList.Where(o => o.OspPolicyId.Equals(ospid)).First();
+
+            var resourceCache = new ResourceFriendlyNameCache(matchOsp.Policies);
+            var stringConverter = new ResourceCachingNiceStringConverter(resourceCache);
+
+            List<string> actionList = new List<string>(new string[] {"Access", "Archive", "Collect", "Create", "Delete", "Disclose", "Update", "Use"});
+            ViewBag.ActionList = actionList;
+
+            Dictionary<string, string> arDict = getAccessReasons(ospid);
+            List<string> categoryList = new List<string>(arDict.Keys);
+            ViewBag.categoryList = categoryList;
+
+            var models = ospList[0].Policies.Select(ap => new AccessPolicyModel(ap, stringConverter)).ToList();
+            foreach(var model in models)
+            {
+                if (model.Id.Equals(id))
+                {
+                    model.OspPolicyId = ospid;
+                    return View(model);
+                }
+            }
+
+            return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult EditAccessPolicy(AccessPolicyModel apm)
+        {
+            List<OSPPrivacyPolicy> ospList = GetOspList();
+            OSPPrivacyPolicy matchOsp = ospList.Where(o => o.OspPolicyId.Equals(apm.OspPolicyId)).First();
+
+            foreach(var policy in matchOsp.Policies)
+            {
+                string hash = (policy.Subject + policy.Resource + policy.Action).GetHashCode().ToString();
+                if (hash.Equals(apm.Id))
+                {
+                    AccessPolicy.ActionEnum action = new AccessPolicy.ActionEnum();
+
+                    var enumType = typeof(AccessPolicy.ActionEnum);
+                    foreach(var name in Enum.GetNames(enumType))
+                    {
+                        var enumMemberAttribute = ((EnumMemberAttribute[])enumType.GetField(name).GetCustomAttributes(typeof(EnumMemberAttribute), true)).Single();
+                        if (enumMemberAttribute.Value == apm.Action)
+                        {
+                            action = (AccessPolicy.ActionEnum)Enum.Parse(enumType, name);
+                            break;
+                        }
+                    }
+
+                    policy.Subject = apm.RawSubject;
+                    policy.Permission = apm.Permission;
+                    policy.Action = action;
+                    policy.Resource = apm.RawResource;
+                    
+                    if (!string.IsNullOrEmpty(apm.Category))
+                    {
+                        bool setFoundFlag = false;
+                        foreach (var attribute in policy.Attributes)
+                        {
+                            if (attribute.AttributeName.Equals("Category"))
+                            {
+                                attribute.AttributeValue = apm.Category;
+                                setFoundFlag = true;
+                                break;
+                            }
+                        }
+                        if (!setFoundFlag)
+                        {
+                            policy.Attributes.Add(new PolicyAttribute("Category", apm.Category));
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(apm.Tooltip))
+                    {
+                        bool setFoundFlag = false;
+                        foreach (var attribute in policy.Attributes)
+                        {
+                            if (attribute.AttributeName.Equals("tooltip"))
+                            {
+                                attribute.AttributeValue = apm.Tooltip;
+                                setFoundFlag = true;
+                                break;
+                            }
+                        }
+                        if (!setFoundFlag)
+                        {
+                            policy.Attributes.Add(new PolicyAttribute("tooltip", apm.Tooltip));
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(apm.Resource) && !apm.RawResource.Equals(apm.Resource))
+                    {
+                        bool setFoundFlag = false;
+                        foreach (var attribute in policy.Attributes)
+                        {
+                            if (attribute.AttributeName.Equals("friendly_name"))
+                            {
+                                attribute.AttributeValue = apm.Resource;
+                                setFoundFlag = true;
+                                break;
+                            }
+                        }
+                        if (!setFoundFlag)
+                        {
+                            policy.Attributes.Add(new PolicyAttribute("friendly_name", apm.Resource));
+                        }
+                    }
+
+                    bool fixedFlag = false;
+                    foreach (var attribute in policy.Attributes)
+                    {
+                        if (attribute.AttributeName.Equals("fixed"))
+                        {
+                            attribute.AttributeValue = apm.Fixed.ToString();
+                            fixedFlag = true;
+                            break;
+                        }
+                    }
+                    if (!fixedFlag)
+                    {
+                        policy.Attributes.Add(new PolicyAttribute("fixed", apm.Fixed.ToString()));
+                    }
+
+                }
+            }
+
+            OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
+            input.PolicyUrl = matchOsp.PolicyUrl;
+            input.PolicyText = matchOsp.PolicyText;
+            input.Workflow = matchOsp.Workflow;
+            input.Policies = matchOsp.Policies;
+
+            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            instance.OSPOspIdPut(matchOsp.OspPolicyId, input);
+
+            //return View();
+            return RedirectToAction("UpdateOspPolicy");
+        }
+
         public ActionResult UpdatePolicy()
         {
             return View();
@@ -159,16 +529,14 @@ namespace Operando_AdministrationConsole.Controllers
         /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
         public PartialViewResult DisplayRecords()
         {
-            var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
-            List<OSPPrivacyPolicy> ospList = GetOspList();
-           
+            //var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            List<OSPPrivacyPolicy> ospList = GetOspList();           
 
             HashSet<string> roles = new HashSet<string>();
             foreach (var item in ospList[0].Policies)
             {
                 roles.Add(item.Subject);
             }
-
 
             //links the accessPolicies and the subjects in a dictionary
             Dictionary<string, List<AccessPolicy>> roleDictionary = new Dictionary<string, List<AccessPolicy>>();
@@ -177,6 +545,7 @@ namespace Operando_AdministrationConsole.Controllers
                 List<AccessPolicy> policyList = new List<AccessPolicy>();
                 roleDictionary.Add(role, policyList);
             }
+
             foreach (var policy in ospList[0].Policies)
             {
                 foreach (var role in roles)
@@ -189,11 +558,10 @@ namespace Operando_AdministrationConsole.Controllers
                         {
                             policyList.Add(policy);
                         }
-
-
                     }
                 }
             }
+
             //link the resources to the roles
             Dictionary<string, HashSet<string>> roleResourceDictionary = new Dictionary<string, HashSet<string>>();
             foreach (var role in roles)
@@ -201,11 +569,11 @@ namespace Operando_AdministrationConsole.Controllers
                 HashSet<string> resourcesHashSet = new HashSet<string>();
                 roleResourceDictionary.Add(role, resourcesHashSet);
             }
+
             foreach (var policy in ospList[0].Policies)
             {
                 foreach (var role in roles)
                 {
-
                     if (policy.Subject.Equals(role))
                     {
                         HashSet<string> resourcesHashSet = roleResourceDictionary[role];
@@ -213,9 +581,9 @@ namespace Operando_AdministrationConsole.Controllers
                     }
                 }
             }
+
             //create a list of all the possible actions
             List<AccessPolicy.ActionEnum> actionList = new List<AccessPolicy.ActionEnum>();
-
 
             actionList.Add(AccessPolicy.ActionEnum.Collect);
             actionList.Add(AccessPolicy.ActionEnum.Create);
@@ -234,12 +602,13 @@ namespace Operando_AdministrationConsole.Controllers
             ViewBag.roleDictionary = roleDictionary;
             return PartialView("_RecordPage");
         }
+
         /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
         [HttpPut]
         public void updateAccessPolicy(string[] rolearr, string[] resourcearr, string[] collectarr, string[] createarr, string[] deletearr, string[] updatearr, string[] accessarr, string[] usearr, string[] disclosearr, string[] archivearr)
         {
 
-           var  instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
+            var  instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
             List<OSPPrivacyPolicy> ospList = GetOspList();
             HashSet<string> roles = new HashSet<string>();
             List<AccessPolicy> policiesToRemove = new List<AccessPolicy>();
@@ -273,7 +642,6 @@ namespace Operando_AdministrationConsole.Controllers
                             policiesToRemove.Add(policy);
                         }
                     }
-
                 }
 
                 if (create.Equals("True"))
@@ -293,7 +661,6 @@ namespace Operando_AdministrationConsole.Controllers
                             policiesToRemove.Add(policy);
                         }
                     }
-
                 }
 
                 if (delete.Equals("True"))
@@ -313,7 +680,6 @@ namespace Operando_AdministrationConsole.Controllers
                             policiesToRemove.Add(policy);
                         }
                     }
-
                 }
 
                 if (update.Equals("True"))
@@ -333,7 +699,6 @@ namespace Operando_AdministrationConsole.Controllers
                             policiesToRemove.Add(policy);
                         }
                     }
-
                 }
 
                 if (access.Equals("True"))
@@ -353,7 +718,6 @@ namespace Operando_AdministrationConsole.Controllers
                             policiesToRemove.Add(policy);
                         }
                     }
-
                 }
 
                 if (use.Equals("True"))
@@ -373,7 +737,6 @@ namespace Operando_AdministrationConsole.Controllers
                             policiesToRemove.Add(policy);
                         }
                     }
-
                 }
 
                 if (disclose.Equals("True"))
@@ -416,11 +779,13 @@ namespace Operando_AdministrationConsole.Controllers
 
                 }
             }
+
             //remove unneeded policies
             foreach (var policy in policiesToRemove)
             {
                 ospList[0].Policies.Remove(policy);
             }
+
             //put to pdb
             OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
             input.PolicyUrl = ospList[0].PolicyUrl;
@@ -428,10 +793,7 @@ namespace Operando_AdministrationConsole.Controllers
             input.Workflow = ospList[0].Workflow;
             input.Policies = ospList[0].Policies;
             instance.OSPOspIdPut(ospList[0].OspPolicyId, input);
-
         }
-
-
 
         /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
         public void updatePolicyPermission(OSPPrivacyPolicy osp, string roleInput, string resource, AccessPolicy.ActionEnum actionEnum, bool permission)
@@ -488,6 +850,7 @@ namespace Operando_AdministrationConsole.Controllers
                 newPolicy.Subject = role;
                 policiesToAdd.Add(newPolicy);
             }
+
             foreach (string resource in resources)
             {
                 AccessPolicy newPolicy = new AccessPolicy();
@@ -499,8 +862,10 @@ namespace Operando_AdministrationConsole.Controllers
                 policiesToAdd.Add(newPolicy);
 
             }
+
             //adds the new policies
             correctOsp.Policies.AddRange(policiesToAdd);
+
             //put to pdb
             OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
             input.PolicyUrl = correctOsp.PolicyUrl;
@@ -509,12 +874,14 @@ namespace Operando_AdministrationConsole.Controllers
             input.Policies = correctOsp.Policies;
             instance.OSPOspIdPut(correctOsp.OspPolicyId, input);
         }
+
         [HttpPut]
         public void removeRole(string OspPolicyId, string role)
         {
             var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
             List<OSPPrivacyPolicy> ospList = GetOspList();
             OSPPrivacyPolicy correctOsp = new OSPPrivacyPolicy();
+
             //finds the maching osp for the one being edited on the page
             foreach (var osp in ospList)
             {
@@ -533,10 +900,12 @@ namespace Operando_AdministrationConsole.Controllers
                     policiesToRemove.Add(policy);
                 }
             }
+
             foreach(var policy in policiesToRemove)
             {
                 correctOsp.Policies.Remove(policy);
             }
+
             //put to pdb
             OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
             input.PolicyUrl = correctOsp.PolicyUrl;
@@ -545,6 +914,7 @@ namespace Operando_AdministrationConsole.Controllers
             input.Policies = correctOsp.Policies;
             instance.OSPOspIdPut(correctOsp.OspPolicyId, input);
         }
+
         [HttpPut]
         //lets the xml be passed through ajax to controller
         [ValidateInput(false)]
@@ -553,6 +923,7 @@ namespace Operando_AdministrationConsole.Controllers
             var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
             List<OSPPrivacyPolicy> ospList = GetOspList();
             OSPPrivacyPolicy correctOsp = new OSPPrivacyPolicy();
+
             foreach (var osp in ospList)
             {
                 if (osp.OspPolicyId.Equals(OspPolicyId))
@@ -560,23 +931,24 @@ namespace Operando_AdministrationConsole.Controllers
                     correctOsp = osp;
                 }
             }
+
             //gets all the roles in the database to add the new roles to each one
             HashSet<string> roles = new HashSet<string>();
             foreach (var item in correctOsp.Policies)
             {
                 roles.Add(item.Subject);
             }
+
             //serializer used to read in the xml (odata) stream and deserialize it to an object to represent this data 
             XmlSerializer serializer = new XmlSerializer(typeof(EntityType));
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
             writer.Write(odatainput);
             writer.Flush();
-           stream.Position = 0;
+            stream.Position = 0;
             //the object for which the odata is stored in
             //EntityType objec stored under OspAdmin models
-           EntityType odata = (EntityType) serializer.Deserialize(stream);
-         
+            EntityType odata = (EntityType) serializer.Deserialize(stream);         
             
             foreach (string role in roles)
             {
@@ -590,9 +962,9 @@ namespace Operando_AdministrationConsole.Controllers
                     newPolicy.Action = AccessPolicy.ActionEnum.Access;
                     newPolicy.Attributes = null;
                     correctOsp.Policies.Add(newPolicy);
-
                 }
             }
+
             //put to pdb
             OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
             input.PolicyUrl = correctOsp.PolicyUrl;
@@ -601,6 +973,7 @@ namespace Operando_AdministrationConsole.Controllers
             input.Policies = correctOsp.Policies;
             instance.OSPOspIdPut(correctOsp.OspPolicyId, input);
         }
+
         /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
         [HttpPut]
         public void addResource(string OspPolicyId, string resource)
@@ -615,12 +988,14 @@ namespace Operando_AdministrationConsole.Controllers
                     correctOsp = osp;
                 }
             }
+
             //finds all the roles (subjects) for this OSP
             HashSet<string> roles = new HashSet<string>();
             foreach (var item in correctOsp.Policies)
             {
                 roles.Add(item.Subject);
             }
+
             //adds the resource to every role
             foreach(string role in roles)
             {
@@ -632,6 +1007,7 @@ namespace Operando_AdministrationConsole.Controllers
                 newPolicy.Attributes = null;       
                 correctOsp.Policies.Add(newPolicy);
             }
+
             //put to pdb
             OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
             input.PolicyUrl = correctOsp.PolicyUrl;
@@ -640,6 +1016,7 @@ namespace Operando_AdministrationConsole.Controllers
             input.Policies = correctOsp.Policies;
             instance.OSPOspIdPut(correctOsp.OspPolicyId, input);
         }
+
         /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
         public PartialViewResult DisplayCategories()
         {
@@ -653,30 +1030,31 @@ namespace Operando_AdministrationConsole.Controllers
                 OSPReasonPolicy ospReasonPolicy = null;
                 try
                 {
-                    ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(osp.PolicyUrl);
+                    ospReasonPolicy = instance.OSPOspIdPrivacyPolicyGet(osp.OspPolicyId);
+                    reasonPolicyList.Add(ospReasonPolicy);
                 }
                 catch (eu.operando.core.pdb.cli.Client.ApiException e)
                 {
                     ospReasonPolicy = new OSPReasonPolicy();
-                    ospReasonPolicy.OspPolicyId = osp.PolicyUrl;            
+                    ospReasonPolicy.OspPolicyId = osp.OspPolicyId;            
                     ospReasonPolicy.Policies = new List<AccessReason>();
                 }
 
-                reasonPolicyList.Add(ospReasonPolicy);
-            }   
+                //reasonPolicyList.Add(ospReasonPolicy);
+            }
+
             ViewBag.ospList = ospList;
             
             ViewBag.reasonPolicies = reasonPolicyList;
             return PartialView("_CategoryPage");
         }
+
         /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
         [HttpPut]
         public void updateAccessPolicyCategory(string[] resourcearr, string[] categoryarr)
         {
             var instance = new eu.operando.core.pdb.cli.Api.PUTApi(getConfiguration("pdbOSPSId"));
             List<OSPPrivacyPolicy> ospList = GetOspList();
-           
-            List<PolicyAttribute> attributesToRemove = new List<PolicyAttribute>();
             
             foreach (OSPPrivacyPolicy osp in ospList)
             {
@@ -716,6 +1094,7 @@ namespace Operando_AdministrationConsole.Controllers
                         }
                     }
                 }
+
                 //put to pdb
                 OSPPrivacyPolicyInput input = new OSPPrivacyPolicyInput();
                 input.PolicyUrl = osp.PolicyUrl;
@@ -725,6 +1104,7 @@ namespace Operando_AdministrationConsole.Controllers
                 instance.OSPOspIdPut(osp.OspPolicyId, input);
             }
         }
+
         /*Method created by IT Innovation Centre, Christopher Coles, 06/09/2017*/
         [HttpDelete]
         public void deleteAccessPolicyCategory(){
@@ -754,11 +1134,10 @@ namespace Operando_AdministrationConsole.Controllers
                     input.PolicyText = osp.PolicyText;
                     input.Workflow = osp.Workflow;
                     input.Policies = osp.Policies;
-                    instance.OSPOspIdPut(osp.OspPolicyId, input);
-                
-            }
-           
+                    instance.OSPOspIdPut(osp.OspPolicyId, input);                
+            }           
         }
+
         [HttpPut]
         public ActionResult UpdatePrivacyPolicy(OSPReasonPolicy policy)
         {
