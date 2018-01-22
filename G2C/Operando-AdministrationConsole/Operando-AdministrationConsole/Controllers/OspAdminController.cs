@@ -196,9 +196,7 @@ namespace Operando_AdministrationConsole.Controllers
         {
             List<OSPPrivacyPolicy> ospList = GetOspList();
 
-            var resourceCache = new ResourceFriendlyNameCache(ospList[0].Policies);
-            var stringConverter = new ResourceCachingNiceStringConverter(resourceCache);
-
+            
             OSPPrivacyPolicy matchOsp;
             if (string.IsNullOrEmpty(id))
             {
@@ -208,6 +206,9 @@ namespace Operando_AdministrationConsole.Controllers
             {
                 matchOsp = ospList.Where(o => o.OspPolicyId.Equals(id)).First();
             }
+
+            var resourceCache = new ResourceFriendlyNameCache(matchOsp.Policies);
+            var stringConverter = new ResourceCachingNiceStringConverter(resourceCache);
 
             var models = matchOsp.Policies.Select(ap => new AccessPolicyModel(ap, stringConverter)).ToList();
 
@@ -397,7 +398,7 @@ namespace Operando_AdministrationConsole.Controllers
             List<string> categoryList = new List<string>(arDict.Keys);
             ViewBag.categoryList = categoryList;
 
-            var models = ospList[0].Policies.Select(ap => new AccessPolicyModel(ap, stringConverter)).ToList();
+            var models = matchOsp.Policies.Select(ap => new AccessPolicyModel(ap, stringConverter)).ToList();
             foreach(var model in models)
             {
                 if (model.Id.Equals(id))
