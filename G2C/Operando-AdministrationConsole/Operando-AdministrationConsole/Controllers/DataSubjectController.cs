@@ -566,7 +566,51 @@ namespace Operando_AdministrationConsole.Controllers
             return View();
         }
 
-        
+        public void deleteUPP(string username)
+        {
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
+
+            var instance = new eu.operando.core.pdb.cli.Api.DELETEApi(configuration);
+            try
+            {
+                instance.UserPrivacyPolicyUserIdDelete(username);
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("Failed to delete UPP for user " + username + " ex: " + ex.Message);
+            }            
+        }
+
+        public void createUPP(string username)
+        {
+            string pdbBasePath = ConfigurationManager.AppSettings["pdbBasePath"];
+            string stHeaderName = ConfigurationManager.AppSettings["stHeaderName"];
+
+            var configuration = new eu.operando.core.pdb.cli.Client.Configuration(new eu.operando.core.pdb.cli.Client.ApiClient(pdbBasePath));
+            configuration.AddDefaultHeader(stHeaderName, GetServiceTicket());
+
+            var postInstance = new eu.operando.core.pdb.cli.Api.POSTApi(configuration);
+
+            UserPrivacyPolicy userUPP = new UserPrivacyPolicy();
+            userUPP.UserId = username;
+            userUPP.SubscribedOspPolicies = new List<OSPConsents>();
+            userUPP.SubscribedOspSettings = new List<OSPSettings>();
+            userUPP.UserPreferences = new List<UserPreference>();
+
+            try
+            {
+                postInstance.UserPrivacyPolicyPost(userUPP);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("failed to create UPP for " + username + " ex " + e.Message);
+            }
+        }
+
 
         [HttpGet]
         //public async Task<ActionResult> PrivacyQuestionnaire()

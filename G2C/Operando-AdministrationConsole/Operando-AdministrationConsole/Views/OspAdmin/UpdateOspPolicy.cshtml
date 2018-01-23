@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Operando_AdministrationConsole.Models.AccessPolicyModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutOperando.cshtml";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-globe font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase"> OSP Policy @(ViewBag.policyUrl)</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <p>
+                    @Html.ActionLink("Create New", "CreateAccessPolicy", new { id = ViewBag.ospid })
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Permission)
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.RawResource)*@
+                            @Html.DisplayName("Resource")
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.RawSubject)*@
+                            @Html.DisplayName("Subject")
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.Resource)*@
+                            @Html.DisplayName("Friendly name")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Action)
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.Subject)
+                        </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Tooltip)
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.TooltipReason)
+                        </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fixed)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reason)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Permission)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RawResource)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RawSubject)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Resource)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Action)
+                            </td>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.Subject)
+                            </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tooltip)
+                            </td>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.TooltipReason)
+                            </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fixed)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reason)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditAccessPolicy", new {id=item.Id, ospid=item.OspPolicyId}) |
+                                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                                @Html.ActionLink("Delete", "DeleteAccessPolicy", new { id = item.Id, ospid = item.OspPolicyId })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

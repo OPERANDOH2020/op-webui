@@ -77,9 +77,10 @@
 </head>
 
 <body>
-        <button class="btn yellow-gold" type="button" onclick="toggleodata()">Input OData</button>
-        <button class="btn default" type="button" onclick="addRole()">Add Role</button>
-        <button class="btn default" type="button" onclick="addResource()">Add Resource</button>
+    
+    <button class="btn yellow-gold" type="button" onclick="toggleodata()">Input OData</button>
+    <button class="btn default" type="button" onclick="addRole()">Add Role</button>
+    <button class="btn default" type="button" onclick="addResource()">Add Resource</button>
     <div class="col-xs-12" style="height:10px;"></div>
     <div class="pastearea" id="pastearea" style="display:none">
         <textarea rows="4" cols="50" id="odatatextarea">Paste OData here</textarea>
@@ -89,7 +90,7 @@
         <textarea rows="1" cols="20" id="roleinputtext">input role here</textarea>
         <button class="btn default" type="button" onclick="submitRole('@ViewBag.osp.OspPolicyId')">submit role</button>
     </div>
-    <div class="inputarea" id="resourceinput"  style="display:none">
+    <div class="inputarea" id="resourceinput" style="display:none">
         <textarea rows="1" cols="20" id="resourceinputtext">input resource here</textarea>
         <button class="btn default" type="button" onclick="submitResource('@ViewBag.osp.OspPolicyId')">submit resource</button>
     </div>
@@ -97,11 +98,11 @@
     @ViewBag.osp.PolicyUrl
 
     <div class="content">
-        
+
         @{ int rowIdNumber = 0;}
         @foreach (var role in ViewBag.roles)
         {
-            @role 
+            @role
             <button class="btn default" type="button" onclick="removeRole('@role','@ViewBag.osp.OspPolicyId' )">Remove '@role' role</button>
             <div class="col-xs-12" style="height:5px;"></div>
             <table class="table table-bordered table-condensed table-hover table-striped">
@@ -116,7 +117,7 @@
                         <th>Access</th>
                         <th>Use</th>
                         <th>Disclose</th>
-                        <th>Archive</th>    
+                        <th>Archive</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,7 +134,7 @@
                             <td id="@(rowIdNumber)role" hidden>@role</td>
                         </tr>
                         <tr id="@(rowIdNumber)row">
-                       <td id="@(rowIdNumber)resource">@resource</td>
+                            <td id="@(rowIdNumber)resource">@resource</td>
                             @foreach (var action in ViewBag.actionList)
                             {
                                 if (policyList.Any(p => p.Action.Equals(action) && p.Resource.Equals(resource)))
@@ -176,17 +177,17 @@
                     }
 
 
-            </tbody>
+                </tbody>
 
-        </table>
+            </table>
                         }
 
-                </div>
+    </div>
     <div class="col-xs-12" style="height:10px;"></div>
-                <button class="btn yellow-gold" type="button" onclick="setRecords(@rowIdNumber)">Set Records</button>
-                <div id="responseText"></div>
-
-<script type="text/javascript">
+    <button class="btn yellow-gold" type="button" onclick="setRecords(@rowIdNumber)">Set Records</button>
+    <div id="responseText"></div>
+                       
+    <script type="text/javascript">
 
         function toggleodata() {
             var div = document.getElementById("pastearea");
@@ -321,11 +322,11 @@
             }
 
             $.ajax({
-                    type: "put",
-                    data: { rolearr: rolearr, resourcearr: resourcearr, collectarr: collectarr, createarr: createarr, deletearr: deletearr, updatearr: updatearr, accessarr: accessarr, usearr: usearr, disclosearr: disclosearr, archivearr: archivearr},
-                    url: '@Url.Action("updateAccessPolicy", "OspAdmin")',
-                    success: successfunc,
-                    error: errorFunc
+                type: "put",
+                data: { rolearr: rolearr, resourcearr: resourcearr, collectarr: collectarr, createarr: createarr, deletearr: deletearr, updatearr: updatearr, accessarr: accessarr, usearr: usearr, disclosearr: disclosearr, archivearr: archivearr },
+                url: '@Url.Action("updateAccessPolicy", "OspAdmin")',
+                success: successfunc,
+                error: errorFunc
             });
 
             function successfunc() {
@@ -336,7 +337,9 @@
             }
         }
 
-                </script>
+    </script>
+
+
 
             </body>
         </html>

@@ -403,7 +403,8 @@ namespace Operando_AdministrationConsole.Controllers
                 roles.Add(policy.Subject);
             }
             //get the data access logs
-            IList<DataAccessLog> logs = instance.GetDataAccessOspLogs(ospPolicyIdUrl);
+            //IList<DataAccessLog> logs = instance.GetDataAccessOspLogs(ospPolicyIdUrl);
+            IList<DataAccessLog> logs = instance.GetDataAccessOspLogs("");
             List<DataAccessLog> logsToCheck = new List<DataAccessLog>();
             //sorts by logs that fall within the region for the dates
             foreach (var log in logs)
@@ -449,18 +450,19 @@ namespace Operando_AdministrationConsole.Controllers
                 }
             }
             //builds a string to return based on the report outcome.
-            String html = "Status: ";
+            String html = "<p>Status:<p> <ul>";
             if (report.checkValid())     
             {
-                html = "All logs for OSP " + OSPId + " are valid for the selected date period";
+                html = "<li>All logs for OSP " + ospPolicyIdUrl + " are valid for the selected date period</li>";
             }
             else
             {
                 foreach (var log in report.invalidLogs)
                 {
-                    html += OSPId + " has made an invalid request with the resource " + log.title + ". ";
+                    html += "<li>" + ospPolicyIdUrl + " has made an invalid request with the resource " + log.title + ". </li>";
                 }
             }
+            html += "</ul>";
 
             return Json(html, JsonRequestBehavior.AllowGet);
         }

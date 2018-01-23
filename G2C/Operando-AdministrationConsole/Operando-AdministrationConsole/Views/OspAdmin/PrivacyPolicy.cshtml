@@ -15,6 +15,9 @@
 @helper PolicyEditRow(string binding)
 {
     <td data-bind="visible: @(binding).Editing">
+        <input type="text" class="form-control" placeholder="Enter text" data-bind="value: @(binding).Reasonid">
+    </td>
+    <td data-bind="visible: @(binding).Editing">
         <input class="form-control" list="userType" placeholder="Enter text" data-bind="value: @(binding).Datauser">
         <datalist id="userType">
             <option>Doctor</option>
@@ -64,7 +67,30 @@
 </div>
 
 <div class="row">
+    <div class="col-xs-12">
+        <div class="m-heading-1 border-grey-silver m-bordered">
+            @if (canEdit)
+            {
+                <p>
+                    Setting up your privacy policy will allow OPERANDO to enforce the statements
+                    within the policy. Since they are enforced, this information can be used to prove
+                    regulation compliance to regulators.
+                </p>
+            }
+            else
+            {
+                <p>
+                    From this page, you can see the privacy policies of the online services who
+                    can request your data. The policies are presented in a simple way (saying who using the
+                    service can view your data, what data they can see, and what it's used for), making the
+                    policy clear for everyone.
+                </p>
+            }
+        </div>
+    </div>
+
     <div class="col-xs-12" data-bind="foreach: opps">
+
         <div class="portlet light bordered">
             <div class="portlet-title tabbable-line">
                 <div class="caption">
@@ -73,28 +99,13 @@
                 </div>
             </div>
             <div class="portlet-body">
-                @if (canEdit)
-                {
-                    <p>
-                        Setting up your privacy policy will allow OPERANDO to enforce the statements
-                        within the policy. Since they are enforced, this information can be used to prove
-                        regulation compliance to regulators.
-                    </p>
-                }
-                else
-                {
-                    <p>
-                        From this page, you can see the privacy policies of the online services who
-                        can request your data. The policies are presented in a simple way (saying who using the
-                        service can view your data, what data they can see, and what it's used for), making the
-                        policy clear for everyone.
-                    </p>
-                }
+
                 <h3>Who can use data</h3>
                 <div class="table-responsive" id="osp.OspPolicyId">
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Reason ID</th>
                                 <th>User type of data user</th>
                                 <th>User type of data subject</th>
                                 <th>Type of information used</th>
@@ -126,6 +137,7 @@
                                         </div>
                                     </td>
                                 }
+                                <td data-bind="text: Reasonid, visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Datauser, visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Datasubjecttype, visible: !$data.EditableCopy.Editing()"></td>
                                 <td data-bind="text: Datatype, visible: !$data.EditableCopy.Editing()"></td>
