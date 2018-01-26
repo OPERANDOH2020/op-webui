@@ -21,7 +21,7 @@ xmlstarlet ed --inplace -N x="http://schemas.microsoft.com/developer/msbuild/200
 xmlstarlet ed --inplace -N x="http://schemas.microsoft.com/developer/msbuild/2003" -d "//x:Reference[contains(@Include,'System.Web.Entity')]" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
 
 # esto es para arreglar el warning del Can not evaluate "!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'" to bool 
-sed -e 's/ Condition=.*Disable_CopyWebApplication.*And.*OutDir.*OutputPath.*\"//' \
+sed -i -e 's/ Condition=.*Disable_CopyWebApplication.*And.*OutDir.*OutputPath.*\"//' \
 /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
 
 # I fix the missing files issue
