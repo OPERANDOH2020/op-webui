@@ -14,13 +14,13 @@ rm -rf /usr/src/app/source/packages/*
 xmlstarlet ed --update --inplace  "//_:Reference[contains(@Include,'SharpConnect.MySql')]/@Include" --value "SharpConnect.MySql, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
 sed -e  "s/.*<Reference.*SharpConnect.MySql.*\n(^((?!<Reference).)*\n)*.*<\/Reference>/<Reference Include=\"SharpConnect.MySql, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL\">\n  <HintPath>..\\packages\\SharpConnect.MySql.1.0.3\\lib\\netstandard1.6\\SharpConnect.MySql.dll<\/HintPath>\n  <Private>True<\/Private>\n<\/Reference>  /" \
 sources/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
-xmlstarlet ed --update  --inplace  "//_:Reference[contains(@Include,'SharpConnect.MySql')]/_:HintPath" --value "..\\packages\\SharpConnect.MySql.1.0.3\\lib\\netstandard1.6\\SharpConnect.MySql.dll" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+xmlstarlet ed -N x="http://schemas.microsoft.com/developer/msbuild/2003" --update  --inplace  "//x:Reference[contains(@Include,'SharpConnect.MySql')]/x:HintPath" --value "..\\packages\\SharpConnect.MySql.1.0.3\\lib\\netstandard1.6\\SharpConnect.MySql.dll" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
 
 # esto es para arreglar el warning del Antlr3.Runtime
-xmlstarlet ed -d --inplace  "//_:Reference[contains(.,'Antlr.3.4.1.9004')]" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+xmlstarlet ed -N x="http://schemas.microsoft.com/developer/msbuild/2003" -d --inplace  "//x:Reference[contains(.,'Antlr.3.4.1.9004')]" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
 
 # esto es para arreglar el warning del System.Web.Entity 
-xmlstarlet ed -d --inplace  "//_:Reference[contains(@Include,'System.Web.Entity')]" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+xmlstarlet ed -N x="http://schemas.microsoft.com/developer/msbuild/2003" -d --inplace  "//x:Reference[contains(@Include,'System.Web.Entity')]" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
 
 # esto es para arreglar el warning del Can not evaluate "!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'" to bool 
 sed -e 's/ Condition=.*Disable_CopyWebApplication.*And.*OutDir.*OutputPath.*\"//' \
