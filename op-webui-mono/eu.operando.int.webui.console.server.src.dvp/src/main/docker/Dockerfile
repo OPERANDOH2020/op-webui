@@ -2,6 +2,9 @@
 # we choose normal 
 FROM mono:4.6.1.3
 
+RUN apt-get update
+RUN apt-get install -y xmlstarlet mono-xsp4 asp.net-examples
+
 RUN mkdir -p /usr/src/app/source /usr/src/app/build
 WORKDIR /usr/src/app/source
 
@@ -17,10 +20,6 @@ RUN nuget restore -NonInteractive
 RUN nuget update -self
 RUN xbuild /property:Configuration=Release /property:OutDir=/usr/src/app/build/
  
-RUN apt-get update
-
-RUN apt-get install -y mono-xsp4 asp.net-examples
-
 COPY debian.webapp /etc/xsp4
 RUN mkdir -p /etc/mono/registry
 RUN chmod uog+rw /etc/mono/registry

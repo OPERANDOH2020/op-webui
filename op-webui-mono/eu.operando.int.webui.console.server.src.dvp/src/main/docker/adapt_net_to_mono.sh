@@ -6,7 +6,24 @@ sed -i -e "s/.*<system\.codedom>/<\!--  GBE gives problems in mono xps4 \n  <sys
 sed -i -e "s/.*<Import Project=\"\.\.\\\packages\\\Microsoft\.CodeDom\.Providers\.DotNetCompilerPlatform.*>/<\!--\n&\n-->/" \
 /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
  
-sed -i -e  "s/.*<Import Project=\"\.\.\\\packages\\\Microsoft\.Net\.Compilers.*>/<\!--\n&\n-->/" \
+sed -i -e "s/.*<Import Project=\"\.\.\\\packages\\\Microsoft\.Net\.Compilers.*>/<\!--\n&\n-->/" \
+/usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+
+# esto es para arreglar el problema del SharpConnect.MySql
+rm -rf /usr/src/app/source/packages/*
+xmlstarlet ed --update --inplace  "//_:Reference[contains(@Include,'SharpConnect.MySql')]/@Include" --value "SharpConnect.MySql, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+sed -e  "s/.*<Reference.*SharpConnect.MySql.*\n(^((?!<Reference).)*\n)*.*<\/Reference>/<Reference Include=\"SharpConnect.MySql, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL\">\n  <HintPath>..\\packages\\SharpConnect.MySql.1.0.3\\lib\\netstandard1.6\\SharpConnect.MySql.dll<\/HintPath>\n  <Private>True<\/Private>\n<\/Reference>  /" \
+sources/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+xmlstarlet ed --update  --inplace  "//_:Reference[contains(@Include,'SharpConnect.MySql')]/_:HintPath" --value "..\\packages\\SharpConnect.MySql.1.0.3\\lib\\netstandard1.6\\SharpConnect.MySql.dll" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+
+# esto es para arreglar el warning del Antlr3.Runtime
+xmlstarlet ed -d --inplace  "//_:Reference[contains(.,'Antlr.3.4.1.9004')]" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+
+# esto es para arreglar el warning del System.Web.Entity 
+xmlstarlet ed -d --inplace  "//_:Reference[contains(@Include,'System.Web.Entity')]" /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
+
+# esto es para arreglar el warning del Can not evaluate "!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'" to bool 
+sed -e 's/ Condition=.*Disable_CopyWebApplication.*And.*OutDir.*OutputPath.*\"//' \
 /usr/src/app/source/Operando-AdministrationConsole/Operando-AdministrationConsole.csproj
 
 # I fix the missing files issue
