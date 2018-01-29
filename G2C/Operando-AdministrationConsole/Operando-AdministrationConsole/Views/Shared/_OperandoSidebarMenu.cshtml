@@ -193,6 +193,8 @@
             <ul class="sub-menu">*@
             @if (allView || normal_user || osp_admin)
             {
+                if (!(System.Web.Configuration.WebConfigurationManager.AppSettings["hidePrivacyWizardAndPrivacyPolicyForFCSR"] == "true" && normal_user))
+                {
                 <li class='nav-item @if (currentController == "OspAdmin" && currentAction == "PrivacyPolicy")
                 { @activeClass }'>
                     <a href="@Url.Action("PrivacyPolicy", "OspAdmin")" class="nav-link ">
@@ -204,6 +206,7 @@
                         }
                     </a>
                 </li>
+                }
             }
             @if (false)
             {

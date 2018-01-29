@@ -3,6 +3,44 @@
     ViewBag.MenuSection = Resources.WebResources.SectionDataSubject;
     ViewBag.Title = Resources.WebResources.AccessPreferencesTitle;
     Layout = "~/Views/Shared/_LayoutOperando.cshtml";
+
+
+    bool allView = false;
+    bool normal_user = false;
+    bool osp_admin = false;
+    bool psp_analyst = false;
+    bool psp_admin = false;
+    bool regulator = false;
+
+    if (Session["Usertype"] == null)
+    {
+        //
+        allView = true;
+    }
+    else
+    {
+        switch (Session["Usertype"].ToString())
+        {
+            case "normal_user":
+                normal_user = true;
+                break;
+            case "osp_admin":
+                osp_admin = true;
+                break;
+            case "psp_analyst":
+                psp_analyst = true;
+                break;
+            case "psp_admin":
+                psp_admin = true;
+                break;
+            case "regulator":
+                regulator = true;
+                break;
+            default:
+                allView = true;
+                break;
+        }
+    }
 }
 
 @using eu.operando.core.pdb.cli.Model;
@@ -88,6 +126,8 @@
             ospNum += 1;
             <!-- BEGIN TAB @osp.OspId CONTENT -->
             <div class="portlet light tab-pane @if (osp.selected) {<text>active</text>} else {<text>fade</text>}" id="tab_@osp.OspId.GetHashCode()">
+                @if (!(System.Web.Configuration.WebConfigurationManager.AppSettings["hidePrivacyWizardAndPrivacyPolicyForFCSR"] == "true" && normal_user))
+                {
                 <div class="portlet-title">
                     <div class="caption">
                         <span class="caption-subject font-dark bold uppercase">Privacy wizard</span>
@@ -106,7 +146,7 @@
                         </form>
                     </div>
                 </div>
-
+                }
                 <div class="portlet-title">
                     <div class="caption">
                         <span class="caption-subject font-dark bold uppercase">@Resources.WebResources.AccessPreferencesOSPPrivacySettings @osp.OspFriendlyName</span>
