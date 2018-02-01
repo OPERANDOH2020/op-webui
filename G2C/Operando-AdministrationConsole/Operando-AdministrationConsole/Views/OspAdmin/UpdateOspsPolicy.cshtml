@@ -21,20 +21,45 @@
                         <tr>
                             <th>OSP Name</th>
                             <th>Action Edit Policies</th>
+                            <th>Upload OData</th>
                         </tr>
                         @foreach (var osp in Model)
             {
                             <tr>
                                 <td>@(osp.Key)</td>
                                 <td>@Html.ActionLink("Edit OSP", "UpdateOspPolicy", new { id = osp.Value }, new { @class = "btn btn-primary btn-large" })</td>
+                                <td><button class="btn default" type="button" onclick="submitOdata('@(osp.Value)')">Submit OData</button></td>
                             </tr>
                         }
                     </table>
-
+                </div>
+                <div class="form-group basic-textarea">
+                    <label for="OData">Input OData</label>
+                    <textarea class="form-control" id="odatatextarea" rows="4" cols="50">Paste OData</textarea>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
+<script>
+    function submitOdata(OspPolicyId) {
+        var odata = document.getElementById("odatatextarea").value;
+        $.ajax({
+            type: "put",
+            data: { OspPolicyId: OspPolicyId, odatainput: odata },
+            url: '@Url.Action("addRecord", "OspAdmin")',
+            success: successFunc,
+            error: errorFunc
+        });
+
+        function successFunc(data, status) {
+            alert('OData Record Added, please reload page to see updates');
+        }
+
+        function errorFunc() {
+            alert('Please pass a valid record of OData');
+        }
+    }
+</script>
 
