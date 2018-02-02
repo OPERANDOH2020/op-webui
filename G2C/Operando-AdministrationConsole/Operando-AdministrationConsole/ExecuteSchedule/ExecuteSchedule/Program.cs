@@ -8,6 +8,9 @@ using System.Diagnostics;
 using System.Net;
 using System.IO;
 using System.Globalization;
+using Newtonsoft.Json;
+using RestSharp;
+using Newtonsoft.Json.Linq;
 
 
 namespace ExecuteSchedule
@@ -358,7 +361,9 @@ namespace ExecuteSchedule
         {
             String url = report.Location + "?" + report.Parameters+"&__format=pdf";
             String filePath = ConfigurationManager.AppSettings["pathSave"];
-            String fileName = report.Report + "_" + item.ID + "_" + StartTime.Year + "" + StartTime.Month + "" + StartTime.Day + ".pdf";
+            String Month = (StartTime.Month.ToString().Length < 2 ? "0" + StartTime.Month : StartTime.Month.ToString());
+            String Day = (StartTime.Day.ToString().Length<2?"0"+StartTime.Day:StartTime.Day.ToString());
+            String fileName = report.Report + "_" + item.ID + "_" + StartTime.Year + "" + Month + "" + Day + ".pdf";
             using (WebClient client = new WebClient())
             {
                 client.DownloadFile(url, filePath + "\\" + fileName );
@@ -369,6 +374,89 @@ namespace ExecuteSchedule
             SaveResult(item, report, StartTime, fileName);
             // rimuovo i vecchi file
             RemoveOldFile(item, report, StartTime);
+
+            // chiamo i webservice per scrivere nel log
+            LogDbInsert(item);
+        }
+
+        private static void LogDbInsert(Schedules item)
+        {
+            string userId = "";
+            for (int i = 0; i < item.OSPs.Length; i++)
+			{
+			    userId += ","+item.OSPs[i];
+			}
+            userId = userId.Remove(0, 1);
+
+            LogObject _LogObject = new LogObject();
+            _LogObject.userId = "RG SCHEDULER";
+            _LogObject.requesterType = LogObject.RequesterType.PROCESS.ToString();
+            _LogObject.requesterId = userId;
+            _LogObject.logPriority = "LOW";
+            _LogObject.logLevel = LogObject.LogLevel.INFO.ToString();
+            _LogObject.title =  "Report Generation";
+            _LogObject.description = "Report has been generated";
+            
+            string keyword = "Report";
+            _LogObject.keywords = new List<string>();
+            _LogObject.keywords.Add(keyword);
+
+            _LogObject.logType = LogObject.LogType.NOTIFICATION.ToString();
+            _LogObject.affectedUserId = "";
+            _LogObject.osp =userId;
+
+            string requestedFields = "";
+            _LogObject.requestedFields = new List<string>();
+            _LogObject.requestedFields.Add(requestedFields);
+
+            string grantedFields = "";
+            _LogObject.grantedFields = new List<string>();
+            _LogObject.grantedFields.Add(grantedFields);
+
+
+            string _LogObjectSerialized = JsonConvert.SerializeObject(_LogObject);
+
+            var client = new RestClient(ConfigurationManager.AppSettings["logDbUrl"]);
+
+            var request = new RestRequest("log", Method.POST);
+            request.AddParameter("application/json", _LogObjectSerialized, ParameterType.RequestBody);
+
+
+            // execute the request
+            IRestResponse response = client.Execute(request);
+            var content = response.Content; // raw content as string
+
+            JToken token = JObject.Parse(content);
+            string code = "";
+            string type = "";
+            string message = "";
+
+            code = (string)token.SelectToken("code");
+            type = (string)token.SelectToken("type");
+            message = (string)token.SelectToken("message");
+
+        }
+
+        
+        public class LogObject
+        {
+            public enum RequesterType { PROCESS, MODULE }
+            public enum LogLevel { INFO, WARN, ERROR, FATAL }
+            public enum LogType { DATA_ACCESS, SYSTEM, NOTIFICATION, OTHER }
+
+            public string userId { get; set; }
+            public string requesterType;
+            public string requesterId { get; set; }
+            public string logPriority { get; set; }
+            public string logLevel;
+            public string title { get; set; }
+            public string description { get; set; }
+            public List<string> keywords { get; set; }
+            public string logType;
+            public string affectedUserId { get; set; }
+            public string osp { get; set; }
+            public List<string> requestedFields { get; set; }
+            public List<string> grantedFields { get; set; }
         }
 
         private static void SaveResult(Schedules item, Reports report, DateTime StartTime, String fileName)
