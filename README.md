@@ -76,6 +76,7 @@ Report Scheduler:
 4.	Set the connection string to MySql server in the app.config inside "MySQLConnection" key.
 5.	Set the Task Scheduler of the operating system running the EXE.
 6.	Set the "pathSave" key with the location to save the downloaded files inside app.config. PathSave variable should be a folder end with "\reportSavePath" and must be within the webapp Operando-AdministrationConsole.
+7.	Set the "logDbUrl" with log db api URL
 
 Report Rest Service:
 1.	Inside repository https://github.com/OPERANDOH2020/op-webui.git there is a folder named reportsREST_WP that contains the code of Report Rest Service. This service makes HTTP GET calls to BIRT Viewer, read response, encapsulates it inside a JSON and returns it to the caller.
