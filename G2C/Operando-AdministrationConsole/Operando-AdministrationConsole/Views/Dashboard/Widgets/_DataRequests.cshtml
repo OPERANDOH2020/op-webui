@@ -13,19 +13,19 @@
     </div>
     <div class="portlet-body">
         <ul class="feeds">
-            @foreach (var log in Model)
+            @foreach (DataAccessLogModel log in Model)
             {
                 <li class="font-grey-gallery">
                     <div class="col1">
                         <div class="cont">
                             <div class="cont-col2">
-                                <div class="desc">
+                                <div class="row">
+                                    <div class="col-xs-2">
                                     @if (log.GrantedFields.Any())
                                     {
                                         <span>
                                             <i class="fa fa-check-circle-o" style="color: green; font-size: 16px;"></i>
                                             <span class="hidden">@Resources.WebResources.LogAccessGranted</span>
-                                            <span>@string.Join(", ", log.GrantedFields)</span>
                                         </span>
                                     }
                                     @if (log.DeniedFields.Any())
@@ -33,9 +33,17 @@
                                         <span>
                                             <i class="fa fa-ban" style="color: red; font-size: 16px;"></i>
                                             <span class="hidden">@Resources.WebResources.LogAccessDenied</span>
-                                            <span>@string.Join(", ", log.DeniedFields)</span>
                                         </span>
                                     }
+                                    </div>
+                                    <div class="desc col-xs-10">
+                                        @log.RequesterId tried to access to the following data: @string.Join(", ", log.RequestedFields).
+                                        <br/>
+                                        According to your privacy settings, access was granted for
+                                        <i class="fa fa-check-circle-o" style="color: green; font-size: 16px;"></i>@string.Join(", ", log.GrantedFields),
+                                        and was not granted for
+                                        <i class="fa fa-ban" style="color: red; font-size: 16px;"></i>@string.Join(", ", log.DeniedFields)
+                                    </div>
                                 </div>
                             </div>
                         </div>

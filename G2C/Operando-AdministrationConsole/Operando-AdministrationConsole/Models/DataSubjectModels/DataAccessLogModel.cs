@@ -13,8 +13,10 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
         public string RequesterId { get; set; }
         public string OspId { get; set; }
 
-        public IList<string> GrantedFields { get; set; }
-        public IList<string> DeniedFields { get; set; }
+        public IList<string> RequestedFields { get; }
+        public IList<string> GrantedFields { get; }
+        public IList<string> DeniedFields => RequestedFields.Except(GrantedFields).ToList();
+
 
         public string LogDates => LogDateStart.ToString("G") +
                                   (LogDateEnd.HasValue ? " - " + LogDateEnd.Value.ToString("G") : "");
@@ -24,23 +26,26 @@ namespace Operando_AdministrationConsole.Models.DataSubjectModels
             LogDateStart = entity.logDate;
             RequesterId = stringConverter.NiceAccessorNameOrDefault(entity.requesterId);
             OspId = entity.ospId;
+
+            RequestedFields = entity.arrayRequestedFields
+                .Select(stringConverter.NiceResourceNameOrDefault)
+                .ToList();
+
             GrantedFields = entity.arrayRequestedFields
                 .Where(s => entity.arrayGrantedFields.Contains(s))
                 .Select(stringConverter.NiceResourceNameOrDefault)
                 .ToList();
-            DeniedFields = entity.arrayRequestedFields
-                .Where(s => !entity.arrayGrantedFields.Contains(s))
-                .Select(stringConverter.NiceResourceNameOrDefault)
-                .ToList();
+
         }
 
-        public DataAccessLogModel(string ospId, string requesterId, IEnumerable<string> grantedFields,
-            IEnumerable<string> deniedFields, DateTime logDateStart, DateTime? logDateEnd = null)
+        public DataAccessLogModel(string ospId, string requesterId, IEnumerable<string> requestedFields, IEnumerable<string> grantedFields, DateTime logDateStart, DateTime? logDateEnd = null)
         {
             OspId = ospId;
             RequesterId = requesterId;
+
+            RequestedFields = requestedFields.ToList();
             GrantedFields = grantedFields.ToList();
-            DeniedFields = deniedFields.ToList();
+
             LogDateStart = logDateStart;
             LogDateEnd = logDateEnd;
         }

@@ -24,10 +24,10 @@ namespace Operando_AdministrationConsole.Helper
                 .Select(g => new DataAccessLogModel(
                     "", 
                     g.Select(l => l.RequesterId).Distinct().Single(),
-                    g.SelectMany(l => l.GrantedFields).Distinct(), 
-                    g.SelectMany(l => l.DeniedFields).Distinct(),
+                    g.SelectMany(l => l.RequestedFields).Distinct(),
+                    g.SelectMany(l => l.GrantedFields).Distinct(),
                     g.Min(l => l.LogDateStart),
-                    g.Count > 1 ? (DateTime?) g.Max(m => m.LogDateStart) : null));
+                    g.Count > 1 ? (DateTime?)g.Max(m => m.LogDateStart) : null));
             return aggregated;
         }
 
