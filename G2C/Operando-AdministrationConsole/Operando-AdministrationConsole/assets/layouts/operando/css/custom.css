@@ -361,7 +361,7 @@ a:hover {
     margin-top: 3px;
 }
 
-.feeds li .col1 > .cont > .cont-col2 > .desc > .form-control {
+.feeds li .col1 > .cont > .cont-col2 .desc > .form-control {
     height: 25px;
     padding: 0px;
 }
@@ -557,6 +557,11 @@ btn.orange:not(.btn-outline) .badge {
 }
 
 /*************************************************************************************************************/
+.feeds li .col2 {
+    float: unset;
+    width: auto;
+    margin-left: 0;
+}
 
 .feeds li.double-action-feed .col2 {
     width: 105px;

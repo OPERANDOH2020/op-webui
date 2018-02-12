@@ -1,6 +1,20 @@
 ﻿@using Operando_AdministrationConsole.Models.DataSubjectModels
 @model IEnumerable<DataAccessLogModel>
 
+@helper GrantedIcon(bool visible = true)
+{
+    <i class="fa fa-check-circle-o" style="color: green; font-size: 16px; @VisibiltyCss(visible)"></i>
+}
+@helper DeniedIcon(bool visible = true)
+{
+    <i class="fa fa-ban" style="color: red; font-size: 16px; @VisibiltyCss(visible)"></i>
+}
+@helper VisibiltyCss(bool visible)
+{
+    @:visibility: @(visible ? "visible" : "hidden")
+}
+
+
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption">
@@ -17,39 +31,46 @@
             {
                 <li class="font-grey-gallery">
                     <div class="col1">
-                        <div class="cont">
+                        <div class="cont" style="width: 100%">
                             <div class="cont-col2">
                                 <div class="row">
                                     <div class="col-xs-2">
-                                    @if (log.GrantedFields.Any())
-                                    {
                                         <span>
-                                            <i class="fa fa-check-circle-o" style="color: green; font-size: 16px;"></i>
+                                            @GrantedIcon(visible: log.GrantedFields.Any())
                                             <span class="hidden">@Resources.WebResources.LogAccessGranted</span>
                                         </span>
-                                    }
-                                    @if (log.DeniedFields.Any())
-                                    {
                                         <span>
-                                            <i class="fa fa-ban" style="color: red; font-size: 16px;"></i>
+                                            @DeniedIcon(visible: log.DeniedFields.Any())
                                             <span class="hidden">@Resources.WebResources.LogAccessDenied</span>
                                         </span>
-                                    }
                                     </div>
-                                    <div class="desc col-xs-10">
-                                        @log.RequesterId tried to access to the following data: @string.Join(", ", log.RequestedFields).
+                                    <div class="desc col-xs-8">
+                                        @log.RequesterId requested access to the following data: @string.Join(", ", log.RequestedFields).
                                         <br/>
-                                        According to your privacy settings, access was granted for
-                                        <i class="fa fa-check-circle-o" style="color: green; font-size: 16px;"></i>@string.Join(", ", log.GrantedFields),
-                                        and was not granted for
-                                        <i class="fa fa-ban" style="color: red; font-size: 16px;"></i>@string.Join(", ", log.DeniedFields)
+                                        @if (log.GrantedFields.Any() && log.DeniedFields.Any())
+                                        {
+                                            <text>According to your privacy settings, access was granted for @GrantedIcon() @string.Join(", ", log.GrantedFields),</text>
+                                            <text> and was not granted for @DeniedIcon() @string.Join(", ", log.DeniedFields).</text>
+                                        }
+                                        else if (log.GrantedFields.Any())
+                                        {
+                                            <text>According to your privacy settings, access was granted for @GrantedIcon() @string.Join(", ", log.GrantedFields).</text>
+                                        }
+                                        else if (log.DeniedFields.Any())
+                                        {
+                                            <text>According to your privacy settings, access was not granted for @DeniedIcon() @string.Join(", ", log.DeniedFields).</text>
+                                        }
+                                        else
+                                        {
+                                            throw new ArgumentException("Log has invalid state -- no granted or denied fields.");
+                                        }
+                                    </div>
+                                    <div class="col2 col-xs-2">
+                                        <div class="date">@log.LogDates</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col2">
-                        <div class="date">@log.LogDates</div>
                     </div>
                 </li>
             }
