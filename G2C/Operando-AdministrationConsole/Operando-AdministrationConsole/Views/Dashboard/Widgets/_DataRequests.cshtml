@@ -45,20 +45,20 @@
                                         </span>
                                     </div>
                                     <div class="desc col-xs-8">
-                                        @log.RequesterId requested access to the following data: @string.Join(", ", log.RequestedFields).
+                                        @log.RequesterId @Resources.WebResources.RequestedAccessTo: @string.Join(", ", log.RequestedFields).
                                         <br/>
                                         @if (log.GrantedFields.Any() && log.DeniedFields.Any())
                                         {
-                                            <text>According to your privacy settings, access was granted for @GrantedIcon() @string.Join(", ", log.GrantedFields),</text>
-                                            <text> and was not granted for @DeniedIcon() @string.Join(", ", log.DeniedFields).</text>
+                                            <text>@Resources.WebResources.AccessWasGrantedFor @GrantedIcon() @string.Join(", ", log.GrantedFields),</text>
+                                            <text>@Resources.WebResources.AndWasNotGrantedFor @DeniedIcon() @string.Join(", ", log.DeniedFields).</text>
                                         }
                                         else if (log.GrantedFields.Any())
                                         {
-                                            <text>According to your privacy settings, access was granted for @GrantedIcon() @string.Join(", ", log.GrantedFields).</text>
+                                            <text>@Resources.WebResources.AccessWasGrantedFor @GrantedIcon() @string.Join(", ", log.GrantedFields).</text>
                                         }
                                         else if (log.DeniedFields.Any())
                                         {
-                                            <text>According to your privacy settings, access was not granted for @DeniedIcon() @string.Join(", ", log.DeniedFields).</text>
+                                            <text>@Resources.WebResources.AccessWasNotGrantedFor @DeniedIcon() @string.Join(", ", log.DeniedFields).</text>
                                         }
                                         else
                                         {

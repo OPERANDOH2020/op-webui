@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class WebResources {
@@ -129,6 +129,33 @@ namespace Resources {
         internal static string AccessPreferencesYourPrivacySettings {
             get {
                 return ResourceManager.GetString("AccessPreferencesYourPrivacySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to According to your privacy settings, access was granted for.
+        /// </summary>
+        internal static string AccessWasGrantedFor {
+            get {
+                return ResourceManager.GetString("AccessWasGrantedFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to According to your privacy settings, access was not granted for.
+        /// </summary>
+        internal static string AccessWasNotGrantedFor {
+            get {
+                return ResourceManager.GetString("AccessWasNotGrantedFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to and was not granted for.
+        /// </summary>
+        internal static string AndWasNotGrantedFor {
+            get {
+                return ResourceManager.GetString("AndWasNotGrantedFor", resourceCulture);
             }
         }
         
@@ -741,6 +768,15 @@ namespace Resources {
         internal static string RegistrationUserType {
             get {
                 return ResourceManager.GetString("RegistrationUserType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to requested access to the following data.
+        /// </summary>
+        internal static string RequestedAccessTo {
+            get {
+                return ResourceManager.GetString("RequestedAccessTo", resourceCulture);
             }
         }
         

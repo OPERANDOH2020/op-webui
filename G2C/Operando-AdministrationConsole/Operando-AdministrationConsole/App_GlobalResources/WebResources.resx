@@ -348,4 +348,16 @@
   <data name="NotificationActionStr" xml:space="preserve">
     <value>Go to page</value>
   </data>
+  <data name="RequestedAccessTo" xml:space="preserve">
+    <value>requested access to the following data</value>
+  </data>
+  <data name="AccessWasGrantedFor" xml:space="preserve">
+    <value>According to your privacy settings, access was granted for</value>
+  </data>
+  <data name="AccessWasNotGrantedFor" xml:space="preserve">
+    <value>According to your privacy settings, access was not granted for</value>
+  </data>
+  <data name="AndWasNotGrantedFor" xml:space="preserve">
+    <value>and was not granted for</value>
+  </data>
 </root>

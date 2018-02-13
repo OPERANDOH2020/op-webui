@@ -412,4 +412,16 @@
   <data name="SectionDataSubject" xml:space="preserve">
     <value>Paziente</value>
   </data>
+  <data name="RequestedAccessTo" xml:space="preserve">
+    <value>accesso richiesto per i seguenti dati</value>
+  </data>
+  <data name="AccessWasGrantedFor" xml:space="preserve">
+    <value>Sulla base delle tue impostazioni di privacy, l’accesso è consentito per</value>
+  </data>
+  <data name="AccessWasNotGrantedFor" xml:space="preserve">
+    <value>Sulla base delle tue impostazioni di privacy, l’accesso è negato per</value>
+  </data>
+  <data name="AndWasNotGrantedFor" xml:space="preserve">
+    <value>ed è negato per</value>
+  </data>
 </root>
