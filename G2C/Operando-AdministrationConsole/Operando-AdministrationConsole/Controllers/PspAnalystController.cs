@@ -57,20 +57,20 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         // GET: PspAnalyst
-        public async Task<ActionResult> Regulations()
+        public ActionResult Regulations()
         {
             var searchAll = new Uri(_regulationsRoot, "?filter=");
-            List<Regulation> regulations = await helper.get<List<Regulation>>(searchAll.ToString()); //= await getAllRegulations();
+            var regulations = helper.Get<List<Regulation>>(searchAll.ToString());
             return View(regulations);
         }
 
         [HttpPost]
         public async Task<ActionResult> NewRegulation(Regulation regulation)
         {
-            using(HttpClient client = new HttpClient())
+            using(var client = new HttpClient())
             {
-                StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(regulation), Encoding.UTF8, "application/json");
-                var result = await client.PostAsync(_regulationsRoot, OperandoJson);
+                var operandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(regulation), Encoding.UTF8, "application/json");
+                HttpResponseMessage result = await client.PostAsync(_regulationsRoot, operandoJson);
                 Response.StatusCode = (int)result.StatusCode;
                 return Content(await result.Content.ReadAsStringAsync());
             }
@@ -79,10 +79,10 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateRegulation(Regulation regulation)
         {
-            using (HttpClient client = new HttpClient())
+            using (var client = new HttpClient())
             {
-                StringContent OperandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(regulation), Encoding.UTF8, "application/json");
-                var result = await client.PutAsync(new Uri(_regulationsRoot, regulation.RegId), OperandoJson);
+                var operandoJson = new StringContent(new JsonHelper().SerializeJsonFollowingOperandoConventions(regulation), Encoding.UTF8, "application/json");
+                HttpResponseMessage result = await client.PutAsync(new Uri(_regulationsRoot, regulation.RegId), operandoJson);
                 Response.StatusCode = (int)result.StatusCode;
                 return Content(await result.Content.ReadAsStringAsync());
             }
@@ -91,9 +91,9 @@ namespace Operando_AdministrationConsole.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteRegulation(string id)
         {
-            using (HttpClient client = new HttpClient())
+            using (var client = new HttpClient())
             {
-                var result = await client.DeleteAsync(new Uri(_regulationsRoot, id));
+                HttpResponseMessage result = await client.DeleteAsync(new Uri(_regulationsRoot, id));
                 Response.StatusCode = (int)result.StatusCode;
                 return Content(await result.Content.ReadAsStringAsync());
             }

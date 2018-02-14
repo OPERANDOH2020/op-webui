@@ -1,25 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using eu.operando.common;
+﻿using System.IO;
+using System.Net;
 using eu.operando.common.Services;
-using eu.operando.core.bda;
 
 namespace Operando_AdministrationConsole.Helper
 {
     public class OperandoWebServiceHelper
     {
-        public async Task<T> get<T>(string url)
+        public T Get<T>(string url)
         {
-            HttpHelper httpHelper = new HttpHelper();
-            string responseString = await httpHelper.RequestGetReadBody(new Uri(url));
+            string responseString;
 
-            JsonHelper jsonConvertorOperando = new JsonHelper();
-            T policies = jsonConvertorOperando.DeserializeJsonFollowingOperandoConventions<T>(responseString);
+            // adapted from https://stackoverflow.com/a/27108442
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            using (var response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                responseString = reader.ReadToEnd();
+            }
 
-            return policies;
+            var jsonConvertorOperando = new JsonHelper();
+            T t = jsonConvertorOperando.DeserializeJsonFollowingOperandoConventions<T>(responseString);
+
+            return t;
         }
     }
 }

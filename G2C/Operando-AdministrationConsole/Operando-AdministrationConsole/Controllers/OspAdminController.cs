@@ -16,14 +16,9 @@ using eu.operando.core.bda.Model;
 using Operando_AdministrationConsole.Models.OspAdminModels;
 using System.Diagnostics;
 using eu.operando.core.pdb.cli.Model;
-using Newtonsoft.Json;
 using eu.operando.interfaces.aapi;
 using eu.operando.interfaces.aapi.Model;
-using Newtonsoft.Json.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.IO;
-using System.Xml;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
@@ -31,7 +26,6 @@ namespace Operando_AdministrationConsole.Controllers
 {
     public class OspAdminController : Controller
     {
-        private OperandoWebServiceHelper helper = new OperandoWebServiceHelper();
         ReportManagerOSP reportManagerOSP = new ReportManagerOSP();
 
 
