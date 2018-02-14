@@ -5851,7 +5851,6 @@
     <Content Include="Views\Access\ResetPassword.cshtml" />
     <Content Include="Views\Access\Registration.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagement.cshtml" />
-    <Content Include="Views\PspAdmin\ModulesSettings.cshtml" />
     <Content Include="Views\Regulator\ComplianceReports.cshtml" />
     <Content Include="Views\Regulator\PolicyStatements.cshtml" />
     <Content Include="Views\PspAdmin\UsersManagementEdit.cshtml" />

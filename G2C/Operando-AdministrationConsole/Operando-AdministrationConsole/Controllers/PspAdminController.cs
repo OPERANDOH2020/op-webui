@@ -725,14 +725,6 @@ namespace Operando_AdministrationConsole.Controllers
             }
             return Content(userIn.userName + " successfully deleted");
         }
-        // ----------------------------------
-        // ------ MODULES SETTINGS ----------
-        // ----------------------------------
-
-        public ActionResult ModulesSettings()
-        {
-            return View();
-        }
 
         // ----------------------------------
         // ------ SERVICE MONITORING ----------
