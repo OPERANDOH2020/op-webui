@@ -18,10 +18,10 @@ namespace eu.operando.interfaces.rapi
             _api = new ComplianceReportsApi(basePath);
         }
 
-        public Task<ComplianceReport> GetComplianceReportForOspAsync(string osp, string serviceTicket)
+        public ComplianceReport GetComplianceReportForOsp(string osp, string serviceTicket)
         {
 
-            var result = _api.OspsOspIdComplianceReportGetAsync(serviceTicket, osp);
+            var result = _api.OspsOspIdComplianceReportGet(serviceTicket, osp);
 
             return result;
             

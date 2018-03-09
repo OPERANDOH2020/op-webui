@@ -10,8 +10,7 @@ namespace eu.operando.interfaces.rapi
         /// <summary>
         /// Get the compliance report for an osp.
         /// </summary>
-        [ItemCanBeNull]
-        Task<ComplianceReport> GetComplianceReportForOspAsync([NotNull] string osp, [NotNull] string serviceTicket);
+        ComplianceReport GetComplianceReportForOsp([NotNull] string osp, [NotNull] string serviceTicket);
 
     }
 }

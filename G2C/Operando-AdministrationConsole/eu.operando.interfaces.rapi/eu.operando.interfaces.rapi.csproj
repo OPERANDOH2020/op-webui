@@ -71,7 +71,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IRapiClient.cs" />
     <Compile Include="RapiClient.cs" />
-    <Compile Include="Stub\StubRapiClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

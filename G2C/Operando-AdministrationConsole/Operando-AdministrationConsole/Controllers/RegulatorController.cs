@@ -25,7 +25,7 @@ namespace Operando_AdministrationConsole.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> ComplianceReports()
+        public ActionResult ComplianceReports()
         {
             var serviceTicket = GetServiceTicket();
 
@@ -41,7 +41,7 @@ namespace Operando_AdministrationConsole.Controllers
                 ComplianceReport entity;
                 try
                 {
-                    entity = await _rapiClient.GetComplianceReportForOspAsync(osp, serviceTicket);
+                    entity = _rapiClient.GetComplianceReportForOsp(osp, serviceTicket);
                 }
                 catch (ApiException ex)
                 {
