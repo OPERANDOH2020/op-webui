@@ -81,7 +81,7 @@
             contentType: "application/json"
         })
         .done(function (data) {
-            regModel.newRegulation.RegId(data);
+            regModel.newRegulation.RegId(JSON.parse(data).reg_id);
             regModel.addReg();
             // Just init all the confirmations rather than trying
             // to find the new one specifically
