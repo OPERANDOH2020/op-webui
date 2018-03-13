@@ -2763,7 +2763,7 @@
     <Content Include="assets\global\plugins\bootstrap\css\bootstrap-rtl.min.css" />
     <Content Include="assets\global\plugins\bootstrap\css\bootstrap.css" />
     <Content Include="assets\global\plugins\bootstrap\css\bootstrap.min.css" />
-    <Content Include="assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\global\plugins\bootstrap\js\bootstrap.js" />
     <Content Include="assets\global\plugins\bootstrap\js\bootstrap.min.js" />
     <Content Include="assets\global\plugins\ckeditor\adapters\jquery.js" />
@@ -5686,10 +5686,6 @@
     <Content Include="assets\global\plugins\bootstrap-confirmation\README.md" />
     <Content Include="assets\global\plugins\bootstrap-colorpicker\less\colorpicker.less" />
     <Content Include="assets\global\plugins\bootstrap-colorpicker\img\Thumbs.db" />
-    <Content Include="assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.eot" />
-    <Content Include="assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.ttf" />
-    <Content Include="assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.woff" />
-    <Content Include="assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.woff2" />
     <Content Include="assets\global\plugins\bootbox\LICENSE.md" />
     <Content Include="assets\global\plugins\bootbox\README.md" />
     <Content Include="assets\global\plugins\backstretch\LICENSE-MIT" />
@@ -5772,6 +5768,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="assets\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
