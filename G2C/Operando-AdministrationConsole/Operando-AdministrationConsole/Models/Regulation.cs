@@ -1,17 +1,10 @@
-﻿using Operando_AdministrationConsole.Helper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-
-namespace Operando_AdministrationConsole.Models
+﻿namespace Operando_AdministrationConsole.Models
 {
     public class Regulation
     {
         public string RegId { get; set; }
         public string LegislationSector { get; set; }
-        public string PrivateInformationSource { get; set; }
+        public string Reason { get; set; }
         public PrivateInformationTypeEnum PrivateInformationType { get; set; }
         public string Action { get; set; }
         public RequiredConsentEnum RequiredConsent { get; set; }

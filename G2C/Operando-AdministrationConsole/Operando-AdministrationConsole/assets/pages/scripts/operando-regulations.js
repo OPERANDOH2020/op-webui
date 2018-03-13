@@ -11,10 +11,10 @@
     function RegulationModel(initialState) {
         var self = this;
 
-        var Regulation = function (RegId, LegislationSector, PrivateInformationSource, PrivateInformationType, Action, RequiredConsent, IsEditable) {
+        var Regulation = function (RegId, LegislationSector, Reason, PrivateInformationType, Action, RequiredConsent, IsEditable) {
             this.RegId = ko.observable(RegId);
             this.LegislationSector = ko.observable(LegislationSector);
-            this.PrivateInformationSource = ko.observable(PrivateInformationSource);
+            this.Reason = ko.observable(Reason);
             this.PrivateInformationType = ko.observable(PrivateInformationType);
             this.Action = ko.observable(Action);
             this.RequiredConsent = ko.observable(RequiredConsent);
@@ -25,7 +25,7 @@
         };
 
         var EditableRegulation = function(regulation){
-            var editable = new Regulation(regulation.RegId(), regulation.LegislationSector(), regulation.PrivateInformationSource(), 
+            var editable = new Regulation(regulation.RegId(), regulation.LegislationSector(), regulation.Reason(), 
                 regulation.PrivateInformationType(), regulation.Action(), regulation.RequiredConsent(), false);
             editable.Editing = ko.observable(false);
             return editable;
@@ -35,7 +35,7 @@
         var regulations = [];
         for(var i = 0;  i < initialState.length; i++){
             var reg = initialState[i];
-            regulations[i] = new Regulation(reg.RegId, reg.LegislationSector, reg.PrivateInformationSource, reg.PrivateInformationType, reg.Action, reg.RequiredConsent, true);
+            regulations[i] = new Regulation(reg.RegId, reg.LegislationSector, reg.Reason, reg.PrivateInformationType, reg.Action, reg.RequiredConsent, true);
         }
         self.regulations = ko.observableArray(regulations);
 
@@ -43,13 +43,13 @@
         self.newRegulation.Editing(true);
 
         self.addReg = function () {
-            var newReg = new Regulation(self.newRegulation.RegId(), self.newRegulation.LegislationSector(), self.newRegulation.PrivateInformationSource(), 
+            var newReg = new Regulation(self.newRegulation.RegId(), self.newRegulation.LegislationSector(), self.newRegulation.Reason(), 
                 self.newRegulation.PrivateInformationType(), self.newRegulation.Action(), self.newRegulation.RequiredConsent(), true);
             self.regulations.push(newReg);
 
             self.newRegulation.RegId("");
             self.newRegulation.LegislationSector("");
-            self.newRegulation.PrivateInformationSource("");
+            self.newRegulation.Reason("");
             self.newRegulation.PrivateInformationType(0);
             self.newRegulation.Action("");
             self.newRegulation.RequiredConsent(0);
@@ -105,7 +105,7 @@
             // Update the model state with the new values
             regulation.RegId(regulation.EditableCopy.RegId());
             regulation.LegislationSector(regulation.EditableCopy.LegislationSector());
-            regulation.PrivateInformationSource(regulation.EditableCopy.PrivateInformationSource());
+            regulation.Reason(regulation.EditableCopy.Reason());
             regulation.PrivateInformationType(regulation.EditableCopy.PrivateInformationType());
             regulation.Action(regulation.EditableCopy.Action());
             regulation.RequiredConsent(regulation.EditableCopy.RequiredConsent());
