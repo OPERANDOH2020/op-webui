@@ -1,4 +1,8 @@
-﻿namespace Operando_AdministrationConsole.Models
+﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Operando_AdministrationConsole.Models
 {
     public class Regulation
     {
@@ -23,9 +27,12 @@
         Measurements
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum RequiredConsentEnum
     {
+        [EnumMember(Value = "opt-in")]
         In,
+        [EnumMember(Value = "opt-out")]
         Out
     }
 }
