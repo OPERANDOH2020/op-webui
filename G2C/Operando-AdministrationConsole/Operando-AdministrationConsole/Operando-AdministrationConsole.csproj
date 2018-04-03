@@ -98,7 +98,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpConnect.MySql">
-      <HintPath>..\packages\SharpConnect.MySql\SharpConnect.MySql.dll</HintPath>
+      <HintPath>..\packages\SharpConnect.MySql.1.0.3\lib\netstandard1.6\SharpConnect.MySql.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime" />
     <Reference Include="System" />
